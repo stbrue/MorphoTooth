@@ -96,17 +96,22 @@ void Cell::setKnotCell() {
     Cell::knot = true;
 }
 
-void Cell::setNeighbour(int neighbourID) {
-    Cell::neighbours.push_back(neighbourID);
+void Cell::setNeighbour(int neighbourID, int position) {
+    Cell::neighbours[position] = neighbourID;
 }
 
 
-Cell::Cell(double x, double y, double z, int ID, double diffState = 0, double ActConcentration = 0, double InhConcentration = 0,
-           double Sec1Concentration = 0, double Sec2Concentration = 0) : x(x), y(y), z(z), ID(ID), diffState(diffState),
-                                                                 ActConcentration(ActConcentration),
-                                                                 InhConcentration(InhConcentration),
-                                                                 Sec1Concentration(Sec1Concentration),
-                                                                 Sec2Concentration(Sec2Concentration) {}
+Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
+   z = 1;
+   ActConcentration = 0;
+   InhConcentration = 0;
+   Sec1Concentration = 0;
+   Sec2Concentration = 0;
+   knot = false;
+   inSimulation = false;
+   inCentre = false;
+   mesenchymeThickness = 4;
+}
 
 bool Cell::isInSimulation() const {
     return inSimulation;

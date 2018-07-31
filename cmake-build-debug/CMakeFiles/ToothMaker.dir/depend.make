@@ -4,6 +4,10 @@
 CMakeFiles/ToothMaker.dir/Cell.cpp.obj: ../Cell.cpp
 CMakeFiles/ToothMaker.dir/Cell.cpp.obj: ../Cell.h
 
+CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Cell.h
+CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Initial.cpp
+CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Initial.h
+
 CMakeFiles/ToothMaker.dir/main.cpp.obj: ../Cell.h
 CMakeFiles/ToothMaker.dir/main.cpp.obj: ../main.cpp
 

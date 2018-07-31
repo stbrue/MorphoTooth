@@ -23,19 +23,6 @@ private:
     bool inSimulation;
     bool inCentre;
     int mesenchymeThickness;
-public:
-    int getMesenchymeThickness() const;
-
-    void setMesenchymeThickness(int mesenchymeThickness);
-
-public:
-    bool isInSimulation() const;
-
-    void setInSimulation(bool inSimulation);
-
-    bool isInCentre() const;
-
-    void setInCentre(bool inCentre);
 
 public:
     //Getter
@@ -50,6 +37,9 @@ public:
     double getSec2Concentration() const;
     bool isKnotCell() const;
     std::vector<int> getNeighbours() const;
+    int getMesenchymeThickness() const;
+    bool isInSimulation() const;
+    bool isInCentre() const;
 
     //Setter
     void setX(double x);
@@ -62,10 +52,13 @@ public:
     void setSec1Concentration(double Sec1Concentration);
     void setSec2Concentration(double Sec2Concentration);
     void setKnotCell();
-    void setNeighbour(int neighbourID);
+    void setNeighbour(int neighbourID, int position);
+    void setMesenchymeThickness(int mesenchymeThickness);
+    void setInSimulation(bool inSimulation);
+    void setInCentre(bool inCentre);
 
-    Cell(double x, double y, double z, int ID, double diffState, double ActConcentration, double InhConcentration,
-         double Sec1Concentration, double Sec2Concentration);
+    //Constructor
+    Cell(double x, double y, int ID);
 };
 
 

@@ -16,13 +16,14 @@ private:
 
 
 public:
-    int getTotalNumberOfCells(int initialRadius) {};
-    int getNumberOfInSimulationCells(int initialRadius) {};
-    void makeInitialGrid(Cell cell1) {};
+    int getTotalNumberOfCells(int initialRadius);
+    int getNumberOfInSimulationCells(int initialRadius);
+    void makeInitialGrid(Cell cell1);
 
-    double Initial::nextX(double centerX, int neighbour) {};
-    void Initial::makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation) {};
-    void Initial::makeNeighbours(Cell& centreCell) {};
+    double nextCoordinate(double centerX, int neighbour);
+    void makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation);
+    void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
+    int getNeighbourRelation(int neighbour);
 
 };
 
