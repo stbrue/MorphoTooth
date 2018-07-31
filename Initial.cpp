@@ -24,15 +24,24 @@ int Initial::getNumberOfInSimulationCells(int initialRadius)
     return (6 * j + 1);
 }
 
-void Initial::makeInitialGrid(Cell cell1)
+void Initial::makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation)
 {
-    double a = (2 * M_PI) / 360; //to transform from degree into rad
+    for (int cell = 1; cell <= cellsInSimulation; ++cell) {
+        makeNeighbours(cells[cell]);
+    }
+
 }
 
-double Initial::nextX(double previousX)
+double Initial::nextX(double centerX, int neighbour)
 {
-    double x;
-    for (int angle = 0; angle < 300; angle += 60) {
-        x = previousX + sin(a * angle);
+    double a = (2 * M_PI) / 360; //to transform from degree into rad
+    return (centerX + (distanceBetweenCells * sin(a * (60 * neighbour - 1))));
+}
+
+void Initial::makeNeighbours(Cell& centreCell)
+{
+    for (int neighbour = 1; neighbour <= 6; ++neighbour) {
+        double x = nextX(centreCell.getX(), neighbour);
+
     }
 }
