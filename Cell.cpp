@@ -101,8 +101,8 @@ void Cell::setNeighbour(int neighbourID) {
 }
 
 
-Cell::Cell(double x, double y, double z, int ID, double diffState, double ActConcentration, double InhConcentration,
-           double Sec1Concentration, double Sec2Concentration) : x(x), y(y), z(z), ID(ID), diffState(diffState),
+Cell::Cell(double x, double y, double z, int ID, double diffState = 0, double ActConcentration = 0, double InhConcentration = 0,
+           double Sec1Concentration = 0, double Sec2Concentration = 0) : x(x), y(y), z(z), ID(ID), diffState(diffState),
                                                                  ActConcentration(ActConcentration),
                                                                  InhConcentration(InhConcentration),
                                                                  Sec1Concentration(Sec1Concentration),
@@ -122,4 +122,12 @@ bool Cell::isInCentre() const {
 
 void Cell::setInCentre(bool inCentre) {
     Cell::inCentre = inCentre;
+}
+
+int Cell::getMesenchymeThickness() const {
+    return mesenchymeThickness;
+}
+
+void Cell::setMesenchymeThickness(int mesenchymeThickness) {
+    Cell::mesenchymeThickness = mesenchymeThickness;
 }

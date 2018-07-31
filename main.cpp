@@ -1,6 +1,12 @@
 #include <iostream>
+#include "Cell.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+   //Make the first cell
+    Cell cell1(0, 0, 1, 1, 0, 0, 0, 0, 0);
+    cell1.setMesenchymeThickness(4);
+
+
     return 0;
 }

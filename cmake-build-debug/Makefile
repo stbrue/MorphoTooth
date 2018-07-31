@@ -47,10 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2018.1.2\bin\cmake\bin\cmake.exe" -E remo
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Stefanie\Documents\Programme\C++\ToothMaker
+CMAKE_SOURCE_DIR = C:\Users\Stefanie\Documents\MorphoTooth
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Stefanie\Documents\Programme\C++\ToothMaker\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Stefanie\Documents\Programme\C++\ToothMaker\cmake-build-debug\CMakeFiles C:\Users\Stefanie\Documents\Programme\C++\ToothMaker\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Stefanie\Documents\Programme\C++\ToothMaker\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,33 @@ Cell.cpp.s:
 	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Cell.cpp.s
 .PHONY : Cell.cpp.s
 
+Initial.obj: Initial.cpp.obj
+
+.PHONY : Initial.obj
+
+# target to build an object file
+Initial.cpp.obj:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Initial.cpp.obj
+.PHONY : Initial.cpp.obj
+
+Initial.i: Initial.cpp.i
+
+.PHONY : Initial.i
+
+# target to preprocess a source file
+Initial.cpp.i:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Initial.cpp.i
+.PHONY : Initial.cpp.i
+
+Initial.s: Initial.cpp.s
+
+.PHONY : Initial.s
+
+# target to generate assembly for a file
+Initial.cpp.s:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Initial.cpp.s
+.PHONY : Initial.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -188,6 +215,9 @@ help:
 	@echo ... Cell.obj
 	@echo ... Cell.i
 	@echo ... Cell.s
+	@echo ... Initial.obj
+	@echo ... Initial.i
+	@echo ... Initial.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

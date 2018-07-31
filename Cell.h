@@ -22,6 +22,12 @@ private:
     bool knot;
     bool inSimulation;
     bool inCentre;
+    int mesenchymeThickness;
+public:
+    int getMesenchymeThickness() const;
+
+    void setMesenchymeThickness(int mesenchymeThickness);
+
 public:
     bool isInSimulation() const;
 

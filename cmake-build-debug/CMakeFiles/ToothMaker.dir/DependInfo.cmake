@@ -4,8 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Stefanie/Documents/Programme/C++/ToothMaker/Cell.cpp" "C:/Users/Stefanie/Documents/Programme/C++/ToothMaker/cmake-build-debug/CMakeFiles/ToothMaker.dir/Cell.cpp.obj"
-  "C:/Users/Stefanie/Documents/Programme/C++/ToothMaker/main.cpp" "C:/Users/Stefanie/Documents/Programme/C++/ToothMaker/cmake-build-debug/CMakeFiles/ToothMaker.dir/main.cpp.obj"
+  "C:/Users/Stefanie/Documents/MorphoTooth/Cell.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Cell.cpp.obj"
+  "C:/Users/Stefanie/Documents/MorphoTooth/Initial.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Initial.cpp.obj"
+  "C:/Users/Stefanie/Documents/MorphoTooth/main.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
