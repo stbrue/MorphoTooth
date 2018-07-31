@@ -52,7 +52,7 @@ public:
     void setSec1Concentration(double Sec1Concentration);
     void setSec2Concentration(double Sec2Concentration);
     void setKnotCell();
-    void setNeighbour(int neighbourID, int position);
+    void setNeighbour(int neighbourID);
     void setMesenchymeThickness(int mesenchymeThickness);
     void setInSimulation(bool inSimulation);
     void setInCentre(bool inCentre);

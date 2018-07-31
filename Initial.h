@@ -11,19 +11,20 @@
 class Initial {
 
 private:
-    int distanceBetweenCells = 1;
+    static const int distanceBetweenCells = 1;
 
 
 
 public:
     int getTotalNumberOfCells(int initialRadius);
-    int getNumberOfInSimulationCells(int initialRadius);
-    void makeInitialGrid(Cell cell1);
+    static int getNumberOfInSimulationCells(int initialRadius);
+    static void makeInitialGrid(Cell cell1);
 
-    double nextCoordinate(double centerX, int neighbour);
-    void makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation);
-    void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
-    int getNeighbourRelation(int neighbour);
+    static double nextX(double centerX, int neighbour);
+    static double nextY(double centerX, int neighbour);
+    static void makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation);
+    static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
+
 
 };
 

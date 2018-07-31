@@ -96,8 +96,8 @@ void Cell::setKnotCell() {
     Cell::knot = true;
 }
 
-void Cell::setNeighbour(int neighbourID, int position) {
-    Cell::neighbours[position] = neighbourID;
+void Cell::setNeighbour(int neighbourID) {
+    Cell::neighbours.push_back(neighbourID);
 }
 
 
@@ -111,6 +111,8 @@ Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    inSimulation = false;
    inCentre = false;
    mesenchymeThickness = 4;
+   diffState = 0;
+   neighbours.push_back(0);
 }
 
 bool Cell::isInSimulation() const {

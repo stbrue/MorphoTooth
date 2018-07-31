@@ -30,30 +30,37 @@ int Initial::getNumberOfInSimulationCells(int initialRadius)
     return (6 * j + 1);
 }
 
-void Initial::makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation)
+void Initial::makeInitialGrid(std::vector<Cell> &cells, int cellsInSimulation)
 {
-    int IDNewCell = 2;
-    for (int cell = 1; cell <= cellsInSimulation; ++cell) {
-        makeNeighbours(cells, cell, IDNewCell);
+    int IDNewCell = 1;
+    for (int i = 1; i <= cellsInSimulation; ++i) {
+        makeNeighbours(cells, i, IDNewCell);
     }
 }
 
-double Initial::nextCoordinate(double centerCoordinate, int neighbour)
+double Initial::nextX(double centerCoordinate, int neighbour)
 {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
     return (centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour - 1))));
 }
 
+double Initial::nextY(double centerCoordinate, int neighbour)
+{
+    double a = (2 * M_PI) / 360; //to transform from degree into rad
+    return (centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour - 1))));
+}
+
 void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell)
 {
+    IDCentreCell = 1;
     //for each  neighbour cell of the centreCell
-    for (int neighbour = 1; neighbour <= 6; ++neighbour) {
+    for (int neighbour = 0; neighbour < 6; ++neighbour) {
         //define the coordinates of the neighbour
-        double x = nextCoordinate(cells[IDCentreCell].getX(), neighbour);
-        double y = nextCoordinate(cells[IDCentreCell].getY(), neighbour);
+        double x = nextX(cells[IDCentreCell].getX(), neighbour);
+        double y = nextY(cells[IDCentreCell].getY(), neighbour);
 
         //create a temporary Instance of this cell
-        Cell tempCell(x, y, 1000);
+        Cell tempCell(x, y, IDNewCell);
 
         //check if this neighbour is already an existing cell
         for(auto cell : cells)
@@ -61,41 +68,20 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
             if(cell == tempCell)
             {
                 //declare it as a neighbour
-                cells[IDCentreCell].setNeighbour(IDNewCell, neighbour);
-                cell.setNeighbour(IDNewCell, getNeighbourRelation(neighbour));
+                cells[IDCentreCell].setNeighbour(IDNewCell);
             }
             else
             {
                 //Create this new cell
-                cells[IDNewCell] = tempCell;
-                IDNewCell++;
+                cells.push_back(tempCell);
                 //Declare it as a neighbour
-                cells[IDCentreCell].setNeighbour(IDNewCell, neighbour);
-                cell.setNeighbour(IDNewCell, getNeighbourRelation(neighbour));
+                cells[IDCentreCell].setNeighbour(IDNewCell);
+                IDNewCell++;
             }
         }
     }
 }
 
-int Initial::getNeighbourRelation(int neighbour)
-{
-    switch (neighbour)
-    {
-        case 1:
-            return 4;
-        case 2:
-            return 5;
-        case 3:
-            return 6;
-        case 4:
-            return 1;
-        case 5:
-            return 2;
-        case 6:
-            return 3;
-        default:
-            std::cout << "Error in Neighbour Declaration" << std::endl;
-    }
-}
+
 
 
