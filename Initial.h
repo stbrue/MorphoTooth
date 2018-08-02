@@ -18,13 +18,13 @@ private:
 public:
     int getTotalNumberOfCells(int initialRadius);
     static int getNumberOfInSimulationCells(int initialRadius);
-    static void makeInitialGrid(Cell cell1);
 
     static double nextX(double centerX, int neighbour);
     static double nextY(double centerX, int neighbour);
-    static void makeInitialGrid(std::vector<Cell>& cells, int cellsInSimulation);
+    static std::vector<Cell> makeInitialGrid(int cellsInSimulation);
     static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
 
+    static void printInitialGrid(std::vector<Cell> &cells);
 
 };
 

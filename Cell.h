@@ -59,6 +59,7 @@ public:
 
     //Constructor
     Cell(double x, double y, int ID);
+
 };
 
 

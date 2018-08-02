@@ -4,6 +4,7 @@
 
 #include "Cell.h"
 
+
 //Getter
 double Cell::getX() const {
     return x;
@@ -55,6 +56,19 @@ bool Cell::isKnotCell() const {
     }
 }
 
+bool Cell::isInSimulation() const {
+    return inSimulation;
+}
+
+bool Cell::isInCentre() const {
+    return inCentre;
+}
+
+int Cell::getMesenchymeThickness() const {
+    return mesenchymeThickness;
+}
+
+
 //Setter
 void Cell::setX(double x) {
     Cell::x = x;
@@ -100,7 +114,20 @@ void Cell::setNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
 }
 
+void Cell::setInSimulation(bool inSimulation) {
+    Cell::inSimulation = inSimulation;
+}
 
+void Cell::setInCentre(bool inCentre) {
+    Cell::inCentre = inCentre;
+}
+
+void Cell::setMesenchymeThickness(int mesenchymeThickness) {
+    Cell::mesenchymeThickness = mesenchymeThickness;
+}
+
+
+//Constructor
 Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    z = 1;
    ActConcentration = 0;
@@ -115,26 +142,3 @@ Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    neighbours.push_back(0);
 }
 
-bool Cell::isInSimulation() const {
-    return inSimulation;
-}
-
-void Cell::setInSimulation(bool inSimulation) {
-    Cell::inSimulation = inSimulation;
-}
-
-bool Cell::isInCentre() const {
-    return inCentre;
-}
-
-void Cell::setInCentre(bool inCentre) {
-    Cell::inCentre = inCentre;
-}
-
-int Cell::getMesenchymeThickness() const {
-    return mesenchymeThickness;
-}
-
-void Cell::setMesenchymeThickness(int mesenchymeThickness) {
-    Cell::mesenchymeThickness = mesenchymeThickness;
-}

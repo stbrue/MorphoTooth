@@ -6,11 +6,14 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <iostream>
+#include "Cell.h"
+
 
 bool operator== (const Cell &c1, const Cell &c2)
 {
     return(c1.getX()==c2.getX() && c1.getY()==c2.getY() && c1.getZ()==c2.getZ());
 }
+
 
 int Initial::getTotalNumberOfCells(int initialRadius)
 {
@@ -30,29 +33,46 @@ int Initial::getNumberOfInSimulationCells(int initialRadius)
     return (6 * j + 1);
 }
 
-void Initial::makeInitialGrid(std::vector<Cell> &cells, int cellsInSimulation)
+std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
 {
+    //Make the first cell
+    Cell cell1(0, 0, 0);
+
+    //Vector containing all cells
+    std::vector<Cell> cells;
+
+    //The first cell is a placeholder
+    cells.push_back(cell1);
+
     int IDNewCell = 1;
-    for (int i = 1; i <= cellsInSimulation; ++i) {
-        makeNeighbours(cells, i, IDNewCell);
+    for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
+        makeNeighbours(cells, centreCell, IDNewCell);
     }
+
+    return cells;
 }
 
 double Initial::nextX(double centerCoordinate, int neighbour)
 {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
-    return (centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour - 1))));
+    double x;
+    x = centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour)));
+    //return the rounded value
+    return (std::floor(x * 10000 + 0.5)/10000);
 }
 
 double Initial::nextY(double centerCoordinate, int neighbour)
 {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
-    return (centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour - 1))));
+    double y;
+    y = centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour)));
+    //return the rounded value
+    return (std::floor(y * 10000 + 0.5)/10000);
 }
 
 void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell)
 {
-    IDCentreCell = 1;
+    bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
     for (int neighbour = 0; neighbour < 6; ++neighbour) {
         //define the coordinates of the neighbour
@@ -63,22 +83,32 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
         Cell tempCell(x, y, IDNewCell);
 
         //check if this neighbour is already an existing cell
-        for(auto cell : cells)
-        {
-            if(cell == tempCell)
-            {
+        isAlreadyExisting = false;
+        for(auto cell : cells) {
+            if (cell == tempCell) {
                 //declare it as a neighbour
-                cells[IDCentreCell].setNeighbour(IDNewCell);
-            }
-            else
-            {
-                //Create this new cell
-                cells.push_back(tempCell);
-                //Declare it as a neighbour
-                cells[IDCentreCell].setNeighbour(IDNewCell);
-                IDNewCell++;
+                cells[IDCentreCell].setNeighbour(cell.getID());
+                isAlreadyExisting = true;
+                break;
             }
         }
+
+        if(isAlreadyExisting==false)
+        {
+            //Create this new cell
+            cells.push_back(tempCell);
+            //Declare it as a neighbour
+            cells[IDCentreCell].setNeighbour(IDNewCell);
+            IDNewCell++;
+        }
+    }
+}
+
+void Initial::printInitialGrid(std::vector<Cell> &cells)
+{
+    for(auto cell : cells)
+    {
+        std::cout << cell.getID() << ": " << cell.getX() << "/" << cell.getY() << std::endl;
     }
 }
 
