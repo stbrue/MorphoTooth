@@ -27,6 +27,8 @@ std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
     //Define for each cell if it is "within simulation"
     labelCellsInSimulation(cells, cellsInSimulation);
 
+    reduceNeighboursOutOfSimulation(cells, cellsInSimulation);
+
     return cells;
 }
 
@@ -114,6 +116,18 @@ void Initial::printInitialGrid(std::vector<Cell> &cells)
     }
 }
 
+void Initial::printInitialNeighbours(std::vector<Cell> cells)
+{
+    for (auto cell : cells)
+    {
+        std::vector<int> neighbours = cell.getNeighbours();
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            std::cout << neighbours[neighbour] << "  ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 void Initial::labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimulation)
 {
     //check if cells are within "InSimulation" and label them
@@ -130,5 +144,62 @@ void Initial::labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimula
     }
 }
 
+void Initial::reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int cellsInSimulation)
+{
+    bool neighbour1 = false;
+    bool neighbour2 = false;
+    std::vector<int> neighboursToDelete;
+    int deletedNeighbours;
+    for (int cell = 0; cell < cellsInSimulation; ++cell) {
+        for (int neighbour = 0; neighbour < (cells[cell].getNeighbours().size() - 1); ++neighbour) {
 
+            //Check if adjacent neighbours are within simulation
+            neighbour1 = isNeighbourInSimulation(cells, cell, neighbour);
+            neighbour2 = isNeighbourInSimulation(cells, cell, neighbour + 1);
+
+            //If two adjacent neighbours are not within simulation remember the first one
+            if(neighbour1 == false && neighbour2 == false)
+            {
+                neighboursToDelete.push_back(neighbour);
+            }
+        }
+        //Delete all the remembered cells
+        deletedNeighbours = 0;
+        for (auto neighbourToDelete : neighboursToDelete)
+        {
+            cells[cell].deleteNeighbour(neighbourToDelete - deletedNeighbours);
+            deletedNeighbours++;
+        }
+        neighboursToDelete.clear();
+    }
+    //if a cell has two neighbours out of simulation, delete the second
+    for (int cell = 7; cell < cellsInSimulation; ++cell) {
+        neighbour1 = false;
+        for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+            if (isNeighbourInSimulation(cells, cell, neighbour) == false && neighbour1 == false)
+            {
+                neighbour1 = true;
+                continue;
+            }
+            if (isNeighbourInSimulation(cells, cell, neighbour) == false && neighbour1 == true)
+            {
+                cells[cell].deleteNeighbour(neighbour);
+                break;
+            }
+        }
+    }
+}
+
+bool Initial::isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour)
+{
+    int IDOfNeighbour = cells[IDCentreCell].getNeighbours()[neighbour];
+    if (cells[IDOfNeighbour].isInSimulation())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 

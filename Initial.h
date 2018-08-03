@@ -25,9 +25,11 @@ public:
     static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
 
     static void printInitialGrid(std::vector<Cell> &cells);
+    static void printInitialNeighbours(std::vector<Cell> cells);
 
     static void labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimulation);
-
+    static void reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int cellsInSimulation);
+    static bool isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour);
 };
 
 

@@ -139,6 +139,12 @@ Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    inCentre = false;
    mesenchymeThickness = 4;
    diffState = 0;
-   neighbours.push_back(0);
+}
+
+//Editers
+
+void Cell::deleteNeighbour(int neighbour)
+{
+    neighbours.erase(neighbours.begin() + neighbour);
 }
 
