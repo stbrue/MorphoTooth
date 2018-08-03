@@ -8,12 +8,32 @@
 #include <iostream>
 #include "Cell.h"
 
+std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
+{
+    //Make the first cell
+    Cell cell1(0, 0, 0);
+
+    //Vector containing all cells
+    std::vector<Cell> cells;
+
+    //The first cell is a placeholder
+    cells.push_back(cell1);
+
+    int IDNewCell = 1;
+    for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
+        makeNeighbours(cells, centreCell, IDNewCell);
+    }
+
+    //Define for each cell if it is "within simulation"
+    labelCellsInSimulation(cells, cellsInSimulation);
+
+    return cells;
+}
 
 bool operator== (const Cell &c1, const Cell &c2)
 {
     return(c1.getX()==c2.getX() && c1.getY()==c2.getY() && c1.getZ()==c2.getZ());
 }
-
 
 int Initial::getTotalNumberOfCells(int initialRadius)
 {
@@ -31,25 +51,6 @@ int Initial::getNumberOfInSimulationCells(int initialRadius)
         j += i;
     }
     return (6 * j + 1);
-}
-
-std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
-{
-    //Make the first cell
-    Cell cell1(0, 0, 0);
-
-    //Vector containing all cells
-    std::vector<Cell> cells;
-
-    //The first cell is a placeholder
-    cells.push_back(cell1);
-
-    int IDNewCell = 1;
-    for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
-        makeNeighbours(cells, centreCell, IDNewCell);
-    }
-
-    return cells;
 }
 
 double Initial::nextX(double centerCoordinate, int neighbour)
@@ -109,9 +110,25 @@ void Initial::printInitialGrid(std::vector<Cell> &cells)
     for(auto cell : cells)
     {
         std::cout << cell.getID() << ": " << cell.getX() << "/" << cell.getY() << std::endl;
+        std::cout << "In simulation: " << cell.isInSimulation() << std::endl;
     }
 }
 
+void Initial::labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimulation)
+{
+    //check if cells are within "InSimulation" and label them
+    for (int cell = 0; cell < cells.size(); ++cell) {
+        if (cells[cell].getID() < cellsInSimulation)
+        {
+            cells[cell].setInSimulation(true);
+        }
+        else
+        {
+            cells[cell].setInSimulation(false);
+        }
+
+    }
+}
 
 
 

@@ -26,6 +26,8 @@ public:
 
     static void printInitialGrid(std::vector<Cell> &cells);
 
+    static void labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimulation);
+
 };
 
 
