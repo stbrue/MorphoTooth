@@ -13,5 +13,7 @@ int main() {
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(InSimulationCells);
 
+    Cell::printCellBorders(cells, InSimulationCells);
+
     return 0;
 }

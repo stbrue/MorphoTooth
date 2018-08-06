@@ -7,6 +7,7 @@
 #include <math.h>
 #include <iostream>
 #include "Cell.h"
+#include "Grid.h"
 
 std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
 {
@@ -28,6 +29,8 @@ std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
     labelCellsInSimulation(cells, cellsInSimulation);
 
     reduceNeighboursOutOfSimulation(cells, cellsInSimulation);
+
+    Grid::calculateInitialCellBorders(cells, cellsInSimulation);
 
     return cells;
 }

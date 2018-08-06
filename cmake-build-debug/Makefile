@@ -149,6 +149,33 @@ Cell.cpp.s:
 	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Cell.cpp.s
 .PHONY : Cell.cpp.s
 
+Grid.obj: Grid.cpp.obj
+
+.PHONY : Grid.obj
+
+# target to build an object file
+Grid.cpp.obj:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Grid.cpp.obj
+.PHONY : Grid.cpp.obj
+
+Grid.i: Grid.cpp.i
+
+.PHONY : Grid.i
+
+# target to preprocess a source file
+Grid.cpp.i:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Grid.cpp.i
+.PHONY : Grid.cpp.i
+
+Grid.s: Grid.cpp.s
+
+.PHONY : Grid.s
+
+# target to generate assembly for a file
+Grid.cpp.s:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Grid.cpp.s
+.PHONY : Grid.cpp.s
+
 Initial.obj: Initial.cpp.obj
 
 .PHONY : Initial.obj
@@ -215,6 +242,9 @@ help:
 	@echo ... Cell.obj
 	@echo ... Cell.i
 	@echo ... Cell.s
+	@echo ... Grid.obj
+	@echo ... Grid.i
+	@echo ... Grid.s
 	@echo ... Initial.obj
 	@echo ... Initial.i
 	@echo ... Initial.s

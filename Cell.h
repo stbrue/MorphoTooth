@@ -23,6 +23,9 @@ private:
     bool inSimulation;
     bool inCentre;
     int mesenchymeThickness;
+    std::vector<double> borderPointsX;
+    std::vector<double> borderPointsY;
+    std::vector<double> borderPointsZ;
 
 public:
     //Getter
@@ -40,6 +43,9 @@ public:
     int getMesenchymeThickness() const;
     bool isInSimulation() const;
     bool isInCentre() const;
+    const std::vector<double> &getBorderPointsX() const;
+    const std::vector<double> &getBorderPointsY() const;
+    const std::vector<double> &getBorderPointsZ() const;
 
     //Setter
     void setX(double x);
@@ -56,12 +62,19 @@ public:
     void setMesenchymeThickness(int mesenchymeThickness);
     void setInSimulation(bool inSimulation);
     void setInCentre(bool inCentre);
+    void newBorderPoint(char axis, double point);
+    void replaceBorderPoint(char axis, double point, int position);
 
     //Constructor
     Cell(double x, double y, int ID);
 
     //Editors
     void deleteNeighbour(int neighbour);
+
+    //Printer
+    static void printCellBorders(std::vector<Cell> cells, int cellsInSimulation);
+
+
 };
 
 

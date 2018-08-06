@@ -2,6 +2,7 @@
 // Created by Stefanie on 30.07.2018.
 //
 
+#include <iostream>
 #include "Cell.h"
 
 
@@ -68,6 +69,17 @@ int Cell::getMesenchymeThickness() const {
     return mesenchymeThickness;
 }
 
+const std::vector<double> &Cell::getBorderPointsX() const {
+    return borderPointsX;
+}
+
+const std::vector<double> &Cell::getBorderPointsY() const {
+    return borderPointsY;
+}
+
+const std::vector<double> &Cell::getBorderPointsZ() const {
+    return borderPointsZ;
+}
 
 //Setter
 void Cell::setX(double x) {
@@ -126,6 +138,26 @@ void Cell::setMesenchymeThickness(int mesenchymeThickness) {
     Cell::mesenchymeThickness = mesenchymeThickness;
 }
 
+void Cell::newBorderPoint(char axis, double point) {
+    switch (axis)
+    {
+        case 'X': {borderPointsX.push_back(point); break;}
+        case 'Y': {borderPointsY.push_back(point); break;}
+        case 'Z': {borderPointsZ.push_back(point); break;}
+        default: std::cout << "The point could not be added" << std::endl;
+    }
+}
+
+void Cell::replaceBorderPoint(char axis, double point, int position) {
+    switch (axis)
+    {
+        case 'X': {borderPointsX[position] = point; break;}
+        case 'Y': {borderPointsY[position] = point; break;}
+        case 'Z': {borderPointsZ[position] = point; break;}
+        default: std::cout << "The point could not be replaced" << std::endl;
+    }
+}
+
 
 //Constructor
 Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
@@ -141,10 +173,24 @@ Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    diffState = 0;
 }
 
-//Editers
+//Editors
 
 void Cell::deleteNeighbour(int neighbour)
 {
     neighbours.erase(neighbours.begin() + neighbour);
 }
 
+//Printer
+
+void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation)
+{
+    for (int cell = 0; cell < cells.size(); ++cell) {
+        std::cout << "Cell Nr. " << cell << std::endl;
+        for (int point = 0; point < cells[cell].getBorderPointsX().size(); ++point) {
+            std::cout << "x: " << cells[cell].getBorderPointsX()[point] << "  ";
+            std::cout << "y: " << cells[cell].getBorderPointsY()[point] << "  ";
+            std::cout << "z: " << cells[cell].getBorderPointsZ()[point] << "  ";
+            std::cout << std::endl;
+        }
+    }
+}
