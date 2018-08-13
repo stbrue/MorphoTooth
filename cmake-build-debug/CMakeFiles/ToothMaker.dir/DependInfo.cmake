@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Stefanie/Documents/MorphoTooth/Cell.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Cell.cpp.obj"
+  "C:/Users/Stefanie/Documents/MorphoTooth/Geometrics.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj"
   "C:/Users/Stefanie/Documents/MorphoTooth/Grid.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Grid.cpp.obj"
   "C:/Users/Stefanie/Documents/MorphoTooth/Initial.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Initial.cpp.obj"
   "C:/Users/Stefanie/Documents/MorphoTooth/Output.cpp" "C:/Users/Stefanie/Documents/MorphoTooth/cmake-build-debug/CMakeFiles/ToothMaker.dir/Output.cpp.obj"

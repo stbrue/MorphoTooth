@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Cell.h">
 			<Option target="ToothMaker"/>
 		</Unit>
+		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Geometrics.cpp">
+			<Option target="ToothMaker"/>
+		</Unit>
+		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Geometrics.h">
+			<Option target="ToothMaker"/>
+		</Unit>
 		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Grid.cpp">
 			<Option target="ToothMaker"/>
 		</Unit>

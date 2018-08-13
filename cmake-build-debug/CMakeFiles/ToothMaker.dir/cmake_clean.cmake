@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ToothMaker.dir/Initial.cpp.obj"
   "CMakeFiles/ToothMaker.dir/Grid.cpp.obj"
   "CMakeFiles/ToothMaker.dir/Output.cpp.obj"
+  "CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj"
   "ToothMaker.pdb"
   "ToothMaker.exe"
   "ToothMaker.exe.manifest"

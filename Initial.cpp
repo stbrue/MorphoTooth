@@ -9,24 +9,29 @@
 #include "Cell.h"
 #include "Grid.h"
 
-std::vector<Cell> Initial::makeInitialGrid(int cellsInSimulation)
+std::vector<Cell> Initial::makeInitialGrid(int initialRadius)
 {
+    //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
+    int cellsInSimulation = Initial::getNumberOfInSimulationCells(initialRadius);
+
     //Make the first cell
     Cell cell1(0, 0, 0);
 
     //Vector containing all cells
     std::vector<Cell> cells;
 
-    //The first cell is a placeholder
+    //Include the first cell
     cells.push_back(cell1);
 
+    //Make the neighbours of this (and all neighbouring) cell
     int IDNewCell = 1;
     for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
         makeNeighbours(cells, centreCell, IDNewCell);
     }
 
-    //Define for each cell if it is "within simulation"
+    //Define for each cell if it is "within simulation" or "in Centre"
     labelCellsInSimulation(cells, cellsInSimulation);
+    labelCellsInCentre(cells, initialRadius, cellsInSimulation);
 
     reduceNeighboursOutOfSimulation(cells, cellsInSimulation);
 
@@ -143,7 +148,16 @@ void Initial::labelCellsInSimulation(std::vector<Cell> &cells, int cellsInSimula
         {
             cells[cell].setInSimulation(false);
         }
+    }
+}
 
+void Initial::labelCellsInCentre(std::vector<Cell> &cells, int initialRadius, int cellsInSimulation) {
+    int cellsOutCentre = 6 * (initialRadius - 1);
+    int cellsInCentre = cellsInSimulation - cellsOutCentre;
+
+    //change state of "inCentre" for all these cells
+    for (int cell = 0; cell < cellsInCentre; ++cell) {
+        cells[cell].setInCentre(true);
     }
 }
 
