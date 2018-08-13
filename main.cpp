@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Cell.h"
 #include "Initial.h"
+#include "Output.h"
 
 int main() {
 
@@ -13,7 +14,10 @@ int main() {
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(InSimulationCells);
 
-    Cell::printCellBorders(cells, InSimulationCells);
+    //Cell::printCellBorders(cells, InSimulationCells);
+
+    Output::initialCellCentersXY(cells, InSimulationCells);
+    Output::initialCellBordersXY(cells, InSimulationCells);
 
     return 0;
 }

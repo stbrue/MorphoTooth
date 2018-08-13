@@ -203,6 +203,33 @@ Initial.cpp.s:
 	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Initial.cpp.s
 .PHONY : Initial.cpp.s
 
+Output.obj: Output.cpp.obj
+
+.PHONY : Output.obj
+
+# target to build an object file
+Output.cpp.obj:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Output.cpp.obj
+.PHONY : Output.cpp.obj
+
+Output.i: Output.cpp.i
+
+.PHONY : Output.i
+
+# target to preprocess a source file
+Output.cpp.i:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Output.cpp.i
+.PHONY : Output.cpp.i
+
+Output.s: Output.cpp.s
+
+.PHONY : Output.s
+
+# target to generate assembly for a file
+Output.cpp.s:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Output.cpp.s
+.PHONY : Output.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -248,6 +275,9 @@ help:
 	@echo ... Initial.obj
 	@echo ... Initial.i
 	@echo ... Initial.s
+	@echo ... Output.obj
+	@echo ... Output.i
+	@echo ... Output.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

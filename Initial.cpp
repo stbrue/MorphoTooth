@@ -64,7 +64,7 @@ double Initial::nextX(double centerCoordinate, int neighbour)
     double x;
     x = centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour)));
     //return the rounded value
-    return (std::floor(x * 10000 + 0.5)/10000);
+    return (std::floor(x * 1000000 + 0.5)/1000000);
 }
 
 double Initial::nextY(double centerCoordinate, int neighbour)
@@ -73,7 +73,7 @@ double Initial::nextY(double centerCoordinate, int neighbour)
     double y;
     y = centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour)));
     //return the rounded value
-    return (std::floor(y * 10000 + 0.5)/10000);
+    return (std::floor(y * 1000000 + 0.5)/1000000);
 }
 
 void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell)

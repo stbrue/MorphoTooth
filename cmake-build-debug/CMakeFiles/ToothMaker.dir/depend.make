@@ -14,7 +14,12 @@ CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Grid.h
 CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Initial.cpp
 CMakeFiles/ToothMaker.dir/Initial.cpp.obj: ../Initial.h
 
+CMakeFiles/ToothMaker.dir/Output.cpp.obj: ../Cell.h
+CMakeFiles/ToothMaker.dir/Output.cpp.obj: ../Output.cpp
+CMakeFiles/ToothMaker.dir/Output.cpp.obj: ../Output.h
+
 CMakeFiles/ToothMaker.dir/main.cpp.obj: ../Cell.h
 CMakeFiles/ToothMaker.dir/main.cpp.obj: ../Initial.h
+CMakeFiles/ToothMaker.dir/main.cpp.obj: ../Output.h
 CMakeFiles/ToothMaker.dir/main.cpp.obj: ../main.cpp
 

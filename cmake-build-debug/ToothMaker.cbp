@@ -98,6 +98,12 @@
 		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Initial.h">
 			<Option target="ToothMaker"/>
 		</Unit>
+		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Output.cpp">
+			<Option target="ToothMaker"/>
+		</Unit>
+		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/Output.h">
+			<Option target="ToothMaker"/>
+		</Unit>
 		<Unit filename="C:/Users/Stefanie/Documents/MorphoTooth/main.cpp">
 			<Option target="ToothMaker"/>
 		</Unit>
