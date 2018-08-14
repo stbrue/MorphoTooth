@@ -65,31 +65,44 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int cellsIn
 
         for (int borderPoint1 = 0; borderPoint1 < (cells[cell].getBorderPointsX().size() - 1); ++borderPoint1) {
             int borderPoint2 = borderPoint1 + 1;
-
             //Perimeter
-            double x = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getBorderPointsX()[borderPoint1];
-            double y = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getBorderPointsY()[borderPoint1];
-            double z = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getBorderPointsZ()[borderPoint1];
-            std::vector<double> borderToBorder = {x, y, z};
-            double perimeterPart = Geometrics::vectorNorm3D(borderToBorder);
-            cells[cell].newPerimeterPart(perimeterPart);
-
+            perimeter(cells, cell, borderPoint1, borderPoint2);
             //Cell Area
-            double x1 = cells[cell].getBorderPointsX()[borderPoint1] - cells[cell].getX();
-            double x2 = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getX();
-            double y1 = cells[cell].getBorderPointsY()[borderPoint1] - cells[cell].getY();
-            double y2 = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getY();
-            double z1 = cells[cell].getBorderPointsZ()[borderPoint1] - cells[cell].getZ();
-            double z2 = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getZ();
-            std::vector<double> cellToBorder1 = {x1, y1, z1};
-            std::vector<double> cellToBorder2 = {x2, y2, z2};
-            std::vector<double> crossProduct = Geometrics::crossProduct(cellToBorder1, cellToBorder2);
-            double areaPart = 0.5 * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
-            cells[cell].newAreaPart(areaPart);
+            cellArea(cells, cell, borderPoint1, borderPoint2);
         }
+
+        //Close the round
+        int borderPoint1 = cells[cell].getBorderPointsX().size();
+        int borderPoint2 = 0;
+        perimeter(cells, cell, borderPoint1, borderPoint2);
+        cellArea(cells, cell, borderPoint1, borderPoint2);
+
         double perimeter = Geometrics::vectorSum(cells[cell].getPerimeterParts());
         cells[cell].setPerimeter(perimeter);
         double cellArea = Geometrics::vectorSum(cells[cell].getAreaParts());
         cells[cell].setCellArea(cellArea);
     }
+}
+
+void Geometrics::perimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2){
+    double x = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getBorderPointsX()[borderPoint1];
+    double y = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getBorderPointsY()[borderPoint1];
+    double z = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getBorderPointsZ()[borderPoint1];
+    std::vector<double> borderToBorder = {x, y, z};
+    double perimeterPart = Geometrics::vectorNorm3D(borderToBorder);
+    cells[cell].newPerimeterPart(perimeterPart);
+}
+
+void Geometrics::cellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2){
+    double x1 = cells[cell].getBorderPointsX()[borderPoint1] - cells[cell].getX();
+    double x2 = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getX();
+    double y1 = cells[cell].getBorderPointsY()[borderPoint1] - cells[cell].getY();
+    double y2 = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getY();
+    double z1 = cells[cell].getBorderPointsZ()[borderPoint1] - cells[cell].getZ();
+    double z2 = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getZ();
+    std::vector<double> cellToBorder1 = {x1, y1, z1};
+    std::vector<double> cellToBorder2 = {x2, y2, z2};
+    std::vector<double> crossProduct = Geometrics::crossProduct(cellToBorder1, cellToBorder2);
+    double areaPart = 0.5 * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
+    cells[cell].newAreaPart(areaPart);
 }

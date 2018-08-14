@@ -13,7 +13,10 @@ void Model::diffusion(std::vector<Cell> &cells, int cellsInSimulation) {
 
     for (int cell = 0; cell < cellsInSimulation; ++cell) {
         //Total diffusion area = perimeter + 2 * area (bottom and top area)
+        double perimeter = cells[cell].getPerimeter();
+        double cellArea = cells[cell].getCellArea();
 
+        double diffusionArea = perimeter + (2 * cellArea);
 
     }
 }
