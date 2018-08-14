@@ -15,10 +15,10 @@ private:
     int ID;
     std::vector<int> neighbours;
     double diffState;
-    double ActConcentration;
-    double InhConcentration;
-    double Sec1Concentration;
-    double Sec2Concentration;
+    std::vector<double> ActConcentrations;
+    std::vector<double> InhConcentrations;
+    std::vector<double> Sec1Concentrations;
+    std::vector<double> Sec2Concentrations;
     bool knot;
     bool inSimulation;
     bool inCentre;
@@ -26,6 +26,10 @@ private:
     std::vector<double> borderPointsX;
     std::vector<double> borderPointsY;
     std::vector<double> borderPointsZ;
+    std::vector<double> perimeterParts;
+    std::vector<double> areaParts;
+    double perimeter;
+    double cellArea;
 
 public:
     //Getter
@@ -34,10 +38,6 @@ public:
     double getZ() const;
     int getID() const;
     double getDiffState() const;
-    double getActConcentration() const;
-    double getInhConcentration() const;
-    double getSec1Concentration() const;
-    double getSec2Concentration() const;
     bool isKnotCell() const;
     std::vector<int> getNeighbours() const;
     int getMesenchymeThickness() const;
@@ -46,6 +46,10 @@ public:
     const std::vector<double> &getBorderPointsX() const;
     const std::vector<double> &getBorderPointsY() const;
     const std::vector<double> &getBorderPointsZ() const;
+    const std::vector<double> &getPerimeterParts() const;
+    const std::vector<double> &getAreaParts() const;
+    double getPerimeter() const;
+    double getCellArea() const;
 
     //Setter
     void setX(double x);
@@ -53,10 +57,6 @@ public:
     void setZ(double z);
     void setID(int ID);
     void setDiffState(double diffState);
-    void setActConcentration(double ActConcentration);
-    void setInhConcentration(double InhConcentration);
-    void setSec1Concentration(double Sec1Concentration);
-    void setSec2Concentration(double Sec2Concentration);
     void setKnotCell();
     void setNeighbour(int neighbourID);
     void setMesenchymeThickness(int mesenchymeThickness);
@@ -64,6 +64,10 @@ public:
     void setInCentre(bool inCentre);
     void newBorderPoint(char axis, double point);
     void replaceBorderPoint(char axis, double point, int position);
+    void newPerimeterPart(double perimeterPart);
+    void newAreaPart(double areaPart);
+    void setPerimeter(double perimeter);
+    void setCellArea(double cellArea);
 
     //Constructor
     Cell(double x, double y, int ID);

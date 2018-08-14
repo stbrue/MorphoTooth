@@ -27,22 +27,6 @@ double Cell::getDiffState() const {
     return diffState;
 }
 
-double Cell::getActConcentration() const {
-    return ActConcentration;
-}
-
-double Cell::getInhConcentration() const {
-    return InhConcentration;
-}
-
-double Cell::getSec1Concentration() const {
-    return Sec1Concentration;
-}
-
-double Cell::getSec2Concentration() const {
-    return Sec2Concentration;
-}
-
 std::vector<int> Cell::getNeighbours() const {
     return neighbours;
 }
@@ -81,6 +65,22 @@ const std::vector<double> &Cell::getBorderPointsZ() const {
     return borderPointsZ;
 }
 
+const std::vector<double> &Cell::getPerimeterParts() const {
+    return perimeterParts;
+}
+
+const std::vector<double> &Cell::getAreaParts() const {
+    return areaParts;
+}
+
+double Cell::getPerimeter() const {
+    return perimeter;
+}
+
+double Cell::getCellArea() const {
+    return cellArea;
+}
+
 //Setter
 void Cell::setX(double x) {
     Cell::x = x;
@@ -100,22 +100,6 @@ void Cell::setID(int ID) {
 
 void Cell::setDiffState(double diffState) {
     Cell::diffState = diffState;
-}
-
-void Cell::setActConcentration(double ActConcentration) {
-    Cell::ActConcentration = ActConcentration;
-}
-
-void Cell::setInhConcentration(double InhConcentration) {
-    Cell::InhConcentration = InhConcentration;
-}
-
-void Cell::setSec1Concentration(double Sec1Concentration) {
-    Cell::Sec1Concentration = Sec1Concentration;
-}
-
-void Cell::setSec2Concentration(double Sec2Concentration) {
-    Cell::Sec2Concentration = Sec2Concentration;
 }
 
 void Cell::setKnotCell() {
@@ -158,19 +142,37 @@ void Cell::replaceBorderPoint(char axis, double point, int position) {
     }
 }
 
+void Cell::newPerimeterPart(double perimeterPart) {
+    perimeterParts.push_back(perimeterPart);
+}
+
+void Cell::newAreaPart(double areaPart) {
+    areaParts.push_back(areaPart);
+}
+
+void Cell::setPerimeter(double perimeter) {
+    Cell::perimeter = perimeter;
+}
+
+void Cell::setCellArea(double cellArea) {
+    Cell::cellArea = cellArea;
+}
 
 //Constructor
 Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    z = 1;
-   ActConcentration = 0;
-   InhConcentration = 0;
-   Sec1Concentration = 0;
-   Sec2Concentration = 0;
    knot = false;
    inSimulation = false;
    inCentre = false;
    mesenchymeThickness = 4;
    diffState = 0;
+   //Set Concentrations to 0 (in each layer)
+    for (int layer = 0; layer < mesenchymeThickness; ++layer) {
+        ActConcentrations.push_back(0);
+        InhConcentrations.push_back(0);
+        Sec1Concentrations.push_back(0);
+        Sec2Concentrations.push_back(0);
+    }
 }
 
 //Editors
@@ -194,3 +196,7 @@ void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation)
         }
     }
 }
+
+
+
+

@@ -8,16 +8,18 @@
 
 void Grid::calculateInitialCellBorders(std::vector<Cell> &cells, int cellsInSimulation) {
     for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
-        for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
-            int neighbour2 = neighbour1 + 1;
-
-            Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
-        }
         //last and first neighbour
         int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
         int neighbour2 = 0;
 
         Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
+
+        //all others
+        for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
+            int neighbour2 = neighbour1 + 1;
+
+            Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
+        }
     }
 }
 
