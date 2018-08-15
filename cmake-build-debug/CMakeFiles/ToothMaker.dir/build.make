@@ -200,6 +200,54 @@ CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj.provides: CMakeFiles/ToothMaker.dir
 CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj.provides.build: CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj
 
 
+CMakeFiles/ToothMaker.dir/Model.cpp.obj: CMakeFiles/ToothMaker.dir/flags.make
+CMakeFiles/ToothMaker.dir/Model.cpp.obj: ../Model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ToothMaker.dir/Model.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ToothMaker.dir\Model.cpp.obj -c C:\Users\Stefanie\Documents\MorphoTooth\Model.cpp
+
+CMakeFiles/ToothMaker.dir/Model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ToothMaker.dir/Model.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Stefanie\Documents\MorphoTooth\Model.cpp > CMakeFiles\ToothMaker.dir\Model.cpp.i
+
+CMakeFiles/ToothMaker.dir/Model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ToothMaker.dir/Model.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Stefanie\Documents\MorphoTooth\Model.cpp -o CMakeFiles\ToothMaker.dir\Model.cpp.s
+
+CMakeFiles/ToothMaker.dir/Model.cpp.obj.requires:
+
+.PHONY : CMakeFiles/ToothMaker.dir/Model.cpp.obj.requires
+
+CMakeFiles/ToothMaker.dir/Model.cpp.obj.provides: CMakeFiles/ToothMaker.dir/Model.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Model.cpp.obj.provides.build
+.PHONY : CMakeFiles/ToothMaker.dir/Model.cpp.obj.provides
+
+CMakeFiles/ToothMaker.dir/Model.cpp.obj.provides.build: CMakeFiles/ToothMaker.dir/Model.cpp.obj
+
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.obj: CMakeFiles/ToothMaker.dir/flags.make
+CMakeFiles/ToothMaker.dir/Parameters.cpp.obj: ../Parameters.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ToothMaker.dir/Parameters.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ToothMaker.dir\Parameters.cpp.obj -c C:\Users\Stefanie\Documents\MorphoTooth\Parameters.cpp
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ToothMaker.dir/Parameters.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Stefanie\Documents\MorphoTooth\Parameters.cpp > CMakeFiles\ToothMaker.dir\Parameters.cpp.i
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ToothMaker.dir/Parameters.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Stefanie\Documents\MorphoTooth\Parameters.cpp -o CMakeFiles\ToothMaker.dir\Parameters.cpp.s
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.requires:
+
+.PHONY : CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.requires
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.provides: CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.provides.build
+.PHONY : CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.provides
+
+CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.provides.build: CMakeFiles/ToothMaker.dir/Parameters.cpp.obj
+
+
 # Object files for target ToothMaker
 ToothMaker_OBJECTS = \
 "CMakeFiles/ToothMaker.dir/main.cpp.obj" \
@@ -207,7 +255,9 @@ ToothMaker_OBJECTS = \
 "CMakeFiles/ToothMaker.dir/Initial.cpp.obj" \
 "CMakeFiles/ToothMaker.dir/Grid.cpp.obj" \
 "CMakeFiles/ToothMaker.dir/Output.cpp.obj" \
-"CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj"
+"CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj" \
+"CMakeFiles/ToothMaker.dir/Model.cpp.obj" \
+"CMakeFiles/ToothMaker.dir/Parameters.cpp.obj"
 
 # External object files for target ToothMaker
 ToothMaker_EXTERNAL_OBJECTS =
@@ -218,11 +268,13 @@ ToothMaker.exe: CMakeFiles/ToothMaker.dir/Initial.cpp.obj
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/Grid.cpp.obj
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/Output.cpp.obj
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj
+ToothMaker.exe: CMakeFiles/ToothMaker.dir/Model.cpp.obj
+ToothMaker.exe: CMakeFiles/ToothMaker.dir/Parameters.cpp.obj
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/build.make
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/linklibs.rsp
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/objects1.rsp
 ToothMaker.exe: CMakeFiles/ToothMaker.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ToothMaker.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Stefanie\Documents\MorphoTooth\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ToothMaker.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ToothMaker.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -236,6 +288,8 @@ CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Initial.cpp.obj.re
 CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Grid.cpp.obj.requires
 CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Output.cpp.obj.requires
 CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Geometrics.cpp.obj.requires
+CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Model.cpp.obj.requires
+CMakeFiles/ToothMaker.dir/requires: CMakeFiles/ToothMaker.dir/Parameters.cpp.obj.requires
 
 .PHONY : CMakeFiles/ToothMaker.dir/requires
 

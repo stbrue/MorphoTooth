@@ -230,6 +230,33 @@ Initial.cpp.s:
 	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Initial.cpp.s
 .PHONY : Initial.cpp.s
 
+Model.obj: Model.cpp.obj
+
+.PHONY : Model.obj
+
+# target to build an object file
+Model.cpp.obj:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Model.cpp.obj
+.PHONY : Model.cpp.obj
+
+Model.i: Model.cpp.i
+
+.PHONY : Model.i
+
+# target to preprocess a source file
+Model.cpp.i:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Model.cpp.i
+.PHONY : Model.cpp.i
+
+Model.s: Model.cpp.s
+
+.PHONY : Model.s
+
+# target to generate assembly for a file
+Model.cpp.s:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Model.cpp.s
+.PHONY : Model.cpp.s
+
 Output.obj: Output.cpp.obj
 
 .PHONY : Output.obj
@@ -256,6 +283,33 @@ Output.s: Output.cpp.s
 Output.cpp.s:
 	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Output.cpp.s
 .PHONY : Output.cpp.s
+
+Parameters.obj: Parameters.cpp.obj
+
+.PHONY : Parameters.obj
+
+# target to build an object file
+Parameters.cpp.obj:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Parameters.cpp.obj
+.PHONY : Parameters.cpp.obj
+
+Parameters.i: Parameters.cpp.i
+
+.PHONY : Parameters.i
+
+# target to preprocess a source file
+Parameters.cpp.i:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Parameters.cpp.i
+.PHONY : Parameters.cpp.i
+
+Parameters.s: Parameters.cpp.s
+
+.PHONY : Parameters.s
+
+# target to generate assembly for a file
+Parameters.cpp.s:
+	$(MAKE) -f CMakeFiles\ToothMaker.dir\build.make CMakeFiles/ToothMaker.dir/Parameters.cpp.s
+.PHONY : Parameters.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -305,9 +359,15 @@ help:
 	@echo ... Initial.obj
 	@echo ... Initial.i
 	@echo ... Initial.s
+	@echo ... Model.obj
+	@echo ... Model.i
+	@echo ... Model.s
 	@echo ... Output.obj
 	@echo ... Output.i
 	@echo ... Output.s
+	@echo ... Parameters.obj
+	@echo ... Parameters.i
+	@echo ... Parameters.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
