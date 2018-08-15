@@ -15,15 +15,7 @@ private:
     int ID;
     std::vector<int> neighbours;
     double diffState;
-    std::vector<double> ActConcentrations;
-    std::vector<double> InhConcentrations;
-    std::vector<double> Sec1Concentrations;
-    std::vector<double> Sec2Concentrations;
     std::vector<std::vector<double>> proteinConcentrations;
-    std::vector<double> tempAct;
-    std::vector<double> tempInh;
-    std::vector<double> tempSec1;
-    std::vector<double> tempSec2;
     std::vector<std::vector<double>> tempProteinConcentrations;
     bool knot;
     bool inSimulation;

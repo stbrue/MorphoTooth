@@ -183,17 +183,13 @@ Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
    diffState = 0;
    //Set Concentrations to 0 (in each layer)
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
-        ActConcentrations.push_back(layer);
-        InhConcentrations.push_back(layer + 1);
-        Sec1Concentrations.push_back(layer + 2);
-        Sec2Concentrations.push_back(layer + 3);
-        tempAct.push_back(0);
-        tempInh.push_back(0);
-        tempSec1.push_back(0);
-        tempSec2.push_back(0);
+        std::vector<double> tempv;
+        for (int protein = 0; protein < 4; ++protein) {
+            tempv.push_back(0);
+        }
+        proteinConcentrations.push_back(tempv);
+        tempProteinConcentrations.push_back(tempv);
     }
-   proteinConcentrations = {ActConcentrations, InhConcentrations, Sec1Concentrations, Sec2Concentrations};
-    tempProteinConcentrations = {tempAct, tempInh, tempSec1, tempSec2};
     perimeter = 0;
     cellArea = 0;
 }

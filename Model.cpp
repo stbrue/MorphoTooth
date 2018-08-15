@@ -30,7 +30,7 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 if (layer != 0){ // if we are not within the epithelial layer
                     upDiffusion(cells, cell, layer, protein, pCellArea);
-                        if (layer != cells[cell].getMesenchymeThickness()){ // if its not the lowest layer
+                        if (layer < (cells[cell].getMesenchymeThickness() - 1)){ // if its not the lowest layer
                             downDiffusion(cells, cell, layer, protein, pCellArea);
                         }
                         else { // if its the lowest layer -> vertical sink
