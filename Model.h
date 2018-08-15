@@ -7,10 +7,15 @@
 
 
 #include "Cell.h"
+#include "Parameters.h"
 
 class Model {
 public:
-    static void diffusion(std::vector<Cell> &cells, int CellsInSimulation);
+    static void diffusion(std::vector<Cell> &cells, Parameters &parameters);
+    static void upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea);
+    static void downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea);
+    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double contactArea);
+    static void horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double diffusionArea);
 
 };
 

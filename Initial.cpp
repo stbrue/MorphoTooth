@@ -8,14 +8,15 @@
 #include <iostream>
 #include "Cell.h"
 #include "Grid.h"
+#include "Parameters.h"
 
-std::vector<Cell> Initial::makeInitialGrid(int initialRadius)
+std::vector<Cell> Initial::makeInitialGrid(Parameters &params)
 {
     //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
-    int cellsInSimulation = Initial::getNumberOfInSimulationCells(initialRadius);
+    params.setCellsInSimulation(Initial::getNumberOfInSimulationCells(params.getInitialRadius()));
 
     //Make the first cell
-    Cell cell1(0, 0, 0);
+    Cell cell1(0, 0, 1, 0);
 
     //Vector containing all cells
     std::vector<Cell> cells;
@@ -25,17 +26,17 @@ std::vector<Cell> Initial::makeInitialGrid(int initialRadius)
 
     //Make the neighbours of this (and all neighbouring) cell
     int IDNewCell = 1;
-    for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
+    for (int centreCell = 0; centreCell < params.getCellsInSimulation(); ++centreCell) {
         makeNeighbours(cells, centreCell, IDNewCell);
     }
 
     //Define for each cell if it is "within simulation" or "in Centre"
-    labelCellsInSimulation(cells, cellsInSimulation);
-    labelCellsInCentre(cells, initialRadius, cellsInSimulation);
+    labelCellsInSimulation(cells, params.getCellsInSimulation());
+    labelCellsInCentre(cells, params.getInitialRadius(), params.getCellsInSimulation());
 
-    reduceNeighboursOutOfSimulation(cells, cellsInSimulation);
+    reduceNeighboursOutOfSimulation(cells, params.getCellsInSimulation());
 
-    Grid::calculateInitialCellBorders(cells, cellsInSimulation);
+    Grid::calculateInitialCellBorders(cells, params.getCellsInSimulation());
 
     return cells;
 }
@@ -91,7 +92,7 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
         double y = nextY(cells[IDCentreCell].getY(), neighbour);
 
         //create a temporary Instance of this cell
-        Cell tempCell(x, y, IDNewCell);
+        Cell tempCell(x, y, 1, IDNewCell);
 
         //check if this neighbour is already an existing cell
         isAlreadyExisting = false;

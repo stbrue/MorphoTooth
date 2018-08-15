@@ -19,8 +19,8 @@ public:
     static std::vector<double> crossProduct(std::vector<double> v1, std::vector<double> v2);
     static double vectorSum(std::vector<double> v);
     static void calculatePerimeterAndArea(std::vector<Cell> &cells, int cellsInSimulation);
-    static void perimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
-    static void cellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    static void calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    static void calculateCellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
 
 };
 

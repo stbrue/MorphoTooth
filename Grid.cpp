@@ -14,7 +14,7 @@ void Grid::calculateInitialCellBorders(std::vector<Cell> &cells, int cellsInSimu
 
         Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
 
-        //all others
+        //all others neighbour pairs
         for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
             int neighbour2 = neighbour1 + 1;
 

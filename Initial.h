@@ -7,6 +7,7 @@
 
 
 #include "Cell.h"
+#include "Parameters.h"
 
 class Initial {
 
@@ -21,7 +22,7 @@ public:
 
     static double nextX(double centerX, int neighbour);
     static double nextY(double centerX, int neighbour);
-    static std::vector<Cell> makeInitialGrid(int cellsInSimulation);
+    static std::vector<Cell> makeInitialGrid(Parameters &parameters);
     static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
 
     static void printInitialGrid(std::vector<Cell> &cells);

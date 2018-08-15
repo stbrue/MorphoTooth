@@ -19,6 +19,12 @@ private:
     std::vector<double> InhConcentrations;
     std::vector<double> Sec1Concentrations;
     std::vector<double> Sec2Concentrations;
+    std::vector<std::vector<double>> proteinConcentrations;
+    std::vector<double> tempAct;
+    std::vector<double> tempInh;
+    std::vector<double> tempSec1;
+    std::vector<double> tempSec2;
+    std::vector<std::vector<double>> tempProteinConcentrations;
     bool knot;
     bool inSimulation;
     bool inCentre;
@@ -50,6 +56,8 @@ public:
     const std::vector<double> &getAreaParts() const;
     double getPerimeter() const;
     double getCellArea() const;
+    const std::vector<std::vector<double>> &getProteinConcentrations() const;
+    const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
     //Setter
     void setX(double x);
@@ -68,9 +76,11 @@ public:
     void newAreaPart(double areaPart);
     void setPerimeter(double perimeter);
     void setCellArea(double cellArea);
+    void addProteinConcentration(int protein, int layer, double newConcentration);
+    void addTempConcentration(int protein, int layer, double addedConcentration);
 
     //Constructor
-    Cell(double x, double y, int ID);
+    Cell(double x, double y, int z, int ID);
 
     //Editors
     void deleteNeighbour(int neighbour);

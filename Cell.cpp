@@ -81,6 +81,14 @@ double Cell::getCellArea() const {
     return cellArea;
 }
 
+const std::vector<std::vector<double>> &Cell::getProteinConcentrations() const {
+    return proteinConcentrations;
+}
+
+const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() const {
+    return tempProteinConcentrations;
+}
+
 //Setter
 void Cell::setX(double x) {
     Cell::x = x;
@@ -158,9 +166,16 @@ void Cell::setCellArea(double cellArea) {
     Cell::cellArea = cellArea;
 }
 
+void Cell::addProteinConcentration(int protein, int layer, double addedConcentration) {
+    proteinConcentrations[protein][layer] += addedConcentration;
+}
+
+void Cell::addTempConcentration(int protein, int layer, double addedConcentration){
+    tempProteinConcentrations[protein][layer] += addedConcentration;
+}
+
 //Constructor
-Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
-   z = 1;
+Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
    knot = false;
    inSimulation = false;
    inCentre = false;
@@ -168,11 +183,19 @@ Cell::Cell(double x, double y, int ID) : x(x), y(y), ID(ID) {
    diffState = 0;
    //Set Concentrations to 0 (in each layer)
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
-        ActConcentrations.push_back(0);
-        InhConcentrations.push_back(0);
-        Sec1Concentrations.push_back(0);
-        Sec2Concentrations.push_back(0);
+        ActConcentrations.push_back(layer);
+        InhConcentrations.push_back(layer + 1);
+        Sec1Concentrations.push_back(layer + 2);
+        Sec2Concentrations.push_back(layer + 3);
+        tempAct.push_back(0);
+        tempInh.push_back(0);
+        tempSec1.push_back(0);
+        tempSec2.push_back(0);
     }
+   proteinConcentrations = {ActConcentrations, InhConcentrations, Sec1Concentrations, Sec2Concentrations};
+    tempProteinConcentrations = {tempAct, tempInh, tempSec1, tempSec2};
+    perimeter = 0;
+    cellArea = 0;
 }
 
 //Editors
@@ -196,6 +219,10 @@ void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation)
         }
     }
 }
+
+
+
+
 
 
 

@@ -4,17 +4,18 @@
 #include "Output.h"
 #include "Geometrics.h"
 #include "Model.h"
+#include "Parameters.h"
 
 int main() {
 
-    //Parameters
-    int InitialRadius = 3;
-    int iterations = 3;
+    //Make instance of Parameters
+    Parameters params;
+    params.getDiffusionRates();
 
     //Construct the initial grid of cells
-    std::vector<Cell> cells = Initial::makeInitialGrid(InitialRadius);
+    std::vector<Cell> cells = Initial::makeInitialGrid(params);
 
-    Model::diffusion(cells, 19);
+    Model::diffusion(cells, params);
 
     for (int cell = 0; cell < 19; ++cell) {
         std::cout << "Cell Nr.:" << cell << std::endl;
