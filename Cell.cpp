@@ -32,11 +32,9 @@ std::vector<int> Cell::getNeighbours() const {
 }
 
 bool Cell::isKnotCell() const {
-    if (knot){
+    if (knot) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -81,7 +79,7 @@ double Cell::getCellArea() const {
     return cellArea;
 }
 
-const std::vector<std::vector<double>> &Cell::getProteinConcentrations() const {
+std::vector<std::vector<double>> &Cell::getProteinConcentrations() {
     return proteinConcentrations;
 }
 
@@ -110,8 +108,8 @@ void Cell::setDiffState(double diffState) {
     Cell::diffState = diffState;
 }
 
-void Cell::setKnotCell() {
-    Cell::knot = true;
+void Cell::setKnotCell(bool knot) {
+    Cell::knot = knot;
 }
 
 void Cell::setNeighbour(int neighbourID) {
@@ -131,22 +129,40 @@ void Cell::setMesenchymeThickness(int mesenchymeThickness) {
 }
 
 void Cell::newBorderPoint(char axis, double point) {
-    switch (axis)
-    {
-        case 'X': {borderPointsX.push_back(point); break;}
-        case 'Y': {borderPointsY.push_back(point); break;}
-        case 'Z': {borderPointsZ.push_back(point); break;}
-        default: std::cout << "The point could not be added" << std::endl;
+    switch (axis) {
+        case 'X': {
+            borderPointsX.push_back(point);
+            break;
+        }
+        case 'Y': {
+            borderPointsY.push_back(point);
+            break;
+        }
+        case 'Z': {
+            borderPointsZ.push_back(point);
+            break;
+        }
+        default:
+            std::cout << "The point could not be added" << std::endl;
     }
 }
 
 void Cell::replaceBorderPoint(char axis, double point, int position) {
-    switch (axis)
-    {
-        case 'X': {borderPointsX[position] = point; break;}
-        case 'Y': {borderPointsY[position] = point; break;}
-        case 'Z': {borderPointsZ[position] = point; break;}
-        default: std::cout << "The point could not be replaced" << std::endl;
+    switch (axis) {
+        case 'X': {
+            borderPointsX[position] = point;
+            break;
+        }
+        case 'Y': {
+            borderPointsY[position] = point;
+            break;
+        }
+        case 'Z': {
+            borderPointsZ[position] = point;
+            break;
+        }
+        default:
+            std::cout << "The point could not be replaced" << std::endl;
     }
 }
 
@@ -170,18 +186,22 @@ void Cell::addProteinConcentration(int protein, int layer, double addedConcentra
     proteinConcentrations[protein][layer] += addedConcentration;
 }
 
-void Cell::addTempConcentration(int protein, int layer, double addedConcentration){
+void Cell::addTempConcentration(int protein, int layer, double addedConcentration) {
     tempProteinConcentrations[protein][layer] += addedConcentration;
+}
+
+void Cell::setProteinConcentration(int protein, int layer, double newConcentration) {
+    proteinConcentrations[protein][layer] = newConcentration;
 }
 
 //Constructor
 Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
-   knot = false;
-   inSimulation = false;
-   inCentre = false;
-   mesenchymeThickness = 4;
-   diffState = 0;
-   //Set Concentrations to 0 (in each layer)
+    knot = false;
+    inSimulation = false;
+    inCentre = false;
+    mesenchymeThickness = 4;
+    diffState = 0;
+    //Set Concentrations to 0 (in each layer)
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
         std::vector<double> tempv;
         for (int protein = 0; protein < 4; ++protein) {
@@ -196,15 +216,21 @@ Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
 
 //Editors
 
-void Cell::deleteNeighbour(int neighbour)
-{
+void Cell::deleteNeighbour(int neighbour) {
     neighbours.erase(neighbours.begin() + neighbour);
+}
+
+void Cell::resetTempProteinConcentrations() {
+    for (int layer = 0; layer < mesenchymeThickness; ++layer) {
+        for (int protein = 0; protein < 4; ++protein) {
+            tempProteinConcentrations[protein][layer] = 0;
+        }
+    }
 }
 
 //Printer
 
-void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation)
-{
+void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation) {
     for (int cell = 0; cell < cells.size(); ++cell) {
         std::cout << "Cell Nr. " << cell << std::endl;
         for (int point = 0; point < cells[cell].getBorderPointsX().size(); ++point) {

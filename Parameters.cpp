@@ -19,7 +19,7 @@ int Parameters::getInitialRadius() const {
     return InitialRadius;
 }
 
-std::vector<double> Parameters::getDiffusionRates()  {
+std::vector<double> Parameters::getDiffusionRates() {
     return diffusionRates;
 }
 
@@ -31,9 +31,43 @@ double Parameters::getDelta() const {
     return delta;
 }
 
+double Parameters::getAct() const {
+    return Act;
+}
+
+double Parameters::getInh() const {
+    return Inh;
+}
+
+double Parameters::getMu() const {
+    return mu;
+}
+
+double Parameters::getInT() const {
+    return inT;
+}
+
+double Parameters::getSet() const {
+    return set;
+}
+
+double Parameters::getSec() const {
+    return sec;
+}
+
+double Parameters::getSec2Inhibition() const {
+    return sec2Inhibition;
+}
+
 //Setters
 void Parameters::setCellsInSimulation(int cellsInSimulation) {
     Parameters::cellsInSimulation = cellsInSimulation;
 }
+
+
+
+
+
+
 
 

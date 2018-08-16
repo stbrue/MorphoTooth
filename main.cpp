@@ -16,6 +16,7 @@ int main() {
     std::vector<Cell> cells = Initial::makeInitialGrid(params);
 
     Model::diffusion(cells, params);
+    Model::reaction(cells, params);
 
     for (int cell = 0; cell < 19; ++cell) {
         std::cout << "Cell Nr.:" << cell << std::endl;
