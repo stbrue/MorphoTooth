@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Cell.h"
 #include "Initial.h"
 #include "Output.h"
 #include "Geometrics.h"
 #include "Model.h"
 #include "Parameters.h"
+
 
 int main() {
 

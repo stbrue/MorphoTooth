@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2018.1.2\bin\cmake\bin\cmake.exe" -E remove -f CMakeFiles\ToothMaker.dir/objects.a
-C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\ar.exe cr CMakeFiles\ToothMaker.dir/objects.a @CMakeFiles\ToothMaker.dir\objects1.rsp
-C:\PROGRA~2\MINGW-~1\I686-7~1.0-P\mingw32\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\ToothMaker.dir/objects.a -Wl,--no-whole-archive  -o ToothMaker.exe -Wl,--out-implib,libToothMaker.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ToothMaker.dir\linklibs.rsp
