@@ -58,6 +58,55 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
+void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
+    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+        EKDifferentiation(cells, params, cell);
+        ActReactionAndDegradation(cells, params, cell);
+        InhProduction(cells, params, cell);
+        Sec1Production(cells, params, cell);
+        Sec2Production(cells, params, cell);
+    }
+
+    //Error handling (test if new concentrations are too high)?
+
+    //Update the final protein concentrations (including delta)
+    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+        for (int protein = 0; protein < 4; ++protein) {
+            for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
+                double newConcentration =
+                        params.getDelta() * cells[cell].getTempProteinConcentrations()[protein][layer];
+                cells[cell].addProteinConcentration(protein, layer, newConcentration);
+                //Remove negative concentration values
+                if (cells[cell].getProteinConcentrations()[protein][layer] < 0) {
+                    cells[cell].setProteinConcentration(protein, layer, 0);
+                }
+            }
+        }
+        //Reset the temporary protein concentration matrix
+        cells[cell].resetTempProteinConcentrations();
+    }
+}
+
+void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
+    //for all center cells
+    for (int cell = 0; cell < params.getCellsInCenter(); ++cell) {
+        if (cells[cell].getY() < -params.getSwi()) {
+            cells[cell].setProteinConcentration(0, 0, params.getLbi());
+        } else if (cells[cell].getY() > params.getSwi()) {
+            cells[cell].setProteinConcentration(0, 0, params.getBbi());
+        }
+    }
+}
+
+void Model::differenciation(std::vector<Cell> &cells, Parameters &params) {
+    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+        //Increase the diff state of each cell
+        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+        double addDiff = params.getDff() * epithelialSec1Concentration;
+        cells[cell].addDiffState(addDiff);
+    }
+}
+
 void Model::upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double neighbourConcentration = cells[cell].getProteinConcentrations()[protein][layer - 1];
@@ -94,34 +143,6 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
         } else {          // if the neighbour is not within simulation, there is a sink
             sink(cells, cell, layer, protein, diffusionArea);
         }
-    }
-}
-
-void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
-        EKDifferentiation(cells, params, cell);
-        ActReactionAndDegradation(cells, params, cell);
-        InhProduction(cells, params, cell);
-        Sec1Production(cells, params, cell);
-        Sec2Production(cells, params, cell);
-    }
-
-    //Error handling (test if new concentrations are too high)?
-
-    //Update the final protein concentrations (including delta)
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
-        for (int protein = 0; protein < 4; ++protein) {
-            for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
-                double newConcentration = params.getDelta() * cells[cell].getTempProteinConcentrations()[protein][layer];
-                cells[cell].addProteinConcentration(protein, layer, newConcentration);
-                //Remove negative concentration values
-                if (cells[cell].getProteinConcentrations()[protein][layer] < 0){
-                    cells[cell].setProteinConcentration(protein, layer, 0);
-                }
-            }
-        }
-        //Reset the temporary protein concentration matrix
-        cells[cell].resetTempProteinConcentrations();
     }
 }
 
@@ -162,8 +183,7 @@ void Model::InhProduction(std::vector<Cell> &cells, Parameters &params, int cell
 
     if (diffState > params.getInT()) {
         newConcentration = epithelialActConcentration * diffState - params.getMu() * epithelialInhConcentration;
-    }
-    else if (isKnotCell) {
+    } else if (isKnotCell) {
         newConcentration = epithelialActConcentration - params.getMu() * epithelialInhConcentration;
     }
     cells[cell].addTempConcentration(1, 0, newConcentration);
@@ -175,14 +195,13 @@ void Model::Sec1Production(std::vector<Cell> &cells, Parameters &params, int cel
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
-    if (diffState > params.getSet()){
+    if (diffState > params.getSet()) {
         newConcentration = params.getSec() * diffState - params.getMu() * epithelialSec1Concentration;
-    }
-    else if (isKnotCell){
+    } else if (isKnotCell) {
         newConcentration = params.getSec() - params.getMu() * epithelialSec1Concentration;
     }
 
-    if (newConcentration < 0){
+    if (newConcentration < 0) {
         newConcentration = 0;
     }
     cells[cell].addTempConcentration(2, 0, newConcentration);
@@ -193,8 +212,10 @@ void Model::Sec2Production(std::vector<Cell> &cells, Parameters &params, int cel
     double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
     double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[3][0];
 
-    double newConcentration = params.getAct() * epithelialActConcentration - params.getMu() * epithelialSec2Concentration - params.getSec2Inhibition() * epithelialSec1Concentration;
-    if (newConcentration < 0){
+    double newConcentration =
+            params.getAct() * epithelialActConcentration - params.getMu() * epithelialSec2Concentration -
+            params.getSec2Inhibition() * epithelialSec1Concentration;
+    if (newConcentration < 0) {
         newConcentration = 0;
     }
 

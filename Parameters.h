@@ -18,6 +18,8 @@ private:
 
     int cellsInSimulation;
 
+    int cellsInCenter;
+
     double delta;
 
     double Act;
@@ -34,6 +36,14 @@ private:
 
     double sec2Inhibition;
 
+    double lbi;
+
+    double bbi;
+
+    double swi;
+
+    double dff;
+
 public:
     //Constructor
     Parameters();
@@ -44,6 +54,8 @@ public:
     std::vector<double> getDiffusionRates();
 
     int getCellsInSimulation() const;
+
+    int getCellsInCenter() const;
 
     double getDelta() const;
 
@@ -61,8 +73,18 @@ public:
 
     double getSec2Inhibition() const;
 
+    double getLbi() const;
+
+    double getBbi() const;
+
+    double getSwi() const;
+
+    double getDff() const;
+
     //Setters
     void setCellsInSimulation(int cellsInSimulation);
+
+    void setCellsInCenter(int cellsInCenter);
 };
 
 

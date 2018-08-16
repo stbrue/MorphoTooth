@@ -105,7 +105,19 @@ void Cell::setID(int ID) {
 }
 
 void Cell::setDiffState(double diffState) {
+    if (diffState > 1) {
+        std::cout << "The diff state can maximally be 1" << std::endl;
+        diffState = 1;
+        return;
+    }
     Cell::diffState = diffState;
+}
+
+void Cell::addDiffState(double addedDiffState) {
+    Cell::diffState += addedDiffState;
+    if (diffState > 1) {
+        diffState = 1;
+    }
 }
 
 void Cell::setKnotCell(bool knot) {

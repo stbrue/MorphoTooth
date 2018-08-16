@@ -27,6 +27,10 @@ int Parameters::getCellsInSimulation() const {
     return cellsInSimulation;
 }
 
+int Parameters::getCellsInCenter() const {
+    return cellsInCenter;
+}
+
 double Parameters::getDelta() const {
     return delta;
 }
@@ -59,10 +63,32 @@ double Parameters::getSec2Inhibition() const {
     return sec2Inhibition;
 }
 
+double Parameters::getLbi() const {
+    return lbi;
+}
+
+double Parameters::getBbi() const {
+    return bbi;
+}
+
+double Parameters::getSwi() const {
+    return swi;
+}
+
+double Parameters::getDff() const {
+    return dff;
+}
+
 //Setters
 void Parameters::setCellsInSimulation(int cellsInSimulation) {
     Parameters::cellsInSimulation = cellsInSimulation;
 }
+
+void Parameters::setCellsInCenter(int cellsInCenter) {
+    Parameters::cellsInCenter = cellsInCenter;
+}
+
+
 
 
 

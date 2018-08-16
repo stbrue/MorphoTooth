@@ -98,6 +98,8 @@ public:
 
     void setDiffState(double diffState);
 
+    void addDiffState(double addedDiffState);
+
     void setKnotCell(bool knot);
 
     void setNeighbour(int neighbourID);

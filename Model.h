@@ -30,6 +30,8 @@ public:
     static void InhProduction(std::vector<Cell> &cells, Parameters &params, int cell);
     static void Sec1Production(std::vector<Cell> &cells, Parameters &params, int cell);
     static void Sec2Production(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void buccalLingualBias(std::vector<Cell> &cells, Parameters &params);
+    static void differenciation(std::vector<Cell> &cells, Parameters &params);
 };
 
 
