@@ -5,13 +5,13 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="MorphoTooth" targetName="gmock" />
-      <config projectName="MorphoTooth" targetName="gmock_main" />
-      <config projectName="MorphoTooth" targetName="MorphoTooth_lib" />
-      <config projectName="MorphoTooth" targetName="gtest_main" />
-      <config projectName="MorphoTooth" targetName="gtest" />
-      <config projectName="MorphoTooth" targetName="Unit_Tests_run" />
       <config projectName="MorphoTooth" targetName="MorphoTooth_run" />
+      <config projectName="MorphoTooth" targetName="gtest" />
+      <config projectName="MorphoTooth" targetName="gtest_main" />
+      <config projectName="MorphoTooth" targetName="MorphoTooth_lib" />
+      <config projectName="MorphoTooth" targetName="Unit_Tests_run" />
+      <config projectName="MorphoTooth" targetName="gmock_main" />
+      <config projectName="MorphoTooth" targetName="gmock" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -21,62 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit_tests/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Geometrics.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geometrics.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Geometrics.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geometrics.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grid.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grid.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Initial.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initial.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Initial.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initial.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Output.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parameters.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parameters.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parameters.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parameters.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeRCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.10.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/depend.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/flags.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/link.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/linklibs.rsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/objects1.rsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ToothMaker.dir/progress.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/ToothMaker.cbp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,43 +33,52 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="195">
+                    <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/unit_tests/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Geometrics_test.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Geometrics_test.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="559">
+              <caret line="308" column="3" selection-start-line="308" selection-start-column="3" selection-end-line="308" selection-end-column="3" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#69#624#1" />
+                <element signature="e#680#896#0" />
+                <element signature="e#963#1204#0" />
+                <element signature="e#1271#1491#0" />
+                <element signature="e#1546#1762#0" />
+                <element signature="e#1829#2072#0" />
+                <element signature="e#2139#2385#0" />
+                <element signature="e#2434#2662#0" />
+                <element signature="e#2722#2950#0" />
+                <element signature="e#3010#3268#0" />
+                <element signature="e#3317#3545#0" />
+                <element signature="e#3605#3860#0" />
+                <element signature="e#3920#4178#0" />
+                <element signature="e#4444#4624#0" />
+                <element signature="e#4686#4866#0" />
+                <element signature="e#4929#5109#0" />
+                <element signature="e#5251#5533#0" />
               </folding>
             </state>
           </provider>
@@ -140,41 +96,13 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="425">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/lib/googletest/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-629" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Initial.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -230,14 +158,14 @@
         <option value="$PROJECT_DIR$/Model.cpp" />
         <option value="$PROJECT_DIR$/MorphoToothTests/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/MorphoToothTests/UnitTests/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/tests/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/tests/unit_tests/sample_test.cpp" />
         <option value="$PROJECT_DIR$/src/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/tests/unit_tests/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" />
       </list>
     </option>
   </component>
@@ -250,15 +178,17 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1600" />
-    <option name="height" value="1715" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="960" />
+    <option name="width" value="960" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,11 +196,21 @@
               <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
               <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="unit_tests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,12 +232,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.MorphoTooth_run">
-    <configuration name="GeometricsTestFixture" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_MODE="SUITE_TEST" />
-    <configuration name="GeometricsTestFixture.ShouldReturnCorrectDistanceForZero" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="ShouldReturnCorrectDistanceForZero" TEST_MODE="SUITE_TEST" />
-    <configuration name="GeometricsTestFixture.centerDistance2D_PositiveIntegers" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="centerDistance2D_PositiveIntegers" TEST_MODE="SUITE_TEST" />
+  <component name="RunManager" selected="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles">
+    <configuration name="GeometricsTestFixture.crossProduct_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_NegativeDoubles" TEST_MODE="SUITE_TEST" />
+    <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_PositiveDoubles" TEST_MODE="SUITE_TEST" />
+    <configuration name="GeometricsTestFixture.crossProduct_Zero" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_Zero" TEST_MODE="SUITE_TEST" />
+    <configuration name="GeometricsTestFixture.vectorSum_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="vectorSum_NegativeDoubles" TEST_MODE="SUITE_TEST" />
+    <configuration name="GeometricsTestFixture.vectorSum_Zero" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="vectorSum_Zero" TEST_MODE="SUITE_TEST" />
     <configuration name="Unit Test" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_MODE="SUITE_TEST" />
-    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="ToothMaker_run" EXPLICIT_BUILD_TARGET_NAME="all" />
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="MorphoTooth_run" EXPLICIT_BUILD_TARGET_NAME="all" />
     <configuration name="MorphoTooth_lib" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="MorphoTooth_lib" CONFIG_NAME="Debug" />
     <configuration name="MorphoTooth_run" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="MorphoTooth_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="MorphoTooth_run" />
     <configuration name="Unit_Tests_run" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" />
@@ -315,15 +257,19 @@
       <item itemvalue="Application.gtest_main" />
       <item itemvalue="Application.Unit_Tests_run" />
       <item itemvalue="Google Test.Unit Test" />
-      <item itemvalue="Google Test.GeometricsTestFixture.ShouldReturnCorrectDistanceForZero" />
-      <item itemvalue="Google Test.GeometricsTestFixture" />
-      <item itemvalue="Google Test.GeometricsTestFixture.centerDistance2D_PositiveIntegers" />
+      <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_Zero" />
+      <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_PositiveDoubles" />
+      <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_NegativeDoubles" />
+      <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_Zero" />
+      <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Google Test.GeometricsTestFixture.centerDistance2D_PositiveIntegers" />
-        <item itemvalue="Google Test.GeometricsTestFixture.ShouldReturnCorrectDistanceForZero" />
-        <item itemvalue="Google Test.GeometricsTestFixture" />
+        <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles" />
+        <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_Zero" />
+        <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_NegativeDoubles" />
+        <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_PositiveDoubles" />
+        <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_Zero" />
       </list>
     </recent_temporary>
   </component>
@@ -346,44 +292,58 @@
       <workItem from="1534149524852" duration="44813000" />
       <workItem from="1534334180852" duration="11455000" />
       <workItem from="1534441470888" duration="1822000" />
-      <workItem from="1534444181814" duration="5148000" />
+      <workItem from="1534444181814" duration="5438000" />
+      <workItem from="1534497055873" duration="1733000" />
+      <workItem from="1534756479124" duration="2282000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unit_Test - 2018.08.16 at 20h 59m 10s.xml">
-      <configuration name="Unit Test" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_distance3D_NegativeIntegers - 2018.08.17 at 11h 32m 38s.xml">
+      <configuration name="GeometricsTestFixture.distance3D_NegativeIntegers" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="GeometricsTestFixture_ShouldReturnCorrectDistanceForZero - 2018.08.16 at 21h 37m 45s.xml">
-      <configuration name="GeometricsTestFixture.ShouldReturnCorrectDistanceForZero" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_vectorNorm3D_Zero - 2018.08.17 at 11h 35m 47s.xml">
+      <configuration name="GeometricsTestFixture.vectorNorm3D_Zero" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="GeometricsTestFixture - 2018.08.16 at 21h 38m 35s.xml">
-      <configuration name="GeometricsTestFixture" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_vectorNorm3D_PositiveDoubles - 2018.08.17 at 11h 37m 50s.xml">
+      <configuration name="GeometricsTestFixture.vectorNorm3D_PositiveDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="GeometricsTestFixture_ShouldReturnCorrectDistanceForZero - 2018.08.16 at 21h 39m 00s.xml">
-      <configuration name="GeometricsTestFixture.ShouldReturnCorrectDistanceForZero" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_vectorNorm3D_PositiveDoubles - 2018.08.17 at 11h 38m 55s.xml">
+      <configuration name="GeometricsTestFixture.vectorNorm3D_PositiveDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="GeometricsTestFixture_centerDistance2D_PositiveIntegers - 2018.08.16 at 21h 46m 42s.xml">
-      <configuration name="GeometricsTestFixture.centerDistance2D_PositiveIntegers" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_vectorNorm3D_NegativeDoubles - 2018.08.20 at 11h 15m 42s.xml">
+      <configuration name="GeometricsTestFixture.vectorNorm3D_NegativeDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="GeometricsTestFixture_centerDistance2D_PositiveIntegers - 2018.08.16 at 21h 48m 28s.xml">
-      <configuration name="GeometricsTestFixture.centerDistance2D_PositiveIntegers" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="GeometricsTestFixture_crossProduct_Zero - 2018.08.20 at 11h 32m 18s.xml">
+      <configuration name="GeometricsTestFixture.crossProduct_Zero" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="GeometricsTestFixture_crossProduct_PositiveDoubles - 2018.08.20 at 11h 34m 17s.xml">
+      <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="GeometricsTestFixture_crossProduct_NegativeDoubles - 2018.08.20 at 11h 35m 10s.xml">
+      <configuration name="GeometricsTestFixture.crossProduct_NegativeDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="GeometricsTestFixture_vectorSum_Zero - 2018.08.20 at 11h 36m 53s.xml">
+      <configuration name="GeometricsTestFixture.vectorSum_Zero" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="GeometricsTestFixture_vectorSum_NegativeDoubles - 2018.08.20 at 11h 37m 51s.xml">
+      <configuration name="GeometricsTestFixture.vectorSum_NegativeDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105276000" />
+    <option name="totallyTimeSpent" value="109581000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1293" height="698" extended-state="6" />
+    <frame x="960" y="0" width="960" height="1026" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19437939" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21443966" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.31754386" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.31698975" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.34035087" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.23786983" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -408,10 +368,64 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="33" />
+      <option name="time" value="35" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1003">
+          <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3264">
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#69#624#1" />
+            <element signature="e#680#896#0" />
+            <element signature="e#963#1204#0" />
+            <element signature="e#1271#1491#0" />
+            <element signature="e#1546#1762#0" />
+            <element signature="e#1829#2072#0" />
+            <element signature="e#2139#2385#0" />
+            <element signature="e#2434#2662#0" />
+            <element signature="e#2722#2950#0" />
+            <element signature="e#3010#3268#0" />
+            <element signature="e#3317#3545#0" />
+            <element signature="e#3605#3860#0" />
+            <element signature="e#3920#4178#0" />
+            <element signature="e#4444#4624#0" />
+            <element signature="e#4686#4866#0" />
+            <element signature="e#4929#5109#0" />
+            <element signature="e#5251#5533#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Initial.cpp" />
     <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/model.f90">
       <provider selected="true" editor-type-id="text-editor">
@@ -478,13 +492,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Initial_Cell_Centers.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="15" lean-forward="true" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Initial_Cell_Centers.txt" />
     <entry file="file://$PROJECT_DIR$/Output.h" />
     <entry file="file://$PROJECT_DIR$/Output.cpp" />
     <entry file="file://C:/Program Files (x86)/mingw-w64/i686-7.3.0-posix-dwarf-rt_v5-rev0/mingw32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/bits/stl_vector.h">
@@ -512,20 +520,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Initial.cpp" />
     <entry file="file://$PROJECT_DIR$/Model.cpp" />
-    <entry file="file://$PROJECT_DIR$/MorphoToothTests/UnitTests/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MorphoToothTests/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/MorphoToothTests/UnitTests/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/MorphoToothTests/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/src/Cell.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3672">
@@ -545,26 +541,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/sample_test.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/sample_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit_tests/sample_test.cpp" />
     <entry file="file://$PROJECT_DIR$/src/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -579,47 +556,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1003">
+          <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="425">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/lib/googletest/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-629" />
+        <state relative-caret-position="195">
+          <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+        <state relative-caret-position="51">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="308" column="3" selection-start-line="308" selection-start-column="3" selection-end-line="308" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#69#624#1" />
+            <element signature="e#680#896#0" />
+            <element signature="e#963#1204#0" />
+            <element signature="e#1271#1491#0" />
+            <element signature="e#1546#1762#0" />
+            <element signature="e#1829#2072#0" />
+            <element signature="e#2139#2385#0" />
+            <element signature="e#2434#2662#0" />
+            <element signature="e#2722#2950#0" />
+            <element signature="e#3010#3268#0" />
+            <element signature="e#3317#3545#0" />
+            <element signature="e#3605#3860#0" />
+            <element signature="e#3920#4178#0" />
+            <element signature="e#4444#4624#0" />
+            <element signature="e#4686#4866#0" />
+            <element signature="e#4929#5109#0" />
+            <element signature="e#5251#5533#0" />
+          </folding>
         </state>
       </provider>
     </entry>

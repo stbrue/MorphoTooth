@@ -19,11 +19,11 @@ int main() {
     Model::buccalLingualBias(cells, params);
     Model::differenciation(cells, params);
 
-    for (int cell = 0; cell < 19; ++cell) {
+    /*for (int cell = 0; cell < 19; ++cell) {
         std::cout << "Cell Nr.:" << cell << std::endl;
         std::cout << cells[cell].getPerimeter() << std::endl;
         std::cout << cells[cell].getCellArea() << std::endl;
-    }
+    }*/
 
     return 0;
 }
