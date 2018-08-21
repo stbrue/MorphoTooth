@@ -87,6 +87,18 @@ const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() con
     return tempProteinConcentrations;
 }
 
+double Cell::getTempX() const {
+    return tempX;
+}
+
+double Cell::getTempY() const {
+    return tempY;
+}
+
+double Cell::getTempZ() const {
+    return tempZ;
+}
+
 //Setter
 void Cell::setX(double x) {
     Cell::x = x;
@@ -206,6 +218,18 @@ void Cell::setProteinConcentration(int protein, int layer, double newConcentrati
     proteinConcentrations[protein][layer] = newConcentration;
 }
 
+void Cell::addTempX(double tempX) {
+    Cell::tempX = tempX;
+}
+
+void Cell::addTempY(double tempY) {
+    Cell::tempY = tempY;
+}
+
+void Cell::addTempZ(double tempZ) {
+    Cell::tempZ = tempZ;
+}
+
 //Constructor
 Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
     knot = false;
@@ -240,6 +264,12 @@ void Cell::resetTempProteinConcentrations() {
     }
 }
 
+void Cell::resetTempCoordinates() {
+    tempX = 0;
+    tempY = 0;
+    tempZ = 0;
+}
+
 //Printer
 
 void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation) {
@@ -253,6 +283,10 @@ void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation) {
         }
     }
 }
+
+
+
+
 
 
 

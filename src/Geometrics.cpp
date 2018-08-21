@@ -20,6 +20,21 @@ double Geometrics::centerDistance3D(Cell cell1, Cell cell2) {
     return distance;
 }
 
+double Geometrics::centerDistanceToOrigin2D(Cell cell) {
+    double x = cell.getX();
+    double y = cell.getY();
+    double distance = sqrt(x * x + y * y);
+    return distance;
+}
+
+double Geometrics::centerDistanceToOrigin3D(Cell cell) {
+    double x = cell.getX();
+    double y = cell.getY();
+    double z = cell.getZ();
+    double distance = sqrt(x * x + y * y + z * z);
+    return distance;
+}
+
 double Geometrics::distance2D(std::vector<double> v1, std::vector<double> v2) {
     double dx = v2[0] - v1[0];
     double dy = v2[1] - v1[1];
@@ -53,7 +68,7 @@ std::vector<double> Geometrics::crossProduct(std::vector<double> v1, std::vector
 
 double Geometrics::vectorSum(std::vector<double> v) {
     double sum = 0;
-    for(auto element : v){
+    for (auto element : v) {
         sum += element;
     }
     return sum;
@@ -85,7 +100,7 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int cellsIn
     }
 }
 
-void Geometrics::calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2){
+void Geometrics::calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
     double x = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getBorderPointsX()[borderPoint1];
     double y = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getBorderPointsY()[borderPoint1];
     double z = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getBorderPointsZ()[borderPoint1];
@@ -94,7 +109,7 @@ void Geometrics::calculatePerimeter(std::vector<Cell> &cells, int cell, int bord
     cells[cell].newPerimeterPart(perimeterPart);
 }
 
-void Geometrics::calculateCellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2){
+void Geometrics::calculateCellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
     double x1 = cells[cell].getBorderPointsX()[borderPoint1] - cells[cell].getX();
     double x2 = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getX();
     double y1 = cells[cell].getBorderPointsY()[borderPoint1] - cells[cell].getY();

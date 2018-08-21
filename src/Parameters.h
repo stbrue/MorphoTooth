@@ -44,6 +44,14 @@ private:
 
     double dff;
 
+    double egr;
+
+    double mgr;
+
+    double dgr;
+
+    double boy;
+
 public:
     //Constructor
     Parameters();
@@ -80,6 +88,14 @@ public:
     double getSwi() const;
 
     double getDff() const;
+
+    double getEgr() const;
+
+    double getMgr() const;
+
+    double getDgr() const;
+
+    double getBoy() const;
 
     //Setters
     void setCellsInSimulation(int cellsInSimulation);

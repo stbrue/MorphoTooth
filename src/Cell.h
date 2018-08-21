@@ -11,9 +11,15 @@ class Cell {
 private:
     double x;
 
+    double tempX;
+
     double y;
 
+    double tempY;
+
     double z;
+
+    double tempZ;
 
     int ID;
 
@@ -87,12 +93,24 @@ public:
 
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
+    double getTempX() const;
+
+    double getTempY() const;
+
+    double getTempZ() const;
+
     //Setter
     void setX(double x);
 
     void setY(double y);
 
     void setZ(double z);
+
+    void addTempX(double tempX);
+
+    void addTempY(double tempY);
+
+    void addTempZ(double tempZ);
 
     void setID(int ID);
 
@@ -135,6 +153,8 @@ public:
     void deleteNeighbour(int neighbour);
 
     void resetTempProteinConcentrations();
+
+    void resetTempCoordinates();
 
     //Printer
     static void printCellBorders(std::vector<Cell> cells, int cellsInSimulation);
