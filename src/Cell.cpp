@@ -219,15 +219,15 @@ void Cell::setProteinConcentration(int protein, int layer, double newConcentrati
 }
 
 void Cell::addTempX(double tempX) {
-    Cell::tempX = tempX;
+    Cell::tempX += tempX;
 }
 
 void Cell::addTempY(double tempY) {
-    Cell::tempY = tempY;
+    Cell::tempY += tempY;
 }
 
 void Cell::addTempZ(double tempZ) {
-    Cell::tempZ = tempZ;
+    Cell::tempZ += tempZ;
 }
 
 //Constructor

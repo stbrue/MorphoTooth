@@ -6,7 +6,7 @@
 
 //Constructor
 Parameters::Parameters() {
-    InitialRadius = 3;
+    InitialRadius = 2;
     iterations = 3;
     diffusionRates = {0.2, 0.2, 0.2, 0};
     cellsInSimulation = 0;
@@ -26,6 +26,7 @@ Parameters::Parameters() {
     bbi = 1;
     swi = 0;
     dff = 0.0002;
+    rep = 1;
 }
 
 
@@ -108,6 +109,10 @@ double Parameters::getDgr() const {
 
 double Parameters::getBoy() const {
     return boy;
+}
+
+double Parameters::getRep() const {
+    return rep;
 }
 
 //Setters

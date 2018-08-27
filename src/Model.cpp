@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <algorithm>
 #include "Model.h"
 #include "Geometrics.h"
 #include "Parameters.h"
@@ -332,6 +333,75 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
 
             }
         }
+    }
+}
+
+void Model::repulsionBetweenNonNeighbours(std::vector<Cell> &cells, Parameters &params) {
+    std::vector<double> XCompression;
+    std::vector<double> YCompression;
+    std::vector<double> ZCompression;
+
+    for (int cell1 = 0; cell1 < params.getCellsInSimulation(); ++cell1) {
+        XCompression.clear();
+        YCompression.clear();
+        ZCompression.clear();
+
+        double x1 = cells[cell1].getX();
+        double y1 = cells[cell1].getY();
+        double z1 = cells[cell1].getZ();
+
+        for (int cell2 = 0; cell2 < params.getCellsInSimulation(); ++cell2) {
+            std::vector<int> neighbours = cells[cell1].getNeighbours();
+            bool cell2IsNeighbour;
+            if (std::find(neighbours.begin(), neighbours.end(), cell2) != neighbours.end()) {
+                cell2IsNeighbour = true;
+            } else {
+                cell2IsNeighbour = false;
+            }
+            if (cell1 == cell2 ||
+                cell2IsNeighbour) { // if cell2 is the same as cell1 or if it is a neighbour of cell1 go to the next iteration
+                continue;
+            }
+
+            double x2 = cells[cell2].getX();
+            double y2 = cells[cell2].getY();
+            double z2 = cells[cell2].getZ();
+
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+            double dz = z2 - z1;
+
+            //If the cell is enough far away (in any dimension), go to the next cell
+            if (dx > 1.4 || dy > 1.4 || dz > 1.4) {
+                continue;
+            }
+
+            //rounding
+            if (fabs(dx) < 1.0e-15) {
+                dx = 0;
+            }
+            if (fabs(dy) < 1.0e-15) {
+                dy = 0;
+            }
+            if (fabs(dz) < 1.0e-15) {
+                dz = 0;
+            }
+
+            double distance3D = Geometrics::centerDistance3D(cells[cell1], cells[cell2]);
+            if (distance3D < 1.4) {
+                //the smaller the distance, the even higher the force
+                double relativeDistance = 1 / pow((distance3D + 1), 8);
+                double factor = relativeDistance / distance3D;
+                factor = static_cast<int>(fabs(factor * 1.0e8)) * 1.0e-8;
+                XCompression.push_back(-dx * factor);
+                YCompression.push_back(-dy * factor);
+                ZCompression.push_back(-dz * factor);
+            }
+        }
+
+        cells[cell1].addTempX(Geometrics::vectorSum(XCompression) * params.getRep());
+        cells[cell1].addTempY(Geometrics::vectorSum(YCompression) * params.getRep());
+        cells[cell1].addTempZ(Geometrics::vectorSum(ZCompression) * params.getRep());
     }
 }
 

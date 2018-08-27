@@ -52,6 +52,8 @@ private:
 
     double boy;
 
+    double rep;
+
 public:
     //Constructor
     Parameters();
@@ -96,6 +98,8 @@ public:
     double getDgr() const;
 
     double getBoy() const;
+
+    double getRep() const;
 
     //Setters
     void setCellsInSimulation(int cellsInSimulation);

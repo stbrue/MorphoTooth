@@ -40,6 +40,8 @@ public:
     static void epithelialProliferation(std::vector<Cell> &cells, Parameters &params);
 
     static void buoyancy(std::vector<Cell> &cells, Parameters &params);
+
+    static void repulsionBetweenNonNeighbours(std::vector<Cell> &cells, Parameters &params);
 };
 
 
