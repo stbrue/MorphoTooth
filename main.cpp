@@ -24,7 +24,7 @@ int main() {
     Model::differenciation(cells, params);
     Model::epithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
-    Model::repulsionBetweenNonNeighbours(cells, params);
+    Model::repulsion(cells, params);
 
     for (int cell = 0; cell < 19; ++cell) {
         std::cout << "Cell Nr.:" << cell << std::endl;

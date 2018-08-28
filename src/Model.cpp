@@ -336,33 +336,22 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::repulsionBetweenNonNeighbours(std::vector<Cell> &cells, Parameters &params) {
-    std::vector<double> XCompression;
-    std::vector<double> YCompression;
-    std::vector<double> ZCompression;
+void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
+    std::vector<std::vector<double>> compressionMatrixNeighbour = Model::setUpCompressionMatrix();
+    std::vector<std::vector<double>> compressionMatrixNonNeighbour = Model::setUpCompressionMatrix();
 
     for (int cell1 = 0; cell1 < params.getCellsInSimulation(); ++cell1) {
-        XCompression.clear();
-        YCompression.clear();
-        ZCompression.clear();
-
-        double x1 = cells[cell1].getX();
-        double y1 = cells[cell1].getY();
-        double z1 = cells[cell1].getZ();
+        resetCompressionMatrix(compressionMatrixNeighbour);
+        resetCompressionMatrix(compressionMatrixNonNeighbour);
 
         for (int cell2 = 0; cell2 < params.getCellsInSimulation(); ++cell2) {
-            std::vector<int> neighbours = cells[cell1].getNeighbours();
-            bool cell2IsNeighbour;
-            if (std::find(neighbours.begin(), neighbours.end(), cell2) != neighbours.end()) {
-                cell2IsNeighbour = true;
-            } else {
-                cell2IsNeighbour = false;
-            }
-            if (cell1 == cell2 ||
-                cell2IsNeighbour) { // if cell2 is the same as cell1 or if it is a neighbour of cell1 go to the next iteration
+            if (cell1 == cell2) {
                 continue;
             }
 
+            double x1 = cells[cell1].getX();
+            double y1 = cells[cell1].getY();
+            double z1 = cells[cell1].getZ();
             double x2 = cells[cell2].getX();
             double y2 = cells[cell2].getY();
             double z2 = cells[cell2].getZ();
@@ -371,37 +360,134 @@ void Model::repulsionBetweenNonNeighbours(std::vector<Cell> &cells, Parameters &
             double dy = y2 - y1;
             double dz = z2 - z1;
 
-            //If the cell is enough far away (in any dimension), go to the next cell
-            if (dx > 1.4 || dy > 1.4 || dz > 1.4) {
-                continue;
-            }
-
-            //rounding
-            if (fabs(dx) < 1.0e-15) {
-                dx = 0;
-            }
-            if (fabs(dy) < 1.0e-15) {
-                dy = 0;
-            }
-            if (fabs(dz) < 1.0e-15) {
-                dz = 0;
-            }
-
             double distance3D = Geometrics::centerDistance3D(cells[cell1], cells[cell2]);
-            if (distance3D < 1.4) {
-                //the smaller the distance, the even higher the force
-                double relativeDistance = 1 / pow((distance3D + 1), 8);
-                double factor = relativeDistance / distance3D;
-                factor = static_cast<int>(fabs(factor * 1.0e8)) * 1.0e-8;
-                XCompression.push_back(-dx * factor);
-                YCompression.push_back(-dy * factor);
-                ZCompression.push_back(-dz * factor);
-            }
-        }
+            double distance2D = Geometrics::centerDistance2D(cells[cell1], cells[cell2]);
 
-        cells[cell1].addTempX(Geometrics::vectorSum(XCompression) * params.getRep());
-        cells[cell1].addTempY(Geometrics::vectorSum(YCompression) * params.getRep());
-        cells[cell1].addTempZ(Geometrics::vectorSum(ZCompression) * params.getRep());
+            //Check for the situation
+            bool cell2IsNeighbour = Model::isNeighbourOf(cells, cell1, cell2);
+            bool neighbourIsInSimulation = cells[cell2].isInSimulation();
+            bool cell1IsEKCell = cells[cell1].isKnotCell();
+            bool cell2IsEKCell = cells[cell2].isKnotCell();
+            bool cell1IsInCenter = cells[cell1].isInCentre();
+
+            if (cell2IsNeighbour && neighbourIsInSimulation) {
+                Model::repulsionBetweenNeighbours(dx, dy, dz, distance3D, distance2D, compressionMatrixNeighbour,
+                                                  cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.getAdh());
+            } else if (cell2IsNeighbour == false) {
+                Model::repulsionBetweenNonNeighbours(dx, dy, dz, distance3D, compressionMatrixNonNeighbour);
+            }
+
+            Model::updateTempPositions(cells, params, cell1, compressionMatrixNonNeighbour, false);
+            Model::updateTempPositions(cells, params, cell1, compressionMatrixNeighbour, true);
+        }
+    }
+
+}
+
+void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+                                       std::vector<std::vector<double>> compressionMatrixNeighbours, bool cell1IsEKCell,
+                                       bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
+    //rounding
+    if (fabs(dx) < 1.0e-15) {
+        dx = 0;
+    }
+    if (fabs(dy) < 1.0e-15) {
+        dy = 0;
+    }
+    if (fabs(dz) < 1.0e-15) {
+        dz = 0;
+    }
+    if (distance2D < 1.0e-8) {
+        distance2D = 0;
+    }
+    if (distance3D < 1.0e-8) {
+        distance3D = 0;
+    }
+
+    //if both cells are enamel knot cells or the 3D distance is shorter than the 2D distance
+    if ((cell1IsEKCell && cell2IsEKCell) || (distance3D < distance2D)) {
+        double deviation = distance3D - distance2D;
+        double relativeDeviation = deviation / distance3D;
+
+        compressionMatrixNeighbours[0].push_back(dx * relativeDeviation);
+        compressionMatrixNeighbours[1].push_back(dy * relativeDeviation);
+        compressionMatrixNeighbours[2].push_back(dz * relativeDeviation);
+    }
+        // or if cell1 is in center
+        // adh: parameter for cell repulsion/adhesion
+    else if (cell1IsInCenter) {
+        compressionMatrixNeighbours[0].push_back(dx * adh);
+        compressionMatrixNeighbours[1].push_back(dy * adh);
+        compressionMatrixNeighbours[2].push_back(dz * adh);
+    }
+}
+
+void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, double distance3D,
+                                          std::vector<std::vector<double>> compressionMatrixNonNeighbours) {
+
+    //If the cell is enough far away (in any dimension) the is no repulsion
+    if (dx > 1.4 || dy > 1.4 || dz > 1.4) {
+        return;
+    }
+
+    //rounding
+    if (fabs(dx) < 1.0e-15) {
+        dx = 0;
+    }
+    if (fabs(dy) < 1.0e-15) {
+        dy = 0;
+    }
+    if (fabs(dz) < 1.0e-15) {
+        dz = 0;
+    }
+
+    if (distance3D < 1.4) {
+        //the smaller the distance, the even higher the force
+        double relativeDistance = 1 / pow((distance3D + 1), 8);
+        double factor = relativeDistance / distance3D;
+        factor = static_cast<int>(fabs(factor * 1.0e8)) * 1.0e-8;
+
+        compressionMatrixNonNeighbours[0].push_back(-dx * factor);
+        compressionMatrixNonNeighbours[1].push_back(-dy * factor);
+        compressionMatrixNonNeighbours[2].push_back(-dz * factor);
+    }
+}
+
+void Model::updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
+                                std::vector<std::vector<double>> compressionMatrix, bool isNeighbour) {
+    if (isNeighbour) {
+
+        // Rep: Parameter for repulsion between different tissues and morphology parts
+    } else {
+        cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[0]) * params.getRep());
+        cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[1]) * params.getRep());
+        cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[2]) * params.getRep());
+    }
+
+}
+
+std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
+    std::vector<double> XCompression;
+    std::vector<double> YCompression;
+    std::vector<double> ZCompression;
+
+    std::vector<std::vector<double>> compressionMatrix = {XCompression, YCompression, ZCompression};
+
+    return compressionMatrix;
+}
+
+void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix) {
+    for (int dimension = 0; dimension < 3; ++dimension) {
+        compressionMatrix[dimension].clear();
+    }
+}
+
+bool Model::isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour) {
+    std::vector<int> neighbours = cells[cell].getNeighbours();
+    if (std::find(neighbours.begin(), neighbours.end(), potentialNeighbour) != neighbours.end()) {
+        return true;
+    } else {
+        return false;
     }
 }
 

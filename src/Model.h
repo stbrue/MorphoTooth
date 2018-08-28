@@ -41,7 +41,23 @@ public:
 
     static void buoyancy(std::vector<Cell> &cells, Parameters &params);
 
-    static void repulsionBetweenNonNeighbours(std::vector<Cell> &cells, Parameters &params);
+    static void repulsionBetweenNonNeighbours(double dx, double dy, double dz, double distance3D,
+                                              std::vector<std::vector<double>> compressionMatrixNonNeighbours);
+
+    static void repulsion(std::vector<Cell> &cells, Parameters &params);
+
+    static bool isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour);
+
+    static void repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+                                           std::vector<std::vector<double>> compressionMatrixNeighbours,
+                                           bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
+
+    static std::vector<std::vector<double>> setUpCompressionMatrix();
+
+    static void resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix);
+
+    static void updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
+                                    std::vector<std::vector<double>> compressionMatrix, bool isNeighbour);
 };
 
 

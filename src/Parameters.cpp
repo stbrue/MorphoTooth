@@ -27,6 +27,7 @@ Parameters::Parameters() {
     swi = 0;
     dff = 0.0002;
     rep = 1;
+    adh = 0.001;
 }
 
 
@@ -113,6 +114,10 @@ double Parameters::getBoy() const {
 
 double Parameters::getRep() const {
     return rep;
+}
+
+double Parameters::getAdh() const {
+    return adh;
 }
 
 //Setters
