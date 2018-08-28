@@ -455,14 +455,19 @@ void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, doubl
 
 void Model::updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
                                 std::vector<std::vector<double>> compressionMatrix, bool isNeighbour) {
-    if (isNeighbour) {
+    double rep = params.getRep();
+    // Rep: Parameter for repulsion between different tissues and morphology parts
 
-        // Rep: Parameter for repulsion between different tissues and morphology parts
-    } else {
-        cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[0]) * params.getRep());
-        cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[1]) * params.getRep());
-        cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[2]) * params.getRep());
+    //if it is a neighbour cell, the repulsion parameter is maximally 1
+    if (isNeighbour) {
+        if (rep > 1) {
+            rep = 1;
+        }
     }
+
+    cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[0]) * rep);
+    cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[1]) * rep);
+    cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[2]) * rep);
 
 }
 
