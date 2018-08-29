@@ -278,6 +278,23 @@ void Cell::resetTempCoordinates() {
     tempZ = 0;
 }
 
+void Cell::updateCoordinates(double delta) {
+   // There cannot be any force in negative z-direction due to the pressure of the stelate
+    if (Cell::tempZ < 0) {
+        Cell::tempZ = 0;
+    }
+
+    //There is no force at all in z-direction, if the cell is an EK-cell
+    if (Cell::isKnotCell()) {
+        Cell::tempZ = 0;
+    }
+
+    //Apply the forces on the positions
+    Cell::x += Cell::tempX * delta;
+    Cell::y += Cell::tempY * delta;
+    Cell::z += Cell::tempZ * delta;
+}
+
 //Printer
 
 void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation) {

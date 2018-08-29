@@ -160,6 +160,8 @@ public:
 
     void resetTempCoordinates();
 
+    void updateCoordinates(double delta);
+
     //Printer
     static void printCellBorders(std::vector<Cell> cells, int cellsInSimulation);
 

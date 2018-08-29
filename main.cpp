@@ -27,12 +27,13 @@ int main() {
     Model::repulsion(cells, params);
     Model::nucleusTraction(cells, params);
     Model::anteriorPosteriorBias(cells, params);
+    Model::applyForces(cells, params);
 
-    for (int cell = 0; cell < 19; ++cell) {
+    for (int cell = 0; cell < 7; ++cell) {
         std::cout << "Cell Nr.:" << cell << std::endl;
-        std::cout << cells[cell].getTempX() << std::endl;
-        std::cout << cells[cell].getTempY() << std::endl;
-        std::cout << cells[cell].getTempZ() << std::endl;
+        std::cout << cells[cell].getX() << std::endl;
+        std::cout << cells[cell].getY() << std::endl;
+        std::cout << cells[cell].getZ() << std::endl;
     }
 
     return 0;

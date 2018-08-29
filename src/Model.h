@@ -62,6 +62,8 @@ public:
     static void nucleusTraction(std::vector<Cell> &cells, Parameters params);
 
     static void anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params);
+
+    static void applyForces(std::vector<Cell> &cells, Parameters params);
 };
 
 

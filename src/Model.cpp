@@ -461,6 +461,13 @@ void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) 
     }
 }
 
+void Model::applyForces(std::vector<Cell> &cells, Parameters params) {
+    // for each cell in simulation apply the force vector on the cell's position
+    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+        cells[cell].updateCoordinates(params.getDelta());
+    }
+}
+
 void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
                                        std::vector<std::vector<double>> compressionMatrixNeighbours, bool cell1IsEKCell,
                                        bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
