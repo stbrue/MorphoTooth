@@ -29,6 +29,10 @@ Parameters::Parameters() {
     rep = 1;
     adh = 0.001;
     ntr = 0.00001;
+    bwi = 0.8;
+    abi = 18;
+    pbi = 15;
+    bgr = 1;
 }
 
 
@@ -123,6 +127,22 @@ double Parameters::getAdh() const {
 
 double Parameters::getNtr() const {
     return ntr;
+}
+
+double Parameters::getBwi() const {
+    return bwi;
+}
+
+double Parameters::getAbi() const {
+    return abi;
+}
+
+double Parameters::getPbi() const {
+    return pbi;
+}
+
+double Parameters::getBgr() const {
+    return bgr;
 }
 
 //Setters

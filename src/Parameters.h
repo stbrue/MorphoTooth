@@ -58,6 +58,14 @@ private:
 
     double ntr;
 
+    double bwi;
+
+    double abi;
+
+    double pbi;
+
+    double bgr;
+
 public:
     //Constructor
     Parameters();
@@ -108,6 +116,14 @@ public:
     double getAdh() const;
 
     double getNtr() const;
+
+    double getBwi() const;
+
+    double getAbi() const;
+
+    double getPbi() const;
+
+    double getBgr() const;
 
     //Setters
     void setCellsInSimulation(int cellsInSimulation);

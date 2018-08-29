@@ -230,6 +230,14 @@ void Cell::addTempZ(double tempZ) {
     Cell::tempZ += tempZ;
 }
 
+void Cell::multiplyTempX(double tempX) {
+    Cell::tempX = Cell::tempX * tempX;
+}
+
+void Cell::multiplyTempZ(double tempZ) {
+    Cell::tempZ = Cell::tempZ * tempZ;
+}
+
 //Constructor
 Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
     knot = false;

@@ -108,9 +108,13 @@ public:
 
     void addTempX(double tempX);
 
+    void multiplyTempX(double tempX);
+
     void addTempY(double tempY);
 
     void addTempZ(double tempZ);
+
+    void multiplyTempZ(double tempZ);
 
     void setID(int ID);
 

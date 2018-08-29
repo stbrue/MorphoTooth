@@ -444,6 +444,23 @@ void Model::nucleusTraction(std::vector<Cell> &cells, Parameters params) {
 
 }
 
+void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) {
+    // only for cells that are not in the center
+    int firstBorderCell = params.getCellsInCenter();
+    for (int cell = firstBorderCell; cell < params.getCellsInSimulation(); ++cell) {
+        //Bwi: parameter (distance where anterior-posterior bias applies)
+        if (fabs(cells[cell].getY()) < params.getBwi()) {
+            if (cells[cell].getX() > 0) {
+                cells[cell].multiplyTempX(params.getAbi()); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempZ(params.getBgr()); //Bgr: Parameter for border growth (bias in z-direction)
+            } else if (cells[cell].getX() < 0) {
+                cells[cell].multiplyTempX(params.getPbi()); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempZ(params.getBgr()); //Bgr: Parameter for border growth (bias in z-direction)
+            }
+        }
+    }
+}
+
 void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
                                        std::vector<std::vector<double>> compressionMatrixNeighbours, bool cell1IsEKCell,
                                        bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
