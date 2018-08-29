@@ -58,6 +58,8 @@ public:
 
     static void updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
                                     std::vector<std::vector<double>> compressionMatrix, bool isNeighbour);
+
+    static void nucleusTraction(std::vector<Cell> &cells, Parameters params);
 };
 
 

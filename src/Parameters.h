@@ -56,6 +56,8 @@ private:
 
     double adh;
 
+    double ntr;
+
 public:
     //Constructor
     Parameters();
@@ -104,6 +106,8 @@ public:
     double getRep() const;
 
     double getAdh() const;
+
+    double getNtr() const;
 
     //Setters
     void setCellsInSimulation(int cellsInSimulation);

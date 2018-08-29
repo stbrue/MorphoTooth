@@ -384,6 +384,66 @@ void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
 
 }
 
+void Model::nucleusTraction(std::vector<Cell> &cells, Parameters params) {
+    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+        double totalX = 0;
+        double totalY = 0;
+        double totalZ = 0;
+        int numberOfNeighboursInSimulation = 0;
+
+        bool cellIsInCenter = cells[cell].isInCentre();
+        if (cellIsInCenter) {
+            for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+                int neighbourID = cells[cell].getNeighbours()[neighbour];
+                bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
+
+                //only neighbours that are within simulation are taken into account
+                if (neighbourIsInSimulation) {
+                    numberOfNeighboursInSimulation += 1;
+                    totalX += cells[neighbourID].getX();
+                    totalY += cells[neighbourID].getY();
+                    totalZ += cells[neighbourID].getZ();
+                }
+            }
+        } else {
+            for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+                int neighbourID = cells[cell].getNeighbours()[neighbour];
+                bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
+                bool neighbourIsInCenter = cells[neighbourID].isInCentre();
+
+                //only the neighbours that are within simulation but not in the center are taken into account
+                if (neighbourIsInSimulation && (neighbourIsInCenter == false)) {
+                    numberOfNeighboursInSimulation += 1;
+                    totalX += cells[neighbourID].getX();
+                    totalY += cells[neighbourID].getY();
+                    totalZ += cells[neighbourID].getZ();
+                }
+            }
+        }
+
+        double averageX = totalX / numberOfNeighboursInSimulation;
+        double averageY = totalY / numberOfNeighboursInSimulation;
+        double averageZ = totalZ / numberOfNeighboursInSimulation;
+
+        double XDeviationFromAverage = averageX - cells[cell].getX();
+        double YDeviationFromAverage = averageY - cells[cell].getY();
+        double ZDeviationFromAverage = averageZ - cells[cell].getZ();
+
+        // Ntr: Parameter for nuclear traction
+        cells[cell].addTempX(XDeviationFromAverage * params.getDelta() * params.getNtr());
+        cells[cell].addTempY(YDeviationFromAverage * params.getDelta() * params.getNtr());
+        // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
+        if (cells[cell].isKnotCell() == false) {
+            double inverseDiffState = 1 - cells[cell].getDiffState();
+            if (inverseDiffState < 0) {
+                inverseDiffState = 0;
+            }
+            cells[cell].addTempZ(ZDeviationFromAverage * params.getDelta() * params.getNtr() * inverseDiffState);
+        }
+    }
+
+}
+
 void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
                                        std::vector<std::vector<double>> compressionMatrixNeighbours, bool cell1IsEKCell,
                                        bool cell2IsEKCell, bool cell1IsInCenter, double adh) {

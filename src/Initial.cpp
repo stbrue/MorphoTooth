@@ -114,6 +114,7 @@ void Initial::printInitialGrid(std::vector<Cell> &cells) {
     for (auto cell : cells) {
         std::cout << cell.getID() << ": " << cell.getX() << "/" << cell.getY() << std::endl;
         std::cout << "In simulation: " << cell.isInSimulation() << std::endl;
+        std::cout << "In center: " << cell.isInCentre() << std::endl;
     }
 }
 
@@ -139,9 +140,7 @@ void Initial::labelCellsInSimulation(std::vector<Cell> &cells, Parameters &param
 }
 
 void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
-    int cellsOutCentre = 6 * (params.getInitialRadius() - 1);
-    int cellsInCentre = params.getCellsInSimulation() - cellsOutCentre;
-
+    int cellsInCentre = ((params.getInitialRadius() - 1) * 6) + 1;
     params.setCellsInCenter(cellsInCentre);
 
     //change state of "inCentre" for all these cells

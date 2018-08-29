@@ -28,6 +28,7 @@ Parameters::Parameters() {
     dff = 0.0002;
     rep = 1;
     adh = 0.001;
+    ntr = 0.00001;
 }
 
 
@@ -118,6 +119,10 @@ double Parameters::getRep() const {
 
 double Parameters::getAdh() const {
     return adh;
+}
+
+double Parameters::getNtr() const {
+    return ntr;
 }
 
 //Setters
