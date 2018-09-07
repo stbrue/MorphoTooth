@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Input.h"
 #include "Initial.h"
 #include "Output.h"
 #include "Geometrics.h"
@@ -9,7 +10,7 @@
 int main() {
 
     //Make instance of Parameters
-    Parameters params;
+    Parameters params = Input::defineParameters();
 
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(params);
@@ -21,7 +22,7 @@ int main() {
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
-    Model::differenciation(cells, params);
+    Model::differentiation(cells, params);
     Model::epithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsion(cells, params);

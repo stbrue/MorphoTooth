@@ -297,7 +297,7 @@ void Cell::updateCoordinates(double delta) {
 
 //Printer
 
-void Cell::printCellBorders(std::vector<Cell> cells, int cellsInSimulation) {
+void Cell::printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation) {
     for (int cell = 0; cell < cells.size(); ++cell) {
         std::cout << "Cell Nr. " << cell << std::endl;
         for (int point = 0; point < cells[cell].getBorderPointsX().size(); ++point) {

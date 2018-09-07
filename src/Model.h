@@ -35,7 +35,7 @@ public:
 
     static void buccalLingualBias(std::vector<Cell> &cells, Parameters &params);
 
-    static void differenciation(std::vector<Cell> &cells, Parameters &params);
+    static void differentiation(std::vector<Cell> &cells, Parameters &params);
 
     static void epithelialProliferation(std::vector<Cell> &cells, Parameters &params);
 

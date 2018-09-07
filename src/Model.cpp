@@ -8,12 +8,13 @@
 #include "Geometrics.h"
 #include "Parameters.h"
 
+
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
     //Calculate for each cell its perimeter and area
-    Geometrics::calculatePerimeterAndArea(cells, params.getCellsInSimulation());
+    Geometrics::calculatePerimeterAndArea(cells, params.nrCellsInSimulation);
 
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //Total diffusion area = perimeter + 2 * area (bottom and top area)
         double perimeter = cells[cell].getPerimeter();
         double cellArea = cells[cell].getCellArea();
@@ -46,10 +47,10 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
     }
 
     // Calculate the final protein concentrations (including diffusion coefficients and delta)
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int protein = 0; protein < 4; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
-                double newConcentration = params.getDelta() * params.getDiffusionRates()[protein] *
+                double newConcentration = params.delta * params.diffusionRates[protein] *
                                           cells[cell].getTempProteinConcentrations()[protein][layer];
                 cells[cell].addProteinConcentration(protein, layer, newConcentration);
             }
@@ -60,7 +61,7 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         EKDifferentiation(cells, params, cell);
         ActReactionAndDegradation(cells, params, cell);
         InhProduction(cells, params, cell);
@@ -71,11 +72,11 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
     //Error handling (test if new concentrations are too high)?
 
     //Update the final protein concentrations (including delta)
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int protein = 0; protein < 4; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double newConcentration =
-                        params.getDelta() * cells[cell].getTempProteinConcentrations()[protein][layer];
+                        params.delta * cells[cell].getTempProteinConcentrations()[protein][layer];
                 cells[cell].addProteinConcentration(protein, layer, newConcentration);
                 //Remove negative concentration values
                 if (cells[cell].getProteinConcentrations()[protein][layer] < 0) {
@@ -90,20 +91,20 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
 
 void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
     //for all center cells
-    for (int cell = 0; cell < params.getCellsInCenter(); ++cell) {
-        if (cells[cell].getY() < -params.getSwi()) {
-            cells[cell].setProteinConcentration(0, 0, params.getLbi());
-        } else if (cells[cell].getY() > params.getSwi()) {
-            cells[cell].setProteinConcentration(0, 0, params.getBbi());
+    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
+        if (cells[cell].getY() < -params.swi) {
+            cells[cell].setProteinConcentration(0, 0, params.lbi);
+        } else if (cells[cell].getY() > params.swi) {
+            cells[cell].setProteinConcentration(0, 0, params.bbi);
         }
     }
 }
 
-void Model::differenciation(std::vector<Cell> &cells, Parameters &params) {
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+void Model::differentiation(std::vector<Cell> &cells, Parameters &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //Increase the diff state of each cell
         double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
-        double addDiff = params.getDff() * epithelialSec1Concentration;
+        double addDiff = params.dff * epithelialSec1Concentration;
         cells[cell].addDiffState(addDiff);
     }
 }
@@ -118,7 +119,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     double totalDeviation = 0;
 
     //for all cells in the center
-    for (int cell = 0; cell < params.getCellsInCenter(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
         bool isKnotCell = cells[cell].isKnotCell();
         if (isKnotCell) {
             continue;
@@ -149,7 +150,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             double diffFactor = 0;
             double cellDrift = 0;
 
-            deviationFactor = params.getEgr() / totalDeviation;
+            deviationFactor = params.egr / totalDeviation;
 
             // the higher the differentiation, the lower the effect of deviations in position
             diffFactor = 1 - cells[cell].getDiffState();
@@ -166,7 +167,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     }
 
     //for border cells (within simulation)
-    for (int cell = params.getCellsInCenter(); cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = params.nrCellsInCenter; cell < params.nrCellsInSimulation; ++cell) {
         double angle1 = -0.3;
         double angle2 = 0;
         double angle3 = 0;
@@ -283,14 +284,14 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
         d = sqrt(aa * aa + bb * bb);
         double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
         if (d > 0) {
-            factor = (d + params.getMgr() * epithelialSec1Concentration) / d;
+            factor = (d + params.mgr * epithelialSec1Concentration) / d;
             aa = aa * factor;
             bb = bb * factor;
         }
 
-        d = sqrt(aa * aa + bb * bb + params.getDgr() * params.getDgr());
+        d = sqrt(aa * aa + bb * bb + params.dgr * params.dgr);
         if (d > 0) {
-            factor = params.getEgr() / d;
+            factor = params.egr / d;
             double invertDiffState = 1 - cells[cell].getDiffState();
             if (invertDiffState < 0) {
                 invertDiffState = 0;
@@ -300,13 +301,13 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
 
             cells[cell].addTempX(aa * factor);
             cells[cell].addTempY(bb * factor);
-            cells[cell].addTempZ(params.getDgr() * factor);
+            cells[cell].addTempZ(params.dgr * factor);
         }
     }
 }
 
 void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         double distanceToOrigin2D = Geometrics::centerDistanceToOrigin2D(cells[cell]);
         if (distanceToOrigin2D > 0) {
             double distanceToOrigin3D = Geometrics::centerDistanceToOrigin3D(cells[cell]);
@@ -316,7 +317,7 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
             double relativeDistance = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
                                            distanceToOrigin2D * distanceToOrigin2D);
             double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
-            relativeDistance = params.getBoy() * epithelialSec1Concentration / relativeDistance;
+            relativeDistance = params.boy * epithelialSec1Concentration / relativeDistance;
 
             if (relativeDistance > 0) {
                 double inverseDiffState = 1 - cells[cell].getDiffState();
@@ -340,11 +341,11 @@ void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
     std::vector<std::vector<double>> compressionMatrixNeighbour = Model::setUpCompressionMatrix();
     std::vector<std::vector<double>> compressionMatrixNonNeighbour = Model::setUpCompressionMatrix();
 
-    for (int cell1 = 0; cell1 < params.getCellsInSimulation(); ++cell1) {
+    for (int cell1 = 0; cell1 < params.nrCellsInSimulation; ++cell1) {
         resetCompressionMatrix(compressionMatrixNeighbour);
         resetCompressionMatrix(compressionMatrixNonNeighbour);
 
-        for (int cell2 = 0; cell2 < params.getCellsInSimulation(); ++cell2) {
+        for (int cell2 = 0; cell2 < params.nrCellsInSimulation; ++cell2) {
             if (cell1 == cell2) {
                 continue;
             }
@@ -372,7 +373,7 @@ void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
 
             if (cell2IsNeighbour && neighbourIsInSimulation) {
                 Model::repulsionBetweenNeighbours(dx, dy, dz, distance3D, distance2D, compressionMatrixNeighbour,
-                                                  cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.getAdh());
+                                                  cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
             } else if (cell2IsNeighbour == false) {
                 Model::repulsionBetweenNonNeighbours(dx, dy, dz, distance3D, compressionMatrixNonNeighbour);
             }
@@ -385,7 +386,7 @@ void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::nucleusTraction(std::vector<Cell> &cells, Parameters params) {
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         double totalX = 0;
         double totalY = 0;
         double totalZ = 0;
@@ -430,15 +431,15 @@ void Model::nucleusTraction(std::vector<Cell> &cells, Parameters params) {
         double ZDeviationFromAverage = averageZ - cells[cell].getZ();
 
         // Ntr: Parameter for nuclear traction
-        cells[cell].addTempX(XDeviationFromAverage * params.getDelta() * params.getNtr());
-        cells[cell].addTempY(YDeviationFromAverage * params.getDelta() * params.getNtr());
+        cells[cell].addTempX(XDeviationFromAverage * params.delta * params.ntr);
+        cells[cell].addTempY(YDeviationFromAverage * params.delta * params.ntr);
         // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
         if (cells[cell].isKnotCell() == false) {
             double inverseDiffState = 1 - cells[cell].getDiffState();
             if (inverseDiffState < 0) {
                 inverseDiffState = 0;
             }
-            cells[cell].addTempZ(ZDeviationFromAverage * params.getDelta() * params.getNtr() * inverseDiffState);
+            cells[cell].addTempZ(ZDeviationFromAverage * params.delta * params.ntr * inverseDiffState);
         }
     }
 
@@ -446,16 +447,16 @@ void Model::nucleusTraction(std::vector<Cell> &cells, Parameters params) {
 
 void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) {
     // only for cells that are not in the center
-    int firstBorderCell = params.getCellsInCenter();
-    for (int cell = firstBorderCell; cell < params.getCellsInSimulation(); ++cell) {
+    int firstBorderCell = params.nrCellsInCenter;
+    for (int cell = firstBorderCell; cell < params.nrCellsInSimulation; ++cell) {
         //Bwi: parameter (distance where anterior-posterior bias applies)
-        if (fabs(cells[cell].getY()) < params.getBwi()) {
+        if (fabs(cells[cell].getY()) < params.bwi) {
             if (cells[cell].getX() > 0) {
-                cells[cell].multiplyTempX(params.getAbi()); //Abi: Parameter for anterior bias
-                cells[cell].multiplyTempZ(params.getBgr()); //Bgr: Parameter for border growth (bias in z-direction)
+                cells[cell].multiplyTempX(params.abi); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempZ(params.bgr); //Bgr: Parameter for border growth (bias in z-direction)
             } else if (cells[cell].getX() < 0) {
-                cells[cell].multiplyTempX(params.getPbi()); //Abi: Parameter for anterior bias
-                cells[cell].multiplyTempZ(params.getBgr()); //Bgr: Parameter for border growth (bias in z-direction)
+                cells[cell].multiplyTempX(params.abi); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempZ(params.bgr); //Bgr: Parameter for border growth (bias in z-direction)
             }
         }
     }
@@ -463,8 +464,8 @@ void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) 
 
 void Model::applyForces(std::vector<Cell> &cells, Parameters params) {
     // for each cell in simulation apply the force vector on the cell's position
-    for (int cell = 0; cell < params.getCellsInSimulation(); ++cell) {
-        cells[cell].updateCoordinates(params.getDelta());
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        cells[cell].updateCoordinates(params.delta);
     }
 }
 
@@ -539,7 +540,7 @@ void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, doubl
 
 void Model::updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
                                 std::vector<std::vector<double>> compressionMatrix, bool isNeighbour) {
-    double rep = params.getRep();
+    double rep = params.rep;
     // Rep: Parameter for repulsion between different tissues and morphology parts
 
     //if it is a neighbour cell, the repulsion parameter is maximally 1
@@ -634,12 +635,12 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[1][0];
     double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[3][0];
 
-    double positiveTerm = params.getAct() * epithelialActConcentration - epithelialSec2Concentration;
+    double positiveTerm = params.act * epithelialActConcentration - epithelialSec2Concentration;
     if (positiveTerm < 0) {
         positiveTerm = 0;
     }
-    double negativeTerm = 1 + params.getInh() * epithelialInhConcentration;
-    double degradation = params.getMu() * epithelialActConcentration;
+    double negativeTerm = 1 + params.inh * epithelialInhConcentration;
+    double degradation = params.mu * epithelialActConcentration;
 
     //concentration difference: reaction - degradation
     double newConcentration = positiveTerm / negativeTerm - degradation;
@@ -654,10 +655,10 @@ void Model::InhProduction(std::vector<Cell> &cells, Parameters &params, int cell
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
-    if (diffState > params.getInT()) {
-        newConcentration = epithelialActConcentration * diffState - params.getMu() * epithelialInhConcentration;
+    if (diffState > params.inT) {
+        newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
     } else if (isKnotCell) {
-        newConcentration = epithelialActConcentration - params.getMu() * epithelialInhConcentration;
+        newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
     }
     cells[cell].addTempConcentration(1, 0, newConcentration);
 }
@@ -668,10 +669,10 @@ void Model::Sec1Production(std::vector<Cell> &cells, Parameters &params, int cel
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
-    if (diffState > params.getSet()) {
-        newConcentration = params.getSec() * diffState - params.getMu() * epithelialSec1Concentration;
+    if (diffState > params.set) {
+        newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
     } else if (isKnotCell) {
-        newConcentration = params.getSec() - params.getMu() * epithelialSec1Concentration;
+        newConcentration = params.sec - params.mu * epithelialSec1Concentration;
     }
 
     if (newConcentration < 0) {
@@ -686,8 +687,8 @@ void Model::Sec2Production(std::vector<Cell> &cells, Parameters &params, int cel
     double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[3][0];
 
     double newConcentration =
-            params.getAct() * epithelialActConcentration - params.getMu() * epithelialSec2Concentration -
-            params.getSec2Inhibition() * epithelialSec1Concentration;
+            params.act * epithelialActConcentration - params.mu * epithelialSec2Concentration -
+            params.sec2Inhibition * epithelialSec1Concentration;
     if (newConcentration < 0) {
         newConcentration = 0;
     }

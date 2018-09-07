@@ -11,7 +11,7 @@
 class Grid {
 
 public:
-    static void calculateInitialCellBorders(std::vector<Cell> &cells, int cellsInSimulation);
+    static void calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation);
     static void setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2);
 
 

@@ -6,8 +6,8 @@
 #include "Grid.h"
 #include "Initial.h"
 
-void Grid::calculateInitialCellBorders(std::vector<Cell> &cells, int cellsInSimulation) {
-    for (int centreCell = 0; centreCell < cellsInSimulation; ++centreCell) {
+void Grid::calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation) {
+    for (int centreCell = 0; centreCell < nrCellsInSimulation; ++centreCell) {
         //last and first neighbour
         int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
         int neighbour2 = 0;

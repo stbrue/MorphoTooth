@@ -25,7 +25,7 @@ public:
 
     static double vectorSum(std::vector<double> v);
 
-    static void calculatePerimeterAndArea(std::vector<Cell> &cells, int cellsInSimulation);
+    static void calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation);
 
     static void calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
 

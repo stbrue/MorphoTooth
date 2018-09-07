@@ -8,76 +8,171 @@
 
 #include <vector>
 
-class Parameters {
-private:
-    int InitialRadius;
+/**
+ * Contains all parameter (values that are set in the beginning or that have to be accessed globally)
+ */
+struct Parameters {
+public:
+    /**
+     * Defines the initial amount of total cells and cells that are in the center
+     */
+    int initialRadius;
 
+    /**
+     * How often the forces and reactions are applied and calculated in total
+     */
     int iterations;
 
+    /**
+     * Each protein has its own diffusion rate. The higher the rate the more of this protein diffuses
+     */
     std::vector<double> diffusionRates;
 
-    int cellsInSimulation;
+    /**
+     * How many cells are included in the calculations.
+     * Only cells that have a closed sequence of neighbours (that are not at the border) are included
+     */
+    int nrCellsInSimulation;
 
-    int cellsInCenter;
+    /**
+     * How many cells are in the center
+     * Depends on InitialRadius
+     */
+    int nrCellsInCenter;
 
+    /**
+     * This factor is multiplied with the forces to reduce their impact. To avoid too big fluctuations
+     */
     double delta;
 
-    double Act;
+    /**
+     * How strong the effect of Act activating itself is
+     */
+    double act;
 
-    double Inh;
+    /**
+     * How strong the effect of Inh inhibiting Act is
+     */
+    double inh;
 
+    /**
+     * Degradation rates of gene products
+     */
     double mu;
 
+    /**
+     * An inductive threshold. If the concentration of Act is higher than this threshold then Inh is produced
+     */
     double inT;
 
+    /**
+     * Fgf threshold. If the concentration of Act is higher than this threshold, then Sec1 (ECM) is produced
+     */
     double set;
 
+    /**
+     * Sec1 (ECM) production rate
+     */
     double sec;
 
+    /**
+     * Same as inT?
+     */
     double sec2Inhibition;
 
+    /**
+     * Act concentration beyond swi (distance of initial BMP from midline)
+     * Bias by initial BMP distribution in buccal direction
+     */
     double lbi;
 
+    /**
+     * Act concentration beyond swi (distance of initial BMP from midline)
+     * Bias by initial BMP distribution in lingual direction
+     */
     double bbi;
 
+    /**
+     * Distance of initial BMP from midline
+     * bucco-lingual bias
+     */
     double swi;
 
+    /**
+     * Differentiation rate
+     */
     double dff;
 
+    /**
+     * Epithelial proliferation rate
+     */
     double egr;
 
+    /**
+     * Mesenchymal proliferation rate
+     */
     double mgr;
 
+    /**
+     * Downgrowth (cervical loop)
+     */
     double dgr;
 
+    /**
+     * Buoyancy, determined by the expression of Inh
+     */
     double boy;
 
+    /**
+     * Repulsion between different tissues and different morphology parts
+     */
     double rep;
 
+    /**
+     * Neighbour traction (effect of adhesion and repulsion between neighbours)
+     */
     double adh;
 
+    /**
+     * Nuclear traction
+     * Affects cell size
+     */
     double ntr;
 
+    /**
+     * distance at which anterior-posterior bias applies
+     */
     double bwi;
 
+    /**
+     * anterior bias by mechanical asymmetries
+     */
     double abi;
 
+    /**
+     * posterior bias by mechanical asymmetries
+     */
     double pbi;
 
+    /**
+     * Border growth: strength of BMP effect
+     * Bias in z-direction
+     */
     double bgr;
 
 public:
     //Constructor
-    Parameters();
+    //Parameters();
 
     //Getters
+    /*
     int getInitialRadius() const;
 
     std::vector<double> getDiffusionRates();
 
-    int getCellsInSimulation() const;
+    int getNrCellsInSimulation() const;
 
-    int getCellsInCenter() const;
+    int getNrCellsInCenter() const;
 
     double getDelta() const;
 
@@ -124,11 +219,12 @@ public:
     double getPbi() const;
 
     double getBgr() const;
+     */
 
     //Setters
-    void setCellsInSimulation(int cellsInSimulation);
+    //void setNrCellsInSimulation(int nrCellsInSimulation);
 
-    void setCellsInCenter(int cellsInCenter);
+    //void setNrCellsInCenter(int nrCellsInCenter);
 };
 
 

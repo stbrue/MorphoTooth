@@ -17,7 +17,7 @@ set(SOURCE_FILES
         Model.cpp
         Output.cpp
         Parameters.cpp
-        )
+        Input.cpp Input.h)
 
 
 add_library(${CMAKE_PROJECT_NAME}_lib STATIC

@@ -74,9 +74,9 @@ double Geometrics::vectorSum(std::vector<double> v) {
     return sum;
 }
 
-void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int cellsInSimulation) {
+void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation) {
 
-    for (int cell = 0; cell < cellsInSimulation; ++cell) {
+    for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
 
         //Last and first neighbour
         int borderPoint1 = (cells[cell].getBorderPointsX().size() - 1);

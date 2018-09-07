@@ -5,11 +5,11 @@
 #include "Parameters.h"
 
 //Constructor
-Parameters::Parameters() {
+/*Parameters::Parameters() {
     InitialRadius = 2;
     iterations = 3;
     diffusionRates = {0.2, 0.2, 0.2, 0};
-    cellsInSimulation = 0;
+    nrCellsInSimulation = 0;
     delta = 0.05;
     egr = 0.017;
     mgr = 200;
@@ -34,8 +34,8 @@ Parameters::Parameters() {
     pbi = 15;
     bgr = 1;
 }
-
-
+*/
+/*
 //Getters
 int Parameters::getInitialRadius() const {
     return InitialRadius;
@@ -45,12 +45,12 @@ std::vector<double> Parameters::getDiffusionRates() {
     return diffusionRates;
 }
 
-int Parameters::getCellsInSimulation() const {
-    return cellsInSimulation;
+int Parameters::getNrCellsInSimulation() const {
+    return nrCellsInSimulation;
 }
 
-int Parameters::getCellsInCenter() const {
-    return cellsInCenter;
+int Parameters::getNrCellsInCenter() const {
+    return nrCellsInCenter;
 }
 
 double Parameters::getDelta() const {
@@ -144,15 +144,17 @@ double Parameters::getPbi() const {
 double Parameters::getBgr() const {
     return bgr;
 }
-
+*/
+/*
 //Setters
-void Parameters::setCellsInSimulation(int cellsInSimulation) {
-    Parameters::cellsInSimulation = cellsInSimulation;
+void Parameters::setNrCellsInSimulation(int nrCellsInSimulation) {
+    Parameters::nrCellsInSimulation = nrCellsInSimulation;
 }
 
-void Parameters::setCellsInCenter(int cellsInCenter) {
-    Parameters::cellsInCenter = cellsInCenter;
+void Parameters::setNrCellsInCenter(int nrCellsInCenter) {
+    Parameters::nrCellsInCenter = nrCellsInCenter;
 }
+ */
 
 
 

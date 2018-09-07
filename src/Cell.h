@@ -7,50 +7,127 @@
 
 #include <vector>
 
+/**
+ * Object that contains all information and features about a cell
+ */
 class Cell {
 private:
+    /**
+     * position on the x-axis
+     */
     double x;
 
+    /**
+     * temp coordinates are used to cache the position changes resulting from the diffferent forces
+     * and are applied on the position after all forces are calculated
+     */
     double tempX;
 
+    /**
+     * position on the y-axis
+     */
     double y;
 
+    /**
+     * temp coordinates are used to cache the position changes resulting from the diffferent forces
+     * and are applied on the position after all forces are calculated
+     */
     double tempY;
 
+    /**
+     * position on the z-axis
+     */
     double z;
 
+    /**
+     * temp coordinates are used to cache the position changes resulting from the diffferent forces
+     * and are applied on the position after all forces are calculated
+     */
     double tempZ;
 
+    /**
+     * The ID of a cell is identical with their index in the vector containing all cells
+     */
     int ID;
 
+    /**
+     * contains all neighbours (their ID). The order is relevant (clockwise order)
+     */
     std::vector<int> neighbours;
 
+    /**
+     * the differentiation state is a variable indicating the "age" of a cell
+     */
     double diffState;
 
+    /**
+     * proteinConcentrations[protein][layer]
+     * Proteins: Act, Inh, Sec1, Sec2
+     * Layers: Epithelium, Mesenchyme1, Mesenchyme2,.. MesenchymeThickness
+     */
     std::vector<std::vector<double>> proteinConcentrations;
 
+    /**
+     * tempProteinConcentrations[protein][layer]
+     *
+     * contains the resulting concentration changes based on concentration differences
+     */
     std::vector<std::vector<double>> tempProteinConcentrations;
 
+    /**
+     * If this cell is an enamel knot cell
+     */
     bool knot;
 
+    /**
+     * A cell is within simulation if it has neighbours on all sides i.e. if it is not at the border
+     */
     bool inSimulation;
 
+    /**
+     * is true if the cell is in the center of the cell compound.
+     * The radius of "center" is defined by the parameter initialRadius
+     */
     bool inCentre;
 
+    /**
+     * MesenchymeThickness indicates how many mesenchyme cells lay under the epithelium cell
+     */
     int mesenchymeThickness;
 
+    /**
+     * This vector contains the x coordinates of all voronoi vertices around the cell centre
+     */
     std::vector<double> borderPointsX;
 
+    /**
+     * This vector contains the y coordinates of all voronoi vertices around the cell centre
+     */
     std::vector<double> borderPointsY;
 
+    /**
+     * This vector contains the z coordinates of all voronoi vertices around the cell centre
+     */
     std::vector<double> borderPointsZ;
 
+    /**
+     * Contains the lengths of the polygon sides. Their sum is the perimeter of the polygon
+     */
     std::vector<double> perimeterParts;
 
+    /**
+     * Contains the triangles of the polygon area. Their sum is the area of the polygon
+     */
     std::vector<double> areaParts;
 
+    /**
+     * Perimeter of the polygon (cell)
+     */
     double perimeter;
 
+    /**
+     * Area of the polygon (cell)
+     */
     double cellArea;
 
 public:
@@ -106,8 +183,16 @@ public:
 
     void setZ(double z);
 
+    /**
+     * Increments the variable tempX by a certain amount
+     * @param tempX
+     */
     void addTempX(double tempX);
 
+    /**
+     * Multiplies the variable tempX by a certain amount
+     * @param tempX
+     */
     void multiplyTempX(double tempX);
 
     void addTempY(double tempY);
@@ -120,6 +205,10 @@ public:
 
     void setDiffState(double diffState);
 
+    /**
+     * Increments the variable diffState by a certain amount
+     * @param addedDiffState
+     */
     void addDiffState(double addedDiffState);
 
     void setKnotCell(bool knot);
@@ -144,8 +233,21 @@ public:
 
     void setCellArea(double cellArea);
 
+    /**
+     * Increments the variable proteinConcentration[protein][layer] by newConcentration
+     *
+     * @param protein
+     * @param layer
+     * @param newConcentration
+     */
     void addProteinConcentration(int protein, int layer, double newConcentration);
 
+    /**
+     * Increments the variable tempConcentrations[protein][layer] by addedConcentration
+     * @param protein
+     * @param layer
+     * @param addedConcentration
+     */
     void addTempConcentration(int protein, int layer, double addedConcentration);
 
     void setProteinConcentration(int protein, int layer, double newConcentration);
@@ -156,14 +258,24 @@ public:
     //Editors
     void deleteNeighbour(int neighbour);
 
+    /**
+     * sets the vector tempConcentrations to 0
+     */
     void resetTempProteinConcentrations();
 
+    /**
+     * sets the vector tempCoordinates to 0
+     */
     void resetTempCoordinates();
 
+    /**
+     * Calculates the new position of the cell by adding the temp coordinates multiplied with delta
+     * @param delta
+     */
     void updateCoordinates(double delta);
 
     //Printer
-    static void printCellBorders(std::vector<Cell> cells, int cellsInSimulation);
+    static void printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation);
 
 
 };

@@ -24,7 +24,7 @@ public:
 
     static double nextY(double centerX, int neighbour);
 
-    static std::vector<Cell> makeInitialGrid(Parameters &parameters);
+    static std::vector<Cell> makeInitialGrid(Parameters &params);
 
     static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
 
@@ -32,11 +32,11 @@ public:
 
     static void printInitialNeighbours(std::vector<Cell> cells);
 
-    static void labelCellsInSimulation(std::vector<Cell> &cells, Parameters &params);
+    static void labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &params);
 
     static void labelCellsInCentre(std::vector<Cell> &cells, Parameters &params);
 
-    static void reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int cellsInSimulation);
+    static void reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCellsInSimulation);
 
     static bool isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour);
 };
