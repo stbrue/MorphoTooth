@@ -14,217 +14,151 @@
 struct Parameters {
 public:
     /**
-     * Defines the initial amount of total cells and cells that are in the center
+     * @brief   Defines the initial amount of total cells and cells that are in the center
      */
     int initialRadius;
 
     /**
-     * How often the forces and reactions are applied and calculated in total
+     * @brief   How often the forces and reactions are applied and calculated in total
      */
     int iterations;
 
     /**
-     * Each protein has its own diffusion rate. The higher the rate the more of this protein diffuses
+     * @brief   Each protein has its own diffusion rate. The higher the rate the more of this protein diffuses
      */
     std::vector<double> diffusionRates;
 
     /**
-     * How many cells are included in the calculations.
+     * @brief   How many cells are included in the calculations.
      * Only cells that have a closed sequence of neighbours (that are not at the border) are included
      */
     int nrCellsInSimulation;
 
     /**
-     * How many cells are in the center
+     * @brief   How many cells are in the center
      * Depends on InitialRadius
      */
     int nrCellsInCenter;
 
     /**
-     * This factor is multiplied with the forces to reduce their impact. To avoid too big fluctuations
+     * @brief   This factor is multiplied with the forces to reduce their impact. To avoid too big fluctuations
      */
     double delta;
 
     /**
-     * How strong the effect of Act activating itself is
+     * @brief   How strong the effect of Act activating itself is
      */
     double act;
 
     /**
-     * How strong the effect of Inh inhibiting Act is
+     * @brief   How strong the effect of Inh inhibiting Act is
      */
     double inh;
 
     /**
-     * Degradation rates of gene products
+     * @brief   Degradation rates of gene products
      */
     double mu;
 
     /**
-     * An inductive threshold. If the concentration of Act is higher than this threshold then Inh is produced
+     * @brief   An inductive threshold. If the concentration of Act is higher than this threshold then Inh is produced
      */
     double inT;
 
     /**
-     * Fgf threshold. If the concentration of Act is higher than this threshold, then Sec1 (ECM) is produced
+     * @brief   Fgf threshold. If the concentration of Act is higher than this threshold, then Sec1 (ECM) is produced
      */
     double set;
 
     /**
-     * Sec1 (ECM) production rate
+     * @brief   Sec1 (ECM) production rate
      */
     double sec;
 
     /**
-     * Same as inT?
+     * @brief   Same as inT?
      */
     double sec2Inhibition;
 
     /**
-     * Act concentration beyond swi (distance of initial BMP from midline)
+     * @brief   Act concentration beyond swi (distance of initial BMP from midline)
      * Bias by initial BMP distribution in buccal direction
      */
     double lbi;
 
     /**
-     * Act concentration beyond swi (distance of initial BMP from midline)
+     * @brief   Act concentration beyond swi (distance of initial BMP from midline)
      * Bias by initial BMP distribution in lingual direction
      */
     double bbi;
 
     /**
-     * Distance of initial BMP from midline
+     * @brief   Distance of initial BMP from midline
      * bucco-lingual bias
      */
     double swi;
 
     /**
-     * Differentiation rate
+     * @brief   Differentiation rate
      */
     double dff;
 
     /**
-     * Epithelial proliferation rate
+     * @brief   Epithelial proliferation rate
      */
     double egr;
 
     /**
-     * Mesenchymal proliferation rate
+     * @brief   Mesenchymal proliferation rate
      */
     double mgr;
 
     /**
-     * Downgrowth (cervical loop)
+     * @brief   Downgrowth (cervical loop)
      */
     double dgr;
 
     /**
-     * Buoyancy, determined by the expression of Inh
+     * @brief   Buoyancy, determined by the expression of Inh
      */
     double boy;
 
     /**
-     * Repulsion between different tissues and different morphology parts
+     * @brief   Repulsion between different tissues and different morphology parts
      */
     double rep;
 
     /**
-     * Neighbour traction (effect of adhesion and repulsion between neighbours)
+     * @brief   Neighbour traction (effect of adhesion and repulsion between neighbours)
      */
     double adh;
 
     /**
-     * Nuclear traction
+     * @brief   Nuclear traction
      * Affects cell size
      */
     double ntr;
 
     /**
-     * distance at which anterior-posterior bias applies
+     * @brief   distance at which anterior-posterior bias applies
      */
     double bwi;
 
     /**
-     * anterior bias by mechanical asymmetries
+     * @brief   anterior bias by mechanical asymmetries
      */
     double abi;
 
     /**
-     * posterior bias by mechanical asymmetries
+     * @brief   posterior bias by mechanical asymmetries
      */
     double pbi;
 
     /**
-     * Border growth: strength of BMP effect
+     * @brief   Border growth: strength of BMP effect
      * Bias in z-direction
      */
     double bgr;
-
-public:
-    //Constructor
-    //Parameters();
-
-    //Getters
-    /*
-    int getInitialRadius() const;
-
-    std::vector<double> getDiffusionRates();
-
-    int getNrCellsInSimulation() const;
-
-    int getNrCellsInCenter() const;
-
-    double getDelta() const;
-
-    double getAct() const;
-
-    double getInh() const;
-
-    double getMu() const;
-
-    double getInT() const;
-
-    double getSet() const;
-
-    double getSec() const;
-
-    double getSec2Inhibition() const;
-
-    double getLbi() const;
-
-    double getBbi() const;
-
-    double getSwi() const;
-
-    double getDff() const;
-
-    double getEgr() const;
-
-    double getMgr() const;
-
-    double getDgr() const;
-
-    double getBoy() const;
-
-    double getRep() const;
-
-    double getAdh() const;
-
-    double getNtr() const;
-
-    double getBwi() const;
-
-    double getAbi() const;
-
-    double getPbi() const;
-
-    double getBgr() const;
-     */
-
-    //Setters
-    //void setNrCellsInSimulation(int nrCellsInSimulation);
-
-    //void setNrCellsInCenter(int nrCellsInCenter);
 };
 
 

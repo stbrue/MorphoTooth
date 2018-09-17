@@ -10,7 +10,7 @@
 int main() {
 
     //Make instance of Parameters
-    Parameters params = Input::defineParameters();
+    Parameters params = Input::defineParametersSealTest();
 
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(params);

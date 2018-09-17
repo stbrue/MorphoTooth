@@ -16,7 +16,6 @@ set(SOURCE_FILES
         Initial.cpp
         Model.cpp
         Output.cpp
-        Parameters.cpp
         Input.cpp Input.h)
 
 

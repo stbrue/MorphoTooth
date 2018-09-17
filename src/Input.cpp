@@ -4,7 +4,7 @@
 
 #include "Input.h"
 
-Parameters Input::defineParameters() {
+Parameters Input::defineParametersSealTest() {
     Parameters params;
 
     params.initialRadius = 2;

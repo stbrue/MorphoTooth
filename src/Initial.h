@@ -9,6 +9,11 @@
 #include "Cell.h"
 #include "Parameters.h"
 
+/**
+ * @brief   Set up of the initial cell grid
+ *
+ * @details Calculates the positions of new cells and instantiates them
+ */
 class Initial {
 
 private:
@@ -39,6 +44,9 @@ public:
     static void reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCellsInSimulation);
 
     static bool isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour);
+
+    static void calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation);
+    static void setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2);
 };
 
 
