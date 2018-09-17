@@ -8,31 +8,103 @@
 
 #include "Cell.h"
 
+/**
+ * @brief   Contains all methods that are used to calculate geometrical values (distances, norm, cross product,...)
+ */
 class Geometrics {
 public:
 
+    /**
+     * @brief   calculates the distance between two cell centers in the xy plane
+     * @param   cell1
+     * @param   cell2
+     * @return  distance
+     */
     static double centerDistance2D(Cell cell1, Cell cell2);
 
+    /**
+     * @brief   calculates the distance between two cell centers in the xyz plane
+     * @param   cell1
+     * @param   cell2
+     * @return  distance
+     */
     static double centerDistance3D(Cell cell1, Cell cell2);
 
+    /**
+     * @brief   calculates the euclidean distance between two points in the xy plane
+     * @param   v1    vector with x,y, and z coordinates of a point
+     * @param   v2  vector with x,y, and z coordinates of a point
+     * @return  distance
+     */
     static double distance2D(std::vector<double> v1, std::vector<double> v2);
 
+    /**
+     * @brief   calculates the euclidean distance between two points in the xyz plane
+     * @param   v1    vector with x,y, and z coordinates of a point
+     * @param   v2    vector with x,y, and z coordinates of a point
+     * @return  distance
+     */
     static double distance3D(std::vector<double> v1, std::vector<double> v2);
 
+    /**
+     * @brief   calculates the euclidean norm of a vector (its length)
+     * @param   v   vector with 3 components
+     * @return  norm
+     */
     static double vectorNorm3D(std::vector<double> v);
 
+    /**
+     * @brief   calculates the cross product of two vectors
+     * @param   v1  vector with 3 components
+     * @param   v2  vector with 3 components
+     * @return  cross product (a vector with 3 components)
+     */
     static std::vector<double> crossProduct(std::vector<double> v1, std::vector<double> v2);
 
+    /**
+     * @brief   adds up all components of a vector
+     * @param   v   vector
+     * @return  sum
+     */
     static double vectorSum(std::vector<double> v);
 
+    /**
+     * @brief   calls function to calculate cell perimeter parts and area parts and defines their sum as perimeter and area
+     * @param   cells   vector containing all cells
+     * @param   nrCellsInSimulation number of cells that are in simulation (have a closed neighbour sequence)
+     */
     static void calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation);
 
-    static void calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    /**
+     * @brief   calculates a part of the cell perimeter (= distance between two adjacent neighbours)
+     * @param   cells   vector containing all cells
+     * @param   cell    ID of the current center cell
+     * @param   borderPoint1    first neighbour
+     * @param   borderPoint2    second neighbour (adjacent to borderPoint1)
+     */
+    static void calculatePerimeterParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
 
-    static void calculateCellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    /**
+     * @brief   calculates a part of the cell area (= triangle between two adjacent neighbours and center cell)
+     * @param   cells   vector containing all cells
+     * @param   cell    ID of the current center cell
+     * @param   borderPoint1    first neighbour
+     * @param   borderPoint2    second neighbour (adjacent to borderPoint1)
+     */
+    static void calculateCellAreaParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
 
+    /**
+     * @brief   calculates the distance of a cell to the origin in the xy plane
+     * @param   cell
+     * @return  distance
+     */
     static double centerDistanceToOrigin2D(Cell cell);
 
+    /**
+     * @brief   calculates the distance of a cell to the origin in the xyz plane
+     * @param   cell
+     * @return  distance
+     */
     static double centerDistanceToOrigin3D(Cell cell);
 };
 

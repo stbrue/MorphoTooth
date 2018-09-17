@@ -76,21 +76,23 @@ double Geometrics::vectorSum(std::vector<double> v) {
 
 void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation) {
 
+    //Perimeter: distance between two adjacent neighbours
+    //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent neighbours and the center cell
     for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
 
         //Last and first neighbour
         int borderPoint1 = (cells[cell].getBorderPointsX().size() - 1);
         int borderPoint2 = 0;
-        calculatePerimeter(cells, cell, borderPoint1, borderPoint2);
-        calculateCellArea(cells, cell, borderPoint1, borderPoint2);
+        calculatePerimeterParts(cells, cell, borderPoint1, borderPoint2);
+        calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
 
         //All other neighbour pairs
         for (int borderPoint1 = 0; borderPoint1 < (cells[cell].getBorderPointsX().size() - 1); ++borderPoint1) {
             int borderPoint2 = borderPoint1 + 1;
             //Perimeter
-            calculatePerimeter(cells, cell, borderPoint1, borderPoint2);
+            calculatePerimeterParts(cells, cell, borderPoint1, borderPoint2);
             //Cell Area
-            calculateCellArea(cells, cell, borderPoint1, borderPoint2);
+            calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
         }
 
         double perimeter = Geometrics::vectorSum(cells[cell].getPerimeterParts());
@@ -100,7 +102,7 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
     }
 }
 
-void Geometrics::calculatePerimeter(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
+void Geometrics::calculatePerimeterParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
     double x = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getBorderPointsX()[borderPoint1];
     double y = cells[cell].getBorderPointsY()[borderPoint2] - cells[cell].getBorderPointsY()[borderPoint1];
     double z = cells[cell].getBorderPointsZ()[borderPoint2] - cells[cell].getBorderPointsZ()[borderPoint1];
@@ -109,7 +111,7 @@ void Geometrics::calculatePerimeter(std::vector<Cell> &cells, int cell, int bord
     cells[cell].newPerimeterPart(perimeterPart);
 }
 
-void Geometrics::calculateCellArea(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
+void Geometrics::calculateCellAreaParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
     double x1 = cells[cell].getBorderPointsX()[borderPoint1] - cells[cell].getX();
     double x2 = cells[cell].getBorderPointsX()[borderPoint2] - cells[cell].getX();
     double y1 = cells[cell].getBorderPointsY()[borderPoint1] - cells[cell].getY();
