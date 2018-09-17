@@ -9,8 +9,8 @@
 #include <math.h>
 #include <iostream>
 #include "Cell.h"
-#include "Grid.h"
 #include "Parameters.h"
+
 
 std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
@@ -37,11 +37,17 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
 
     reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);
 
-    Grid::calculateInitialCellBorders(cells, params.nrCellsInSimulation);
+    Initial::calculateInitialCellBorders(cells, params.nrCellsInSimulation);
 
     return cells;
 }
 
+/**
+ * @brief   Operator overloading to test if two cells are the same (have the same positions)
+ * @param   c1  cell1
+ * @param   c2  cell2
+ * @return  true if the cells have the same position
+ */
 bool operator==(const Cell &c1, const Cell &c2) {
     return (c1.getX() == c2.getX() && c1.getY() == c2.getY() && c1.getZ() == c2.getZ());
 }
@@ -54,6 +60,7 @@ int Initial::getTotalNumberOfCells(int initialRadius) {
     return (6 * j + 1);
 }
 
+
 int Initial::getNumberOfInSimulationCells(int initialRadius) {
     int j = 0;
     for (int i = 1; i < initialRadius; ++i) {
@@ -61,6 +68,7 @@ int Initial::getNumberOfInSimulationCells(int initialRadius) {
     }
     return (6 * j + 1);
 }
+
 
 double Initial::nextX(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
@@ -70,6 +78,7 @@ double Initial::nextX(double centerCoordinate, int neighbour) {
     return (std::floor(x * 1000000 + 0.5) / 1000000);
 }
 
+
 double Initial::nextY(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
     double y;
@@ -77,6 +86,7 @@ double Initial::nextY(double centerCoordinate, int neighbour) {
     //return the rounded value
     return (std::floor(y * 1000000 + 0.5) / 1000000);
 }
+
 
 void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell) {
     bool isAlreadyExisting = false;
@@ -128,8 +138,9 @@ void Initial::printInitialNeighbours(std::vector<Cell> cells) {
     }
 }
 
+
 void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &params) {
-    //check if cells are within "InSimulation" and label them
+    //for each cell
     for (int cell = 0; cell < cells.size(); ++cell) {
         if (cells[cell].getID() < params.nrCellsInSimulation) {
             cells[cell].setInSimulation(true);
@@ -138,6 +149,7 @@ void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &par
         }
     }
 }
+
 
 void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
     int cellsInCentre = ((params.initialRadius - 1) * 6) + 1;
@@ -149,6 +161,7 @@ void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
+
 void Initial::reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCellsInSimulation) {
     bool neighbour1 = false;
     bool neighbour2 = false;
@@ -157,7 +170,7 @@ void Initial::reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCe
     for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < (cells[cell].getNeighbours().size() - 1); ++neighbour) {
 
-            //Check if adjacent neighbours are within simulation
+            //Check if two adjacent neighbours are within simulation
             neighbour1 = isNeighbourInSimulation(cells, cell, neighbour);
             neighbour2 = isNeighbourInSimulation(cells, cell, neighbour + 1);
 
@@ -184,11 +197,12 @@ void Initial::reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCe
             }
             if (isNeighbourInSimulation(cells, cell, neighbour) == false && neighbour1 == true) {
                 cells[cell].deleteNeighbour(neighbour);
-                break;
+                break; // it is never the case that a cell has three neighbours out of simulation at this point
             }
         }
     }
 }
+
 
 bool Initial::isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour) {
     int IDOfNeighbour = cells[IDCentreCell].getNeighbours()[neighbour];
@@ -199,54 +213,55 @@ bool Initial::isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell
     }
 }
 
+
 void Initial::calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation) {
     for (int centreCell = 0; centreCell < nrCellsInSimulation; ++centreCell) {
         //last and first neighbour
         int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
         int neighbour2 = 0;
 
-        Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
+        Initial::setBorders(cells, centreCell, neighbour1, neighbour2);
 
         //all others neighbour pairs
         for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
             int neighbour2 = neighbour1 + 1;
 
-            Grid::setBorders(cells, centreCell, neighbour1, neighbour2);
+            Initial::setBorders(cells, centreCell, neighbour1, neighbour2);
         }
     }
 }
 
-void Initial::setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2)
-{
+
+void Initial::setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2) {
+    // IDs of the neighbours
     int IDn1 = cells[centreCell].getNeighbours()[neighbour1];
     int IDn2 = cells[centreCell].getNeighbours()[neighbour2];
 
+    // Check if the neighbours are within simulation
     bool n1InSimulation = Initial::isNeighbourInSimulation(cells, centreCell, neighbour1);
     bool n2InSimulation = Initial::isNeighbourInSimulation(cells, centreCell, neighbour2);
 
     //if two adjacent neighbours of centreCell are within Simulation
-    if (n1InSimulation && n2InSimulation)
-    {
+    if (n1InSimulation && n2InSimulation) {
         //calculate the midpoint of centreCell and these two neighbours
-        cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3));
-        cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3));
-        cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3));
+        cells[centreCell]
+                .newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3));
+        cells[centreCell]
+                .newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3));
+        cells[centreCell]
+                .newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3));
         return;
     }
 
         //if at least one of the neighbours is within Simulation
-    else if (n1InSimulation || n2InSimulation)
-    {
+    else if (n1InSimulation || n2InSimulation) {
         // calculate the midpoint of centreCell and the cell within simulation
-        if (n1InSimulation)
-        {
+        if (n1InSimulation) {
             cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX()) / 2));
             cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY()) / 2));
             cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ()) / 2));
             return;
-        }
-        else if(n2InSimulation)
-        {
+        } else if (n2InSimulation) {
             cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn2].getX()) / 2));
             cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn2].getY()) / 2));
             cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn2].getZ()) / 2));
