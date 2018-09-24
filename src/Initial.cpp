@@ -35,7 +35,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     labelNrCellsInSimulation(cells, params);
     labelCellsInCentre(cells, params);
 
-    reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);
+    //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);
 
     Initial::calculateInitialCellBorders(cells, params.nrCellsInSimulation);
 
@@ -237,36 +237,12 @@ void Initial::setBorders(std::vector<Cell> &cells, int centreCell, int neighbour
     int IDn1 = cells[centreCell].getNeighbours()[neighbour1];
     int IDn2 = cells[centreCell].getNeighbours()[neighbour2];
 
-    // Check if the neighbours are within simulation
-    bool n1InSimulation = Initial::isNeighbourInSimulation(cells, centreCell, neighbour1);
-    bool n2InSimulation = Initial::isNeighbourInSimulation(cells, centreCell, neighbour2);
+    //calculate the midpoint of centreCell and these two neighbours
+    cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3));
+    cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3));
+    cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3));
 
-    //if two adjacent neighbours of centreCell are within Simulation
-    if (n1InSimulation && n2InSimulation) {
-        //calculate the midpoint of centreCell and these two neighbours
-        cells[centreCell]
-                .newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3));
-        cells[centreCell]
-                .newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3));
-        cells[centreCell]
-                .newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3));
-        return;
-    }
+    return;
 
-        //if at least one of the neighbours is within Simulation
-    else if (n1InSimulation || n2InSimulation) {
-        // calculate the midpoint of centreCell and the cell within simulation
-        if (n1InSimulation) {
-            cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX()) / 2));
-            cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY()) / 2));
-            cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ()) / 2));
-            return;
-        } else if (n2InSimulation) {
-            cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn2].getX()) / 2));
-            cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn2].getY()) / 2));
-            cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn2].getZ()) / 2));
-            return;
-        }
-    }
 }
 

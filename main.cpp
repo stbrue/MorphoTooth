@@ -31,11 +31,21 @@ int main() {
     Model::applyForces(cells, params);
 
     for (int cell = 0; cell < 7; ++cell) {
+        std::vector<double> xBorders = cells[cell].getBorderPointsX();
+        std::vector<double> yBorders = cells[cell].getBorderPointsY();
+        std::vector<double> zBorders = cells[cell].getBorderPointsZ();
+
         std::cout << "Cell Nr.:" << cell << std::endl;
-        std::cout << cells[cell].getX() << std::endl;
-        std::cout << cells[cell].getY() << std::endl;
-        std::cout << cells[cell].getZ() << std::endl;
+
+        for (int borderPoint = 0; borderPoint < xBorders.size(); ++borderPoint) {
+            std::cout << xBorders[borderPoint] << std::endl;
+            std::cout << yBorders[borderPoint] << std::endl;
+            std::cout << zBorders[borderPoint] << std::endl;
+        }
     }
+
+    Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
+    Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
 
     return 0;
 }
