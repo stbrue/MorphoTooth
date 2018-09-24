@@ -3,7 +3,6 @@ project(${CMAKE_PROJECT_NAME}_lib)
 set(HEADER_FILES
         Cell.h
         Geometrics.h
-        Grid.h
         Initial.h
         Model.h
         Output.h
@@ -12,7 +11,6 @@ set(HEADER_FILES
 set(SOURCE_FILES
         Cell.cpp
         Geometrics.cpp
-        Grid.cpp
         Initial.cpp
         Model.cpp
         Output.cpp

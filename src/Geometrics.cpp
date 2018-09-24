@@ -5,6 +5,14 @@
 #include <cmath>
 #include "Geometrics.h"
 
+double Geometrics::squareCenterDistance3D(Cell cell1, Cell cell2) {
+    double dx = cell2.getX() - cell1.getX();
+    double dy = cell2.getY() - cell1.getY();
+    double dz = cell2.getZ() - cell1.getZ();
+    double distance = (dx * dx) + (dy * dy) + (dz * dz);
+    return distance;
+}
+
 double Geometrics::centerDistance2D(Cell cell1, Cell cell2) {
     double x = cell2.getX() - cell1.getX();
     double y = cell2.getY() - cell1.getY();
@@ -76,8 +84,8 @@ double Geometrics::vectorSum(std::vector<double> v) {
 
 void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation) {
 
-    //Perimeter: distance between two adjacent neighbours
-    //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent neighbours and the center cell
+    //Perimeter: distance between two adjacent border points
+    //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent borderpoints and the center cell
     for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
 
         //Last and first neighbour

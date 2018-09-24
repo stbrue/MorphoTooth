@@ -15,6 +15,14 @@ class Geometrics {
 public:
 
     /**
+     * @brief   calculates the square of the distance between two cell centers in the xyz plane (without taking square root)
+     * @param   cell1
+     * @param   cell2
+     * @return  distance
+     */
+    static double squareCenterDistance3D(Cell cell1, Cell cell2);
+
+    /**
      * @brief   calculates the distance between two cell centers in the xy plane
      * @param   cell1
      * @param   cell2
@@ -76,16 +84,16 @@ public:
     static void calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation);
 
     /**
-     * @brief   calculates a part of the cell perimeter (= distance between two adjacent neighbours)
+     * @brief   calculates a part of the cell perimeter (= length of border to a neighbour)
      * @param   cells   vector containing all cells
      * @param   cell    ID of the current center cell
-     * @param   borderPoint1    first neighbour
-     * @param   borderPoint2    second neighbour (adjacent to borderPoint1)
+     * @param   borderPoint1    first border point
+     * @param   borderPoint2    second border point
      */
     static void calculatePerimeterParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
 
     /**
-     * @brief   calculates a part of the cell area (= triangle between two adjacent neighbours and center cell)
+     * @brief   calculates a part of the cell area (= triangle between two border points and center cell)
      * @param   cells   vector containing all cells
      * @param   cell    ID of the current center cell
      * @param   borderPoint1    first neighbour

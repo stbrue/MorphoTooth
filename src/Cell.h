@@ -18,7 +18,7 @@ private:
     double x;
 
     /**
-     * temp coordinates are used to cache the position changes resulting from the diffferent forces
+     * temp coordinates are used to cache the position changes resulting from the different forces
      * and are applied on the position after all forces are calculated
      */
     double tempX;
@@ -221,6 +221,11 @@ public:
 
     void setInCentre(bool inCentre);
 
+    /**
+     * Sets a new border point
+     * @param axis x,y, or z
+     * @param point value of this coordinate
+     */
     void newBorderPoint(char axis, double point);
 
     void replaceBorderPoint(char axis, double point, int position);
