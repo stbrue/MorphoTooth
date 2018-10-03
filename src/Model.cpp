@@ -707,8 +707,8 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
-            double distance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
-            if (distance >= 2) {
+            double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
+            if (squareDistance >= 4) {        //distance >2
                 std::vector<int> pair = {cell, neighbourID};
                 mothercells.push_back(pair);
             }

@@ -35,7 +35,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     labelNrCellsInSimulation(cells, params);
     labelCellsInCentre(cells, params);
 
-    //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);
+    //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);       //not needed for this way of implementation
 
     Initial::calculateInitialCellBorders(cells, params.nrCellsInSimulation);
 
@@ -222,7 +222,7 @@ void Initial::calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsI
 
         Initial::setBorders(cells, centreCell, neighbour1, neighbour2);
 
-        //all others neighbour pairs
+        //all other neighbour pairs
         for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
             int neighbour2 = neighbour1 + 1;
 

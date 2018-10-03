@@ -239,7 +239,7 @@ void Cell::multiplyTempZ(double tempZ) {
 }
 
 //Constructor
-Cell::Cell(double x, double y, int z, int ID) : x(x), y(y), z(z), ID(ID) {
+Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     knot = false;
     inSimulation = false;
     inCentre = false;

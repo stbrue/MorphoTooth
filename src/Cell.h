@@ -258,7 +258,7 @@ public:
     void setProteinConcentration(int protein, int layer, double newConcentration);
 
     //Constructor
-    Cell(double x, double y, int z, int ID);
+    Cell(double x, double y, double z, int ID);
 
     //Editors
     void deleteNeighbour(int neighbour);
