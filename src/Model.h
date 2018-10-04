@@ -21,6 +21,7 @@ public:
 
     /**
      * @brief   Calculates the resulting protein concentration differences due to diffusion between a cell and an upper one
+     * @details Compares concentration with the upper cell.
      * @param   cells   vector containing all cells
      * @param   cell    ID of lower cell
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
@@ -31,6 +32,7 @@ public:
 
     /**
      * @brief   Calculates the resulting protein concentration differences due to diffusion between a cell and an lower one
+     * @details Compares concentration with the cell below.
      * @param   cells   vector containing all cells
      * @param   cell    ID of upper cell
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
@@ -89,7 +91,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void InhProduction(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
 
     /**
      * @brief   Sec1 is produced if differentiation state is higher than a threshold or if the cell is an EK cell
@@ -98,7 +100,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void Sec1Production(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
 
     /**
      * @brief   Sec2 is produced proportionally to Act concentration minus inhibition by Sec1 and minus degradation
@@ -106,7 +108,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void Sec2Production(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
 
     /**
      * @brief   If a center cell deviates too much in buccal or lingual direction (y), then its Act concentration is set to a certain value

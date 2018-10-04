@@ -98,21 +98,7 @@ public:
     */
     static bool isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour);
 
-    /**
-    * @brief   Defines neighbour pairs and calls function to calculate the border between them (Voronoi Diagram)
-    * @param   cells   Vector containing all cells
-    * @param   nrCellsInSimulation     How many cells are in simulation
-    */
-    static void calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation);
 
-    /**
-    * @brief   Calculates and sets the midpoint between two (or one) adjacent neighbours and the center cell (Voronoi node)
-    * @param   cells     Vector containing all cells
-    * @param   centreCell ID of cell that is in the center
-    * @param   neighbour1 Which neighbour (first, second, ...)
-    * @param   neighbour2 Which neighbour (first, second, ...)
-    */
-    static void setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2);
 };
 
 

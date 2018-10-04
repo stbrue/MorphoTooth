@@ -1,7 +1,7 @@
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(Unit_Tests_run
-        Geometrics_test.cpp Model_test.cpp Initial_test.cpp)
+        Geometrics_test.cpp Model_test.cpp)
 
 target_link_libraries(Unit_Tests_run gtest gtest_main)
 target_link_libraries(Unit_Tests_run ${CMAKE_PROJECT_NAME}_lib)

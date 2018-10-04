@@ -14,7 +14,7 @@ set(SOURCE_FILES
         Initial.cpp
         Model.cpp
         Output.cpp
-        Input.cpp Input.h)
+        Input.cpp Input.h consts.h)
 
 
 add_library(${CMAKE_PROJECT_NAME}_lib STATIC

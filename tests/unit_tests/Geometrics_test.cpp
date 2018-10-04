@@ -232,10 +232,10 @@ TEST_F (GeometricsTestFixture, crossProduct_PositiveDoubles) {
 
 TEST_F (GeometricsTestFixture, crossProduct_NegativeDoubles) {
     //Arrange
-    std::vector<double> v1 = {-1, 2, -3};
-    std::vector<double> v2 = {4, -6, 7};
+    std::vector<double> v1 = {-1.33, 2.2, -3.5};
+    std::vector<double> v2 = {4.0, -6.2, 7.1};
 
-    std::vector<double> expected = {-4, -5, -2};
+    std::vector<double> expected = {-6.08, -4.557, -0.554};
 
     //Act
     std::vector<double> crossProduct = Geometrics::crossProduct(v1, v2);

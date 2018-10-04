@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Cell.h"
 #include "Parameters.h"
+#include "Geometrics.h"
 
 
 std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
@@ -37,7 +38,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
 
     //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);       //not needed for this way of implementation
 
-    Initial::calculateInitialCellBorders(cells, params.nrCellsInSimulation);
+    Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
 
     return cells;
 }
@@ -214,35 +215,4 @@ bool Initial::isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell
 }
 
 
-void Initial::calculateInitialCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation) {
-    for (int centreCell = 0; centreCell < nrCellsInSimulation; ++centreCell) {
-        //last and first neighbour
-        int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
-        int neighbour2 = 0;
-
-        Initial::setBorders(cells, centreCell, neighbour1, neighbour2);
-
-        //all other neighbour pairs
-        for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
-            int neighbour2 = neighbour1 + 1;
-
-            Initial::setBorders(cells, centreCell, neighbour1, neighbour2);
-        }
-    }
-}
-
-
-void Initial::setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2) {
-    // IDs of the neighbours
-    int IDn1 = cells[centreCell].getNeighbours()[neighbour1];
-    int IDn2 = cells[centreCell].getNeighbours()[neighbour2];
-
-    //calculate the midpoint of centreCell and these two neighbours
-    cells[centreCell].newBorderPoint('X', ((cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3));
-    cells[centreCell].newBorderPoint('Y', ((cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3));
-    cells[centreCell].newBorderPoint('Z', ((cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3));
-
-    return;
-
-}
 

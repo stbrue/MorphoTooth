@@ -7,6 +7,8 @@
 #include "Model.h"
 #include "Geometrics.h"
 #include "Parameters.h"
+#include "consts.h"
+
 
 
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
@@ -52,8 +54,10 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int protein = 0; protein < 4; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
-                double newConcentration = params.delta * params.diffusionRates[protein] *
-                                          cells[cell].getTempProteinConcentrations()[protein][layer];
+                double delta = params.delta;
+                double diffusionRate = params.diffusionRates[protein];
+                double tempConcentration = cells[cell].getTempProteinConcentrations()[protein][layer];
+                double newConcentration = delta * diffusionRate * tempConcentration;
                 cells[cell].addProteinConcentration(protein, layer, newConcentration);
             }
         }
@@ -64,11 +68,10 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
 void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        EKDifferentiation(cells, params, cell);
         ActReactionAndDegradation(cells, params, cell);
-        InhProduction(cells, params, cell);
-        Sec1Production(cells, params, cell);
-        Sec2Production(cells, params, cell);
+        InhReactionAndDegradation(cells, params, cell);
+        Sec1ReactionAndDegradation(cells, params, cell);
+        Sec2ReactionAndDegradation(cells, params, cell);
     }
 
     //Error handling (test if new concentrations are too high)?
@@ -95,9 +98,9 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
     //for all center cells
     for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
         if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
-            cells[cell].setProteinConcentration(0, 0, params.lbi);  //lbi: lingual bias by initial BMP distribution
+            cells[cell].setProteinConcentration(Act, Epithelium, params.lbi);  //lbi: lingual bias by initial BMP distribution
         } else if (cells[cell].getY() > params.swi) {
-            cells[cell].setProteinConcentration(0, 0, params.bbi);  //bbi: buccal bias by initial BMP distribution
+            cells[cell].setProteinConcentration(Act, Epithelium, params.bbi);  //bbi: buccal bias by initial BMP distribution
         }
     }
 }
@@ -105,7 +108,7 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
 void Model::differentiation(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //Increase the diff state of each cell
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
         double addDiff = params.dff * epithelialSec1Concentration;
         cells[cell].addDiffState(addDiff);
     }
@@ -284,7 +287,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
         }
 
         d = sqrt(aa * aa + bb * bb);
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
         if (d > 0) {
             factor = (d + params.mgr * epithelialSec1Concentration) / d;        //mgr: mesenchymal proliferation rate
             aa = aa * factor;
@@ -590,6 +593,11 @@ void Model::upDiffusion(std::vector<Cell> &cells, int cell, int layer, int prote
     double newConcentration = (pCellArea * (neighbourConcentration - oldConcentration));
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
+    // if we are in the layer below the epithelium we have to update also the concentration difference in the epithelium
+    // because we looked in the epithelial layer only at the horizontal diffusion before.
+    if (layer == 1) {
+        cells[cell].addTempConcentration(protein, Epithelium, -newConcentration);
+    }
 }
 
 void Model::downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea) {
@@ -616,7 +624,7 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
         if (cells[neighbourID].isInSimulation()) {
             double neighbourConcentration = cells[neighbourID].getProteinConcentrations()[protein][layer];
             double pPerimeterPart = (cells[cell].getPerimeterParts()[neighbour] / diffusionArea);
-            newConcentration += (pPerimeterPart * (neighbourConcentration - oldConcentration));
+            newConcentration = (pPerimeterPart * (neighbourConcentration - oldConcentration));
             cells[cell].addTempConcentration(protein, layer, newConcentration);
         } else {          // if the neighbour is not within simulation, there is a sink
             sink(cells, cell, layer, protein, diffusionArea);
@@ -627,7 +635,7 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
 void Model::EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int cell) {
     //if the Act concentration in the epithelial layer is high enough
     //and if it is in the centre, then it becomes/is a knot cell
-    if (cells[cell].getProteinConcentrations()[0][0] > 1) {
+    if (cells[cell].getProteinConcentrations()[Act][Epithelium] > 1) {
         if (cells[cell].isInCentre()) {
             cells[cell].setKnotCell(true);
         }
@@ -635,9 +643,11 @@ void Model::EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int 
 }
 
 void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[0][0];
-    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[1][0];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[3][0];
+    Model::EKDifferentiation(cells, params, cell);
+
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
+    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[Inh][Epithelium];
+    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[Sec2][Epithelium];
 
     double positiveTerm = params.act * epithelialActConcentration - epithelialSec2Concentration;
     if (positiveTerm < 0) {
@@ -648,14 +658,14 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
 
     //concentration difference: reaction - degradation
     double newConcentration = (positiveTerm / negativeTerm) - degradation;
-    cells[cell].addTempConcentration(0, 0, newConcentration);
+    cells[cell].addTempConcentration(Act, Epithelium, newConcentration);
 }
 
-void Model::InhProduction(std::vector<Cell> &cells, Parameters &params, int cell) {
+void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
     double diffState = cells[cell].getDiffState();
-    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[1][0];
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[0][0];
+    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[Inh][Epithelium];
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
@@ -664,12 +674,12 @@ void Model::InhProduction(std::vector<Cell> &cells, Parameters &params, int cell
     } else if (isKnotCell) {
         newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
     }
-    cells[cell].addTempConcentration(1, 0, newConcentration);
+    cells[cell].addTempConcentration(Inh, Epithelium, newConcentration);
 }
 
-void Model::Sec1Production(std::vector<Cell> &cells, Parameters &params, int cell) {
+void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     double diffState = cells[cell].getDiffState();
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
@@ -682,13 +692,13 @@ void Model::Sec1Production(std::vector<Cell> &cells, Parameters &params, int cel
     if (newConcentration < 0) {
         newConcentration = 0;
     }
-    cells[cell].addTempConcentration(2, 0, newConcentration);
+    cells[cell].addTempConcentration(Sec1, Epithelium, newConcentration);
 }
 
-void Model::Sec2Production(std::vector<Cell> &cells, Parameters &params, int cell) {
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[0][0];
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[3][0];
+void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
+    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
+    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[Sec2][Epithelium];
 
     double newConcentration =
             params.act * epithelialActConcentration -                   //Act activates Sec2 production

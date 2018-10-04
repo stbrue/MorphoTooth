@@ -9,7 +9,7 @@
 
 int main() {
 
-    /*
+
     //Make instance of Parameters
     Parameters params = Input::defineParametersSealTest();
 
@@ -37,8 +37,9 @@ int main() {
 
     Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
     Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
-*/
 
+
+    /*
     //Test
     std::vector<Cell> cells;
     Cell cell0(0, 0, 1, 0);
@@ -136,8 +137,145 @@ int main() {
     cells[6].setNeighbour(17);
     cells[6].setNeighbour(18);
 
+    Parameters params = Input::defineParametersSealTest();
+    params.nrCellsInSimulation = 7;
+
     //Act
-    Initial::calculateInitialCellBorders(cells, 7);
+    Geometrics::calculateCellBorders(cells, 7);
+
+    cells[0].setProteinConcentration(0, 0, 1);
+    cells[0].setProteinConcentration(0, 1, 1.1);
+    cells[0].setProteinConcentration(0, 2, 1.2);
+    cells[0].setProteinConcentration(0, 3, 1.3);
+    cells[0].setProteinConcentration(1, 0, 1.4);
+    cells[0].setProteinConcentration(1, 1, 1.5);
+    cells[0].setProteinConcentration(1, 2, 1.6);
+    cells[0].setProteinConcentration(1, 3, 1.7);
+    cells[0].setProteinConcentration(2, 0, 1.8);
+    cells[0].setProteinConcentration(2, 1, 1.9);
+    cells[0].setProteinConcentration(2, 2, 2);
+    cells[0].setProteinConcentration(2, 3, 2.1);
+    cells[0].setProteinConcentration(3, 0, 2.2);
+    cells[0].setProteinConcentration(3, 1, 2.3);
+    cells[0].setProteinConcentration(3, 2, 2.4);
+    cells[0].setProteinConcentration(3, 3, 2.5);
+
+    cells[1].setProteinConcentration(0, 0, 2);
+    cells[1].setProteinConcentration(0, 1, 2.1);
+    cells[1].setProteinConcentration(0, 2, 2.2);
+    cells[1].setProteinConcentration(0, 3, 2.3);
+    cells[1].setProteinConcentration(1, 0, 2.4);
+    cells[1].setProteinConcentration(1, 1, 2.5);
+    cells[1].setProteinConcentration(1, 2, 2.6);
+    cells[1].setProteinConcentration(1, 3, 2.7);
+    cells[1].setProteinConcentration(2, 0, 2.8);
+    cells[1].setProteinConcentration(2, 1, 2.9);
+    cells[1].setProteinConcentration(2, 2, 3);
+    cells[1].setProteinConcentration(2, 3, 3.1);
+    cells[1].setProteinConcentration(3, 0, 3.2);
+    cells[1].setProteinConcentration(3, 1, 3.3);
+    cells[1].setProteinConcentration(3, 2, 3.4);
+    cells[1].setProteinConcentration(3, 3, 3.5);
+
+    cells[2].setProteinConcentration(0, 0, 4);
+    cells[2].setProteinConcentration(0, 1, 4.1);
+    cells[2].setProteinConcentration(0, 2, 4.2);
+    cells[2].setProteinConcentration(0, 3, 4.3);
+    cells[2].setProteinConcentration(1, 0, 4.4);
+    cells[2].setProteinConcentration(1, 1, 4.5);
+    cells[2].setProteinConcentration(1, 2, 4.6);
+    cells[2].setProteinConcentration(1, 3, 4.7);
+    cells[2].setProteinConcentration(2, 0, 4.8);
+    cells[2].setProteinConcentration(2, 1, 4.9);
+    cells[2].setProteinConcentration(2, 2, 4);
+    cells[2].setProteinConcentration(2, 3, 4.1);
+    cells[2].setProteinConcentration(3, 0, 5.2);
+    cells[2].setProteinConcentration(3, 1, 5.3);
+    cells[2].setProteinConcentration(3, 2, 5.4);
+    cells[2].setProteinConcentration(3, 3, 5.5);
+
+    cells[3].setProteinConcentration(0, 0, 6);
+    cells[3].setProteinConcentration(0, 1, 6.1);
+    cells[3].setProteinConcentration(0, 2, 6.2);
+    cells[3].setProteinConcentration(0, 3, 6.3);
+    cells[3].setProteinConcentration(1, 0, 6.4);
+    cells[3].setProteinConcentration(1, 1, 6.5);
+    cells[3].setProteinConcentration(1, 2, 6.6);
+    cells[3].setProteinConcentration(1, 3, 6.7);
+    cells[3].setProteinConcentration(2, 0, 6.8);
+    cells[3].setProteinConcentration(2, 1, 6.9);
+    cells[3].setProteinConcentration(2, 2, 7);
+    cells[3].setProteinConcentration(2, 3, 7.1);
+    cells[3].setProteinConcentration(3, 0, 7.2);
+    cells[3].setProteinConcentration(3, 1, 7.3);
+    cells[3].setProteinConcentration(3, 2, 7.4);
+    cells[3].setProteinConcentration(3, 3, 7.5);
+
+    cells[4].setProteinConcentration(0, 0, 8);
+    cells[4].setProteinConcentration(0, 1, 8.1);
+    cells[4].setProteinConcentration(0, 2, 8.2);
+    cells[4].setProteinConcentration(0, 3, 8.3);
+    cells[4].setProteinConcentration(1, 0, 8.4);
+    cells[4].setProteinConcentration(1, 1, 8.5);
+    cells[4].setProteinConcentration(1, 2, 8.6);
+    cells[4].setProteinConcentration(1, 3, 8.7);
+    cells[4].setProteinConcentration(2, 0, 8.8);
+    cells[4].setProteinConcentration(2, 1, 8.9);
+    cells[4].setProteinConcentration(2, 2, 9);
+    cells[4].setProteinConcentration(2, 3, 9.1);
+    cells[4].setProteinConcentration(3, 0, 9.2);
+    cells[4].setProteinConcentration(3, 1, 9.3);
+    cells[4].setProteinConcentration(3, 2, 9.4);
+    cells[4].setProteinConcentration(3, 3, 9.5);
+
+    cells[5].setProteinConcentration(0, 0, 10);
+    cells[5].setProteinConcentration(0, 1, 10.1);
+    cells[5].setProteinConcentration(0, 2, 10.2);
+    cells[5].setProteinConcentration(0, 3, 10.3);
+    cells[5].setProteinConcentration(1, 0, 10.4);
+    cells[5].setProteinConcentration(1, 1, 10.5);
+    cells[5].setProteinConcentration(1, 2, 10.6);
+    cells[5].setProteinConcentration(1, 3, 10.7);
+    cells[5].setProteinConcentration(2, 0, 10.8);
+    cells[5].setProteinConcentration(2, 1, 10.9);
+    cells[5].setProteinConcentration(2, 2, 11);
+    cells[5].setProteinConcentration(2, 3, 11.1);
+    cells[5].setProteinConcentration(3, 0, 11.2);
+    cells[5].setProteinConcentration(3, 1, 11.3);
+    cells[5].setProteinConcentration(3, 2, 11.4);
+    cells[5].setProteinConcentration(3, 3, 11.5);
+
+    cells[6].setProteinConcentration(0, 0, 12);
+    cells[6].setProteinConcentration(0, 1, 12.1);
+    cells[6].setProteinConcentration(0, 2, 12.2);
+    cells[6].setProteinConcentration(0, 3, 12.3);
+    cells[6].setProteinConcentration(1, 0, 12.4);
+    cells[6].setProteinConcentration(1, 1, 12.5);
+    cells[6].setProteinConcentration(1, 2, 12.6);
+    cells[6].setProteinConcentration(1, 3, 12.7);
+    cells[6].setProteinConcentration(2, 0, 12.8);
+    cells[6].setProteinConcentration(2, 1, 12.9);
+    cells[6].setProteinConcentration(2, 2, 13);
+    cells[6].setProteinConcentration(2, 3, 13.1);
+    cells[6].setProteinConcentration(3, 0, 13.2);
+    cells[6].setProteinConcentration(3, 1, 13.3);
+    cells[6].setProteinConcentration(3, 2, 13.4);
+    cells[6].setProteinConcentration(3, 3, 13.5);
+
+    Model::diffusion(cells, params);
+
+    Model::reaction(cells, params);
+
+    for (int cell = 0; cell < 7; ++cell) {
+        std::cout << "Cell nr" << cell << std::endl;
+        for (int protein = 0; protein < 4; ++protein) {
+            std::cout << "Protein nr" << protein << std::endl;
+            for (int layer = 0; layer < 4; ++layer) {
+                std::cout << cells[cell].getProteinConcentrations()[protein][layer] << std::endl;
+            }
+        }
+    }
+*/
 
     return 0;
 }
