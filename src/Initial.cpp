@@ -34,7 +34,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
 
     //Define for each cell if it is "within simulation" or "in Centre"
     labelNrCellsInSimulation(cells, params);
-    labelCellsInCentre(cells, params);
+    labelCellsInCentre(cells, params);  // has to be called after labelNrCellsInSimulation!!
 
     //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);       //not needed for this way of implementation
 
@@ -153,11 +153,15 @@ void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &par
 
 
 void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
-    int cellsInCentre = ((params.initialRadius - 1) * 6) + 1;
-    params.nrCellsInCenter = cellsInCentre;
+    int nrCellsNotInCentre = ((params.initialRadius - 1) * 6) + 1;
+    int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
+    if (nrCellsInCentre < 7) {
+        nrCellsInCentre = 7;
+    }
+    params.nrCellsInCenter = nrCellsInCentre;
 
     //change state of "inCentre" for all these cells
-    for (int cell = 0; cell < cellsInCentre; ++cell) {
+    for (int cell = 0; cell < nrCellsInCentre; ++cell) {
         cells[cell].setInCentre(true);
     }
 }

@@ -9,7 +9,7 @@
 
 int main() {
 
-
+    /*
     //Make instance of Parameters
     Parameters params = Input::defineParametersSealTest();
 
@@ -37,9 +37,9 @@ int main() {
 
     Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
     Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
+*/
 
 
-    /*
     //Test
     std::vector<Cell> cells;
     Cell cell0(0, 0, 1, 0);
@@ -275,7 +275,7 @@ int main() {
             }
         }
     }
-*/
+
 
     return 0;
 }

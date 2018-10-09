@@ -10,7 +10,6 @@
 #include "consts.h"
 
 
-
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
     //Calculate for each cell its perimeter and area
@@ -98,9 +97,11 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
     //for all center cells
     for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
         if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
-            cells[cell].setProteinConcentration(Act, Epithelium, params.lbi);  //lbi: lingual bias by initial BMP distribution
+            cells[cell].setProteinConcentration(Act, Epithelium,
+                                                params.lbi);  //lbi: lingual bias by initial BMP distribution
         } else if (cells[cell].getY() > params.swi) {
-            cells[cell].setProteinConcentration(Act, Epithelium, params.bbi);  //bbi: buccal bias by initial BMP distribution
+            cells[cell].setProteinConcentration(Act, Epithelium,
+                                                params.bbi);  //bbi: buccal bias by initial BMP distribution
         }
     }
 }

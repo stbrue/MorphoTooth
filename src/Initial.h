@@ -76,7 +76,8 @@ public:
     static void labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &params);
 
     /**
-    * @brief   Checks if cells are "in the center" (have neighbours that are all within simulation) and labels them accordingly
+    * @brief   Checks if cells are "in the center" (have neighbours that are all within simulation or at least 7) and labels them accordingly
+    * @attention   This function has to be called after labelNrCellsInSimulation because it needs the this as parameter
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
