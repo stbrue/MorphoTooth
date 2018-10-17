@@ -157,6 +157,8 @@ public:
 
     double getMarginArea() const;
 
+    double getMargin() const;
+
     std::vector<std::vector<double>> &getProteinConcentrations();
 
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;

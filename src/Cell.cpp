@@ -79,6 +79,10 @@ double Cell::getMarginArea() const {
     return marginArea;
 }
 
+double Cell::getMargin() const {
+    return margin;
+}
+
 std::vector<std::vector<double>> &Cell::getProteinConcentrations() {
     return proteinConcentrations;
 }

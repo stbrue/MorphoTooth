@@ -103,16 +103,17 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
             calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
         }
 
-        double perimeter = Geometrics::vectorSum(cells[cell].getPerimeterParts());
-        cells[cell].setPerimeter(perimeter);
-        double cellArea = Geometrics::vectorSum(cells[cell].getAreaParts());
-        cells[cell].setCellArea(cellArea);
-
         //Do the same for the margin (perimeter and area)
         double margin = Geometrics::calculateMargin(cells[cell].getMarginPoints());
         cells[cell].setMargin(margin);
         double marginArea = Geometrics::calculateMarginArea(cells, cell, cells[cell].getMarginPoints());
         cells[cell].setMarginArea(marginArea);
+
+        //Sum them up to get total perimeter and total area
+        double perimeter = Geometrics::vectorSum(cells[cell].getPerimeterParts()) + margin;
+        cells[cell].setPerimeter(perimeter);
+        double cellArea = Geometrics::vectorSum(cells[cell].getAreaParts()) + marginArea;
+        cells[cell].setCellArea(cellArea);
     }
 }
 

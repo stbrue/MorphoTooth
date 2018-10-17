@@ -620,15 +620,21 @@ void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, dou
 void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double diffusionArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = 0;
+    bool borderDiffusionDone = false;
     for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
         int neighbourID = cells[cell].getNeighbours()[neighbour];
+
         if (cells[neighbourID].isInSimulation()) {
             double neighbourConcentration = cells[neighbourID].getProteinConcentrations()[protein][layer];
             double pPerimeterPart = (cells[cell].getPerimeterParts()[neighbour] / diffusionArea);
             newConcentration = (pPerimeterPart * (neighbourConcentration - oldConcentration));
             cells[cell].addTempConcentration(protein, layer, newConcentration);
-        } else {          // if the neighbour is not within simulation, there is a sink
-            sink(cells, cell, layer, protein, diffusionArea);
+        }
+            // if the neighbour is not within simulation and the borderDiffusion has not yet been calculated, there is a sink
+        else if (borderDiffusionDone == false) {
+            double pMargin = cells[cell].getMargin() / diffusionArea;
+            sink(cells, cell, layer, protein, pMargin);
+            borderDiffusionDone = true;
         }
     }
 }
