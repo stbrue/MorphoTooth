@@ -51,16 +51,8 @@ int Cell::getMesenchymeThickness() const {
     return mesenchymeThickness;
 }
 
-const std::vector<double> &Cell::getBorderPointsX() const {
-    return borderPointsX;
-}
-
-const std::vector<double> &Cell::getBorderPointsY() const {
-    return borderPointsY;
-}
-
-const std::vector<double> &Cell::getBorderPointsZ() const {
-    return borderPointsZ;
+std::vector<std::vector<double>> Cell::getBorderPoints() const {
+    return borderPoints;
 }
 
 const std::vector<double> &Cell::getPerimeterParts() const {
@@ -152,42 +144,9 @@ void Cell::setMesenchymeThickness(int mesenchymeThickness) {
     Cell::mesenchymeThickness = mesenchymeThickness;
 }
 
-void Cell::newBorderPoint(char axis, double point) {
-    switch (axis) {
-        case 'X': {
-            borderPointsX.push_back(point);
-            break;
-        }
-        case 'Y': {
-            borderPointsY.push_back(point);
-            break;
-        }
-        case 'Z': {
-            borderPointsZ.push_back(point);
-            break;
-        }
-        default:
-            std::cout << "The point could not be added" << std::endl;
-    }
-}
-
-void Cell::replaceBorderPoint(char axis, double point, int position) {
-    switch (axis) {
-        case 'X': {
-            borderPointsX[position] = point;
-            break;
-        }
-        case 'Y': {
-            borderPointsY[position] = point;
-            break;
-        }
-        case 'Z': {
-            borderPointsZ[position] = point;
-            break;
-        }
-        default:
-            std::cout << "The point could not be replaced" << std::endl;
-    }
+void Cell::newBorderPoint(double x, double y, double z) {
+    std::vector<double> newPoint = {x, y, z};
+    borderPoints.push_back(newPoint);
 }
 
 void Cell::newPerimeterPart(double perimeterPart) {
@@ -238,6 +197,11 @@ void Cell::multiplyTempZ(double tempZ) {
     Cell::tempZ = Cell::tempZ * tempZ;
 }
 
+void Cell::newMarginPoint(double x, double y, double z) {
+    std::vector<double> newPoint = {x, y, z};
+    marginPoints.push_back(newPoint);
+}
+
 //Constructor
 Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     knot = false;
@@ -256,6 +220,9 @@ Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     }
     perimeter = 0;
     cellArea = 0;
+    margin = 0;
+
+
 }
 
 //Editors
@@ -279,7 +246,7 @@ void Cell::resetTempCoordinates() {
 }
 
 void Cell::updateCoordinates(double delta) {
-   // There cannot be any force in negative z-direction due to the pressure of the stelate
+    // There cannot be any force in negative z-direction due to the pressure of the stelate
     if (Cell::tempZ < 0) {
         Cell::tempZ = 0;
     }

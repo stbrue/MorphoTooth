@@ -95,20 +95,9 @@ private:
      */
     int mesenchymeThickness;
 
-    /**
-     * This vector contains the x coordinates of all voronoi vertices around the cell centre
-     */
-    std::vector<double> borderPointsX;
+    std::vector<std::vector<double>> marginPoints;
 
-    /**
-     * This vector contains the y coordinates of all voronoi vertices around the cell centre
-     */
-    std::vector<double> borderPointsY;
-
-    /**
-     * This vector contains the z coordinates of all voronoi vertices around the cell centre
-     */
-    std::vector<double> borderPointsZ;
+    double margin;
 
     /**
      * Contains the lengths of the polygon sides. Their sum is the perimeter of the polygon
@@ -152,11 +141,7 @@ public:
 
     bool isInCentre() const;
 
-    const std::vector<double> &getBorderPointsX() const;
-
-    const std::vector<double> &getBorderPointsY() const;
-
-    const std::vector<double> &getBorderPointsZ() const;
+    std::vector<std::vector<double>> getBorderPoints() const;
 
     const std::vector<double> &getPerimeterParts() const;
 
@@ -226,9 +211,7 @@ public:
      * @param axis x,y, or z
      * @param point value of this coordinate
      */
-    void newBorderPoint(char axis, double point);
-
-    void replaceBorderPoint(char axis, double point, int position);
+    void newBorderPoint(double x, double y, double z);
 
     void newPerimeterPart(double perimeterPart);
 
@@ -257,6 +240,8 @@ public:
 
     void setProteinConcentration(int protein, int layer, double newConcentration);
 
+    void newMarginPoint(double x, double y, double z);
+
     //Constructor
     Cell(double x, double y, double z, int ID);
 
@@ -283,6 +268,10 @@ public:
     static void printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation);
 
 
+    /**
+         * This vector contains the x coordinates of all voronoi vertices around the cell centre
+         */
+    std::vector<std::vector<double>> borderPoints;
 };
 
 

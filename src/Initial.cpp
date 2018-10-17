@@ -155,9 +155,9 @@ void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &par
 void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
     int nrCellsNotInCentre = ((params.initialRadius - 1) * 6) + 1;
     int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
-    if (nrCellsInCentre < 7) {
+    /*if (nrCellsInCentre < 7) {
         nrCellsInCentre = 7;
-    }
+    }*/
     params.nrCellsInCenter = nrCellsInCentre;
 
     //change state of "inCentre" for all these cells
