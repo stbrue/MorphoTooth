@@ -122,6 +122,10 @@ public:
     */
     static void calculateCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation);
 
+    static double calculateMargin(std::vector<std::vector<double>> marginPoints);
+
+    static double calculateMarginArea(std::vector<Cell> &cells, int cell,  std::vector<std::vector<double>> marginPoints);
+
     /**
     * @brief   Calculates and sets the midpoint between two (or one) adjacent neighbours and the center cell (Voronoi node)
     * @param   cells     Vector containing all cells

@@ -55,6 +55,10 @@ std::vector<std::vector<double>> Cell::getBorderPoints() const {
     return borderPoints;
 }
 
+std::vector<std::vector<double>> Cell::getMarginPoints() const {
+    return marginPoints;
+}
+
 const std::vector<double> &Cell::getPerimeterParts() const {
     return perimeterParts;
 }
@@ -69,6 +73,10 @@ double Cell::getPerimeter() const {
 
 double Cell::getCellArea() const {
     return cellArea;
+}
+
+double Cell::getMarginArea() const {
+    return marginArea;
 }
 
 std::vector<std::vector<double>> &Cell::getProteinConcentrations() {
@@ -163,6 +171,14 @@ void Cell::setPerimeter(double perimeter) {
 
 void Cell::setCellArea(double cellArea) {
     Cell::cellArea = cellArea;
+}
+
+void Cell::setMargin(double margin) {
+    Cell::margin = margin;
+}
+
+void Cell::setMarginArea(double area) {
+    Cell::marginArea = area;
 }
 
 void Cell::addProteinConcentration(int protein, int layer, double addedConcentration) {

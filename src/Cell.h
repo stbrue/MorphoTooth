@@ -99,6 +99,8 @@ private:
 
     double margin;
 
+    double marginArea;
+
     /**
      * Contains the lengths of the polygon sides. Their sum is the perimeter of the polygon
      */
@@ -143,6 +145,8 @@ public:
 
     std::vector<std::vector<double>> getBorderPoints() const;
 
+    std::vector<std::vector<double>> getMarginPoints() const;
+
     const std::vector<double> &getPerimeterParts() const;
 
     const std::vector<double> &getAreaParts() const;
@@ -150,6 +154,8 @@ public:
     double getPerimeter() const;
 
     double getCellArea() const;
+
+    double getMarginArea() const;
 
     std::vector<std::vector<double>> &getProteinConcentrations();
 
@@ -220,6 +226,10 @@ public:
     void setPerimeter(double perimeter);
 
     void setCellArea(double cellArea);
+
+    void setMargin(double margin);
+
+    void setMarginArea(double area);
 
     /**
      * Increments the variable proteinConcentration[protein][layer] by newConcentration
