@@ -764,12 +764,12 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
 
     for (int neighbour = 0; neighbour < neighboursOfM1.size(); ++neighbour) {
         int IDOfNeighbour = neighboursOfM1[neighbour];
-        bool isNeighbourOfMotherCell2 = Model::isNeighbourOf(cells, IDOfNeighbour, neighbour);
-        if (isNeighbourOfMotherCell2 && N1 == 0) {
+        bool isNeighbourOfM2 = Model::isNeighbourOf(cells, M2, IDOfNeighbour);
+        if (isNeighbourOfM2 && N1 == 0) {
             N1 = IDOfNeighbour;
-        } else if (isNeighbourOfMotherCell2 && N2 == 0) {
+        } else if (isNeighbourOfM2 && N2 == 0) {
             N2 = IDOfNeighbour;
-        } else if (isNeighbourOfMotherCell2) {
+        } else if (isNeighbourOfM2) {
             std::cout << "there are too many common neighbours" << std::endl;
         }
     }
@@ -777,7 +777,7 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
     return commonNeighbours;
 }
 
-void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell newCell, std::vector<Cell> &cells, Parameters &params) {
+void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
     // Set the neighbours of the new cell (only the order is important)
     newCell.setNeighbour(M1);
     newCell.setNeighbour(N1);
@@ -835,7 +835,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell newCel
     cells[N2].insertNeighbour(newCell.getID(), newCellPosition);
 }
 
-void Model::setMeanProteinConcentrations(int M1, int M2, Cell newCell, std::vector<Cell> &cells, Parameters &params) {
+void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
     std::vector<std::vector<double>> M1Concentrations = cells[M1].getProteinConcentrations();
     std::vector<std::vector<double>> M2Concentrations = cells[M2].getProteinConcentrations();
 
@@ -849,7 +849,7 @@ void Model::setMeanProteinConcentrations(int M1, int M2, Cell newCell, std::vect
     }
 }
 
-void Model::defineIfNewCellInCentre(int N1, int N2, Cell newCell, std::vector<Cell> &cells) {
+void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells) {
     //The new cell is in the centre if it has no neighbours that are out of simulation
     bool N1InCentre = cells[N1].isInSimulation();
     bool N2InCentre = cells[N2].isInSimulation();
