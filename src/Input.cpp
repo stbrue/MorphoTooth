@@ -34,6 +34,7 @@ Parameters Input::defineParametersSealTest() {
     params.abi = 18;
     params.pbi = 15;
     params.bgr = 1;
+    params.iterationSteps = 10000;
 
     return params;
 }

@@ -144,6 +144,19 @@ void Cell::setNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
 }
 
+void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
+    for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
+        if (Cell::neighbours[neighbour] == oldNeighbourID) {
+            Cell::neighbours[neighbour] = newNeighbourID;
+            return;
+        }
+    }
+}
+
+void Cell::insertNeighbour(int newNeighbourID, int position) {
+    Cell::neighbours.insert(Cell::neighbours.begin() + position, newNeighbourID);
+}
+
 void Cell::setInSimulation(bool inSimulation) {
     Cell::inSimulation = inSimulation;
 }
@@ -152,13 +165,14 @@ void Cell::setInCentre(bool inCentre) {
     Cell::inCentre = inCentre;
 }
 
-void Cell::setMesenchymeThickness(int mesenchymeThickness) {
-    Cell::mesenchymeThickness = mesenchymeThickness;
-}
-
 void Cell::newBorderPoint(double x, double y, double z) {
     std::vector<double> newPoint = {x, y, z};
     borderPoints.push_back(newPoint);
+}
+
+void Cell::newMarginPoint(double x, double y, double z) {
+    std::vector<double> newPoint = {x, y, z};
+    marginPoints.push_back(newPoint);
 }
 
 void Cell::newPerimeterPart(double perimeterPart) {
@@ -217,10 +231,6 @@ void Cell::multiplyTempZ(double tempZ) {
     Cell::tempZ = Cell::tempZ * tempZ;
 }
 
-void Cell::newMarginPoint(double x, double y, double z) {
-    std::vector<double> newPoint = {x, y, z};
-    marginPoints.push_back(newPoint);
-}
 
 //Constructor
 Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
@@ -229,6 +239,9 @@ Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     inCentre = false;
     mesenchymeThickness = 4;
     diffState = 0;
+    tempX = 0;
+    tempY = 0;
+    tempZ = 0;
     //Set Concentrations to 0 (in each layer)
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
         std::vector<double> tempv;
@@ -241,8 +254,7 @@ Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     perimeter = 0;
     cellArea = 0;
     margin = 0;
-
-
+    marginArea = 0;
 }
 
 //Editors
@@ -282,19 +294,6 @@ void Cell::updateCoordinates(double delta) {
     Cell::z += Cell::tempZ * delta;
 }
 
-//Printer
-
-void Cell::printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation) {
-    for (int cell = 0; cell < cells.size(); ++cell) {
-        std::cout << "Cell Nr. " << cell << std::endl;
-        for (int point = 0; point < cells[cell].getBorderPointsX().size(); ++point) {
-            std::cout << "x: " << cells[cell].getBorderPointsX()[point] << "  ";
-            std::cout << "y: " << cells[cell].getBorderPointsY()[point] << "  ";
-            std::cout << "z: " << cells[cell].getBorderPointsZ()[point] << "  ";
-            std::cout << std::endl;
-        }
-    }
-}
 
 
 

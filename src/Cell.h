@@ -95,14 +95,36 @@ private:
      */
     int mesenchymeThickness;
 
+    /**
+         * This vector contains the x coordinates of all voronoi vertices around the cell centre
+         */
+    std::vector<std::vector<double>> borderPoints;
+
+    /**
+     * marginPoints contains these two points that make the edge of the cell which is part of the border of the
+     * whole tissue. They are the result, in contrast to the other cell border points, of the midpoint of only two
+     * instead of three points.
+     * Obviously only cells on the tissue border have such points.
+     */
     std::vector<std::vector<double>> marginPoints;
 
+    /**
+     * margin is the length of the cell border that is part of the tissue border (length between the two marginPoints
+     * Obviously only cells on the tissue border have such a margin length
+     */
     double margin;
 
+    /**
+     * This is the area of the triangle centre-marginPoint1-marginPoint2. It represents the area made of the part of the
+     * cell that is next to the tissue border.
+     * It is part of the whole cellArea and is used for horizontal diffusion when there is a sink at the tissue border
+     * Obviously only cells on the tissue border have such a marginArea.
+     */
     double marginArea;
 
     /**
-     * Contains the lengths of the polygon sides. Their sum is the perimeter of the polygon
+     * Contains the lengths of the polygon sides. Their sum (together with the margin, if the cell is at the tissue
+     * border) is the perimeter of the polygon
      */
     std::vector<double> perimeterParts;
 
@@ -208,6 +230,10 @@ public:
 
     void setNeighbour(int neighbourID);
 
+    void replaceNeighbour(int oldNeighbourID, int newNeighbourID);
+
+    void insertNeighbour(int newNeighbourID, int position);
+
     void setMesenchymeThickness(int mesenchymeThickness);
 
     void setInSimulation(bool inSimulation);
@@ -216,8 +242,6 @@ public:
 
     /**
      * Sets a new border point
-     * @param axis x,y, or z
-     * @param point value of this coordinate
      */
     void newBorderPoint(double x, double y, double z);
 
@@ -279,11 +303,6 @@ public:
     //Printer
     static void printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation);
 
-
-    /**
-         * This vector contains the x coordinates of all voronoi vertices around the cell centre
-         */
-    std::vector<std::vector<double>> borderPoints;
 };
 
 

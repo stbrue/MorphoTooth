@@ -20,23 +20,16 @@ int main() {
         cells[cell].resetTempCoordinates();
     }
 
-    Model::diffusion(cells, params);
-    Model::reaction(cells, params);
-    Model::buccalLingualBias(cells, params);
-    Model::differentiation(cells, params);
-    Model::epithelialProliferation(cells, params);
-    Model::buoyancy(cells, params);
-    Model::repulsion(cells, params);
-    Model::nucleusTraction(cells, params);
-    Model::anteriorPosteriorBias(cells, params);
-    Model::applyForces(cells, params);
-
-    for (int cell = 0; cell < 7; ++cell) {
-
+    for (int step = 0; step < params.iterationSteps; ++step) {
+        Model::iterationStep(cells, params);
+        if (step % 100 == 0) {
+            std::cout << step << std::endl;
+        }
     }
 
-    Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
-    Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
+
+    //Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
+    //Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
 
 
     /*

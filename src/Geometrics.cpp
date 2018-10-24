@@ -103,11 +103,15 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
             calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
         }
 
-        //Do the same for the margin (perimeter and area)
-        double margin = Geometrics::calculateMargin(cells[cell].getMarginPoints());
-        cells[cell].setMargin(margin);
-        double marginArea = Geometrics::calculateMarginArea(cells, cell, cells[cell].getMarginPoints());
-        cells[cell].setMarginArea(marginArea);
+        //Do the same for the margin (perimeter and area), if the cell is at the tissue border (=has margin points)
+        double margin = 0;
+        double marginArea = 0;
+        if (cells[cell].getMarginPoints().size() > 0) {
+            margin = Geometrics::calculateMargin(cells[cell].getMarginPoints());
+            cells[cell].setMargin(margin);
+            marginArea = Geometrics::calculateMarginArea(cells, cell, cells[cell].getMarginPoints());
+            cells[cell].setMarginArea(marginArea);
+        }
 
         //Sum them up to get total perimeter and total area
         double perimeter = Geometrics::vectorSum(cells[cell].getPerimeterParts()) + margin;

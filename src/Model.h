@@ -11,6 +11,9 @@
 
 class Model {
 public:
+
+    static void iterationStep(std::vector<Cell> &cells, Parameters &params);
+
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
      * @details Diffusion is proportional to diffusion area (flux), diffusion coefficient of the protein and delta
@@ -167,16 +170,28 @@ public:
 
     static void resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix);
 
-    static void updateTempPositions(std::vector<Cell> &cells, Parameters params, int cell,
+    static void updateTempPositions(std::vector<Cell> &cells, Parameters &params, int cell,
                                     std::vector<std::vector<double>> compressionMatrix, bool isNeighbour);
 
-    static void nucleusTraction(std::vector<Cell> &cells, Parameters params);
+    static void nucleusTraction(std::vector<Cell> &cells, Parameters &params);
 
     static void anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params);
 
-    static void applyForces(std::vector<Cell> &cells, Parameters params);
+    static void applyForces(std::vector<Cell> &cells, Parameters &params);
 
-    static void cellDivision(std::vector<Cell> &cells, Parameters params);
+    static void cellDivision(std::vector<Cell> &cells, Parameters &params);
+
+    static std::vector<std::vector<int>> searchMotherCells(std::vector<Cell> &cells, Parameters &params);
+
+    static std::vector<int> findCommonNeighbours(int M1, int M2, std::vector<Cell> &cells, Parameters &params);
+
+    static void updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell newCell, std::vector<Cell> &cells,
+                                         Parameters &params);
+
+    static void setMeanProteinConcentrations(int M1, int M2, Cell newCell, std::vector<Cell> &cells,
+                                             Parameters &params);
+
+    static void defineIfNewCellInCentre(int N1, int N2, Cell newCell, std::vector<Cell> &cells);
 };
 
 

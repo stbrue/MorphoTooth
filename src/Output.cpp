@@ -33,9 +33,9 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
     outputFile << "X\tY" << std::endl;
 
     for (int cell = 0; cell < InSimulationCells; ++cell) {
-        for (int borderPoint = 0; borderPoint < cells[cell].getBorderPointsX().size(); ++borderPoint) {
-            outputFile << cells[cell].getBorderPointsX()[borderPoint] << "\t"
-                       << cells[cell].getBorderPointsY()[borderPoint] << std::endl;
+        for (int borderPoint = 0; borderPoint < cells[cell].getBorderPoints().size(); ++borderPoint) {
+            outputFile << cells[cell].getBorderPoints()[borderPoint][0] << "\t"
+                       << cells[cell].getBorderPoints()[borderPoint][1] << std::endl;
         }
     }
 
