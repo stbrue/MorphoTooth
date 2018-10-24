@@ -13,6 +13,7 @@ class Output {
 public:
     static void initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells);
     static void initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells);
+    static void bigOutput(std::vector<Cell> cells, Parameters params);
 
 };
 

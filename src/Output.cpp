@@ -6,6 +6,8 @@
 
 #include <iostream>
 #include <fstream>
+#include "Parameters.h"
+#include "consts.h"
 
 void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells) {
     std::ofstream outputFile;
@@ -41,4 +43,22 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
 
 
     outputFile.close();
+}
+
+void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
+    std::ofstream outputFile;
+    outputFile.open("BigOutputMorphoTooth.txt");
+
+    outputFile << "Iterations: " << params.iterations << "Cells in Simulation: " << params.nrCellsInSimulation << std::endl;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        outputFile << "Cell Nr.: " << cell << std::endl;
+        outputFile << "X, Y, Z: " << cells[cell].getX() << "\t" << cells[cell].getY() << cells[cell].getZ() << std::endl;
+        outputFile << "Diff State: " << cells[cell].getDiffState() << std::endl;
+        outputFile << "Epithelial Act: " << cells[cell].getProteinConcentrations()[Act][Epithelium];
+        outputFile << "Epithelial Inh: " << cells[cell].getProteinConcentrations()[Inh][Epithelium];
+        outputFile << "Epithelial Sec1: " << cells[cell].getProteinConcentrations()[Sec1][Epithelium];
+        outputFile << "Epithelial Sec2: " << cells[cell].getProteinConcentrations()[Sec2][Epithelium];
+        outputFile << std::endl;
+    }
 }
