@@ -10,6 +10,7 @@
 #include "Parameters.h"
 #include "consts.h"
 
+
 void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
@@ -93,7 +94,7 @@ void Model::upDiffusion(std::vector<Cell> &cells, int cell, int layer, int prote
     // if we are in the layer below the epithelium we have to update also the concentration difference in the epithelium
     // because we looked in the epithelial layer only at the horizontal diffusion before.
     if (layer == 1) {
-        cells[cell].addTempConcentration(protein, Epithelium, -newConcentration);
+        cells[cell].addTempConcentration(protein, LEpithelium, -newConcentration);
     }
 }
 
@@ -165,10 +166,10 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
     //for all center cells
     for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
         if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
-            cells[cell].setProteinConcentration(Act, Epithelium,
+            cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.lbi);  //lbi: lingual bias by initial BMP distribution
         } else if (cells[cell].getY() > params.swi) {
-            cells[cell].setProteinConcentration(Act, Epithelium,
+            cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.bbi);  //bbi: buccal bias by initial BMP distribution
         }
     }
@@ -177,7 +178,7 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
 void Model::differentiation(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //Increase the diff state of each cell
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
+        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
         double addDiff = params.dff * epithelialSec1Concentration;
         cells[cell].addDiffState(addDiff);
     }
@@ -361,7 +362,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
         }
 
         d = sqrt(aa * aa + bb * bb);
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
+        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
         if (d > 0) {
             factor = (d + params.mgr * epithelialSec1Concentration) / d;        //mgr: mesenchymal proliferation rate
             aa = aa * factor;
@@ -665,7 +666,7 @@ bool Model::isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeigh
 void Model::EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int cell) {
     //if the Act concentration in the epithelial layer is high enough
     //and if it is in the centre, then it becomes/is a knot cell
-    if (cells[cell].getProteinConcentrations()[Act][Epithelium] > 1) {
+    if (cells[cell].getProteinConcentrations()[PAct][LEpithelium] > 1) {
         if (cells[cell].isInCentre()) {
             cells[cell].setKnotCell(true);
         }
@@ -675,9 +676,9 @@ void Model::EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int 
 void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     Model::EKDifferentiation(cells, params, cell);
 
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
-    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[Inh][Epithelium];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[Sec2][Epithelium];
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
+    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
+    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
 
     double positiveTerm = params.act * epithelialActConcentration - epithelialSec2Concentration;
     if (positiveTerm < 0) {
@@ -688,14 +689,14 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
 
     //concentration difference: reaction - degradation
     double newConcentration = (positiveTerm / negativeTerm) - degradation;
-    cells[cell].addTempConcentration(Act, Epithelium, newConcentration);
+    cells[cell].addTempConcentration(PAct, LEpithelium, newConcentration);
 }
 
 void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
     double diffState = cells[cell].getDiffState();
-    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[Inh][Epithelium];
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
+    double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
@@ -704,12 +705,12 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     } else if (isKnotCell) {
         newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
     }
-    cells[cell].addTempConcentration(Inh, Epithelium, newConcentration);
+    cells[cell].addTempConcentration(PInh, LEpithelium, newConcentration);
 }
 
 void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     double diffState = cells[cell].getDiffState();
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
+    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration;
 
@@ -722,13 +723,13 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     if (newConcentration < 0) {
         newConcentration = 0;
     }
-    cells[cell].addTempConcentration(Sec1, Epithelium, newConcentration);
+    cells[cell].addTempConcentration(PSec1, LEpithelium, newConcentration);
 }
 
 void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[Act][Epithelium];
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[Sec1][Epithelium];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[Sec2][Epithelium];
+    double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
+    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
+    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
 
     double newConcentration =
             params.act * epithelialActConcentration -                   //Act activates Sec2 production
@@ -777,7 +778,8 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
     return commonNeighbours;
 }
 
-void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
+void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, std::vector<Cell> &cells,
+                                     Parameters &params) {
     // Set the neighbours of the new cell (only the order is important)
     newCell.setNeighbour(M1);
     newCell.setNeighbour(N1);
@@ -857,8 +859,7 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<C
 
     if (N1InCentre == false || N2InCentre == false) {
         newCell.setInCentre(false);
-    }
-    else {
+    } else {
         newCell.setInCentre(true);
     }
 }

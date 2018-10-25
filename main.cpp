@@ -9,28 +9,23 @@
 
 int main() {
 
-
-    //Make instance of Parameters
-    Parameters params = Input::defineParametersSealTest();
+    //Make instance of Parameters by reading in the parameters from input file
+    Parameters params = Input::setParameters();
 
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(params);
 
-    for (int cell = 0; cell < 19; ++cell) {
-        cells[cell].resetTempCoordinates();
-    }
-
-    for (int step = 0; step < params.iterationSteps; ++step) {
+    //The big loop
+    //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
+    for (int step = 0; step < params.iterations; ++step) {
         Model::iterationStep(cells, params);
+        //Print every 100 iteration the count
         if (step % 100 == 0) {
             std::cout << step << std::endl;
         }
     }
 
-
-    //Output::initialCellCentersXY(cells, params.nrCellsInSimulation);
-    //Output::initialCellBordersXY(cells, params.nrCellsInSimulation);
-
+    Output::bigOutput(cells, params);
 
     /*
         //Test

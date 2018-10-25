@@ -20,6 +20,8 @@ public:
      */
     static Parameters defineParametersSealTest();
 
+    static Parameters setParameters();
+
 };
 
 

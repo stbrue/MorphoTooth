@@ -3,6 +3,8 @@
 //
 
 #include "Input.h"
+#include <iostream>
+#include <fstream>
 
 Parameters Input::defineParametersSealTest() {
     Parameters params;
@@ -34,7 +36,143 @@ Parameters Input::defineParametersSealTest() {
     params.abi = 18;
     params.pbi = 15;
     params.bgr = 1;
-    params.iterationSteps = 10000;
+
+    return params;
+}
+
+Parameters Input::setParameters() {
+    Parameters params;
+    std::string line;
+    int counter = 0;
+
+    std::ifstream InputFile("TestInput.txt");
+    if (InputFile.is_open()) {
+        while (getline(InputFile, line)) {
+            switch (counter) {
+                case 0: {
+                    params.iterations = std::stoi(line);
+                    break;
+                }
+                case 1: {
+                    params.initialRadius = std::stoi(line);
+                    break;
+                }
+                case 2: {
+                    params.diffusionRates.push_back(std::stod(line));
+                    break;
+                }
+                case 3: {
+                    params.diffusionRates.push_back(std::stod(line));
+                    break;
+                }
+                case 4: {
+                    params.diffusionRates.push_back(std::stod(line));
+                    break;
+                }
+                case 5: {
+                    params.diffusionRates.push_back(std::stod(line));
+                    break;
+                }
+                case 6: {
+                    params.delta = std::stod(line);
+                    break;
+                }
+                case 7: {
+                    params.act = std::stod(line);
+                    break;
+                }
+                case 8: {
+                    params.inh = std::stod(line);
+                    break;
+                }
+                case 9: {
+                    params.mu = std::stod(line);
+                    break;
+                }
+                case 10: {
+                    params.inT = std::stod(line);
+                    break;
+                }
+                case 11: {
+                    params.set = std::stod(line);
+                    break;
+                }
+                case 12: {
+                    params.sec = std::stod(line);
+                    break;
+                }
+                case 13: {
+                    params.sec2Inhibition = std::stod(line);
+                    break;
+                }
+                case 14: {
+                    params.lbi = std::stod(line);
+                    break;
+                }
+                case 15: {
+                    params.bbi = std::stod(line);
+                    break;
+                }
+                case 16: {
+                    params.swi = std::stod(line);
+                    break;
+                }
+                case 17: {
+                    params.dff = std::stod(line);
+                    break;
+                }
+                case 18: {
+                    params.egr = std::stod(line);
+                    break;
+                }
+                case 19: {
+                    params.mgr = std::stod(line);
+                    break;
+                }
+                case 20: {
+                    params.dgr = std::stod(line);
+                    break;
+                }
+                case 21: {
+                    params.boy = std::stod(line);
+                    break;
+                }
+                case 22: {
+                    params.rep = std::stod(line);
+                    break;
+                }
+                case 23: {
+                    params.adh = std::stod(line);
+                    break;
+                }
+                case 24: {
+                    params.ntr = std::stod(line);
+                    break;
+                }
+                case 25: {
+                    params.bwi = std::stod(line);
+                    break;
+                }
+                case 26: {
+                    params.abi = std::stod(line);
+                    break;
+                }
+                case 27: {
+                    params.pbi = std::stod(line);
+                    break;
+                }
+                case 28: {
+                    params.bgr = std::stod(line);
+                    break;
+                }
+                default: {
+                    std::cout << "Error in reading of input values" << std::endl;
+                }
+            }
+            counter += 1;
+        }
+        InputFile.close();
+    } else std::cout << "Unable to open file";
 
     return params;
 }

@@ -159,11 +159,6 @@ public:
      * Bias in z-direction
      */
     double bgr;
-
-    /**
-     * How many iterations have to be done
-     */
-    double iterationSteps;
 };
 
 

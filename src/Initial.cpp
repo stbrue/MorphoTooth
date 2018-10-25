@@ -40,6 +40,10 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
 
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
 
+    for (int cell = 0; cell < 19; ++cell) {
+        cells[cell].resetTempCoordinates();
+    }
+
     return cells;
 }
 

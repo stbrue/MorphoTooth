@@ -6,15 +6,12 @@
 #define MORPHOTOOTH_CONSTS_H
 
 
-int Act = 0;
-int Inh = 1;
-int Sec1 = 2;
-int Sec2 = 3;
+const int PAct = 0;
+const int PInh = 1;
+const int PSec1 = 2;
+const int PSec2 = 3;
 
-int Epithelium = 0;
-int Mesenchyme1 = 1;
-int Mesenchyme2 = 2;
-int Mesenchyme3 = 3;
+const int LEpithelium = 0;
 
 
 #endif //MORPHOTOOTH_CONSTS_H
