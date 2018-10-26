@@ -698,7 +698,7 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
-    double newConcentration;
+    double newConcentration = 0;
 
     if (diffState > params.inT) {           //inT: inductive threshold
         newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
@@ -712,7 +712,7 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     double diffState = cells[cell].getDiffState();
     double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
-    double newConcentration;
+    double newConcentration = 0;
 
     if (diffState > params.set) {
         newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;

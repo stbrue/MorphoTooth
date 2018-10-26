@@ -295,6 +295,23 @@ public:
     void resetTempCoordinates();
 
     /**
+     * Deletes all the border points
+     */
+    void deleteBorderPoints();
+
+    /**
+     * Deletes all the perimeter parts
+     */
+    void deletePerimeterParts();
+
+    /**
+     * Deletes all the area parts
+     */
+    void deleteAreaParts();
+
+    void deleteMarginPoints();
+
+    /**
      * Calculates the new position of the cell by adding the temp coordinates multiplied with delta
      * @param delta
      */

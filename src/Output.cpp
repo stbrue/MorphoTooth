@@ -47,6 +47,7 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
 
 void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
+    outputFile.precision(12);
     outputFile.open("BigOutputMorphoTooth.txt");
 
     outputFile << "Iterations: " << params.iterations << "Cells in Simulation: " << params.nrCellsInSimulation
@@ -54,13 +55,13 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         outputFile << "Cell Nr.: " << cell << std::endl;
-        outputFile << "X, Y, Z: " << cells[cell].getX() << "\t" << cells[cell].getY() << cells[cell].getZ()
+        outputFile << "X, Y, Z: " << cells[cell].getX() << "\t" << cells[cell].getY() << "\t" << cells[cell].getZ()
                    << std::endl;
         outputFile << "Diff State: " << cells[cell].getDiffState() << std::endl;
-        outputFile << "Epithelial Act: " << cells[cell].getProteinConcentrations()[PAct][LEpithelium];
-        outputFile << "Epithelial Inh: " << cells[cell].getProteinConcentrations()[PInh][LEpithelium];
-        outputFile << "Epithelial Sec1: " << cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
-        outputFile << "Epithelial Sec2: " << cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
+        outputFile << "Epithelial Act: " << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << std::endl;
+        outputFile << "Epithelial Inh: " << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << std::endl;
+        outputFile << "Epithelial Sec1: " << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << std::endl;
+        outputFile << "Epithelial Sec2: " << cells[cell].getProteinConcentrations()[PSec2][LEpithelium] << std::endl;
         outputFile << std::endl;
     }
 }

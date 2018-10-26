@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <iostream>
 #include "Geometrics.h"
 
 double Geometrics::squareCenterDistance3D(Cell cell1, Cell cell2) {
@@ -87,7 +88,11 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
     //Perimeter: distance between two adjacent border points
     //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent borderpoints and the center cell
     for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
+        //First of all, delete all perimeter and area parts
+        cells[cell].deletePerimeterParts();
+        cells[cell].deleteAreaParts();
 
+        //Now calculate the new perimeter and area parts
         //Last and first neighbour
         int borderPoint1 = (cells[cell].getBorderPoints().size() - 1);
         int borderPoint2 = 0;
@@ -103,14 +108,18 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
             calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
         }
 
-        //Do the same for the margin (perimeter and area), if the cell is at the tissue border (=has margin points)
+        //Do the same for the margin (perimeter and area), if the cell is at the tissue border (=has at margin points)
         double margin = 0;
         double marginArea = 0;
-        if (cells[cell].getMarginPoints().size() > 0) {
+        if (cells[cell].getMarginPoints().size() == 2) {
             margin = Geometrics::calculateMargin(cells[cell].getMarginPoints());
             cells[cell].setMargin(margin);
             marginArea = Geometrics::calculateMarginArea(cells, cell, cells[cell].getMarginPoints());
             cells[cell].setMarginArea(marginArea);
+        } else if (cells[cell].getMarginPoints().size() == 1) {
+            std::cout << "There is only one margin point" << std::endl;
+        } else if (cells[cell].getMarginPoints().size() > 2) {
+            std::cout << "There are more than two margin points" << std::endl;
         }
 
         //Sum them up to get total perimeter and total area
@@ -188,6 +197,11 @@ Geometrics::calculateMarginArea(std::vector<Cell> &cells, int cell, std::vector<
 
 void Geometrics::calculateCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation) {
     for (int centreCell = 0; centreCell < nrCellsInSimulation; ++centreCell) {
+        // first of all delete all the border points and margin points
+        cells[centreCell].deleteBorderPoints();
+        cells[centreCell].deleteMarginPoints();
+
+        //Now calculate the new border points
         //last and first neighbour
         int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
         int neighbour2 = 0;

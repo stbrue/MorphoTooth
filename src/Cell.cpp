@@ -277,6 +277,22 @@ void Cell::resetTempCoordinates() {
     tempZ = 0;
 }
 
+void Cell::deleteBorderPoints() {
+    Cell::borderPoints.clear();
+}
+
+void Cell::deletePerimeterParts() {
+    Cell::perimeterParts.clear();
+}
+
+void Cell::deleteAreaParts() {
+    Cell::areaParts.clear();
+}
+
+void Cell::deleteMarginPoints() {
+    Cell::marginPoints.clear();
+}
+
 void Cell::updateCoordinates(double delta) {
     // There cannot be any force in negative z-direction due to the pressure of the stelate
     if (Cell::tempZ < 0) {
