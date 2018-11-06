@@ -78,6 +78,7 @@ int Initial::getNumberOfInSimulationCells(int initialRadius) {
 double Initial::nextX(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
     double x;
+    int distanceBetweenCells = 1;
     x = centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour)));
     //return the rounded value
     return (std::floor(x * 1000000 + 0.5) / 1000000);
@@ -87,6 +88,7 @@ double Initial::nextX(double centerCoordinate, int neighbour) {
 double Initial::nextY(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / 360; //to transform from degree into rad
     double y;
+    int distanceBetweenCells = 1;
     y = centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour)));
     //return the rounded value
     return (std::floor(y * 1000000 + 0.5) / 1000000);

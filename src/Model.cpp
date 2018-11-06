@@ -109,7 +109,8 @@ void Model::downDiffusion(std::vector<Cell> &cells, int cell, int layer, int pro
 void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, double contactArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = (contactArea *
-                               (-oldConcentration * 0.4));    //0.4 is an arbitrary value from Salazar-Ciudad & Jernvall
+                               (-oldConcentration *
+                                0.44));    //0.44 is an arbitrary value from Salazar-Ciudad & Jernvall
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
@@ -141,7 +142,7 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
         ActReactionAndDegradation(cells, params, cell);
         InhReactionAndDegradation(cells, params, cell);
         Sec1ReactionAndDegradation(cells, params, cell);
-        Sec2ReactionAndDegradation(cells, params, cell);
+        //Sec2ReactionAndDegradation(cells, params, cell); // not used, since [Sec2] is always = 0
     }
 
     //Update the final protein concentrations (including delta)
@@ -678,9 +679,10 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
 
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
+    //double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
 
-    double positiveTerm = params.act * epithelialActConcentration - epithelialSec2Concentration;
+    double positiveTerm = params.act * epithelialActConcentration; //- epithelialSec2Concentration
+    // not necessary since [Sec2] is always = 0
     if (positiveTerm < 0) {
         positiveTerm = 0;
     }
@@ -700,7 +702,7 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (diffState > params.inT) {           //inT: inductive threshold
+    if (diffState > params.inT) {           //int: inductive threshold
         newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
     } else if (isKnotCell) {
         newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
@@ -720,19 +722,25 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
         newConcentration = params.sec - params.mu * epithelialSec1Concentration;
     }
 
+    // [Sec1] does not get smaller (except by diffusion)
     if (newConcentration < 0) {
         newConcentration = 0;
     }
     cells[cell].addTempConcentration(PSec1, LEpithelium, newConcentration);
 }
 
-void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
+
+/**
+ * This method is not used, because the parameter acec (influence of activator on sec2) is zero, meaning that there is no
+ * Sec2 production at all.
+ */
+/*void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
     double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
 
     double newConcentration =
-            params.act * epithelialActConcentration -                   //Act activates Sec2 production
+            params.acec * epithelialActConcentration -                   //Act activates Sec2 production
             params.mu * epithelialSec2Concentration -                   //Minus normal degradation of Sec2
             params.sec2Inhibition * epithelialSec1Concentration;        //Minus Inhibition by Sec1
     if (newConcentration < 0) {
@@ -740,7 +748,7 @@ void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     }
 
     cells[cell].addTempConcentration(3, 0, newConcentration);
-}
+}*/
 
 std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells, Parameters &params) {
     std::vector<std::vector<int>> motherCells;

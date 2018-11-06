@@ -177,27 +177,14 @@ public:
 
     double getCellArea() const;
 
-    double getMarginArea() const;
-
     double getMargin() const;
 
     std::vector<std::vector<double>> &getProteinConcentrations();
 
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
-    double getTempX() const;
-
-    double getTempY() const;
-
-    double getTempZ() const;
 
     //Setter
-    void setX(double x);
-
-    void setY(double y);
-
-    void setZ(double z);
-
     /**
      * Increments the variable tempX by a certain amount
      * @param tempX
@@ -216,10 +203,6 @@ public:
 
     void multiplyTempZ(double tempZ);
 
-    void setID(int ID);
-
-    void setDiffState(double diffState);
-
     /**
      * Increments the variable diffState by a certain amount
      * @param addedDiffState
@@ -233,8 +216,6 @@ public:
     void replaceNeighbour(int oldNeighbourID, int newNeighbourID);
 
     void insertNeighbour(int newNeighbourID, int position);
-
-    void setMesenchymeThickness(int mesenchymeThickness);
 
     void setInSimulation(bool inSimulation);
 
@@ -316,9 +297,6 @@ public:
      * @param delta
      */
     void updateCoordinates(double delta);
-
-    //Printer
-    static void printCellBorders(std::vector<Cell> cells, int nrCellsInSimulation);
 
 };
 

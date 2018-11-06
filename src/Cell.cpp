@@ -32,11 +32,7 @@ std::vector<int> Cell::getNeighbours() const {
 }
 
 bool Cell::isKnotCell() const {
-    if (knot) {
-        return true;
-    } else {
-        return false;
-    }
+    return knot;
 }
 
 bool Cell::isInSimulation() const {
@@ -75,10 +71,6 @@ double Cell::getCellArea() const {
     return cellArea;
 }
 
-double Cell::getMarginArea() const {
-    return marginArea;
-}
-
 double Cell::getMargin() const {
     return margin;
 }
@@ -91,43 +83,7 @@ const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() con
     return tempProteinConcentrations;
 }
 
-double Cell::getTempX() const {
-    return tempX;
-}
-
-double Cell::getTempY() const {
-    return tempY;
-}
-
-double Cell::getTempZ() const {
-    return tempZ;
-}
-
 //Setter
-void Cell::setX(double x) {
-    Cell::x = x;
-}
-
-void Cell::setY(double y) {
-    Cell::y = y;
-}
-
-void Cell::setZ(double z) {
-    Cell::z = z;
-}
-
-void Cell::setID(int ID) {
-    Cell::ID = ID;
-}
-
-void Cell::setDiffState(double diffState) {
-    if (diffState > 1) {
-        std::cout << "The diff state can maximally be 1" << std::endl;
-        diffState = 1;
-        return;
-    }
-    Cell::diffState = diffState;
-}
 
 void Cell::addDiffState(double addedDiffState) {
     Cell::diffState += addedDiffState;
@@ -145,12 +101,19 @@ void Cell::setNeighbour(int neighbourID) {
 }
 
 void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
-    for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
+    for (auto neighbour : Cell::neighbours) {
+        if (neighbour == oldNeighbourID) {
+            neighbour = newNeighbourID;
+            return;
+        }
+    }
+
+    /*for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
         if (Cell::neighbours[neighbour] == oldNeighbourID) {
             Cell::neighbours[neighbour] = newNeighbourID;
             return;
         }
-    }
+    }*/
 }
 
 void Cell::insertNeighbour(int newNeighbourID, int position) {
