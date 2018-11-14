@@ -111,7 +111,7 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
         for (auto cell : cells) {
             if (cell == tempCell) {
                 //declare it as a neighbour
-                cells[IDCentreCell].setNeighbour(cell.getID());
+                cells[IDCentreCell].addNeighbour(cell.getID());
                 isAlreadyExisting = true;
                 break;
             }
@@ -121,7 +121,7 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
             //Create this new cell
             cells.push_back(tempCell);
             //Declare it as a neighbour
-            cells[IDCentreCell].setNeighbour(IDNewCell);
+            cells[IDCentreCell].addNeighbour(IDNewCell);
             IDNewCell++;
         }
     }

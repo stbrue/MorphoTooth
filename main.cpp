@@ -49,7 +49,7 @@ int main() {
         Cell cell16(-4, -3, 1.35, 16);
         Cell cell17(-4, 0, 1.2, 17);
         Cell cell18(-5, 1, 1.25, 18);
-    
+
         cells.push_back(cell0);
         cells.push_back(cell1);
         cells.push_back(cell2);
@@ -69,68 +69,68 @@ int main() {
         cells.push_back(cell16);
         cells.push_back(cell17);
         cells.push_back(cell18);
-    
+
         for (int cell = 0; cell < 7; ++cell) {
             cells[cell].setInSimulation(true);
             cells[cell].setInCentre(true);
-    
+
         }
-    
+
         cells[0].setNeighbour(1);
         cells[0].setNeighbour(2);
         cells[0].setNeighbour(3);
         cells[0].setNeighbour(4);
         cells[0].setNeighbour(5);
         cells[0].setNeighbour(6);
-    
+
         cells[1].setNeighbour(7);
         cells[1].setNeighbour(8);
         cells[1].setNeighbour(2);
         cells[1].setNeighbour(0);
         cells[1].setNeighbour(6);
         cells[1].setNeighbour(9);
-    
+
         cells[2].setNeighbour(8);
         cells[2].setNeighbour(10);
         cells[2].setNeighbour(11);
         cells[2].setNeighbour(3);
         cells[2].setNeighbour(0);
         cells[2].setNeighbour(1);
-    
+
         cells[3].setNeighbour(2);
         cells[3].setNeighbour(11);
         cells[3].setNeighbour(12);
         cells[3].setNeighbour(13);
         cells[3].setNeighbour(4);
         cells[3].setNeighbour(0);
-    
+
         cells[4].setNeighbour(0);
         cells[4].setNeighbour(3);
         cells[4].setNeighbour(13);
         cells[4].setNeighbour(14);
         cells[4].setNeighbour(15);
         cells[4].setNeighbour(5);
-    
+
         cells[5].setNeighbour(6);
         cells[5].setNeighbour(0);
         cells[5].setNeighbour(4);
         cells[5].setNeighbour(15);
         cells[5].setNeighbour(16);
         cells[5].setNeighbour(17);
-    
+
         cells[6].setNeighbour(9);
         cells[6].setNeighbour(1);
         cells[6].setNeighbour(0);
         cells[6].setNeighbour(5);
         cells[6].setNeighbour(17);
         cells[6].setNeighbour(18);
-    
+
         Parameters params = Input::defineParametersSealTest();
         params.nrCellsInSimulation = 7;
-    
+
         //Act
         Geometrics::calculateCellBorders(cells, 7);
-    
+
         cells[0].setProteinConcentration(0, 0, 1);
         cells[0].setProteinConcentration(0, 1, 1.1);
         cells[0].setProteinConcentration(0, 2, 1.2);
@@ -147,7 +147,7 @@ int main() {
         cells[0].setProteinConcentration(3, 1, 2.3);
         cells[0].setProteinConcentration(3, 2, 2.4);
         cells[0].setProteinConcentration(3, 3, 2.5);
-    
+
         cells[1].setProteinConcentration(0, 0, 2);
         cells[1].setProteinConcentration(0, 1, 2.1);
         cells[1].setProteinConcentration(0, 2, 2.2);
@@ -164,7 +164,7 @@ int main() {
         cells[1].setProteinConcentration(3, 1, 3.3);
         cells[1].setProteinConcentration(3, 2, 3.4);
         cells[1].setProteinConcentration(3, 3, 3.5);
-    
+
         cells[2].setProteinConcentration(0, 0, 4);
         cells[2].setProteinConcentration(0, 1, 4.1);
         cells[2].setProteinConcentration(0, 2, 4.2);
@@ -181,7 +181,7 @@ int main() {
         cells[2].setProteinConcentration(3, 1, 5.3);
         cells[2].setProteinConcentration(3, 2, 5.4);
         cells[2].setProteinConcentration(3, 3, 5.5);
-    
+
         cells[3].setProteinConcentration(0, 0, 6);
         cells[3].setProteinConcentration(0, 1, 6.1);
         cells[3].setProteinConcentration(0, 2, 6.2);
@@ -198,7 +198,7 @@ int main() {
         cells[3].setProteinConcentration(3, 1, 7.3);
         cells[3].setProteinConcentration(3, 2, 7.4);
         cells[3].setProteinConcentration(3, 3, 7.5);
-    
+
         cells[4].setProteinConcentration(0, 0, 8);
         cells[4].setProteinConcentration(0, 1, 8.1);
         cells[4].setProteinConcentration(0, 2, 8.2);
@@ -215,7 +215,7 @@ int main() {
         cells[4].setProteinConcentration(3, 1, 9.3);
         cells[4].setProteinConcentration(3, 2, 9.4);
         cells[4].setProteinConcentration(3, 3, 9.5);
-    
+
         cells[5].setProteinConcentration(0, 0, 10);
         cells[5].setProteinConcentration(0, 1, 10.1);
         cells[5].setProteinConcentration(0, 2, 10.2);
@@ -232,7 +232,7 @@ int main() {
         cells[5].setProteinConcentration(3, 1, 11.3);
         cells[5].setProteinConcentration(3, 2, 11.4);
         cells[5].setProteinConcentration(3, 3, 11.5);
-    
+
         cells[6].setProteinConcentration(0, 0, 12);
         cells[6].setProteinConcentration(0, 1, 12.1);
         cells[6].setProteinConcentration(0, 2, 12.2);
@@ -249,9 +249,9 @@ int main() {
         cells[6].setProteinConcentration(3, 1, 13.3);
         cells[6].setProteinConcentration(3, 2, 13.4);
         cells[6].setProteinConcentration(3, 3, 13.5);
-    
-        Model::repulsion(cells, params);
-    
+
+        Model::repulsionAndAdhesion(cells, params);
+
         for (int cell = 0; cell < 7; ++cell) {
             std::cout << "Cell nr" << cell << std::endl;
             for (int protein = 0; protein < 4; ++protein) {
@@ -260,8 +260,8 @@ int main() {
                     std::cout << cells[cell].getProteinConcentrations()[protein][layer] << std::endl;
                 }
             }
-        }
-    
-    */
+        }*/
+
+
     return 0;
 }

@@ -31,7 +31,7 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
-    static void upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea);
+    static void upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
 
     /**
      * @brief   Calculates the resulting protein concentration differences due to diffusion between a cell and an lower one
@@ -42,7 +42,7 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
-    static void downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea);
+    static void downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
 
     /**
      * @brief   Calculates protein concentration differences due to a sink (for cells at the border)
@@ -52,7 +52,7 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   contactArea     diffusion area (relative cell area or perimeter part)
      */
-    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double contactArea);
+    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
 
     /**
      * @brief   Calculates protein concentration differences due to diffusion in horizontal direction
@@ -62,7 +62,8 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   diffusionArea   pDiffusionArea for non-epithelial and eDiffusionArea for epithelial diffusion
      */
-    static void horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double diffusionArea);
+    static void
+    horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea);
 
     /**
      * @brief   Calls all methods that implement the reaction (Activation, Inhibition, Expression, Degradation) of the proteins
@@ -158,13 +159,14 @@ public:
      * @param cells
      * @param params
      */
-    static void repulsion(std::vector<Cell> &cells, Parameters &params);
+    static void repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params);
 
     static bool isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour);
 
-    static void repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
-                                           std::vector<std::vector<double>> &compressionMatrixNeighbours,
-                                           bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
+    static void
+    repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+                                          std::vector<std::vector<double>> &compressionMatrixNeighbours,
+                                          bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
 
     static std::vector<std::vector<double>> setUpCompressionMatrix();
 

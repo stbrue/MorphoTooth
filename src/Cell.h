@@ -185,6 +185,9 @@ public:
 
 
     //Setter
+
+    void setID(int newID);
+
     /**
      * Increments the variable tempX by a certain amount
      * @param tempX
@@ -211,7 +214,9 @@ public:
 
     void setKnotCell(bool knot);
 
-    void setNeighbour(int neighbourID);
+    void addNeighbour(int neighbourID);
+
+    void setNeighbour(int position, int newNeighbourID);
 
     void replaceNeighbour(int oldNeighbourID, int newNeighbourID);
 

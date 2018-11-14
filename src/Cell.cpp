@@ -85,6 +85,10 @@ const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() con
 
 //Setter
 
+void Cell::setID(int newID) {
+    Cell::ID = newID;
+}
+
 void Cell::addDiffState(double addedDiffState) {
     Cell::diffState += addedDiffState;
     if (diffState > 1) {
@@ -96,24 +100,28 @@ void Cell::setKnotCell(bool knot) {
     Cell::knot = knot;
 }
 
-void Cell::setNeighbour(int neighbourID) {
+void Cell::addNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
 }
 
+void Cell::setNeighbour(int position, int newNeighbourID){
+    neighbours[position] = newNeighbourID;
+}
+
 void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
-    for (auto neighbour : Cell::neighbours) {
+    /*for (auto neighbour : Cell::neighbours) {
         if (neighbour == oldNeighbourID) {
             neighbour = newNeighbourID;
             return;
         }
-    }
+    }*/
 
-    /*for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
         if (Cell::neighbours[neighbour] == oldNeighbourID) {
-            Cell::neighbours[neighbour] = newNeighbourID;
+            setNeighbour(neighbour, newNeighbourID);
             return;
         }
-    }*/
+    }
 }
 
 void Cell::insertNeighbour(int newNeighbourID, int position) {

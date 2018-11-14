@@ -18,7 +18,7 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::differentiation(cells, params);
     Model::epithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
-    Model::repulsion(cells, params);
+    Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
     Model::anteriorPosteriorBias(cells, params);
     Model::applyForces(cells, params);
@@ -40,30 +40,30 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
         double perimeter = cells[cell].getPerimeter();
         double cellArea = cells[cell].getCellArea();
 
-        //For non-Epithelial Diffusion: Total diffusion area = perimeter + 2 * area (bottom and top area)
-        double pDiffusionArea = perimeter + (2 * cellArea);
+        //For mesenchymal Diffusion: Total diffusion area = perimeter + 2 * area (bottom and top area)
+        double mTotalDiffusionArea = perimeter + (2 * cellArea);
         //For Epithelial Diffusion: Total diffusion area = perimeter + 1 * area (only bottom)
-        double eDiffusionArea = perimeter + cellArea;
+        double eTotalDiffusionArea = perimeter + cellArea;
 
         // Set cell area relative to total diffusion area
-        double pCellArea = cellArea / pDiffusionArea;
-        double eCellArea = cellArea / eDiffusionArea;
-
+        double relativeDiffusionAreaMesenchyme = cellArea / mTotalDiffusionArea;
+        double relativeDiffusionAreaEpithel = cellArea / eTotalDiffusionArea;
 
         //Diffusion in all layers in all directions
         for (int protein = 0; protein < 4; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
+                //Layer 0 is Epithel, Layer 2 - 4 are Mesenchyme
                 if (layer != 0) { // if we are not within the epithelial layer
-                    upDiffusion(cells, cell, layer, protein, pCellArea);
+                    upDiffusion(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme);
                     if (layer < (cells[cell].getMesenchymeThickness() - 1)) { // if its not the lowest layer
-                        downDiffusion(cells, cell, layer, protein, pCellArea);
+                        downDiffusion(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme);
                     } else { // if its the lowest layer -> vertical sink
-                        sink(cells, cell, layer, protein, pCellArea);
+                        sink(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme);
                     }
-                    horizontalDiffusion(cells, cell, layer, protein, pDiffusionArea);
-                } else if (layer == 0) { // if we are in the epithelium, do only horizontal Diffusion
-
-                    horizontalDiffusion(cells, cell, layer, protein, eDiffusionArea);
+                    horizontalDiffusion(cells, cell, layer, protein, mTotalDiffusionArea);
+                } else if (layer == 0) { // if we are in the epithelium, do no up Diffusion
+                    horizontalDiffusion(cells, cell, layer, protein, eTotalDiffusionArea);
+                    downDiffusion(cells, cell, layer, protein, relativeDiffusionAreaEpithel);
                 }
             }
         }
@@ -85,37 +85,32 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea) {
+void Model::upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double neighbourConcentration = cells[cell].getProteinConcentrations()[protein][layer - 1];
-    double newConcentration = (pCellArea * (neighbourConcentration - oldConcentration));
-
-    cells[cell].addTempConcentration(protein, layer, newConcentration);
-    // if we are in the layer below the epithelium we have to update also the concentration difference in the epithelium
-    // because we looked in the epithelial layer only at the horizontal diffusion before.
-    if (layer == 1) {
-        cells[cell].addTempConcentration(protein, LEpithelium, -newConcentration);
-    }
-}
-
-void Model::downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double pCellArea) {
-    double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
-    double neighbourConcentration = cells[cell].getProteinConcentrations()[protein][layer + 1];
-    double newConcentration = (pCellArea * (neighbourConcentration - oldConcentration));
+    double newConcentration = (relativeDiffusionArea * (neighbourConcentration - oldConcentration));
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
 
-void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, double contactArea) {
+void Model::downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
-    double newConcentration = (contactArea *
+    double neighbourConcentration = cells[cell].getProteinConcentrations()[protein][layer + 1]; // a layer below
+    double newConcentration = (relativeDiffusionArea * (neighbourConcentration - oldConcentration));
+
+    cells[cell].addTempConcentration(protein, layer, newConcentration);
+}
+
+void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea) {
+    double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
+    double newConcentration = (relativeDiffusionArea *
                                (-oldConcentration *
                                 0.44));    //0.44 is an arbitrary value from Salazar-Ciudad & Jernvall
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
 
-void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double diffusionArea) {
+void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = 0;
     bool borderDiffusionDone = false;
@@ -124,13 +119,13 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
 
         if (cells[neighbourID].isInSimulation()) {
             double neighbourConcentration = cells[neighbourID].getProteinConcentrations()[protein][layer];
-            double pPerimeterPart = (cells[cell].getPerimeterParts()[neighbour] / diffusionArea);
+            double pPerimeterPart = (cells[cell].getPerimeterParts()[neighbour] / totalDiffusionArea);
             newConcentration = (pPerimeterPart * (neighbourConcentration - oldConcentration));
             cells[cell].addTempConcentration(protein, layer, newConcentration);
         }
             // if the neighbour is not within simulation and the borderDiffusion has not yet been calculated, there is a sink
         else if (borderDiffusionDone == false) {
-            double pMargin = cells[cell].getMargin() / diffusionArea;
+            double pMargin = cells[cell].getMargin() / totalDiffusionArea;
             sink(cells, cell, layer, protein, pMargin);
             borderDiffusionDone = true;
         }
@@ -418,7 +413,7 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
+void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
     std::vector<std::vector<double>> compressionMatrixNeighbour = Model::setUpCompressionMatrix();
     std::vector<std::vector<double>> compressionMatrixNonNeighbour = Model::setUpCompressionMatrix();
 
@@ -447,15 +442,15 @@ void Model::repulsion(std::vector<Cell> &cells, Parameters &params) {
 
             //Check for the situation
             bool cell2IsNeighbour = Model::isNeighbourOf(cells, cell1, cell2);
-            bool neighbourIsInSimulation = cells[cell2].isInSimulation();
             bool cell1IsEKCell = cells[cell1].isKnotCell();
             bool cell2IsEKCell = cells[cell2].isKnotCell();
             bool cell1IsInCenter = cells[cell1].isInCentre();
 
-            if (cell2IsNeighbour && neighbourIsInSimulation) {
-                Model::repulsionBetweenNeighbours(dx, dy, dz, distance3D, distance2D, compressionMatrixNeighbour,
-                                                  cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
-            } else if (cell2IsNeighbour == false) {
+            if (cell2IsNeighbour) {
+                Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, distance3D, distance2D,
+                                                             compressionMatrixNeighbour,
+                                                             cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
+            } else {
                 Model::repulsionBetweenNonNeighbours(dx, dy, dz, distance3D, compressionMatrixNonNeighbour);
             }
 
@@ -551,10 +546,10 @@ void Model::applyForces(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
-                                       std::vector<std::vector<double>> &compressionMatrixNeighbours,
-                                       bool cell1IsEKCell,
-                                       bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
+void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+                                                  std::vector<std::vector<double>> &compressionMatrixNeighbours,
+                                                  bool cell1IsEKCell,
+                                                  bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
     //rounding
     if (fabs(dx) < 1.0e-15) {
         dx = 0;
@@ -574,7 +569,7 @@ void Model::repulsionBetweenNeighbours(double dx, double dy, double dz, double d
 
     //if both cells are enamel knot cells or the 3D distance is shorter than the 2D distance
     if ((cell1IsEKCell && cell2IsEKCell) || (distance3D < distance2D)) {
-        double deviation = distance3D - distance2D;
+        double deviation = distance3D - distance2D; //bigger the larger the z-difference
         double relativeDeviation = deviation / distance3D;
 
         compressionMatrixNeighbours[0].push_back(dx * relativeDeviation);
@@ -789,10 +784,10 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
 void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, std::vector<Cell> &cells,
                                      Parameters &params) {
     // Set the neighbours of the new cell (only the order is important)
-    newCell.setNeighbour(M1);
-    newCell.setNeighbour(N1);
-    newCell.setNeighbour(M2);
-    newCell.setNeighbour(N2);
+    newCell.addNeighbour(M1);
+    newCell.addNeighbour(N1);
+    newCell.addNeighbour(M2);
+    newCell.addNeighbour(N2);
 
     // replace the new Cell as new neighbour of the mother cells
     cells[M1].replaceNeighbour(M2, newCell.getID());
@@ -824,7 +819,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
         newCellPosition = M2Position;
     }
 
-    cells[N1].insertNeighbour(newCell.getID(), newCellPosition);
+    cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
 
     // Same for N2
     for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
@@ -878,6 +873,23 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
 
     // for all pairs, create a new cell between them and update the neighbour relationships
     for (int pair = 0; pair < motherCells.size(); ++pair) {
+
+        // Increase the IDs of all out-of-simulation cells by 1
+        for (int cell = 0; cell < cells.size(); ++cell) {
+            int IDofCell = cells[cell].getID();
+            if (IDofCell >= params.nrCellsInSimulation) {
+                cells[cell].setID(IDofCell + 1);
+            }
+            // Also increase in the neighbour vectors the IDs of out-of-simulation cells by 1
+            std::vector<int> neighbours = cells[cell].getNeighbours();
+            for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+                if (neighbours[neighbour] >= params.nrCellsInSimulation) {
+                    int IDofNeighbour = neighbours[neighbour];
+                    cells[cell].setNeighbour(neighbour, IDofNeighbour + 1);
+                }
+            }
+        }
+
         int M1 = motherCells[pair][0];      // Mother Cell 1
         int M2 = motherCells[pair][1];      // Mother Cell 2
 
@@ -892,7 +904,7 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         double newZ = (cells[M1].getZ() + cells[M2].getZ()) / 2;
 
         // Create the instance of the new cell
-        Cell newCell(newX, newY, newZ, params.nrCellsInSimulation + 1);
+        Cell newCell(newX, newY, newZ, params.nrCellsInSimulation);
         params.nrCellsInSimulation += 1;
         //The new cell is anyway not a knot cell (set in the constructor)
         //The new cell is also in Simulation
@@ -906,6 +918,6 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
 
         //Insert the new cell into the cells vector (no problem for next new cells, because it is inserted at the end of
         // in-simulation-cells)
-        cells.insert(cells.begin() + params.nrCellsInSimulation, newCell);
+        cells.insert(cells.begin() + params.nrCellsInSimulation - 1, newCell);
     }
 }
