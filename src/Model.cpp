@@ -159,8 +159,12 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
-    //for all center cells
-    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        //for all border cells
+        if (cells[cell].isInCentre()) {
+            continue;
+        }
+        
         if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
             cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.lbi);  //lbi: lingual bias by initial BMP distribution
@@ -922,7 +926,7 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         //The new cell has the mean of the mother cell's protein concentrations
         Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
         //The new cell is in centre if it has no neighbours that are out of simulation
-        Model::defineIfNewCellInCentre(N1, N2, newCell, cells);
+        Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
 
