@@ -104,7 +104,7 @@ void Cell::addNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
 }
 
-void Cell::setNeighbour(int position, int newNeighbourID){
+void Cell::setNeighbour(int position, int newNeighbourID) {
     neighbours[position] = newNeighbourID;
 }
 

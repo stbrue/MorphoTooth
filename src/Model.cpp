@@ -20,7 +20,7 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
-    Model::anteriorPosteriorBias(cells, params);
+    //Model::anteriorPosteriorBias(cells, params);
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
@@ -750,11 +750,14 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
-            double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
-            //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
-            if (squareDistance >= 4 && cell < neighbourID) {
-                std::vector<int> pair = {cell, neighbourID};
-                motherCells.push_back(pair);
+            bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
+            if (neighbourIsInSimulation) {
+                double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
+                //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
+                if (squareDistance >= 4 && cell < neighbourID) {
+                    std::vector<int> pair = {cell, neighbourID};
+                    motherCells.push_back(pair);
+                }
             }
         }
     }
@@ -803,41 +806,46 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
     int newCellPosition = 0;    //the new cell will have this position in the neighbour sequence of a common neighbour
 
     // Insert the new cell as neighbour of N1
-    for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
-        if (neighboursOfN1[neighbour] == M1) {
-            M1Position = neighbour;
+    if (cells[N1].isInSimulation()) {
+        for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
+            if (neighboursOfN1[neighbour] == M1) {
+                M1Position = neighbour;
+            }
+            if (neighboursOfN1[neighbour] == M2) {
+                M2Position = neighbour;
+            }
         }
-        if (neighboursOfN1[neighbour] == M2) {
-            M2Position = neighbour;
+
+        // The new cell inherits the higher position. In the extreme case this is the last position (equal to the first)
+        if (M1Position > M2Position) {
+            newCellPosition = M1Position;
+        } else if (M1Position < M2Position) {
+            newCellPosition = M2Position;
         }
+
+        cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
     }
 
-    // The new cell inherits the higher position. In the extreme case this is the last position (equal to the first)
-    if (M1Position > M2Position) {
-        newCellPosition = M1Position;
-    } else if (M1Position < M2Position) {
-        newCellPosition = M2Position;
-    }
-
-    cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
 
     // Same for N2
-    for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
-        if (neighboursOfN2[neighbour] == M1) {
-            M1Position = neighbour;
+    if (cells[N2].isInSimulation()) {
+        for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
+            if (neighboursOfN2[neighbour] == M1) {
+                M1Position = neighbour;
+            }
+            if (neighboursOfN2[neighbour] == M2) {
+                M2Position = neighbour;
+            }
         }
-        if (neighboursOfN2[neighbour] == M2) {
-            M2Position = neighbour;
+
+        if (M1Position > M2Position) {
+            newCellPosition = M1Position;
+        } else if (M1Position < M2Position) {
+            newCellPosition = M2Position;
         }
-    }
 
-    if (M1Position > M2Position) {
-        newCellPosition = M1Position;
-    } else if (M1Position < M2Position) {
-        newCellPosition = M2Position;
+        cells[N2].insertNeighbour(newCell.getID(), newCellPosition + 1);
     }
-
-    cells[N2].insertNeighbour(newCell.getID(), newCellPosition);
 }
 
 void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {

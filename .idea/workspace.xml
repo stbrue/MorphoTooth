@@ -27,10 +27,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Initial.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initial.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Geometrics.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geometrics.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,11 +44,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="357">
+              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -58,7 +53,7 @@
       <file leaf-file-name="Cell.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cell.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="3196">
               <caret line="188" column="26" selection-start-line="188" selection-start-column="26" selection-end-line="188" selection-end-column="26" />
               <folding>
                 <element signature="e#117#190#0" />
@@ -82,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="906" selection-start-line="906" selection-end-line="906" />
+            <state relative-caret-position="-512">
+              <caret line="845" selection-start-line="845" selection-end-line="845" />
               <folding>
                 <element signature="e#45#61#0" expanded="true" />
               </folding>
@@ -94,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Model_test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/unit_tests/Model_test.cpp">
+      <file leaf-file-name="Seal.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/Seal.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
-              <caret line="63" column="17" selection-start-line="63" selection-start-column="17" selection-end-line="63" selection-end-column="17" />
+            <state relative-caret-position="459">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -106,7 +101,7 @@
       <file leaf-file-name="Initial.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="2159">
               <caret line="127" column="1" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
               <folding>
                 <element signature="e#94#111#0" expanded="true" />
@@ -118,8 +113,17 @@
       <file leaf-file-name="Cell.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cell.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="88" column="21" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
+            <state relative-caret-position="549">
+              <caret line="126" column="62" selection-start-line="126" selection-start-column="62" selection-end-line="126" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="121" column="12" selection-start-line="121" selection-start-column="12" selection-end-line="121" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -127,8 +131,8 @@
       <file leaf-file-name="nousource - commented by Isaac.f90" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/source/nousource - commented by Isaac.f90">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2160">
-              <caret line="563" column="35" lean-forward="true" selection-start-line="563" selection-start-column="35" selection-end-line="563" selection-end-column="35" />
+            <state relative-caret-position="1343">
+              <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -136,8 +140,8 @@
       <file leaf-file-name="TestInput.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="5" selection-start-column="5" selection-end-column="5" />
+            <state relative-caret-position="425">
+              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -145,8 +149,8 @@
       <file leaf-file-name="BigOutputMorphoTooth.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/BigOutputMorphoTooth.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+            <state relative-caret-position="850">
+              <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -162,18 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parap</find>
-      <find>sec2</find>
-      <find>sink</find>
-      <find>inT</find>
-      <find>ActRe</find>
-      <find>EK</find>
-      <find>dif</find>
-      <find>Sec1Re</find>
-      <find>getNumber</find>
-      <find>distanceBetweenCells</find>
-      <find>q2d(i,1)</find>
-      <find>bia</find>
       <find>biaixb</find>
       <find>difusio</find>
       <find>adh</find>
@@ -192,6 +184,18 @@
       <find>replace</find>
       <find>setN</find>
       <find>cellDivisio</find>
+      <find>insertNei</find>
+      <find>there are too many comm</find>
+      <find>There are more than two</find>
+      <find>updateN</find>
+      <find>delta</find>
+      <find>vmin</find>
+      <find>celld</find>
+      <find>buccall</find>
+      <find>abi</find>
+      <find>anterior</find>
+      <find>insert</find>
+      <find>search</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -242,16 +246,16 @@
         <option value="$PROJECT_DIR$/src/Output.h" />
         <option value="$PROJECT_DIR$/src/consts.h" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
-        <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
         <option value="$PROJECT_DIR$/src/Parameters.h" />
         <option value="$PROJECT_DIR$/src/Input.cpp" />
         <option value="$PROJECT_DIR$/src/Initial.cpp" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/src/Model.h" />
-        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
         <option value="$PROJECT_DIR$/src/Cell.h" />
-        <option value="$PROJECT_DIR$/src/Cell.cpp" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
+        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/src/Model.cpp" />
+        <option value="$PROJECT_DIR$/src/Cell.cpp" />
+        <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
       </list>
     </option>
   </component>
@@ -266,16 +270,17 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="343" />
-    <option name="y" value="242" />
-    <option name="width" value="576" />
-    <option name="height" value="595" />
+    <option name="x" value="987" />
+    <option name="y" value="-27" />
+    <option name="width" value="864" />
+    <option name="height" value="893" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -307,7 +312,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -317,7 +321,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -420,6 +424,8 @@
       <workItem from="1541577707227" duration="2864000" />
       <workItem from="1541665131953" duration="634000" />
       <workItem from="1542096077856" duration="14589000" />
+      <workItem from="1542191242618" duration="12074000" />
+      <workItem from="1542268555944" duration="291000" />
     </task>
     <servers />
   </component>
@@ -456,24 +462,21 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327842000" />
+    <option name="totallyTimeSpent" value="340207000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1014" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15260416" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22864583" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.27936146" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.327252" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.52136755" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32900432" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.44013682" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4318182" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Inspection Results" order="8" weight="0.3295325" />
@@ -481,6 +484,8 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.38528138" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -515,13 +520,17 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="105" />
+      <option name="time" value="106" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Geometrics.cpp" />
-    <entry file="file://$PROJECT_DIR$/Initial.h" />
-    <entry file="file://$PROJECT_DIR$/Model.h" />
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/BigOutputMorphoTooth.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="17" lean-forward="true" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Cell.h" />
     <entry file="file://$PROJECT_DIR$/Parameters.h" />
     <entry file="file://$PROJECT_DIR$/Parameters.cpp" />
@@ -648,24 +657,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4352">
-          <caret line="256" selection-start-line="256" selection-end-line="256" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/BigOutput1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/Seal.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="26" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -697,9 +692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="502" column="31" lean-forward="true" selection-start-line="502" selection-start-column="31" selection-end-line="502" selection-end-column="31" />
-          <folding>
-            <marker date="1535358179000" expanded="true" signature="8156:8177" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -710,47 +702,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/BigOutputMorphoTooth.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/source/nousource - commented by Isaac.f90">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2160">
-          <caret line="563" column="35" lean-forward="true" selection-start-line="563" selection-start-column="35" selection-end-line="563" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit_tests/Model_test.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
+        <state relative-caret-position="1071">
           <caret line="63" column="17" selection-start-line="63" selection-start-column="17" selection-end-line="63" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cell.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="3196">
           <caret line="188" column="26" selection-start-line="188" selection-start-column="26" selection-end-line="188" selection-end-column="26" />
           <folding>
             <element signature="e#117#190#0" />
@@ -773,13 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Cell.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="88" column="21" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files (x86)/mingw-w64/i686-7.3.0-posix-dwarf-rt_v5-rev0/mingw32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/bits/stl_vector.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -789,7 +743,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="2159">
           <caret line="127" column="1" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
           <folding>
             <element signature="e#94#111#0" expanded="true" />
@@ -797,13 +751,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/BigOutput100.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="42" selection-start-column="40" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/BigOutput1000.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="42" lean-forward="true" selection-start-column="39" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/Seal.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/source/nousource - commented by Isaac.f90">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/BigOutputMorphoTooth.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="906" selection-start-line="906" selection-end-line="906" />
+        <state relative-caret-position="-512">
+          <caret line="845" selection-start-line="845" selection-end-line="845" />
           <folding>
             <element signature="e#45#61#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Cell.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="126" column="62" selection-start-line="126" selection-start-column="62" selection-end-line="126" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="121" column="12" selection-start-line="121" selection-start-column="12" selection-end-line="121" selection-end-column="12" />
         </state>
       </provider>
     </entry>
