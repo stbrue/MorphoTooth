@@ -18,7 +18,7 @@ int main() {
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < params.iterations; ++step) {
-        Model::iterationStep(cells, params);
+        Model::iterationStep(cells, params, step);
         //Print every 100 iteration the count
         if (step % 100 == 0) {
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;

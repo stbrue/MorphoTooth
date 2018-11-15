@@ -12,7 +12,7 @@
 class Model {
 public:
 
-    static void iterationStep(std::vector<Cell> &cells, Parameters &params);
+    static void iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
@@ -20,6 +20,10 @@ public:
      * @param   cells   vector containing all cells
      * @param   parameters  struct containing all parameters
      */
+
+    static bool testPositions(std::vector<Cell> cells);
+
+
     static void diffusion(std::vector<Cell> &cells, Parameters &parameters);
 
     /**

@@ -11,7 +11,11 @@
 #include "consts.h"
 
 
-void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
+void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration) {
+    //if (iteration == 600) {
+    //    std::cout << "Hello" << std::endl;
+    //}
+
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
@@ -24,10 +28,27 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
+    /*if (Model::testPositions(cells)) {
+        std::cout << "The values are NaN in iteration " << iteration << std::endl;
+        std::cout.flush();
+    }*/
     /* Resetting of matrices:
      Resetting of tempConcentrations is done in the loop within the diffusion function itself
      Resetting of tempConcentrations is done in the loop within the reaction function itself
      The tempPosition Matrix gets resetted in the function applyForces */
+}
+
+bool Model::testPositions(std::vector<Cell> cells) {
+    for (int cell = 0; cell < 7; ++cell) {
+        double x = cells[cell].getX();
+        double y = cells[cell].getY();
+        if (x != x) {
+            return true;
+        } else if (y != 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
@@ -164,7 +185,7 @@ void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
         if (cells[cell].isInCentre()) {
             continue;
         }
-        
+
         if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
             cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.lbi);  //lbi: lingual bias by initial BMP distribution
@@ -204,6 +225,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
             if (neighbourIsInSimulation == false) {
+                std::cout << "Something very strange in Epithelial Proliferation happened 1" << std::endl;
                 continue;
             }
             dz = cells[cell].getZ() - cells[neighbourID].getZ();
@@ -225,6 +247,10 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             double inverseDiffFactor = 0;
             double cellDrift = 0;
 
+            if (totalDeviation == 0) {
+                std::cout << "Total deviation = 0 -> divide by zero" << std::endl;
+                std::cout.flush();
+            }
             deviationFactor = params.egr / totalDeviation;      //egr: epithelial proliferation rate
 
             // the higher the differentiation, the lower the effect of deviations in position
@@ -309,7 +335,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
                         }
                         duux = -dy / distance2D;
                         duuy = dx / distance2D;
-                        ubb = acos(uuux);
+                        ubb = acos(duux);
 
                         if (duuy < 0) {
                             ubb = 2 * M_PI - ubb;
@@ -397,6 +423,10 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
             double relativeDistance = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
                                            distanceToOrigin2D * distanceToOrigin2D);
             double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+            if (relativeDistance == 0) {
+                std::cout << "relative Distance = 0 -> divide by zero" << std::endl;
+                std::cout.flush();
+            }
             relativeDistance = params.boy * epithelialSec1Concentration / relativeDistance;     //boy: buoyancy
 
             if (relativeDistance > 0) {
@@ -686,6 +716,10 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
         positiveTerm = 0;
     }
     double negativeTerm = 1 + params.inh * epithelialInhConcentration;
+    if (negativeTerm == 0) {
+        std::cout << "negative Term = 0 -> divide by zero" << std::endl;
+        std::cout.flush();
+    }
     double degradation = params.mu * epithelialActConcentration;
 
     //concentration difference: reaction - degradation
