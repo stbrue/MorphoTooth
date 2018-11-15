@@ -20,7 +20,7 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
-    //Model::anteriorPosteriorBias(cells, params);
+    Model::anteriorPosteriorBias(cells, params);
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
@@ -240,7 +240,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     //for border cells (within simulation)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
 
-        if (cells[cell].isInCentre() == false) {
+        if (cells[cell].isInCentre()) {
             continue;
         }
 
@@ -862,7 +862,7 @@ void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vec
     }
 }
 
-void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells) {
+void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
     //The new cell is in the centre if it has no neighbours that are out of simulation
     bool N1InCentre = cells[N1].isInSimulation();
     bool N2InCentre = cells[N2].isInSimulation();
@@ -872,6 +872,7 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<C
         newCell.setInCentre(false);
     } else {
         newCell.setInCentre(true);
+        params.nrCellsInCenter += 1;
     }
 }
 
@@ -913,6 +914,7 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
 
         // Create the instance of the new cell
         Cell newCell(newX, newY, newZ, params.nrCellsInSimulation);
+        std::cout << "new cell: " << params.nrCellsInSimulation << std::endl;
         params.nrCellsInSimulation += 1;
         //The new cell is anyway not a knot cell (set in the constructor)
         //The new cell is also in Simulation
