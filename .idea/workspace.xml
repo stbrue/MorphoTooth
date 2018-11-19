@@ -70,13 +70,18 @@
       <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Output.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="99" column="5" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="5" />
+            <state relative-caret-position="282">
+              <caret line="89" column="67" selection-start-line="89" selection-start-column="67" selection-end-line="89" selection-end-column="67" />
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CoordinatesXY2.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmake-build-debug/CoordinatesXY2.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="false">
@@ -122,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <caret column="1" selection-start-column="1" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -220,13 +225,13 @@
         <option value="$PROJECT_DIR$/src/Cell.cpp" />
         <option value="$PROJECT_DIR$/src/Model.h" />
         <option value="$PROJECT_DIR$/src/Output.h" />
-        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
         <option value="$PROJECT_DIR$/src/Parameters.h" />
         <option value="$PROJECT_DIR$/src/Input.cpp" />
         <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
         <option value="$PROJECT_DIR$/src/Geometrics.h" />
         <option value="$PROJECT_DIR$/src/Model.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
       </list>
     </option>
@@ -397,7 +402,7 @@
       <workItem from="1541665131953" duration="634000" />
       <workItem from="1542096077856" duration="14589000" />
       <workItem from="1542380529780" duration="867000" />
-      <workItem from="1542612134115" duration="5875000" />
+      <workItem from="1542612134115" duration="6746000" />
     </task>
     <servers />
   </component>
@@ -434,7 +439,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="335187000" />
+    <option name="totallyTimeSpent" value="336058000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -493,12 +498,10 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="105" />
+      <option name="time" value="106" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Initial.h" />
-    <entry file="file://$PROJECT_DIR$/Model.h" />
     <entry file="file://$PROJECT_DIR$/Cell.h" />
     <entry file="file://$PROJECT_DIR$/Parameters.h" />
     <entry file="file://$PROJECT_DIR$/Parameters.cpp" />
@@ -709,13 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Parameters.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="403">
@@ -774,10 +770,23 @@
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CoordinatesMorphoTooth.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/CoordinatesXY2000.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/CoordinatesXY2.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Output.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="99" column="5" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="5" />
+        <state relative-caret-position="282">
+          <caret line="89" column="67" selection-start-line="89" selection-start-column="67" selection-end-line="89" selection-end-column="67" />
           <folding>
             <element signature="e#45#64#0" expanded="true" />
           </folding>
