@@ -24,9 +24,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parameters.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parameters.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit_tests/Model_test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit_tests/Model_test.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -51,8 +53,8 @@
       <file leaf-file-name="Parameters.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parameters.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="170" column="18" selection-start-line="170" selection-start-column="18" selection-end-line="170" selection-end-column="18" />
+            <state relative-caret-position="386">
+              <caret line="172" column="25" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -60,11 +62,41 @@
       <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12835">
-              <caret line="755" column="60" selection-start-line="755" selection-start-column="60" selection-end-line="755" selection-end-column="60" />
+            <state relative-caret-position="118">
+              <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
               <folding>
                 <element signature="e#45#61#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model_test.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit_tests/Model_test.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+              <folding>
+                <element signature="e#45#62#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Geometrics_test.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="199" column="66" selection-start-line="199" selection-start-column="66" selection-end-line="199" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -77,29 +109,6 @@
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CoordinatesXY2.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/CoordinatesXY2.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Geometrics.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Geometrics.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -119,8 +128,8 @@
       <file leaf-file-name="Input.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Input.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+            <state relative-caret-position="442">
+              <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -145,8 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getNumber</find>
-      <find>distanceBetweenCells</find>
       <find>q2d(i,1)</find>
       <find>bia</find>
       <find>biaixb</find>
@@ -174,7 +181,9 @@
       <find>there are too</find>
       <find>there</find>
       <find>margin</find>
+      <find>error</find>
       <find>searchMo</find>
+      <find>errorte</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -215,7 +224,6 @@
         <option value="$PROJECT_DIR$/src/Parameters.cpp" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.cpp" />
         <option value="$PROJECT_DIR$/tests/unit_tests/Initial_test.cpp" />
-        <option value="$PROJECT_DIR$/tests/unit_tests/Model_test.cpp" />
         <option value="$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp" />
         <option value="$PROJECT_DIR$/src/Initial.h" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/Tests.cpp" />
@@ -225,16 +233,17 @@
         <option value="$PROJECT_DIR$/src/Initial.cpp" />
         <option value="$PROJECT_DIR$/src/Cell.h" />
         <option value="$PROJECT_DIR$/src/Cell.cpp" />
-        <option value="$PROJECT_DIR$/src/Model.h" />
         <option value="$PROJECT_DIR$/src/Output.h" />
         <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
         <option value="$PROJECT_DIR$/src/Geometrics.h" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/tests/unit_tests/Model_test.cpp" />
         <option value="$PROJECT_DIR$/src/Parameters.h" />
         <option value="$PROJECT_DIR$/src/Input.cpp" />
-        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
         <option value="$PROJECT_DIR$/src/Model.cpp" />
-        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/src/Model.h" />
       </list>
     </option>
   </component>
@@ -280,6 +289,17 @@
             </path>
             <path>
               <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="unit_tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
             <path>
@@ -318,8 +338,8 @@
     <configuration name="GeometricsTestFixture.crossProduct_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_NegativeDoubles" TEST_MODE="SUITE_TEST" />
     <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_PositiveDoubles" TEST_MODE="SUITE_TEST" />
     <configuration name="GeometricsTestFixture.vectorSum_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="vectorSum_NegativeDoubles" TEST_MODE="SUITE_TEST" />
-    <configuration name="GeometricsTestFixture.vectorSum_Zero" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="vectorSum_Zero" TEST_MODE="SUITE_TEST" />
     <configuration name="InitialTestFixture.calculateInitialCellBorders" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="InitialTestFixture" TEST_METHOD="calculateInitialCellBorders" TEST_MODE="SUITE_TEST" />
+    <configuration name="ModelTestFixture.errorTestingforNan" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="ModelTestFixture" TEST_METHOD="errorTestingforNan" TEST_MODE="SUITE_TEST" />
     <configuration name="Unit Test" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_MODE="SUITE_TEST" />
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="MorphoTooth_run" EXPLICIT_BUILD_TARGET_NAME="all" />
     <configuration name="MorphoTooth_lib" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="MorphoTooth_lib" CONFIG_NAME="Debug" />
@@ -341,17 +361,17 @@
       <item itemvalue="Google Test.Unit Test" />
       <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_PositiveDoubles" />
       <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_NegativeDoubles" />
-      <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_Zero" />
       <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles" />
       <item itemvalue="Google Test.InitialTestFixture.calculateInitialCellBorders" />
+      <item itemvalue="Google Test.ModelTestFixture.errorTestingforNan" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Google Test.ModelTestFixture.errorTestingforNan" />
         <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_PositiveDoubles" />
         <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_NegativeDoubles" />
         <item itemvalue="Google Test.InitialTestFixture.calculateInitialCellBorders" />
         <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles" />
-        <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_Zero" />
       </list>
     </recent_temporary>
   </component>
@@ -404,17 +424,11 @@
       <workItem from="1541665131953" duration="634000" />
       <workItem from="1542096077856" duration="14589000" />
       <workItem from="1542380529780" duration="867000" />
-      <workItem from="1542612134115" duration="10736000" />
+      <workItem from="1542612134115" duration="12330000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GeometricsTestFixture_crossProduct_Zero - 2018.08.20 at 11h 32m 18s.xml">
-      <configuration name="GeometricsTestFixture.crossProduct_Zero" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="GeometricsTestFixture_crossProduct_PositiveDoubles - 2018.08.20 at 11h 34m 17s.xml">
-      <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="GeometricsTestFixture_crossProduct_NegativeDoubles - 2018.08.20 at 11h 35m 10s.xml">
       <configuration name="GeometricsTestFixture.crossProduct_NegativeDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
@@ -439,9 +453,15 @@
     <history-entry file="GeometricsTestFixture_crossProduct_PositiveDoubles - 2018.10.17 at 10h 42m 37s.xml">
       <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
+    <history-entry file="ModelTestFixture_errorTestingforNan - 2018.11.19 at 15h 04m 47s.xml">
+      <configuration name="ModelTestFixture.errorTestingforNan" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="ModelTestFixture_errorTestingforNan - 2018.11.19 at 15h 09m 13s.xml">
+      <configuration name="ModelTestFixture.errorTestingforNan" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="340048000" />
+    <option name="totallyTimeSpent" value="341642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -468,22 +488,22 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.32792208" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.084375" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.327252" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15208334" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3295325" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.31277058" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.28848347" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.44013682" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.27936146" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32982457" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -581,13 +601,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1223">
-          <caret line="245" selection-start-line="245" selection-end-line="245" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/model.f90">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5655">
@@ -651,13 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Model_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
-          <caret line="63" column="17" selection-start-line="63" selection-start-column="17" selection-end-line="63" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Cell.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3196">
@@ -694,13 +700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="797" selection-start-line="797" selection-end-line="797" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="195" column="115" selection-start-line="195" selection-start-column="115" selection-end-line="195" selection-end-column="115" />
         </state>
       </provider>
     </entry>
@@ -747,10 +746,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Geometrics_test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit_tests/Model_test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+          <folding>
+            <element signature="e#45#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Parameters.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="170" column="18" selection-start-line="170" selection-start-column="18" selection-end-line="170" selection-end-column="18" />
+        <state relative-caret-position="386">
+          <caret line="172" column="25" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -766,29 +789,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Input.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="49" column="36" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        <state relative-caret-position="442">
+          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="199" column="66" selection-start-line="199" selection-start-column="66" selection-end-line="199" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12835">
-          <caret line="755" column="60" selection-start-line="755" selection-start-column="60" selection-end-line="755" selection-end-column="60" />
+        <state relative-caret-position="118">
+          <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
           <folding>
             <element signature="e#45#61#0" expanded="true" />
           </folding>

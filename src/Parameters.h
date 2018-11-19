@@ -169,6 +169,8 @@ public:
      * this integer can be used to stop the loop after a specific number of cell divisions
      */
     int cellDivisionCount;
+
+    int currentIteration;
 };
 
 

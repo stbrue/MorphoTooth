@@ -24,10 +24,40 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
+    Model::errorTesting(cells, params);
+    params.currentIteration += 1;
+
     /* Resetting of matrices:
      Resetting of tempConcentrations is done in the loop within the diffusion function itself
      Resetting of tempConcentrations is done in the loop within the reaction function itself
      The tempPosition Matrix gets resetted in the function applyForces */
+}
+
+bool Model::NanIsPresent(double x, double y, double z) {
+    if (x != x) {
+        std::cout << "x value is Nan" << std::endl;
+        return true;
+    } else if (y != y) {
+        std::cout << "y value is Nan" << std::endl;
+        return true;
+    } else if (z != z) {
+        std::cout << "z value is Nan" << std::endl;
+        return true;
+    }
+    return false;
+}
+
+void Model::errorTesting(std::vector<Cell> cells, Parameters &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        double x = cells[cell].getX();
+        double y = cells[cell].getY();
+        double z = cells[cell].getZ();
+
+        if (Model::NanIsPresent(x, y, z)) {
+            params.error = true;
+            std::cout << "There is a fucking Nan in iteration " << params.currentIteration << std::endl;
+        }
+    }
 }
 
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {

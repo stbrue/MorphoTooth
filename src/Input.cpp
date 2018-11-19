@@ -46,6 +46,7 @@ Parameters Input::setParameters() {
     // Set initial values independent of inputFile
     params.error = false;
     params.cellDivisionCount = 0;
+    params.currentIteration = 0;
 
     // Read in values from inputFile
     std::string line;
