@@ -93,8 +93,11 @@ void Output::coordinatesXYOutput(std::vector<Cell> cells, Parameters params) {
         std::vector<int> neighbours = cells[cell].getNeighbours();
         for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
             int IDofN = neighbours[neighbour];
-            outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t" << groupCount
-                       << std::endl;
+            bool neighbourIsInSimulation = cells[IDofN].isInSimulation();
+            if (neighbourIsInSimulation) {
+                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t" << groupCount
+                           << std::endl;
+            }
         }
         groupCount += 1;
     }
