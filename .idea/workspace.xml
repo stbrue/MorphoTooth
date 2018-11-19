@@ -25,7 +25,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,8 +76,8 @@
       <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="875" column="36" selection-start-line="875" selection-start-column="36" selection-end-line="875" selection-end-column="36" />
+            <state relative-caret-position="407">
+              <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
               <folding>
                 <element signature="e#45#61#0" expanded="true" />
               </folding>
@@ -163,7 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>inT</find>
       <find>ActRe</find>
       <find>EK</find>
       <find>dif</find>
@@ -193,6 +191,7 @@
       <find>searchMotherCells</find>
       <find>cellDivison</find>
       <find>define</find>
+      <find>bucc</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -422,7 +421,7 @@
       <workItem from="1541665131953" duration="634000" />
       <workItem from="1542096077856" duration="14589000" />
       <workItem from="1542380529780" duration="867000" />
-      <workItem from="1542612134115" duration="801000" />
+      <workItem from="1542612134115" duration="1186000" />
     </task>
     <servers />
   </component>
@@ -459,7 +458,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330113000" />
+    <option name="totallyTimeSpent" value="330498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -793,8 +792,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="875" column="36" selection-start-line="875" selection-start-column="36" selection-end-line="875" selection-end-column="36" />
+        <state relative-caret-position="407">
+          <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
           <folding>
             <element signature="e#45#61#0" expanded="true" />
           </folding>

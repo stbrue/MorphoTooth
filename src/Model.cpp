@@ -159,9 +159,12 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
-    //for all center cells
-    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
-        if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
+    //for all border cells
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        bool cellIsInCentre = cells[cell].isInCentre();
+        if (cellIsInCentre) {
+            continue;
+        } else if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
             cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.lbi);  //lbi: lingual bias by initial BMP distribution
         } else if (cells[cell].getY() > params.swi) {
