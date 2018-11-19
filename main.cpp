@@ -22,6 +22,8 @@ int main() {
         //Print every 100 iteration the count
         if (step % 100 == 0) {
             std::cout << step << std::endl;
+            std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
+            std::cout.flush();
         }
     }
 

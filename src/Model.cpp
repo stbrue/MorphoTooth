@@ -750,11 +750,14 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
-            double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
-            //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
-            if (squareDistance >= 4 && cell < neighbourID) {
-                std::vector<int> pair = {cell, neighbourID};
-                motherCells.push_back(pair);
+            bool neighbourIsInSimulation = cells[cell].isInSimulation();
+            if (neighbourIsInSimulation) {
+                double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
+                //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
+                if (squareDistance >= 4 && cell < neighbourID) {
+                    std::vector<int> pair = {cell, neighbourID};
+                    motherCells.push_back(pair);
+                }
             }
         }
     }
