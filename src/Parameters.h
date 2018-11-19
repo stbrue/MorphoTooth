@@ -164,6 +164,11 @@ public:
      * is true if somewhere something goes wrong and is used to stop the big loop at this iteration
      */
     bool error;
+
+    /**
+     * this integer can be used to stop the loop after a specific number of cell divisions
+     */
+    int cellDivisionCount;
 };
 
 

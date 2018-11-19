@@ -24,6 +24,12 @@ int main() {
             std::cout << "The loop is stopped because there was an error at iteration: " << step << std::endl;
             break;
         }
+
+        if (params.cellDivisionCount == 2){
+            std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount << std::endl;
+            std::cout << "This was at iteration " << step << std::endl;
+            break;
+        }
         //Print every 100 iteration the count
         if (step % 100 == 0) {
             std::cout << step << std::endl;
