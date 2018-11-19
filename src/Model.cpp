@@ -805,42 +805,48 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
     int M2Position = 0;         //M2 is the ...th neighbour of a common neighbour
     int newCellPosition = 0;    //the new cell will have this position in the neighbour sequence of a common neighbour
 
-    // Insert the new cell as neighbour of N1
-    for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
-        if (neighboursOfN1[neighbour] == M1) {
-            M1Position = neighbour;
+    // Insert the new cell as neighbour of N1 if N1 is InSimulation
+    bool N1IsInSimulation = cells[N1].isInSimulation();
+    if (N1IsInSimulation) {
+        for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
+            if (neighboursOfN1[neighbour] == M1) {
+                M1Position = neighbour;
+            }
+            if (neighboursOfN1[neighbour] == M2) {
+                M2Position = neighbour;
+            }
         }
-        if (neighboursOfN1[neighbour] == M2) {
-            M2Position = neighbour;
+
+        // The new cell inherits the higher position. In the extreme case this is the last position (equal to the first)
+        if (M1Position > M2Position) {
+            newCellPosition = M1Position;
+        } else if (M1Position < M2Position) {
+            newCellPosition = M2Position;
         }
-    }
 
-    // The new cell inherits the higher position. In the extreme case this is the last position (equal to the first)
-    if (M1Position > M2Position) {
-        newCellPosition = M1Position;
-    } else if (M1Position < M2Position) {
-        newCellPosition = M2Position;
+        cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
     }
-
-    cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
 
     // Same for N2
-    for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
-        if (neighboursOfN2[neighbour] == M1) {
-            M1Position = neighbour;
+    bool N2IsInSimulation = cells[N2].isInSimulation();
+    if (N2IsInSimulation) {
+        for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
+            if (neighboursOfN2[neighbour] == M1) {
+                M1Position = neighbour;
+            }
+            if (neighboursOfN2[neighbour] == M2) {
+                M2Position = neighbour;
+            }
         }
-        if (neighboursOfN2[neighbour] == M2) {
-            M2Position = neighbour;
+
+        if (M1Position > M2Position) {
+            newCellPosition = M1Position;
+        } else if (M1Position < M2Position) {
+            newCellPosition = M2Position;
         }
-    }
 
-    if (M1Position > M2Position) {
-        newCellPosition = M1Position;
-    } else if (M1Position < M2Position) {
-        newCellPosition = M2Position;
+        cells[N2].insertNeighbour(newCell.getID(), newCellPosition);
     }
-
-    cells[N2].insertNeighbour(newCell.getID(), newCellPosition);
 }
 
 void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
