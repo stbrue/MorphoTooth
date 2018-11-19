@@ -8,6 +8,7 @@
 #include <fstream>
 #include "Parameters.h"
 #include "consts.h"
+#include <sstream>
 
 void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells) {
     std::ofstream outputFile;
@@ -71,12 +72,21 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
 void Output::coordinatesXYOutput(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
     outputFile.precision(12);
-    outputFile.open("CoordinatesMorphoTooth.txt");
+    std::stringstream stringstream;
+    std::string fileName;
 
-    outputFile << "x" << "\t" << "y" << std::endl;
+    std::string name = "CoordinatesXY";
+    std::string file = ".txt";
+
+    stringstream << name << params.iterations << file;
+    fileName = stringstream.str();
+
+    outputFile.open(fileName);
+
+    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << std::endl;
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
+        outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
     }
 
     outputFile.close();
