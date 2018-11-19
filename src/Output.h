@@ -18,6 +18,8 @@ public:
 
     static void bigOutput(std::vector<Cell> cells, Parameters params);
 
+    static void coordinatesXYOutput(std::vector<Cell> cells, Parameters params);
+
 };
 
 

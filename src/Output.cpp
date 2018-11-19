@@ -64,4 +64,20 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
         outputFile << "Epithelial Sec2: " << cells[cell].getProteinConcentrations()[PSec2][LEpithelium] << std::endl;
         outputFile << std::endl;
     }
+
+    outputFile.close();
+}
+
+void Output::coordinatesXYOutput(std::vector<Cell> cells, Parameters params) {
+    std::ofstream outputFile;
+    outputFile.precision(12);
+    outputFile.open("CoordinatesMorphoTooth.txt");
+
+    outputFile << "x" << "\n" << "y" << std::endl;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        outputFile << cells[cell].getX() << "\n" << cells[cell].getY() << std::endl;
+    }
+
+    outputFile.close();
 }
