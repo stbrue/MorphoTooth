@@ -753,7 +753,7 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
-            bool neighbourIsInSimulation = cells[cell].isInSimulation();
+            bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
             if (neighbourIsInSimulation) {
                 double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
                 //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)

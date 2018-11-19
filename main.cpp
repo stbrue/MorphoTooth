@@ -19,14 +19,16 @@ int main() {
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < params.iterations; ++step) {
         Model::iterationStep(cells, params);
+
         //Abort the loop if there is an error
         if (params.error) {
             std::cout << "The loop is stopped because there was an error at iteration: " << step << std::endl;
             break;
         }
 
-        if (params.cellDivisionCount == 2){
-            std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount << std::endl;
+        if (params.cellDivisionCount == 300) {
+            std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount
+                      << std::endl;
             std::cout << "This was at iteration " << step << std::endl;
             break;
         }
