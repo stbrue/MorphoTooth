@@ -73,10 +73,10 @@ void Output::coordinatesXYOutput(std::vector<Cell> cells, Parameters params) {
     outputFile.precision(12);
     outputFile.open("CoordinatesMorphoTooth.txt");
 
-    outputFile << "x" << "\n" << "y" << std::endl;
+    outputFile << "x" << "\t" << "y" << std::endl;
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        outputFile << cells[cell].getX() << "\n" << cells[cell].getY() << std::endl;
+        outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
     }
 
     outputFile.close();
