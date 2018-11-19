@@ -863,7 +863,7 @@ void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vec
     }
 }
 
-void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells) {
+void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
     //The new cell is in the centre if it has no neighbours that are out of simulation
     bool N1InCentre = cells[N1].isInSimulation();
     bool N2InCentre = cells[N2].isInSimulation();
@@ -873,6 +873,7 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<C
         newCell.setInCentre(false);
     } else {
         newCell.setInCentre(true);
+        params.nrCellsInCenter += 1;
     }
 }
 
@@ -921,7 +922,7 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         //The new cell has the mean of the mother cell's protein concentrations
         Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
         //The new cell is in centre if it has no neighbours that are out of simulation
-        Model::defineIfNewCellInCentre(N1, N2, newCell, cells);
+        Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
 

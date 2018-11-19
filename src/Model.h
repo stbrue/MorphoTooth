@@ -193,7 +193,7 @@ public:
     static void setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vector<Cell> &cells,
                                              Parameters &params);
 
-    static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells);
+    static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params);
 };
 
 
