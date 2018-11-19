@@ -7,6 +7,7 @@
 
 
 #include "Cell.h"
+#include "Parameters.h"
 
 /**
  * @brief   Contains all methods that are used to calculate geometrical values (distances, norm, cross product,...)

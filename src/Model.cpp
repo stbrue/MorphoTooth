@@ -33,7 +33,7 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params) {
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
     //Calculate for each cell its perimeter and area
-    Geometrics::calculatePerimeterAndArea(cells, params.nrCellsInSimulation);
+    Geometrics::calculatePerimeterAndArea(cells, params);
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
 
