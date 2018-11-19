@@ -54,7 +54,7 @@ void Model::errorTesting(std::vector<Cell> cells, Parameters &params) {
         double z = cells[cell].getZ();
 
         if (Model::NanIsPresent(x, y, z)) {
-            params.error = true;
+            //params.error = true;
             std::cout << "There is a fucking Nan in iteration " << params.currentIteration << std::endl;
         }
     }
@@ -273,7 +273,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     //for border cells (within simulation)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
 
-        if (cells[cell].isInCentre() == false) {
+        if (cells[cell].isInCentre()) {
             continue;
         }
 
@@ -338,7 +338,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
                         }
                         duux = -dy / distance2D;
                         duuy = dx / distance2D;
-                        ubb = acos(uuux);
+                        ubb = acos(duux);
 
                         if (duuy < 0) {
                             ubb = 2 * M_PI - ubb;

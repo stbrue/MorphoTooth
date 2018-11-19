@@ -32,6 +32,10 @@ int main() {
             std::cout << "This was at iteration " << step << std::endl;
             break;
         }
+
+        if (params.currentIteration == 2323) {
+            int a = 0;
+        }
         //Print every 100 iteration the count
         if (step % 100 == 0) {
             std::cout << step << std::endl;
@@ -40,7 +44,7 @@ int main() {
         }
     }
 
-    Output::coordinatesXYOutput(cells, params);
+    Output::ROutput(cells, params);
 
     /*
         //Test
