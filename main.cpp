@@ -27,7 +27,7 @@ int main() {
         }
     }
 
-    Output::bigOutput(cells, params);
+    Output::coordinatesXYOutput(cells, params);
 
     /*
         //Test

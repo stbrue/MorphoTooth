@@ -159,6 +159,11 @@ public:
      * Bias in z-direction
      */
     double bgr;
+
+    /**
+     * is true if somewhere something goes wrong and is used to stop the big loop at this iteration
+     */
+    bool error;
 };
 
 

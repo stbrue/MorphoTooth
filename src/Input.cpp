@@ -42,6 +42,7 @@ Parameters Input::defineParametersSealTest() {
 
 Parameters Input::setParameters() {
     Parameters params;
+    params.error = false;
     std::string line;
     int counter = 0;
 
