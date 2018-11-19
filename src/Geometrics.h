@@ -81,7 +81,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   nrCellsInSimulation number of cells that are in simulation (have a closed neighbour sequence)
      */
-    static void calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation);
+    static void calculatePerimeterAndArea(std::vector<Cell> &cells, Parameters &params);
 
     /**
      * @brief   calculates a part of the cell perimeter (= length of border to a neighbour)
@@ -124,7 +124,8 @@ public:
 
     static double calculateMargin(std::vector<std::vector<double>> marginPoints);
 
-    static double calculateMarginArea(std::vector<Cell> &cells, int cell,  std::vector<std::vector<double>> marginPoints);
+    static double
+    calculateMarginArea(std::vector<Cell> &cells, int cell, std::vector<std::vector<double>> marginPoints);
 
     /**
     * @brief   Calculates and sets the midpoint between two (or one) adjacent neighbours and the center cell (Voronoi node)

@@ -781,6 +781,7 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
             N2 = IDOfNeighbour;
         } else if (isNeighbourOfM2) {
             std::cout << "there are too many common neighbours" << std::endl;
+            params.error = true;
         }
     }
     std::vector<int> commonNeighbours = {N1, N2};

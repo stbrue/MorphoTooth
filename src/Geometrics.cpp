@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include "Geometrics.h"
+#include "Parameters.h"
 
 double Geometrics::squareCenterDistance3D(Cell cell1, Cell cell2) {
     double dx = cell2.getX() - cell1.getX();
@@ -83,11 +84,11 @@ double Geometrics::vectorSum(std::vector<double> v) {
     return sum;
 }
 
-void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCellsInSimulation) {
+void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, Parameters &params) {
 
     //Perimeter: distance between two adjacent border points
     //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent borderpoints and the center cell
-    for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //First of all, delete all perimeter and area parts
         cells[cell].deletePerimeterParts();
         cells[cell].deleteAreaParts();
@@ -118,8 +119,10 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, int nrCells
             cells[cell].setMarginArea(marginArea);
         } else if (cells[cell].getMarginPoints().size() == 1) {
             std::cout << "There is only one margin point" << std::endl;
+            params.error = true;
         } else if (cells[cell].getMarginPoints().size() > 2) {
             std::cout << "There are more than two margin points" << std::endl;
+            params.error = true;
         }
 
         //Sum them up to get total perimeter and total area
