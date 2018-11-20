@@ -223,8 +223,14 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     double totalDeviation = 0;
 
     //for all cells in the center
-    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        bool isInCentre = cells[cell].isInCentre();
         bool isKnotCell = cells[cell].isKnotCell();
+
+        if (isInCentre == false) {
+            continue;
+        }
+
         if (isKnotCell) {
             continue;
         }

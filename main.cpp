@@ -34,7 +34,7 @@ int main() {
         }
 
         if (params.currentIteration == 2323) {
-            int a = 0;
+            break;
         }
         //Print every 100 iteration the count
         if (step % 100 == 0) {
