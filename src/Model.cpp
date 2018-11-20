@@ -244,7 +244,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             dz = cells[cell].getZ() - cells[neighbourID].getZ();
             // if the neighbour is a certain amount higher than cell, calculate the relative x/y/z deviations
             if (dz < -0.0001) {
-                double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbour]);
+                double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 dx = cells[cell].getX() - cells[neighbourID].getX(); //<0 if neighbour is more right
                 dy = cells[cell].getY() - cells[neighbourID].getY();
                 xDeviation -= dx / distance3D;
