@@ -19,6 +19,18 @@ double Cell::getZ() const {
     return z;
 }
 
+double Cell::getTempX() const {
+    return tempX;
+}
+
+double Cell::getTempY() const {
+    return tempY;
+}
+
+double Cell::getTempZ() const {
+    return tempZ;
+}
+
 int Cell::getID() const {
     return ID;
 }
@@ -104,7 +116,7 @@ void Cell::addNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
 }
 
-void Cell::setNeighbour(int position, int newNeighbourID){
+void Cell::setNeighbour(int position, int newNeighbourID) {
     neighbours[position] = newNeighbourID;
 }
 

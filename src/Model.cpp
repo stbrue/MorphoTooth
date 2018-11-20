@@ -426,26 +426,26 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
         double distanceToOrigin2D = Geometrics::centerDistanceToOrigin2D(cells[cell]);
         if (distanceToOrigin2D > 0) {
             double distanceToOrigin3D = Geometrics::centerDistanceToOrigin3D(cells[cell]);
-            double relativeZDistance = -cells[cell].getZ() / distanceToOrigin3D;
-            double XRelativeToZ = cells[cell].getX() * relativeZDistance;
-            double YRelativeToZ = cells[cell].getY() * relativeZDistance;
-            double relativeDistance = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
-                                           distanceToOrigin2D * distanceToOrigin2D);
+            double relativeZDistance = -cells[cell].getTempZ() / distanceToOrigin3D;
+            double XRelativeToZ = cells[cell].getTempX() * relativeZDistance;
+            double YRelativeToZ = cells[cell].getTempY() * relativeZDistance;
+            double relativeDistance1 = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
+                                            distanceToOrigin2D * distanceToOrigin2D);
             double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
-            relativeDistance = params.boy * epithelialSec1Concentration / relativeDistance;     //boy: buoyancy
+            double relativeDistance2 = params.boy * epithelialSec1Concentration / relativeDistance1;     //boy: buoyancy
 
-            if (relativeDistance > 0) {
+            if (relativeDistance2 > 0) {
                 double inverseDiffState = 1 - cells[cell].getDiffState();
                 if (inverseDiffState < 0) {
                     inverseDiffState = 0;
                 }
-                double newX = cells[cell].getX() * relativeDistance * inverseDiffState;
-                double newY = cells[cell].getY() * relativeDistance * inverseDiffState;
-                double newZ = distanceToOrigin2D * relativeDistance * inverseDiffState;
+                double newX = XRelativeToZ * relativeDistance2 * inverseDiffState;
+                double newY = YRelativeToZ * relativeDistance2 * inverseDiffState;
+                double newZ = distanceToOrigin2D * relativeDistance2 * inverseDiffState;
 
-                cells[cell].addTempX(newX);
-                cells[cell].addTempY(newY);
-                cells[cell].addTempZ(newZ);
+                cells[cell].addTempX(-newX);
+                cells[cell].addTempY(-newY);
+                cells[cell].addTempZ(-newZ);
 
             }
         }
