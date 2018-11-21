@@ -20,7 +20,8 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    Model::epithelialProliferation(cells, params);
+    //Model::epithelialProliferation(cells, params);
+    Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -1041,4 +1042,58 @@ void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &
         cells[oldCell].addOriginalDistance(distance2D, positionOfNewCell);
     }
 
+}
+
+void Model::newEpithelialProliferation(std::vector<Cell> &cells, Parameters &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        bool cellIsEKCell = cells[cell].isKnotCell();
+        if (cellIsEKCell) {
+            continue;
+        }
+
+        double xComponent = 0;
+        double yComponent = 0;
+        double zComponent = 0;
+
+        //Calculate unit vectors from cell to all its neighbours and add the components to xComponent, etc.
+        std::vector<int> neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            int neighbourID = neighbours[neighbour];
+            bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
+
+            if (neighbourIsInSimulation) {
+                double xDifference = cells[cell].getX() - cells[neighbourID].getX();
+                double yDifference = cells[cell].getY() - cells[neighbourID].getY();
+                double zDifference = cells[cell].getZ() - cells[neighbourID].getZ();
+
+                double length = Geometrics::vectorNorm3D(std::vector<double>{xDifference, yDifference, zDifference});
+
+                // Normalize Differences
+                double normX = xDifference / length;
+                double normY = yDifference / length;
+                double normZ = zDifference / length;
+
+                xComponent += normX;
+                yComponent += normY;
+                zComponent += normZ;
+            }
+        }
+
+        //Normalize the sum of unit vectors
+        double lengthOfSum = Geometrics::vectorNorm3D(std::vector<double>{xComponent, yComponent, zComponent});
+
+        double inverseDiffState = (1 - cells[cell].getDiffState());
+        if (inverseDiffState < 0) {
+            inverseDiffState = 0;
+        }
+
+        double xShift = (xComponent / lengthOfSum) * params.egr * inverseDiffState;
+        double yShift = (yComponent / lengthOfSum) * params.egr * inverseDiffState;
+        double zShift = (zComponent / lengthOfSum) * params.egr * inverseDiffState;
+
+        cells[cell].addTempX(xShift);
+        cells[cell].addTempY(yShift);
+        cells[cell].addTempZ(zShift);
+
+    }
 }
