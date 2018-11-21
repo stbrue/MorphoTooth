@@ -157,7 +157,7 @@ public:
      * @param   distance3D  distance between the cells in xyz plane
      * @param   compressionMatrixNonNeighbours
      */
-    static void repulsionBetweenNonNeighbours(double dx, double dy, double dz, double distance3D,
+    static void repulsionBetweenNonNeighbours(double dx, double dy, double dz, double currentDistance,
                                               std::vector<std::vector<double>> &compressionMatrixNonNeighbours);
 
     /**
@@ -170,7 +170,7 @@ public:
     static bool isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour);
 
     static void
-    repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+    repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance, double originalDistance,
                                           std::vector<std::vector<double>> &compressionMatrixNeighbours,
                                           bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
 

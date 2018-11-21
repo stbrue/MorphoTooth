@@ -462,6 +462,7 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
+    //These matrices store a value that represents the amount of deviation from the desired distance
     std::vector<std::vector<double>> compressionMatrixNeighbour = Model::setUpCompressionMatrix();
     std::vector<std::vector<double>> compressionMatrixNonNeighbour = Model::setUpCompressionMatrix();
 
@@ -485,8 +486,8 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
             double dy = y2 - y1;
             double dz = z2 - z1;
 
-            double distance3D = Geometrics::centerDistance3D(cells[cell1], cells[cell2]);
-            double distance2D = Geometrics::centerDistance2D(cells[cell1], cells[cell2]);
+            double currentDistance = Geometrics::centerDistance3D(cells[cell1], cells[cell2]);
+            double originalDistance = Geometrics::centerDistance2D(cells[cell1], cells[cell2]);
 
             //Check for the situation
             bool cell2IsNeighbour = Model::isNeighbourOf(cells, cell1, cell2);
@@ -495,11 +496,11 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
             bool cell1IsInCenter = cells[cell1].isInCentre();
 
             if (cell2IsNeighbour) {
-                Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, distance3D, distance2D,
+                Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, currentDistance, originalDistance,
                                                              compressionMatrixNeighbour,
                                                              cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
             } else {
-                Model::repulsionBetweenNonNeighbours(dx, dy, dz, distance3D, compressionMatrixNonNeighbour);
+                Model::repulsionBetweenNonNeighbours(dx, dy, dz, currentDistance, compressionMatrixNonNeighbour);
             }
 
             Model::updateTempPositions(cells, params, cell1, compressionMatrixNonNeighbour, false);
@@ -594,7 +595,7 @@ void Model::applyForces(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double distance3D, double distance2D,
+void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance, double originalDistance,
                                                   std::vector<std::vector<double>> &compressionMatrixNeighbours,
                                                   bool cell1IsEKCell,
                                                   bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
@@ -608,24 +609,27 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
     if (fabs(dz) < 1.0e-15) {
         dz = 0;
     }
-    if (distance2D < 1.0e-8) {
-        distance2D = 0;
+    if (originalDistance < 1.0e-8) {
+        originalDistance = 0;
     }
-    if (distance3D < 1.0e-8) {
-        distance3D = 0;
+    if (currentDistance < 1.0e-8) {
+        currentDistance = 0;
     }
 
-    //if both cells are enamel knot cells or the 3D distance is shorter than the 2D distance
-    if ((cell1IsEKCell && cell2IsEKCell) || (distance3D < distance2D)) {
-        double deviation = distance3D - distance2D; //bigger the larger the z-difference
-        double relativeDeviation = deviation / distance3D;
+    //if both cells are enamel knot cells or the cells are too close
+    if ((cell1IsEKCell && cell2IsEKCell) || (currentDistance < originalDistance)) {
+        double deviation = currentDistance - originalDistance; //is negative -> the resulting vector is in opposite direction
+        double relativeDeviation = deviation / currentDistance;
 
+        //This is a vector showing in the opposite direction as cell1->cell2, with a length proportional to the deviation
         compressionMatrixNeighbours[0].push_back(dx * relativeDeviation);
         compressionMatrixNeighbours[1].push_back(dy * relativeDeviation);
         compressionMatrixNeighbours[2].push_back(dz * relativeDeviation);
     }
-        // or if cell1 is in center
-        // adh: parameter for cell repulsion/adhesion
+
+    //if they are not too close, there is adhesion (for all cells in the centre)
+    //adh: Parameter describing how strong adhesion is
+    //This is just a vector showing in the same direction as cell1->cell2, but elongated by Adh
     else if (cell1IsInCenter) {
         compressionMatrixNeighbours[0].push_back(dx * adh);
         compressionMatrixNeighbours[1].push_back(dy * adh);
@@ -633,7 +637,7 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
     }
 }
 
-void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, double distance3D,
+void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, double currentDistance,
                                           std::vector<std::vector<double>> &compressionMatrixNonNeighbours) {
 
     //If the cell is enough far away (in any dimension) there is no repulsion
@@ -652,12 +656,13 @@ void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, doubl
         dz = 0;
     }
 
-    if (distance3D < 1.4) {
+    if (currentDistance < 1.4) {
         //the smaller the distance, the even higher the force
-        double relativeDistance = 1 / pow((distance3D + 1), 8);
-        double factor = relativeDistance / distance3D;
+        double relativeDistance = 1 / pow((currentDistance + 1), 8);
+        double factor = relativeDistance / currentDistance;
         factor = static_cast<int>(fabs(factor * 1.0e8)) * 1.0e-8;
 
+        // a vector showing in the opposite direction (-> -dx) as cell1->cell2, and the longer the nearer they are
         compressionMatrixNonNeighbours[0].push_back(-dx * factor);
         compressionMatrixNonNeighbours[1].push_back(-dy * factor);
         compressionMatrixNonNeighbours[2].push_back(-dz * factor);
@@ -679,7 +684,6 @@ void Model::updateTempPositions(std::vector<Cell> &cells, Parameters &params, in
     cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[0]) * rep);
     cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[1]) * rep);
     cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[2]) * rep);
-
 }
 
 std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
