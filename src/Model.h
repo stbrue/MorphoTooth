@@ -170,7 +170,8 @@ public:
     static bool isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour);
 
     static void
-    repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance, double originalDistance,
+    repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance,
+                                          double originalDistance,
                                           std::vector<std::vector<double>> &compressionMatrixNeighbours,
                                           bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
 
@@ -202,6 +203,8 @@ public:
     static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params);
 
     static void errorTesting(std::vector<Cell> cells, Parameters &params);
+
+    static void calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell);
 };
 
 

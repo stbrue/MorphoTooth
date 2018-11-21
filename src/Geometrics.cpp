@@ -266,7 +266,16 @@ void Geometrics::setBorders(std::vector<Cell> &cells, int centreCell, int neighb
         return;
     }
 
-
     return;
+}
 
+void Geometrics::calculateInitialOriginalDistances(std::vector<Cell> &cells, Parameters &params) {
+    double initialDistance = 1;
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        std::vector<int> neighbours = cells[cell].getNeighbours();
+
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            cells[cell].addOriginalDistance(initialDistance, neighbour);
+        }
+    }
 }

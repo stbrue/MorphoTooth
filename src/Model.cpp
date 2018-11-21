@@ -487,7 +487,6 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
             double dz = z2 - z1;
 
             double currentDistance = Geometrics::centerDistance3D(cells[cell1], cells[cell2]);
-            double originalDistance = Geometrics::centerDistance2D(cells[cell1], cells[cell2]);
 
             //Check for the situation
             bool cell2IsNeighbour = Model::isNeighbourOf(cells, cell1, cell2);
@@ -496,16 +495,28 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
             bool cell1IsInCenter = cells[cell1].isInCentre();
 
             if (cell2IsNeighbour) {
+                //For knowing the originalDistance we have to know which position cell2 has in the neighbour list of cell1
+                int positionOfCell2;
+                std::vector<int> neighboursOfCell1 = cells[cell1].getNeighbours();
+                for (int neighbour = 0; neighbour < neighboursOfCell1.size(); ++neighbour) {
+                    if (neighboursOfCell1[neighbour] == cell2) {
+                        positionOfCell2 = neighbour;
+                        break;
+                    }
+                }
+
+                double originalDistance = cells[cell1].getOriginalDistances()[positionOfCell2];
+
                 Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, currentDistance, originalDistance,
                                                              compressionMatrixNeighbour,
                                                              cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
             } else {
                 Model::repulsionBetweenNonNeighbours(dx, dy, dz, currentDistance, compressionMatrixNonNeighbour);
             }
-
-            Model::updateTempPositions(cells, params, cell1, compressionMatrixNonNeighbour, false);
-            Model::updateTempPositions(cells, params, cell1, compressionMatrixNeighbour, true);
         }
+
+        Model::updateTempPositions(cells, params, cell1, compressionMatrixNonNeighbour, false);
+        Model::updateTempPositions(cells, params, cell1, compressionMatrixNeighbour, true);
     }
 
 }
@@ -595,7 +606,8 @@ void Model::applyForces(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance, double originalDistance,
+void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance,
+                                                  double originalDistance,
                                                   std::vector<std::vector<double>> &compressionMatrixNeighbours,
                                                   bool cell1IsEKCell,
                                                   bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
@@ -618,7 +630,8 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
 
     //if both cells are enamel knot cells or the cells are too close
     if ((cell1IsEKCell && cell2IsEKCell) || (currentDistance < originalDistance)) {
-        double deviation = currentDistance - originalDistance; //is negative -> the resulting vector is in opposite direction
+        double deviation =
+                currentDistance - originalDistance; //is negative -> the resulting vector is in opposite direction
         double relativeDeviation = deviation / currentDistance;
 
         //This is a vector showing in the opposite direction as cell1->cell2, with a length proportional to the deviation
@@ -627,9 +640,9 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
         compressionMatrixNeighbours[2].push_back(dz * relativeDeviation);
     }
 
-    //if they are not too close, there is adhesion (for all cells in the centre)
-    //adh: Parameter describing how strong adhesion is
-    //This is just a vector showing in the same direction as cell1->cell2, but elongated by Adh
+        //if they are not too close, there is adhesion (for all cells in the centre)
+        //adh: Parameter describing how strong adhesion is
+        //This is just a vector showing in the same direction as cell1->cell2, but elongated by Adh
     else if (cell1IsInCenter) {
         compressionMatrixNeighbours[0].push_back(dx * adh);
         compressionMatrixNeighbours[1].push_back(dy * adh);
@@ -986,9 +999,37 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
+        //calculate new OriginalDistances
+        Model::calculateNewOriginalDistances(cells, params, newCell);
 
         //Insert the new cell into the cells vector (no problem for next new cells, because it is inserted at the end of
         // in-simulation-cells)
         cells.insert(cells.begin() + params.nrCellsInSimulation - 1, newCell);
     }
+}
+
+void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell) {
+    std::vector<int> neighboursOfNewCell = newCell.getNeighbours();
+
+    for (int neighbour = 0; neighbour < neighboursOfNewCell.size(); ++neighbour) {
+        int oldCell = neighboursOfNewCell[neighbour];
+
+        double distance2D = Geometrics::centerDistance2D(newCell, cells[oldCell]);
+
+        //Do it for the neighbours of the new cell
+        newCell.addOriginalDistance(distance2D, neighbour);
+
+        //Do it for all old cells that have the new cell as new neighbour
+        //We have to know which position newCell has in the neighbour list of the old cell
+        int positionOfNewCell;
+        std::vector<int> neighboursOfOldCell = cells[oldCell].getNeighbours();
+        for (int neighbour = 0; neighbour < neighboursOfOldCell.size(); ++neighbour) {
+            if (neighboursOfOldCell[neighbour] == newCell.getID()) {
+                positionOfNewCell = neighbour;
+                break;
+            }
+        }
+        cells[oldCell].addOriginalDistance(distance2D, positionOfNewCell);
+    }
+
 }

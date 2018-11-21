@@ -136,6 +136,8 @@ public:
     * @param   neighbour2 Which neighbour (first, second, ...)
     */
     static void setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2);
+
+    static void calculateInitialOriginalDistances(std::vector<Cell> &cells, Parameters &params);
 };
 
 

@@ -39,6 +39,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);       //not needed for this way of implementation
 
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
+    Geometrics::calculateInitialOriginalDistances(cells, params);
 
     for (int cell = 0; cell < 19; ++cell) {
         cells[cell].resetTempCoordinates();

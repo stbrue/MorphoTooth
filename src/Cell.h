@@ -46,6 +46,11 @@ private:
     double tempZ;
 
     /**
+     * This are the distances the cell has to its neighbours when it (or a new neighbour) is inserted into the grid
+     */
+    std::vector<double> originalDistances;
+
+    /**
      * The ID of a cell is identical with their index in the vector containing all cells
      */
     int ID;
@@ -153,11 +158,11 @@ public:
 
     double getTempY() const;
 
-
     double getZ() const;
 
     double getTempZ() const;
 
+    const std::vector<double> &getOriginalDistances() const;
 
     int getID() const;
 
@@ -213,6 +218,8 @@ public:
     void addTempZ(double tempZ);
 
     void multiplyTempZ(double tempZ);
+
+    void addOriginalDistance(double distance, int position);
 
     /**
      * Increments the variable diffState by a certain amount

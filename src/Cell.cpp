@@ -31,6 +31,10 @@ double Cell::getTempZ() const {
     return tempZ;
 }
 
+const std::vector<double> &Cell::getOriginalDistances() const {
+    return originalDistances;
+}
+
 int Cell::getID() const {
     return ID;
 }
@@ -214,6 +218,9 @@ void Cell::multiplyTempZ(double tempZ) {
     Cell::tempZ = Cell::tempZ * tempZ;
 }
 
+void Cell::addOriginalDistance(double distance, int position) {
+    Cell::originalDistances.insert(Cell::originalDistances.begin() + position, distance);
+}
 
 //Constructor
 Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
@@ -292,6 +299,8 @@ void Cell::updateCoordinates(double delta) {
     Cell::y += Cell::tempY * delta;
     Cell::z += Cell::tempZ * delta;
 }
+
+
 
 
 
