@@ -523,6 +523,10 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
 
 void Model::nucleusTraction(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        double xShift = 0;
+        double yShift = 0;
+        double zShift = 0;
+
         double totalX = 0;
         double totalY = 0;
         double totalZ = 0;
@@ -567,18 +571,23 @@ void Model::nucleusTraction(std::vector<Cell> &cells, Parameters &params) {
         double ZDeviationFromAverage = averageZ - cells[cell].getZ();
 
         // Ntr: Parameter for nuclear traction
-        cells[cell].addTempX(XDeviationFromAverage * params.delta * params.ntr);    //ntr: nuclear traction
-        cells[cell].addTempY(YDeviationFromAverage * params.delta * params.ntr);
+        xShift = XDeviationFromAverage * params.delta * params.ntr; // ntr: parameter for nucleus traction
+        yShift = YDeviationFromAverage * params.delta * params.ntr;
+
         // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
         if (cells[cell].isKnotCell() == false) {
             double inverseDiffState = 1 - cells[cell].getDiffState();
             if (inverseDiffState < 0) {
                 inverseDiffState = 0;
             }
-            cells[cell].addTempZ(ZDeviationFromAverage * params.delta * params.ntr * inverseDiffState);
+            zShift = ZDeviationFromAverage * params.delta * params.ntr * inverseDiffState;
         }
-    }
 
+        // Add the shifts directly to the coordinates (it's not handled as tempX, etc.)
+        cells[cell].addX(xShift);
+        cells[cell].addY(yShift);
+        cells[cell].addZ(zShift);
+    }
 }
 
 void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) {

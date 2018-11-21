@@ -108,3 +108,64 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     }
     outputFile.close();
 }
+
+void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
+    std::ofstream outputFile;
+    outputFile.precision(12);
+    std::stringstream stringstream;
+    std::string fileName;
+
+    std::string name = "XYZSimple";
+    std::string file = ".txt";
+
+    stringstream << name << params.iterations << file;
+    fileName = stringstream.str();
+
+    outputFile.open(fileName);
+
+    outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << "\t" << cells[cell].getZ() << std::endl;
+    }
+    outputFile.close();
+}
+
+/*void Output::meshOutput(std::vector<Cell> cells, Parameters params) {
+    std::ofstream outputFile;
+    outputFile.precision(12);
+    std::stringstream stringstream;
+    std::string fileName;
+
+    std::string name = "MeshOutput";
+    std::string file = ".txt";
+
+    stringstream << name << params.iterations << file;
+    fileName = stringstream.str();
+
+    outputFile.open(fileName);
+
+    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Triangle" << std::endl;
+
+    int triangleCount = 0;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        std::vector<int> neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            int IDofN = neighbours[neighbour];
+            bool neighbourIsInSimulation = cells[IDofN].isInSimulation();
+            if (neighbourIsInSimulation) {
+                outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
+                           << cells[cell].getZ() << "\t" << groupCount << "\t"
+                           << cells[cell].getProteinConcentrations()[0][0] << "\t" << cells[cell].isKnotCell()
+                           << std::endl;
+                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
+                           << cells[IDofN].getZ() << "\t" << groupCount << "\t"
+                           << cells[IDofN].getProteinConcentrations()[0][0] << "\t" << cells[IDofN].isKnotCell()
+                           << std::endl;
+                groupCount += 1;
+            }
+        }
+    }
+    outputFile.close();
+}*/

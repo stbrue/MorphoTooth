@@ -20,6 +20,10 @@ public:
 
     static void ROutput(std::vector<Cell> cells, Parameters params);
 
+    static void XYZOutputSimple(std::vector<Cell> cells, Parameters params);
+
+    static void meshOutput(std::vector<Cell> cells, Parameters params);
+
 };
 
 

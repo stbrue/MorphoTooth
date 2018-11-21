@@ -46,6 +46,7 @@ int main() {
     }
 
     Output::ROutput(cells, params);
+    Output::XYZOutputSimple(cells, params);
 
     /*
     //Test

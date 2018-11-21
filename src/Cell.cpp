@@ -101,6 +101,18 @@ const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() con
 
 //Setter
 
+void Cell::addX(double newX) {
+    Cell::x += newX;
+}
+
+void Cell::addY(double newY) {
+    Cell::y += newY;
+}
+
+void Cell::addZ(double newZ) {
+    Cell::z += newZ;
+}
+
 void Cell::setID(int newID) {
     Cell::ID = newID;
 }

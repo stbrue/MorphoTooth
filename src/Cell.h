@@ -199,6 +199,12 @@ public:
 
     //Setter
 
+    void addX(double newX);
+
+    void addY(double newY);
+
+    void addZ(double newZ);
+
     void setID(int newID);
 
     /**
