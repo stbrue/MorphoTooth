@@ -26,7 +26,7 @@ int main() {
             break;
         }
 
-        if (params.cellDivisionCount == 100) {
+        if (params.cellDivisionCount == 10000) {
             std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount
                       << std::endl;
             std::cout << "This was at iteration " << step << std::endl;
@@ -42,6 +42,11 @@ int main() {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
             std::cout.flush();
+        }
+
+        //All 1000 iterations do an output
+        if (step % 1000 == 0) {
+            Output::ROutput(cells, params);
         }
     }
 

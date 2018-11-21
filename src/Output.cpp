@@ -78,7 +78,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     std::string name = "MorphoToothOutput";
     std::string file = ".txt";
 
-    stringstream << name << params.iterations << file;
+    stringstream << name << params.currentIteration << file;
     fileName = stringstream.str();
 
     outputFile.open(fileName);

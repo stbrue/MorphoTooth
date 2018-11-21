@@ -25,11 +25,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Output.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +37,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+            <state relative-caret-position="306">
+              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -99,7 +94,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Output.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="428">
@@ -249,14 +244,14 @@
         <option value="$PROJECT_DIR$/src/Geometrics.h" />
         <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
         <option value="$PROJECT_DIR$/src/Model.h" />
-        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/src/Output.h" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.f90" />
         <option value="$PROJECT_DIR$/src/Cell.h" />
         <option value="$PROJECT_DIR$/src/Cell.cpp" />
         <option value="$PROJECT_DIR$/src/Model.cpp" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/TestInput.txt" />
+        <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
   </component>
@@ -475,7 +470,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="368403000" />
+    <option name="totallyTimeSpent" value="369528000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -819,13 +814,6 @@
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/MorphoToothOutput100.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Output.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -892,6 +880,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Output.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="170" column="3" selection-start-line="170" selection-start-column="3" selection-end-line="170" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -899,10 +894,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Output.cpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="170" column="3" selection-start-line="170" selection-start-column="3" selection-end-line="170" selection-end-column="3" />
+        <state relative-caret-position="306">
+          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
         </state>
       </provider>
     </entry>
