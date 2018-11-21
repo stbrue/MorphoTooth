@@ -12,7 +12,9 @@
 class Model {
 public:
 
-    static void iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration);
+    static bool NanIsPresent(double x, double y, double z);
+
+    static void iterationStep(std::vector<Cell> &cells, Parameters &params);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
@@ -198,6 +200,8 @@ public:
                                              Parameters &params);
 
     static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params);
+
+    static void errorTesting(std::vector<Cell> cells, Parameters &params);
 };
 
 

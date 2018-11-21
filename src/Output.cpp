@@ -8,6 +8,7 @@
 #include <fstream>
 #include "Parameters.h"
 #include "consts.h"
+#include <sstream>
 
 void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells) {
     std::ofstream outputFile;
@@ -64,4 +65,46 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
         outputFile << "Epithelial Sec2: " << cells[cell].getProteinConcentrations()[PSec2][LEpithelium] << std::endl;
         outputFile << std::endl;
     }
+
+    outputFile.close();
+}
+
+void Output::ROutput(std::vector<Cell> cells, Parameters params) {
+    std::ofstream outputFile;
+    outputFile.precision(12);
+    std::stringstream stringstream;
+    std::string fileName;
+
+    std::string name = "MorphoToothOutput";
+    std::string file = ".txt";
+
+    stringstream << name << params.iterations << file;
+    fileName = stringstream.str();
+
+    outputFile.open(fileName);
+
+    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
+               << "EpithelialAct" << std::endl;
+
+    int groupCount = 0;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        std::vector<int> neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            int IDofN = neighbours[neighbour];
+            bool neighbourIsInSimulation = cells[IDofN].isInSimulation();
+            if (neighbourIsInSimulation) {
+                outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
+                           << cells[cell].getZ() << "\t" << groupCount << "\t"
+                           << cells[cell].getProteinConcentrations()[0][0]
+                           << std::endl;
+                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
+                           << cells[IDofN].getZ() << "\t" << groupCount << "\t"
+                           << cells[IDofN].getProteinConcentrations()[0][0]
+                           << std::endl;
+                groupCount += 1;
+            }
+        }
+    }
+    outputFile.close();
 }

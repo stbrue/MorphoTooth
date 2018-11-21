@@ -147,9 +147,17 @@ public:
     //Getter
     double getX() const;
 
+    double getTempX() const;
+
     double getY() const;
 
+    double getTempY() const;
+
+
     double getZ() const;
+
+    double getTempZ() const;
+
 
     int getID() const;
 

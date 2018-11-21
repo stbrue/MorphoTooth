@@ -18,6 +18,8 @@ public:
 
     static void bigOutput(std::vector<Cell> cells, Parameters params);
 
+    static void ROutput(std::vector<Cell> cells, Parameters params);
+
 };
 
 

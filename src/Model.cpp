@@ -28,33 +28,46 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
-    /*if (Model::testPositions(cells)) {
-        std::cout << "The values are NaN in iteration " << iteration << std::endl;
-        std::cout.flush();
-    }*/
+    Model::errorTesting(cells, params);
+    params.currentIteration += 1;
+
     /* Resetting of matrices:
      Resetting of tempConcentrations is done in the loop within the diffusion function itself
      Resetting of tempConcentrations is done in the loop within the reaction function itself
      The tempPosition Matrix gets resetted in the function applyForces */
 }
 
-bool Model::testPositions(std::vector<Cell> cells) {
-    for (int cell = 0; cell < 7; ++cell) {
-        double x = cells[cell].getX();
-        double y = cells[cell].getY();
-        if (x != x) {
-            return true;
-        } else if (y != 0) {
-            return true;
-        }
+bool Model::NanIsPresent(double x, double y, double z) {
+    if (x != x) {
+        std::cout << "x value is Nan" << std::endl;
+        return true;
+    } else if (y != y) {
+        std::cout << "y value is Nan" << std::endl;
+        return true;
+    } else if (z != z) {
+        std::cout << "z value is Nan" << std::endl;
+        return true;
     }
     return false;
+}
+
+void Model::errorTesting(std::vector<Cell> cells, Parameters &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        double x = cells[cell].getX();
+        double y = cells[cell].getY();
+        double z = cells[cell].getZ();
+
+        if (Model::NanIsPresent(x, y, z)) {
+            //params.error = true;
+            std::cout << "There is a fucking Nan in iteration " << params.currentIteration << std::endl;
+        }
+    }
 }
 
 void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
     //Calculate for each cell its perimeter and area
-    Geometrics::calculatePerimeterAndArea(cells, params.nrCellsInSimulation);
+    Geometrics::calculatePerimeterAndArea(cells, params);
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
 
@@ -180,13 +193,12 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
 }
 
 void Model::buccalLingualBias(std::vector<Cell> &cells, Parameters &params) {
+    //for all border cells
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        //for all border cells
-        if (cells[cell].isInCentre()) {
+        bool cellIsInCentre = cells[cell].isInCentre();
+        if (cellIsInCentre) {
             continue;
-        }
-
-        if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
+        } else if (cells[cell].getY() < -params.swi) {                     //swi: distance of initial BMPs from mid line
             cells[cell].setProteinConcentration(PAct, LEpithelium,
                                                 params.lbi);  //lbi: lingual bias by initial BMP distribution
         } else if (cells[cell].getY() > params.swi) {
@@ -215,8 +227,14 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
     double totalDeviation = 0;
 
     //for all cells in the center
-    for (int cell = 0; cell < params.nrCellsInCenter; ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        bool isInCentre = cells[cell].isInCentre();
         bool isKnotCell = cells[cell].isKnotCell();
+
+        if (isInCentre == false) {
+            continue;
+        }
+
         if (isKnotCell) {
             continue;
         }
@@ -231,7 +249,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             dz = cells[cell].getZ() - cells[neighbourID].getZ();
             // if the neighbour is a certain amount higher than cell, calculate the relative x/y/z deviations
             if (dz < -0.0001) {
-                double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbour]);
+                double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 dx = cells[cell].getX() - cells[neighbourID].getX(); //<0 if neighbour is more right
                 dy = cells[cell].getY() - cells[neighbourID].getY();
                 xDeviation -= dx / distance3D;
@@ -417,30 +435,26 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
         double distanceToOrigin2D = Geometrics::centerDistanceToOrigin2D(cells[cell]);
         if (distanceToOrigin2D > 0) {
             double distanceToOrigin3D = Geometrics::centerDistanceToOrigin3D(cells[cell]);
-            double relativeZDistance = -cells[cell].getZ() / distanceToOrigin3D;
-            double XRelativeToZ = cells[cell].getX() * relativeZDistance;
-            double YRelativeToZ = cells[cell].getY() * relativeZDistance;
-            double relativeDistance = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
-                                           distanceToOrigin2D * distanceToOrigin2D);
+            double relativeZDistance = -cells[cell].getTempZ() / distanceToOrigin3D;
+            double XRelativeToZ = cells[cell].getTempX() * relativeZDistance;
+            double YRelativeToZ = cells[cell].getTempY() * relativeZDistance;
+            double relativeDistance1 = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
+                                            distanceToOrigin2D * distanceToOrigin2D);
             double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
-            if (relativeDistance == 0) {
-                std::cout << "relative Distance = 0 -> divide by zero" << std::endl;
-                std::cout.flush();
-            }
-            relativeDistance = params.boy * epithelialSec1Concentration / relativeDistance;     //boy: buoyancy
+            double relativeDistance2 = params.boy * epithelialSec1Concentration / relativeDistance1;     //boy: buoyancy
 
-            if (relativeDistance > 0) {
+            if (relativeDistance2 > 0) {
                 double inverseDiffState = 1 - cells[cell].getDiffState();
                 if (inverseDiffState < 0) {
                     inverseDiffState = 0;
                 }
-                double newX = cells[cell].getX() * relativeDistance * inverseDiffState;
-                double newY = cells[cell].getY() * relativeDistance * inverseDiffState;
-                double newZ = distanceToOrigin2D * relativeDistance * inverseDiffState;
+                double newX = XRelativeToZ * relativeDistance2 * inverseDiffState;
+                double newY = YRelativeToZ * relativeDistance2 * inverseDiffState;
+                double newZ = distanceToOrigin2D * relativeDistance2 * inverseDiffState;
 
-                cells[cell].addTempX(newX);
-                cells[cell].addTempY(newY);
-                cells[cell].addTempZ(newZ);
+                cells[cell].addTempX(-newX);
+                cells[cell].addTempY(-newY);
+                cells[cell].addTempZ(-newZ);
 
             }
         }
@@ -795,6 +809,9 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
                 if (squareDistance >= 4 && cell < neighbourID) {
                     std::vector<int> pair = {cell, neighbourID};
                     motherCells.push_back(pair);
+                    std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
+                    std::cout.flush();
+                    params.cellDivisionCount += 1;
                 }
             }
         }
@@ -816,6 +833,7 @@ std::vector<int> Model::findCommonNeighbours(int M1, int M2, std::vector<Cell> &
             N2 = IDOfNeighbour;
         } else if (isNeighbourOfM2) {
             std::cout << "there are too many common neighbours" << std::endl;
+            params.error = true;
         }
     }
     std::vector<int> commonNeighbours = {N1, N2};
@@ -843,8 +861,9 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
     int M2Position = 0;         //M2 is the ...th neighbour of a common neighbour
     int newCellPosition = 0;    //the new cell will have this position in the neighbour sequence of a common neighbour
 
-    // Insert the new cell as neighbour of N1
-    if (cells[N1].isInSimulation()) {
+    // Insert the new cell as neighbour of N1 if N1 is InSimulation
+    bool N1IsInSimulation = cells[N1].isInSimulation();
+    if (N1IsInSimulation) {
         for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
             if (neighboursOfN1[neighbour] == M1) {
                 M1Position = neighbour;
@@ -864,9 +883,9 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
         cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
     }
 
-
     // Same for N2
-    if (cells[N2].isInSimulation()) {
+    bool N2IsInSimulation = cells[N2].isInSimulation();
+    if (N2IsInSimulation) {
         for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
             if (neighboursOfN2[neighbour] == M1) {
                 M1Position = neighbour;
@@ -882,7 +901,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
             newCellPosition = M2Position;
         }
 
-        cells[N2].insertNeighbour(newCell.getID(), newCellPosition + 1);
+        cells[N2].insertNeighbour(newCell.getID(), newCellPosition);
     }
 }
 
