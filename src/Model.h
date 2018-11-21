@@ -14,7 +14,7 @@ public:
 
     static bool NanIsPresent(double x, double y, double z);
 
-    static void iterationStep(std::vector<Cell> &cells, Parameters &params);
+    static void iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
