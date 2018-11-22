@@ -65,6 +65,11 @@ double Geometrics::vectorNorm3D(std::vector<double> v) {
     return norm;
 }
 
+double Geometrics::vectorNorm2D(std::vector<double> v) {
+    double norm = sqrt((v[0] * v[0]) + (v[1] * v[1]));
+    return norm;
+}
+
 std::vector<double> Geometrics::crossProduct(std::vector<double> v1, std::vector<double> v2) {
     double x = (v1[1] * v2[2]) - (v1[2] * v2[1]);
     double y = (v1[2] * v2[0]) - (v1[0] * v2[2]);

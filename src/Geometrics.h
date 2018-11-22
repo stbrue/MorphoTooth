@@ -62,6 +62,8 @@ public:
      */
     static double vectorNorm3D(std::vector<double> v);
 
+    static double vectorNorm2D(std::vector<double> v);
+
     /**
      * @brief   calculates the cross product of two vectors
      * @param   v1  vector with 3 components

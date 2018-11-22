@@ -20,8 +20,8 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    Model::epithelialProliferation(cells, params);
-    //Model::newEpithelialProliferation(cells, params);
+    //Model::epithelialProliferation(cells, params);
+    Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -1115,11 +1115,30 @@ void Model::newEpithelialProliferation(std::vector<Cell> &cells, Parameters &par
             cells[cell].addTempZ(zShift);
         } else {
             //Downgrowth (cervical loop formation)
-            Model::downGrowth(cells, params, xShift, yShift, int cell);
+            Model::downGrowth(cells, params, xShift, yShift, cell);
         }
     }
 }
 
 void Model::downGrowth(std::vector<Cell> &cells, Parameters &params, double xShift, double yShift, int cell) {
+    double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
+    double inverseDiffState = 1 - cells[cell].getDiffState();
+    if (inverseDiffState < 0) {
+        inverseDiffState = 0;
+    }
 
+    double mesenchymalForce = 1 + ((params.mgr * epithelialSecConcentration) /
+                                   Geometrics::vectorNorm2D(std::vector<double>{xShift, yShift}));
+
+    double dx = xShift * mesenchymalForce;
+    double dy = yShift * mesenchymalForce;
+    double dz = params.dgr;
+
+    double newX = (xShift * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
+    double newY = (yShift * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
+    double newZ = (dz * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
+
+    cells[cell].addTempX(newX);
+    cells[cell].addTempY(newY);
+    cells[cell].addTempZ(newZ);
 }
