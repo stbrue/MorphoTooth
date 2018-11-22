@@ -26,7 +26,7 @@ int main() {
             break;
         }
 
-        if (params.cellDivisionCount == 1) {
+        if (params.cellDivisionCount == 1000) {
             std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount
                       << std::endl;
             std::cout << "This was at iteration " << step << std::endl;

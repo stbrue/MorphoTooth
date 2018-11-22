@@ -12,16 +12,12 @@
 
 
 void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration) {
-    //if (iteration == 600) {
-    //    std::cout << "Hello" << std::endl;
-    //}
-
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    //Model::epithelialProliferation(cells, params);
-    Model::newEpithelialProliferation(cells, params);
+    Model::epithelialProliferation(cells, params);
+    //Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -31,10 +27,6 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
     Model::errorTesting(cells, params);
 
-    /* Resetting of matrices:
-     Resetting of tempConcentrations is done in the loop within the diffusion function itself
-     Resetting of tempConcentrations is done in the loop within the reaction function itself
-     The tempPosition Matrix gets resetted in the function applyForces */
 }
 
 bool Model::NanIsPresent(double x, double y, double z) {
@@ -332,7 +324,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
                         angle3 = 2 * M_PI - angle3;
                     }
                 }
-            } else { //if neighbour is within simulation but not in the center (as cell)
+            } else { //if neighbour is in centre
                 if (distance2D > 0) {
                     if (angle1 == -0.3) {
                         angle1 = acos(dx / distance2D);
@@ -364,9 +356,9 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
         }
 
         if (angle1 < angle2) {
-            distance2D = angle1;
+            double temp = angle1;
             angle1 = angle2;
-            angle2 = distance2D;
+            angle2 = temp;
         }
 
         if (angle3 < angle1 && angle3 > angle2) {
@@ -523,6 +515,11 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
 
 void Model::nucleusTraction(std::vector<Cell> &cells, Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+
+        if (cells[cell].getDiffState() == 1) {
+            continue;
+        }
+
         double xShift = 0;
         double yShift = 0;
         double zShift = 0;
@@ -592,8 +589,11 @@ void Model::nucleusTraction(std::vector<Cell> &cells, Parameters &params) {
 
 void Model::anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params) {
     // only for cells that are not in the center
-    int firstBorderCell = params.nrCellsInCenter;
-    for (int cell = firstBorderCell; cell < params.nrCellsInSimulation; ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        bool cellIsCentreCell = cells[cell].isInCentre();
+        if (cellIsCentreCell) {
+            continue;
+        }
         //Bwi: parameter (distance where anterior-posterior bias applies)
         if (fabs(cells[cell].getY()) < params.bwi) {
             if (cells[cell].getX() > 0) {
@@ -1121,24 +1121,29 @@ void Model::newEpithelialProliferation(std::vector<Cell> &cells, Parameters &par
 }
 
 void Model::downGrowth(std::vector<Cell> &cells, Parameters &params, double xShift, double yShift, int cell) {
+
     double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
     double inverseDiffState = 1 - cells[cell].getDiffState();
     if (inverseDiffState < 0) {
         inverseDiffState = 0;
     }
 
-    double mesenchymalForce = 1 + ((params.mgr * epithelialSecConcentration) /
-                                   Geometrics::vectorNorm2D(std::vector<double>{xShift, yShift}));
+    double shift2D = Geometrics::vectorNorm2D(std::vector<double>{xShift, yShift});
+    if (shift2D > 0) {
+        double mesenchymalForce = (shift2D + params.mgr * epithelialSecConcentration) / shift2D;
+        xShift = xShift * mesenchymalForce;
+        yShift = yShift * mesenchymalForce;
+    }
 
-    double dx = xShift * mesenchymalForce;
-    double dy = yShift * mesenchymalForce;
-    double dz = params.dgr;
+    double epithelialGrowth = 0;
 
-    double newX = (xShift * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
-    double newY = (yShift * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
-    double newZ = (dz * params.egr * inverseDiffState) / Geometrics::vectorNorm3D(std::vector<double>{dx, dy, dz});
+    double shift3D = Geometrics::vectorNorm3D(std::vector<double>{xShift, yShift, params.dgr});
+    if (shift3D > 0) {
+        epithelialGrowth = params.egr * inverseDiffState / shift3D;
+    }
 
-    cells[cell].addTempX(newX);
-    cells[cell].addTempY(newY);
-    cells[cell].addTempZ(newZ);
+    cells[cell].addTempX(xShift * epithelialGrowth);
+    cells[cell].addTempY(yShift * epithelialGrowth);
+    cells[cell].addTempZ(params.dgr * epithelialGrowth);
+
 }

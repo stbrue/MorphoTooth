@@ -84,7 +84,8 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     outputFile.open(fileName);
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
-               << "EpithelialAct" << "\t" << "EK" << std::endl;
+               << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
+               << "EK" << std::endl;
 
     int groupCount = 0;
 
@@ -96,11 +97,17 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
             if (neighbourIsInSimulation) {
                 outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
                            << cells[cell].getZ() << "\t" << groupCount << "\t"
-                           << cells[cell].getProteinConcentrations()[0][0] << "\t" << cells[cell].isKnotCell()
+                           << cells[cell].getProteinConcentrations()[0][0] << "\t"
+                           << cells[cell].getProteinConcentrations()[1][0] << "\t"
+                           << cells[cell].getProteinConcentrations()[2][0] << "\t" << cells[cell].getDiffState() << "\t"
+                           << cells[cell].isKnotCell()
                            << std::endl;
                 outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
                            << cells[IDofN].getZ() << "\t" << groupCount << "\t"
-                           << cells[IDofN].getProteinConcentrations()[0][0] << "\t" << cells[IDofN].isKnotCell()
+                           << cells[IDofN].getProteinConcentrations()[0][0] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[1][0] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[2][0] << "\t" << cells[IDofN].getDiffState()
+                           << "\t" << cells[IDofN].isKnotCell()
                            << std::endl;
                 groupCount += 1;
             }
