@@ -150,7 +150,7 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
             cells[cell].addTempConcentration(protein, layer, newConcentration);
         }
             // if the neighbour is not within simulation and the borderDiffusion has not yet been calculated, there is a sink
-        else if (borderDiffusionDone == false) {
+        else /*if (borderDiffusionDone == false)*/ {
             double pMargin = cells[cell].getMargin() / totalDiffusionArea;
             sink(cells, cell, layer, protein, pMargin);
             borderDiffusionDone = true;
@@ -163,7 +163,7 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
         ActReactionAndDegradation(cells, params, cell);
         InhReactionAndDegradation(cells, params, cell);
         Sec1ReactionAndDegradation(cells, params, cell);
-        //Sec2ReactionAndDegradation(cells, params, cell); // not used, since [Sec2] is always = 0
+        //Sec2AndDegradation(cells, params, cell); // not used, since [Sec2] is always = 0
     }
 
     //Update the final protein concentrations (including delta)
@@ -775,11 +775,12 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (diffState > params.inT) {           //int: inductive threshold
-        newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
-    } else if (isKnotCell) {
+    if (isKnotCell) {
         newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
+    } else if (diffState > params.inT) {           //int: inductive threshold
+        newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
     }
+
     cells[cell].addTempConcentration(PInh, LEpithelium, newConcentration);
 }
 
@@ -789,11 +790,12 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (diffState > params.set) {
-        newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
-    } else if (isKnotCell) {
+    if (isKnotCell) {
         newConcentration = params.sec - params.mu * epithelialSec1Concentration;
+    } else if (diffState > params.set) {
+        newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
     }
+
 
     // [Sec1] does not get smaller (except by diffusion)
     if (newConcentration < 0) {
@@ -830,9 +832,9 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
             if (neighbourIsInSimulation) {
-                double squareDistance = Geometrics::squareCenterDistance3D(cells[cell], cells[neighbourID]);
+                double distance = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
-                if (squareDistance >= 4 && cell < neighbourID) {
+                if (distance >= 2 && cell < neighbourID) {
                     std::vector<int> pair = {cell, neighbourID};
                     motherCells.push_back(pair);
                     std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
@@ -946,7 +948,7 @@ void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vec
 }
 
 void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params) {
-    //The new cell is in the centre if it has no neighbours that are out of simulation
+    /*//The new cell is in the centre if it has no neighbours that are out of simulation
     bool N1InCentre = cells[N1].isInSimulation();
     bool N2InCentre = cells[N2].isInSimulation();
     // the mother cells are anyway in simulation (otherwise they would not be mother cells)
@@ -956,7 +958,18 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<C
     } else {
         newCell.setInCentre(true);
         params.nrCellsInCenter += 1;
+    }*/
+    std::vector<int> neighbours = newCell.getNeighbours();
+    bool isInCentre = true;
+    for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        int IDNeighbour = neighbours[neighbour];
+        bool neighbourIsInSimulation = cells[IDNeighbour].isInSimulation();
+        if (neighbourIsInSimulation == false) {
+            isInCentre = false;
+        }
     }
+
+    newCell.setInCentre(isInCentre);
 }
 
 void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
@@ -1004,10 +1017,10 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         newCell.setInSimulation(true);
         //The new cell has the mean of the mother cell's protein concentrations
         Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
-        //The new cell is in centre if it has no neighbours that are out of simulation
-        Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
+        //The new cell is in centre if it has no neighbours that are out of simulation
+        Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
 
         //Insert the new cell into the cells vector (no problem for next new cells, because it is inserted at the end of
         // in-simulation-cells)

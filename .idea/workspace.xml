@@ -24,9 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +43,8 @@
             <file leaf-file-name="source_original.f90" pinned="false" current-in-tab="true">
               <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/source_original.f90">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="397">
-                    <caret line="980" column="14" lean-forward="true" selection-start-line="980" selection-start-column="14" selection-end-line="980" selection-end-column="14" />
+                  <state relative-caret-position="441">
+                    <caret line="451" column="16" lean-forward="true" selection-start-line="451" selection-start-column="16" selection-end-line="451" selection-end-column="16" />
                     <folding>
                       <marker date="1535358179000" expanded="true" signature="8156:8177" ph="..." />
                     </folding>
@@ -94,17 +93,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stl_algobase.h" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files (x86)/mingw-w64/i686-7.3.0-posix-dwarf-rt_v5-rev0/mingw32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/bits/stl_algobase.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="367" selection-start-line="367" selection-end-line="367" />
+            <state relative-caret-position="374">
+              <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -118,11 +108,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Initial.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="735">
+              <caret line="170" column="30" selection-start-line="170" selection-start-column="30" selection-end-line="170" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="594" column="21" selection-start-line="594" selection-start-column="21" selection-end-line="594" selection-end-column="21" />
+            <state relative-caret-position="-13414">
+              <caret line="152" column="50" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="50" />
               <folding>
                 <element signature="e#45#61#0" expanded="true" />
               </folding>
@@ -142,8 +141,8 @@
       <file leaf-file-name="TestInput.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+            <state relative-caret-position="306">
+              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -159,19 +158,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bucc</find>
-      <find>there are too</find>
-      <find>there</find>
-      <find>margin</find>
-      <find>error</find>
-      <find>errorte</find>
-      <find>searchMo</find>
-      <find>actrea</find>
-      <find>apply</find>
-      <find>epithel</find>
-      <find>epithelialPro</find>
-      <find>buoy</find>
-      <find>repulsionAndAdhesionBetweenNeighbours</find>
       <find>repulsionAndAdhesion</find>
       <find>updateTemp</find>
       <find>repuls</find>
@@ -180,15 +166,28 @@
       <find>q2d(</find>
       <find>promig</find>
       <find>nucleus</find>
-      <find>epithelialP</find>
       <find>empu</find>
       <find>newE</find>
-      <find>vectorNorm</find>
-      <find>epithelial</find>
       <find>ekdiff</find>
       <find>sec1rea</find>
       <find>isInCentre</find>
       <find>anteriorPo</find>
+      <find>nrCellsInCen</find>
+      <find>nrCellsInCenter</find>
+      <find>epithelial</find>
+      <find>epithelialP</find>
+      <find>cellDivi</find>
+      <find>defineIfNe</find>
+      <find>searchMoth</find>
+      <find>vectorNorm</find>
+      <find>inhR</find>
+      <find>reaction</find>
+      <find>diffusion</find>
+      <find>upDiffu</find>
+      <find>diffusio</find>
+      <find>diffu</find>
+      <find>difusio</find>
+      <find>downDiffu</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -470,7 +469,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="386236000" />
+    <option name="totallyTimeSpent" value="392953000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -478,9 +477,10 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.109375" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.42011833" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.41961232" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.31813" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -503,7 +503,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.27936146" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout>
@@ -540,7 +539,7 @@
       <breakpoints>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/Model.cpp</url>
-          <line>962</line>
+          <line>975</line>
           <option name="timeStamp" value="136" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -556,13 +555,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/unit_tests/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
@@ -764,13 +756,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="41" column="64" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/MorphoToothOutput100.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -835,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="68" column="54" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Output.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1734">
@@ -856,13 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="428">
@@ -870,10 +841,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="170" column="30" selection-start-line="170" selection-start-column="30" selection-end-line="170" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="68" column="54" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CMakeTmp/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Google Drive/Studium/Master 2.0/Programm/Originals/source_original.f90">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="980" column="14" lean-forward="true" selection-start-line="980" selection-start-column="14" selection-end-line="980" selection-end-column="14" />
+        <state relative-caret-position="441">
+          <caret line="451" column="16" lean-forward="true" selection-start-line="451" selection-start-column="16" selection-end-line="451" selection-end-column="16" />
           <folding>
             <marker date="1535358179000" expanded="true" signature="8156:8177" ph="..." />
           </folding>
@@ -882,15 +874,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/TestInput.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+        <state relative-caret-position="306">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="594" column="21" selection-start-line="594" selection-start-column="21" selection-end-line="594" selection-end-column="21" />
+        <state relative-caret-position="-13414">
+          <caret line="152" column="50" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="50" />
           <folding>
             <element signature="e#45#61#0" expanded="true" />
           </folding>
