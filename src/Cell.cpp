@@ -234,6 +234,10 @@ void Cell::addOriginalDistance(double distance, int position) {
     Cell::originalDistances.insert(Cell::originalDistances.begin() + position, distance);
 }
 
+void Cell::replaceOriginalDistance(double distance, int position) {
+    originalDistances[position] = distance;
+}
+
 //Constructor
 Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     knot = false;

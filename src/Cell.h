@@ -227,6 +227,8 @@ public:
 
     void addOriginalDistance(double distance, int position);
 
+    void replaceOriginalDistance(double distance, int position);
+
     /**
      * Increments the variable diffState by a certain amount
      * @param addedDiffState

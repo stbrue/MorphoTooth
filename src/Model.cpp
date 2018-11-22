@@ -1009,37 +1009,49 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
         Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
-        //calculate new OriginalDistances
-        Model::calculateNewOriginalDistances(cells, params, newCell);
 
         //Insert the new cell into the cells vector (no problem for next new cells, because it is inserted at the end of
         // in-simulation-cells)
         cells.insert(cells.begin() + params.nrCellsInSimulation - 1, newCell);
+
+        //calculate new OriginalDistances
+        Model::calculateNewOriginalDistances(cells, params, newCell, M1, M2, N1, N2);
     }
 }
 
-void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell) {
+void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell, int M1, int M2, int N1, int N2) {
     std::vector<int> neighboursOfNewCell = newCell.getNeighbours();
 
     for (int neighbour = 0; neighbour < neighboursOfNewCell.size(); ++neighbour) {
         int oldCell = neighboursOfNewCell[neighbour];
 
-        double distance2D = Geometrics::centerDistance2D(newCell, cells[oldCell]);
+        bool oldCellIsInSimulation = cells[oldCell].isInSimulation();
 
-        //Do it for the neighbours of the new cell
-        newCell.addOriginalDistance(distance2D, neighbour);
+        if (oldCellIsInSimulation) {
+            double distance2D = Geometrics::centerDistance2D(newCell, cells[oldCell]);
 
-        //Do it for all old cells that have the new cell as new neighbour
-        //We have to know which position newCell has in the neighbour list of the old cell
-        int positionOfNewCell;
-        std::vector<int> neighboursOfOldCell = cells[oldCell].getNeighbours();
-        for (int neighbour = 0; neighbour < neighboursOfOldCell.size(); ++neighbour) {
-            if (neighboursOfOldCell[neighbour] == newCell.getID()) {
-                positionOfNewCell = neighbour;
-                break;
+            //Do it for all neighbours of the new cell
+            newCell.addOriginalDistance(distance2D, neighbour);
+
+            //We have to know which position newCell has in the neighbour list of the old cell
+            int positionOfNewCell;
+            std::vector<int> neighboursOfOldCell = cells[oldCell].getNeighbours();
+            for (int neighbour = 0; neighbour < neighboursOfOldCell.size(); ++neighbour) {
+                if (neighboursOfOldCell[neighbour] == newCell.getID()) {
+                    positionOfNewCell = neighbour;
+                    break;
+                }
+            }
+
+            //For the mothercells: replace the original distance with the one to the other mothercell
+            if (oldCell == M1 || oldCell == M2) {
+                cells[oldCell].replaceOriginalDistance(distance2D, positionOfNewCell);
+            }
+            //For the common neighbours: insert a new original distance to the new cell
+            if (oldCell == N1 || oldCell == N2) {
+                cells[oldCell].addOriginalDistance(distance2D, positionOfNewCell);
             }
         }
-        cells[oldCell].addOriginalDistance(distance2D, positionOfNewCell);
     }
 
 }
@@ -1085,6 +1097,10 @@ void Model::newEpithelialProliferation(std::vector<Cell> &cells, Parameters &par
         double inverseDiffState = (1 - cells[cell].getDiffState());
         if (inverseDiffState < 0) {
             inverseDiffState = 0;
+        }
+
+        if (lengthOfSum == 0) {
+            continue;
         }
 
         double xShift = (xComponent / lengthOfSum) * params.egr * inverseDiffState;

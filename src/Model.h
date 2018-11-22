@@ -204,7 +204,9 @@ public:
 
     static void errorTesting(std::vector<Cell> cells, Parameters &params);
 
-    static void calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell);
+    static void
+    calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell, int M1, int M2, int N1,
+                                  int N2);
 
     static void newEpithelialProliferation(std::vector<Cell> &cells, Parameters &params);
 };
