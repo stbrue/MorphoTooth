@@ -209,6 +209,8 @@ public:
                                   int N2);
 
     static void newEpithelialProliferation(std::vector<Cell> &cells, Parameters &params);
+
+    static void downGrowth(std::vector<Cell> &cells, Parameters &params, double xShift, double yShift, int cell);
 };
 
 

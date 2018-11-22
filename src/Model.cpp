@@ -20,8 +20,8 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    //Model::epithelialProliferation(cells, params);
-    Model::newEpithelialProliferation(cells, params);
+    Model::epithelialProliferation(cells, params);
+    //Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -30,7 +30,6 @@ void Model::iterationStep(std::vector<Cell> &cells, Parameters &params, int iter
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
     Model::errorTesting(cells, params);
-    params.currentIteration += 1;
 
     /* Resetting of matrices:
      Resetting of tempConcentrations is done in the loop within the diffusion function itself
@@ -1019,7 +1018,8 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
     }
 }
 
-void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell, int M1, int M2, int N1, int N2) {
+void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell, int M1, int M2,
+                                          int N1, int N2) {
     std::vector<int> neighboursOfNewCell = newCell.getNeighbours();
 
     for (int neighbour = 0; neighbour < neighboursOfNewCell.size(); ++neighbour) {
@@ -1031,7 +1031,7 @@ void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &
             double distance2D = Geometrics::centerDistance2D(newCell, cells[oldCell]);
 
             //Do it for all neighbours of the new cell
-            newCell.addOriginalDistance(distance2D, neighbour);
+            cells[newCell.getID()].addOriginalDistance(distance2D, neighbour);
 
             //We have to know which position newCell has in the neighbour list of the old cell
             int positionOfNewCell;
@@ -1051,6 +1051,8 @@ void Model::calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &
             if (oldCell == N1 || oldCell == N2) {
                 cells[oldCell].addOriginalDistance(distance2D, positionOfNewCell);
             }
+        } else {
+            cells[newCell.getID()].addOriginalDistance(0, neighbour);
         }
     }
 
@@ -1107,9 +1109,17 @@ void Model::newEpithelialProliferation(std::vector<Cell> &cells, Parameters &par
         double yShift = (yComponent / lengthOfSum) * params.egr * inverseDiffState;
         double zShift = (zComponent / lengthOfSum) * params.egr * inverseDiffState;
 
-        cells[cell].addTempX(xShift);
-        cells[cell].addTempY(yShift);
-        cells[cell].addTempZ(zShift);
-
+        if (cells[cell].isInCentre()) {
+            cells[cell].addTempX(xShift);
+            cells[cell].addTempY(yShift);
+            cells[cell].addTempZ(zShift);
+        } else {
+            //Downgrowth (cervical loop formation)
+            Model::downGrowth(cells, params, xShift, yShift, int cell);
+        }
     }
+}
+
+void Model::downGrowth(std::vector<Cell> &cells, Parameters &params, double xShift, double yShift, int cell) {
+
 }

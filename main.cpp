@@ -33,7 +33,7 @@ int main() {
             break;
         }
 
-        if (params.currentIteration == 93) {
+        if (params.currentIteration == 94) {
             int a = 0;
         }
 
@@ -48,6 +48,7 @@ int main() {
         if (step % 1000 == 0) {
             Output::ROutput(cells, params);
         }
+        params.currentIteration += 1;
     }
 
     Output::ROutput(cells, params);
