@@ -251,7 +251,7 @@ Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
     //Set Concentrations to 0 (in each layer)
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
         std::vector<double> tempv;
-        for (int protein = 0; protein < 4; ++protein) {
+        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             tempv.push_back(0);
         }
         proteinConcentrations.push_back(tempv);
@@ -271,7 +271,7 @@ void Cell::deleteNeighbour(int neighbour) {
 
 void Cell::resetTempProteinConcentrations() {
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {
-        for (int protein = 0; protein < 4; ++protein) {
+        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             tempProteinConcentrations[protein][layer] = 0;
         }
     }

@@ -11,6 +11,7 @@
 #include "Cell.h"
 #include "Parameters.h"
 #include "Geometrics.h"
+#include "consts.h"
 
 
 std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
@@ -18,7 +19,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     params.nrCellsInSimulation = Initial::getNumberOfInSimulationCells(params.initialRadius);
 
     //Make the first cell
-    Cell cell1(0, 0, 1, 0);
+    Cell cell1(params.firstX, params.firstY, params.firstZ, firstID);
 
     //Vector containing all cells
     std::vector<Cell> cells;
@@ -41,7 +42,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
     Geometrics::calculateInitialOriginalDistances(cells, params);
 
-    for (int cell = 0; cell < 19; ++cell) {
+    for (int cell = 0; cell < cells.size(); ++cell) {
         cells[cell].resetTempCoordinates();
     }
 
@@ -63,7 +64,7 @@ int Initial::getTotalNumberOfCells(int initialRadius) {
     for (int i = 1; i <= initialRadius; ++i) {
         j += i;
     }
-    return (6 * j + 1);
+    return (initialNrOfNeighbours * j + 1);
 }
 
 
@@ -72,40 +73,40 @@ int Initial::getNumberOfInSimulationCells(int initialRadius) {
     for (int i = 1; i < initialRadius; ++i) {
         j += i;
     }
-    return (6 * j + 1);
+    return (initialNrOfNeighbours * j + 1);
 }
 
 
 double Initial::nextX(double centerCoordinate, int neighbour) {
-    double a = (2 * M_PI) / 360; //to transform from degree into rad
+    double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double x;
     int distanceBetweenCells = 1;
-    x = centerCoordinate + (distanceBetweenCells * sin(a * (60 * neighbour)));
+    x = centerCoordinate + (distanceBetweenCells * sin(a * (degrees * neighbour)));
     //return the rounded value
-    return (std::floor(x * 1000000 + 0.5) / 1000000);
+    return (std::floor(x * params.round3 + 0.5) / params.round3);
 }
 
 
 double Initial::nextY(double centerCoordinate, int neighbour) {
-    double a = (2 * M_PI) / 360; //to transform from degree into rad
+    double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double y;
     int distanceBetweenCells = 1;
-    y = centerCoordinate + (distanceBetweenCells * cos(a * (60 * neighbour)));
+    y = centerCoordinate + (distanceBetweenCells * cos(a * (degrees * neighbour)));
     //return the rounded value
-    return (std::floor(y * 1000000 + 0.5) / 1000000);
+    return (std::floor(y * params.round3 + 0.5) / params.round3);
 }
 
 
 void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell) {
     bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
-    for (int neighbour = 0; neighbour < 6; ++neighbour) {
+    for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
         //define the coordinates of the neighbour
         double x = nextX(cells[IDCentreCell].getX(), neighbour);
         double y = nextY(cells[IDCentreCell].getY(), neighbour);
 
         //create a temporary Instance of this cell
-        Cell tempCell(x, y, 1, IDNewCell);
+        Cell tempCell(x, y, params.firstZ, IDNewCell);
 
         //check if this neighbour is already an existing cell
         isAlreadyExisting = false;
@@ -160,7 +161,7 @@ void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &par
 
 
 void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
-    int nrCellsNotInCentre = ((params.initialRadius - 1) * 6) + 1;
+    int nrCellsNotInCentre = ((params.initialRadius - 1) * initialNrOfNeighbours) + 1;
     int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
     /*if (nrCellsInCentre < 7) {
         nrCellsInCentre = 7;

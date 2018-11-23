@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Geometrics.h"
 #include "Parameters.h"
+#include "consts.h"
 
 double Geometrics::squareCenterDistance3D(Cell cell1, Cell cell2) {
     double dx = cell2.getX() - cell1.getX();
@@ -46,34 +47,34 @@ double Geometrics::centerDistanceToOrigin3D(Cell cell) {
 }
 
 double Geometrics::distance2D(std::vector<double> v1, std::vector<double> v2) {
-    double dx = v2[0] - v1[0];
-    double dy = v2[1] - v1[1];
+    double dx = v2[X] - v1[X];
+    double dy = v2[Y] - v1[Y];
     double distance = sqrt((dx * dx) + (dy * dy));
     return distance;
 }
 
 double Geometrics::distance3D(std::vector<double> v1, std::vector<double> v2) {
-    double dx = v2[0] - v1[0];
-    double dy = v2[1] - v1[1];
-    double dz = v2[2] - v1[2];
+    double dx = v2[X] - v1[X];
+    double dy = v2[Y] - v1[Y];
+    double dz = v2[Z] - v1[Z];
     double distance = sqrt((dx * dx) + (dy * dy) + (dz * dz));
     return distance;
 }
 
 double Geometrics::vectorNorm3D(std::vector<double> v) {
-    double norm = sqrt((v[0] * v[0]) + (v[1] * v[1]) + (v[2] * v[2]));
+    double norm = sqrt((v[X] * v[X]) + (v[Y] * v[Y]) + (v[Z] * v[Z]));
     return norm;
 }
 
 double Geometrics::vectorNorm2D(std::vector<double> v) {
-    double norm = sqrt((v[0] * v[0]) + (v[1] * v[1]));
+    double norm = sqrt((v[X] * v[X]) + (v[Y] * v[Y]));
     return norm;
 }
 
 std::vector<double> Geometrics::crossProduct(std::vector<double> v1, std::vector<double> v2) {
-    double x = (v1[1] * v2[2]) - (v1[2] * v2[1]);
-    double y = (v1[2] * v2[0]) - (v1[0] * v2[2]);
-    double z = (v1[0] * v2[1]) - (v1[1] * v2[0]);
+    double x = (v1[Y] * v2[Z]) - (v1[Z] * v2[Y]);
+    double y = (v1[Z] * v2[X]) - (v1[X] * v2[Z]);
+    double z = (v1[X] * v2[Y]) - (v1[Y] * v2[X]);
     std::vector<double> product;
     product.push_back(x);
     product.push_back(y);
@@ -139,24 +140,24 @@ void Geometrics::calculatePerimeterAndArea(std::vector<Cell> &cells, Parameters 
 }
 
 void Geometrics::calculatePerimeterParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
-    double z1 = cells[cell].getBorderPoints()[borderPoint1][2];
-    double z2 = cells[cell].getBorderPoints()[borderPoint2][2];
+    double z1 = cells[cell].getBorderPoints()[borderPoint1][Z];
+    double z2 = cells[cell].getBorderPoints()[borderPoint2][Z];
     // if one of the border Points is inexistent (=0), set the perimeter part to 0 (marker and placeholder)
     if (z1 == 0 || z2 == 0) {
         cells[cell].newPerimeterPart(0);
         return;
     }
-    double dx = cells[cell].getBorderPoints()[borderPoint2][0] - cells[cell].getBorderPoints()[borderPoint1][0];
-    double dy = cells[cell].getBorderPoints()[borderPoint2][1] - cells[cell].getBorderPoints()[borderPoint1][1];
-    double dz = cells[cell].getBorderPoints()[borderPoint2][2] - cells[cell].getBorderPoints()[borderPoint1][2];
+    double dx = cells[cell].getBorderPoints()[borderPoint2][X] - cells[cell].getBorderPoints()[borderPoint1][X];
+    double dy = cells[cell].getBorderPoints()[borderPoint2][Y] - cells[cell].getBorderPoints()[borderPoint1][Y];
+    double dz = cells[cell].getBorderPoints()[borderPoint2][Z] - cells[cell].getBorderPoints()[borderPoint1][Z];
     std::vector<double> borderToBorder = {dx, dy, dz};
     double perimeterPart = Geometrics::vectorNorm3D(borderToBorder);
     cells[cell].newPerimeterPart(perimeterPart);
 }
 
 void Geometrics::calculateCellAreaParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2) {
-    double z1 = cells[cell].getBorderPoints()[borderPoint1][2];
-    double z2 = cells[cell].getBorderPoints()[borderPoint2][2];
+    double z1 = cells[cell].getBorderPoints()[borderPoint1][Z];
+    double z2 = cells[cell].getBorderPoints()[borderPoint2][Z];
 
     // if one of the border Points is inexistent (=0), set the area part to 0 (marker and placeholder)
     if (z1 == 0 || z2 == 0) {
@@ -164,24 +165,24 @@ void Geometrics::calculateCellAreaParts(std::vector<Cell> &cells, int cell, int 
         return;
     }
 
-    double dx1 = cells[cell].getBorderPoints()[borderPoint1][0] - cells[cell].getX();
-    double dx2 = cells[cell].getBorderPoints()[borderPoint2][0] - cells[cell].getX();
-    double dy1 = cells[cell].getBorderPoints()[borderPoint1][1] - cells[cell].getY();
-    double dy2 = cells[cell].getBorderPoints()[borderPoint2][1] - cells[cell].getY();
-    double dz1 = cells[cell].getBorderPoints()[borderPoint1][2] - cells[cell].getZ();
-    double dz2 = cells[cell].getBorderPoints()[borderPoint2][2] - cells[cell].getZ();
+    double dx1 = cells[cell].getBorderPoints()[borderPoint1][X] - cells[cell].getX();
+    double dx2 = cells[cell].getBorderPoints()[borderPoint2][X] - cells[cell].getX();
+    double dy1 = cells[cell].getBorderPoints()[borderPoint1][Y] - cells[cell].getY();
+    double dy2 = cells[cell].getBorderPoints()[borderPoint2][Y] - cells[cell].getY();
+    double dz1 = cells[cell].getBorderPoints()[borderPoint1][Z] - cells[cell].getZ();
+    double dz2 = cells[cell].getBorderPoints()[borderPoint2][Z] - cells[cell].getZ();
 
     std::vector<double> cellToBorder1 = {dx1, dy1, dz1};
     std::vector<double> cellToBorder2 = {dx2, dy2, dz2};
     std::vector<double> crossProduct = Geometrics::crossProduct(cellToBorder1, cellToBorder2);
-    double areaPart = 0.5 * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
+    double areaPart = half * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
     cells[cell].newAreaPart(areaPart);
 }
 
 double Geometrics::calculateMargin(std::vector<std::vector<double>> marginPoints) {
-    double dx = marginPoints[0][0] - marginPoints[1][0];
-    double dy = marginPoints[0][1] - marginPoints[1][1];
-    double dz = marginPoints[0][2] - marginPoints[1][2];
+    double dx = marginPoints[first][X] - marginPoints[second][X];
+    double dy = marginPoints[first][Y] - marginPoints[second][Y];
+    double dz = marginPoints[first][Z] - marginPoints[second][Z];
     std::vector<double> marginPointToMarginPoint = {dx, dy, dz};
     double margin = Geometrics::vectorNorm3D(marginPointToMarginPoint);
     return margin;
@@ -189,17 +190,17 @@ double Geometrics::calculateMargin(std::vector<std::vector<double>> marginPoints
 
 double
 Geometrics::calculateMarginArea(std::vector<Cell> &cells, int cell, std::vector<std::vector<double>> marginPoints) {
-    double dx1 = cells[cell].getMarginPoints()[0][0] - cells[cell].getX();
-    double dx2 = cells[cell].getMarginPoints()[1][0] - cells[cell].getX();
-    double dy1 = cells[cell].getMarginPoints()[0][1] - cells[cell].getY();
-    double dy2 = cells[cell].getMarginPoints()[1][1] - cells[cell].getY();
-    double dz1 = cells[cell].getMarginPoints()[0][2] - cells[cell].getZ();
-    double dz2 = cells[cell].getMarginPoints()[1][2] - cells[cell].getZ();
+    double dx1 = cells[cell].getMarginPoints()[first][X] - cells[cell].getX();
+    double dx2 = cells[cell].getMarginPoints()[second][X] - cells[cell].getX();
+    double dy1 = cells[cell].getMarginPoints()[first][Y] - cells[cell].getY();
+    double dy2 = cells[cell].getMarginPoints()[second][Y] - cells[cell].getY();
+    double dz1 = cells[cell].getMarginPoints()[first][Z] - cells[cell].getZ();
+    double dz2 = cells[cell].getMarginPoints()[second][Z] - cells[cell].getZ();
 
     std::vector<double> cellToMarginPoint1 = {dx1, dy1, dz1};
     std::vector<double> cellToMarginPoint2 = {dx2, dy2, dz2};
     std::vector<double> crossProduct = Geometrics::crossProduct(cellToMarginPoint1, cellToMarginPoint2);
-    double marginArea = 0.5 * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
+    double marginArea = half * Geometrics::vectorNorm3D(crossProduct); // *0.5 because we want the triangle
     return marginArea;
 }
 
@@ -236,9 +237,10 @@ void Geometrics::setBorders(std::vector<Cell> &cells, int centreCell, int neighb
 
     //if both neighbours are in simulation, calculate the midpoint of centreCell and these two neighbours
     if (n1InSimulation == true && n2InSimulation == true) {
-        double x = (cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / 3;
-        double y = (cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / 3;
-        double z = (cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / 3;
+        double nrOfPoints = 3;
+        double x = (cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / nrOfPoints;
+        double y = (cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / nrOfPoints;
+        double z = (cells[centreCell].getZ() + cells[IDn1].getZ() + cells[IDn2].getZ()) / nrOfPoints;
         cells[centreCell].newBorderPoint(x, y, z);
         return;
     }
@@ -251,9 +253,10 @@ void Geometrics::setBorders(std::vector<Cell> &cells, int centreCell, int neighb
 
     //if only the first neighbour is in simulation, take the point between the center cell and the first neighbour
     if (n1InSimulation == true && n2InSimulation == false) {
-        double x = (cells[centreCell].getX() + cells[IDn1].getX()) / 2;
-        double y = (cells[centreCell].getY() + cells[IDn1].getY()) / 2;
-        double z = (cells[centreCell].getZ() + cells[IDn1].getZ()) / 2;
+        double nrOfPoints = 2;
+        double x = (cells[centreCell].getX() + cells[IDn1].getX()) / nrOfPoints;
+        double y = (cells[centreCell].getY() + cells[IDn1].getY()) / nrOfPoints;
+        double z = (cells[centreCell].getZ() + cells[IDn1].getZ()) / nrOfPoints;
         cells[centreCell].newBorderPoint(x, y, z);
         // set this point as a margin point
         cells[centreCell].newMarginPoint(x, y, z);
@@ -262,9 +265,10 @@ void Geometrics::setBorders(std::vector<Cell> &cells, int centreCell, int neighb
 
     //if only the second neighbour is in simulation, take the point between the center cell and the second neighbour
     if (n1InSimulation == false && n2InSimulation == true) {
-        double x = (cells[centreCell].getX() + cells[IDn2].getX()) / 2;
-        double y = (cells[centreCell].getY() + cells[IDn2].getY()) / 2;
-        double z = (cells[centreCell].getZ() + cells[IDn2].getZ()) / 2;
+        double nrOfPoints = 2;
+        double x = (cells[centreCell].getX() + cells[IDn2].getX()) / nrOfPoints;
+        double y = (cells[centreCell].getY() + cells[IDn2].getY()) / nrOfPoints;
+        double z = (cells[centreCell].getZ() + cells[IDn2].getZ()) / nrOfPoints;
         cells[centreCell].newBorderPoint(x, y, z);
         // set this point as a margin point
         cells[centreCell].newMarginPoint(x, y, z);

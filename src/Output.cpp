@@ -22,7 +22,9 @@ void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells
 
     outputFile << "Rest of the cells" << std::endl;
 
-    for (int cell = 7; cell < 19; ++cell) {
+    int firstOutOfSimulation = params.nrCellsInSimulation;
+
+    for (int cell = 7; cell < cells.size(); ++cell) {
         outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
     }
 
@@ -37,8 +39,8 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
 
     for (int cell = 0; cell < InSimulationCells; ++cell) {
         for (int borderPoint = 0; borderPoint < cells[cell].getBorderPoints().size(); ++borderPoint) {
-            outputFile << cells[cell].getBorderPoints()[borderPoint][0] << "\t"
-                       << cells[cell].getBorderPoints()[borderPoint][1] << std::endl;
+            outputFile << cells[cell].getBorderPoints()[borderPoint][X] << "\t"
+                       << cells[cell].getBorderPoints()[borderPoint][Y] << std::endl;
         }
     }
 
@@ -48,7 +50,7 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
 
 void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     outputFile.open("BigOutputMorphoTooth.txt");
 
     outputFile << "Iterations: " << params.iterations << "Cells in Simulation: " << params.nrCellsInSimulation
@@ -71,7 +73,7 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
 
 void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     std::stringstream stringstream;
     std::string fileName;
 
@@ -97,16 +99,18 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
             if (neighbourIsInSimulation) {
                 outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
                            << cells[cell].getZ() << "\t" << groupCount << "\t"
-                           << cells[cell].getProteinConcentrations()[0][0] << "\t"
-                           << cells[cell].getProteinConcentrations()[1][0] << "\t"
-                           << cells[cell].getProteinConcentrations()[2][0] << "\t" << cells[cell].getDiffState() << "\t"
+                           << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << "\t"
+                           << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
+                           << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
+                           << cells[cell].getDiffState() << "\t"
                            << cells[cell].isKnotCell()
                            << std::endl;
                 outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
                            << cells[IDofN].getZ() << "\t" << groupCount << "\t"
-                           << cells[IDofN].getProteinConcentrations()[0][0] << "\t"
-                           << cells[IDofN].getProteinConcentrations()[1][0] << "\t"
-                           << cells[IDofN].getProteinConcentrations()[2][0] << "\t" << cells[IDofN].getDiffState()
+                           << cells[IDofN].getProteinConcentrations()[PAct][LEpithelium] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
+                           << cells[IDofN].getDiffState()
                            << "\t" << cells[IDofN].isKnotCell()
                            << std::endl;
                 groupCount += 1;
@@ -118,7 +122,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
 
 void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     std::stringstream stringstream;
     std::string fileName;
 

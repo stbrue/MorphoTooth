@@ -76,7 +76,7 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
         double relativeDiffusionAreaEpithel = cellArea / eTotalDiffusionArea;
 
         //Diffusion in all layers in all directions
-        for (int protein = 0; protein < 4; ++protein) {
+        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 //Layer 0 is Epithel, Layer 2 - 4 are Mesenchyme
                 if (layer != 0) { // if we are not within the epithelial layer
@@ -97,7 +97,7 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
 
     // Calculate the final protein concentrations (including diffusion coefficients and delta)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        for (int protein = 0; protein < 4; ++protein) {
+        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double delta = params.delta;
                 double diffusionRate = params.diffusionRates[protein];
@@ -131,7 +131,7 @@ void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, dou
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = (relativeDiffusionArea *
                                (-oldConcentration *
-                                0.44));    //0.44 is an arbitrary value from Salazar-Ciudad & Jernvall
+                                params.sink));
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
@@ -168,7 +168,7 @@ void Model::reaction(std::vector<Cell> &cells, Parameters &params) {
 
     //Update the final protein concentrations (including delta)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        for (int protein = 0; protein < 4; ++protein) {
+        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double newConcentration =
                         params.delta * cells[cell].getTempProteinConcentrations()[protein][layer];
@@ -240,7 +240,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             }
             dz = cells[cell].getZ() - cells[neighbourID].getZ();
             // if the neighbour is a certain amount higher than cell, calculate the relative x/y/z deviations
-            if (dz < -0.0001) {
+            if (dz < params.zDiff) {
                 double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 dx = cells[cell].getX() - cells[neighbourID].getX(); //<0 if neighbour is more right
                 dy = cells[cell].getY() - cells[neighbourID].getY();
@@ -432,7 +432,7 @@ void Model::buoyancy(std::vector<Cell> &cells, Parameters &params) {
             double YRelativeToZ = cells[cell].getTempY() * relativeZDistance;
             double relativeDistance1 = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
                                             distanceToOrigin2D * distanceToOrigin2D);
-            double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[2][0];
+            double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
             double relativeDistance2 = params.boy * epithelialSec1Concentration / relativeDistance1;     //boy: buoyancy
 
             if (relativeDistance2 > 0) {
@@ -621,19 +621,19 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
                                                   bool cell1IsEKCell,
                                                   bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
     //rounding
-    if (fabs(dx) < 1.0e-15) {
+    if (fabs(dx) < params.round1) {
         dx = 0;
     }
-    if (fabs(dy) < 1.0e-15) {
+    if (fabs(dy) < params.round1) {
         dy = 0;
     }
-    if (fabs(dz) < 1.0e-15) {
+    if (fabs(dz) < params.round1) {
         dz = 0;
     }
-    if (originalDistance < 1.0e-8) {
+    if (originalDistance < params.round2) {
         originalDistance = 0;
     }
-    if (currentDistance < 1.0e-8) {
+    if (currentDistance < params.round2) {
         currentDistance = 0;
     }
 
@@ -644,18 +644,18 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
         double relativeDeviation = deviation / currentDistance;
 
         //This is a vector showing in the opposite direction as cell1->cell2, with a length proportional to the deviation
-        compressionMatrixNeighbours[0].push_back(dx * relativeDeviation);
-        compressionMatrixNeighbours[1].push_back(dy * relativeDeviation);
-        compressionMatrixNeighbours[2].push_back(dz * relativeDeviation);
+        compressionMatrixNeighbours[X].push_back(dx * relativeDeviation);
+        compressionMatrixNeighbours[Y].push_back(dy * relativeDeviation);
+        compressionMatrixNeighbours[Z].push_back(dz * relativeDeviation);
     }
 
         //if they are not too close, there is adhesion (for all cells in the centre)
         //adh: Parameter describing how strong adhesion is
         //This is just a vector showing in the same direction as cell1->cell2, but elongated by Adh
     else if (cell1IsInCenter) {
-        compressionMatrixNeighbours[0].push_back(dx * adh);
-        compressionMatrixNeighbours[1].push_back(dy * adh);
-        compressionMatrixNeighbours[2].push_back(dz * adh);
+        compressionMatrixNeighbours[X].push_back(dx * adh);
+        compressionMatrixNeighbours[Y].push_back(dy * adh);
+        compressionMatrixNeighbours[Z].push_back(dz * adh);
     }
 }
 
@@ -663,25 +663,26 @@ void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, doubl
                                           std::vector<std::vector<double>> &compressionMatrixNonNeighbours) {
 
     //If the cell is enough far away (in any dimension) there is no repulsion
-    if (dx > 1.4 || dy > 1.4 || dz > 1.4) {
+    if (dx > params.repDistance || dy > params.repDistance || dz > params.repDistance) {
         return;
     }
 
     //rounding
-    if (fabs(dx) < 1.0e-15) {
+    if (fabs(dx) < params.round1) {
         dx = 0;
     }
-    if (fabs(dy) < 1.0e-15) {
+    if (fabs(dy) < params.round1) {
         dy = 0;
     }
-    if (fabs(dz) < 1.0e-15) {
+    if (fabs(dz) < params.round1) {
         dz = 0;
     }
 
-    if (currentDistance < 1.4) {
+    if (currentDistance < params.repDistance) {
         //the smaller the distance, the even higher the force
-        double relativeDistance = 1 / pow((currentDistance + 1), 8);
+        double relativeDistance = 1 / pow((currentDistance + 1), params.powerOfRep);
         double factor = relativeDistance / currentDistance;
+        //rounding
         factor = static_cast<int>(fabs(factor * 1.0e8)) * 1.0e-8;
 
         // a vector showing in the opposite direction (-> -dx) as cell1->cell2, and the longer the nearer they are
@@ -703,9 +704,9 @@ void Model::updateTempPositions(std::vector<Cell> &cells, Parameters &params, in
         }
     }
 
-    cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[0]) * rep);
-    cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[1]) * rep);
-    cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[2]) * rep);
+    cells[cell].addTempX(Geometrics::vectorSum(compressionMatrix[X]) * rep);
+    cells[cell].addTempY(Geometrics::vectorSum(compressionMatrix[Y]) * rep);
+    cells[cell].addTempZ(Geometrics::vectorSum(compressionMatrix[Z]) * rep);
 }
 
 std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
@@ -719,7 +720,7 @@ std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
 }
 
 void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix) {
-    for (int dimension = 0; dimension < 3; ++dimension) {
+    for (int dimension = 0; dimension < params.dimensions; ++dimension) {
         compressionMatrix[dimension].clear();
     }
 }
@@ -736,7 +737,7 @@ bool Model::isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeigh
 void Model::EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int cell) {
     //if the Act concentration in the epithelial layer is high enough
     //and if it is in the centre, then it becomes/is a knot cell
-    if (cells[cell].getProteinConcentrations()[PAct][LEpithelium] > 1) {
+    if (cells[cell].getProteinConcentrations()[PAct][LEpithelium] > params.EKThreshold) {
         if (cells[cell].isInCentre()) {
             cells[cell].setKnotCell(true);
         }
@@ -834,7 +835,7 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
             if (neighbourIsInSimulation) {
                 double distance = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
-                if (distance >= 2 && cell < neighbourID) {
+                if (distance >= params.distanceCellDivision && cell < neighbourID) {
                     std::vector<int> pair = {cell, neighbourID};
                     motherCells.push_back(pair);
                     std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
@@ -937,11 +938,12 @@ void Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vec
     std::vector<std::vector<double>> M1Concentrations = cells[M1].getProteinConcentrations();
     std::vector<std::vector<double>> M2Concentrations = cells[M2].getProteinConcentrations();
 
-    for (int protein = 0; protein < 4; ++protein) {
+    for (int protein = 0; protein < params.nrOfProteins; ++protein) {
         for (int layer = 0; layer < newCell.getMesenchymeThickness(); ++layer) {
+            double numberOfMotherCells = 2;
             double M1Concentration = M1Concentrations[protein][layer];
             double M2Concentration = M2Concentrations[protein][layer];
-            double newConcentration = (M1Concentration + M2Concentration) / 2;
+            double newConcentration = (M1Concentration + M2Concentration) / numberOfMotherCells;
             newCell.setProteinConcentration(protein, layer, newConcentration);
         }
     }
@@ -973,7 +975,7 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<C
 }
 
 void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
-    //Check if two neighbouring cells are too far away (>2) and write the pair into vector motherCells
+    //Check if two neighbouring cells are too far away (>distanceCellDivision) and write the pair into vector motherCells
     std::vector<std::vector<int>> motherCells = Model::searchMotherCells(cells, params);
 
     // for all pairs, create a new cell between them and update the neighbour relationships
@@ -995,18 +997,19 @@ void Model::cellDivision(std::vector<Cell> &cells, Parameters &params) {
             }
         }
 
-        int M1 = motherCells[pair][0];      // Mother Cell 1
-        int M2 = motherCells[pair][1];      // Mother Cell 2
+        int M1 = motherCells[pair][first];      // Mother Cell 1
+        int M2 = motherCells[pair][second];      // Mother Cell 2
 
         //Find common neighbours of both mother cells
         std::vector<int> neighboursOfM1 = cells[M1].getNeighbours();
-        int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[0];         // Common neighbour 1
-        int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[1];         // Common neighbour 2
+        int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[first];         // Common neighbour 1
+        int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[second];         // Common neighbour 2
 
         // Calculate the position of the new cell (between the mother cells)
-        double newX = (cells[M1].getX() + cells[M2].getX()) / 2;
-        double newY = (cells[M1].getY() + cells[M2].getY()) / 2;
-        double newZ = (cells[M1].getZ() + cells[M2].getZ()) / 2;
+        double numberOfMothercells = 2;
+        double newX = (cells[M1].getX() + cells[M2].getX()) / numberOfMothercells;
+        double newY = (cells[M1].getY() + cells[M2].getY()) / numberOfMothercells;
+        double newZ = (cells[M1].getZ() + cells[M2].getZ()) / numberOfMothercells;
 
         // Create the instance of the new cell
         Cell newCell(newX, newY, newZ, params.nrCellsInSimulation);
