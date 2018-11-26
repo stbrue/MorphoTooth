@@ -45,7 +45,7 @@ int main() {
         }
 
         //All 1000 iterations do an output
-        if (step % 1000 == params.outputInterval) {
+        if (step % params.outputInterval == 0) {
             Output::ROutput(cells, params);
         }
         params.currentIteration += 1;
