@@ -64,17 +64,18 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
 }
 
 void Output::ROutput(std::vector<Cell> cells, Parameters params) {
-    std::ofstream outputFile;
-    outputFile.precision(params.outputPrecision);
     std::stringstream stringstream;
     std::string fileName;
 
-    std::string name = "MorphoToothOutput";
+    std::string path = "./Outputfiles/";
+    std::string name = "BigOutput";
     std::string file = ".txt";
 
-    stringstream << name << params.currentIteration << file;
+    stringstream << path << name << params.currentIteration << file;
     fileName = stringstream.str();
 
+    std::ofstream outputFile(path);
+    outputFile.precision(12);
     outputFile.open(fileName);
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
@@ -113,17 +114,18 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
 }
 
 void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
-    std::ofstream outputFile;
-    outputFile.precision(params.outputPrecision);
     std::stringstream stringstream;
     std::string fileName;
 
+    std::string path = "./Outputfiles/";
     std::string name = "XYZSimple";
     std::string file = ".txt";
 
-    stringstream << name << params.iterations << file;
+    stringstream << path << name << params.currentIteration << file;
     fileName = stringstream.str();
 
+    std::ofstream outputFile(path);
+    outputFile.precision(12);
     outputFile.open(fileName);
 
     outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
@@ -135,17 +137,19 @@ void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
 }
 
 void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
-    std::ofstream outputFile;
-    outputFile.precision(12);
+
     std::stringstream stringstream;
     std::string fileName;
 
+    std::string path = "./Outputfiles/";
     std::string name = "GeomorphLinkOutput";
     std::string file = ".txt";
 
-    stringstream << name << params.iterations << file;
+    stringstream << path << name << params.currentIteration << file;
     fileName = stringstream.str();
 
+    std::ofstream outputFile(path);
+    outputFile.precision(12);
     outputFile.open(fileName);
 
     //Print the ID's of each pair of neighbours
@@ -154,7 +158,7 @@ void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
         for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
             int IDOfN = neighbours[neighbour];
             bool neighbourIsInSimulation = cells[IDOfN].isInSimulation();
-            if (IDOfN > cell && neighbourIsInSimulation) {
+            if (neighbourIsInSimulation) {
                 outputFile << cell << "\t" << IDOfN << std::endl;
             }
         }

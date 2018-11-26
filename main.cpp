@@ -4,7 +4,7 @@
 
 int main() {
 
-    for (int condition = 0; condition < 2; ++condition) {
+    for (int condition = 0; condition < 1; ++condition) {
         // run the program with current conditions
         ProgramMorphoTooth::runProgram();
 

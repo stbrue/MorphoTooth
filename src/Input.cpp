@@ -57,7 +57,7 @@ Parameters Input::setParameters() {
     std::string line;
     int counter = 0;
 
-    std::ifstream InputFile("TestInput.txt");
+    std::ifstream InputFile("InputFile.txt");
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
             parameter[counter] = std::stod(line);

@@ -47,14 +47,18 @@ void ProgramMorphoTooth::runProgram() {
             std::cout.flush();
         }
 
+
         /*//All 1000 iterations do an output
         if (step % params.outputInterval == 0) {
             Output::ROutput(cells, params);
-        }
-        params.currentIteration += 1;*/
+            Output::geomorphLinkOutput(cells, params);
+            Output::XYZOutputSimple(cells, params);
+        }*/
+        params.currentIteration += 1;
     }
 
     Output::ROutput(cells, params);
     Output::geomorphLinkOutput(cells, params);
-    //Output::XYZOutputSimple(cells, params);
+    Output::XYZOutputSimple(cells, params);
+
 }
