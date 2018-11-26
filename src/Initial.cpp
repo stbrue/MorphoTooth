@@ -30,7 +30,7 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     //Make the neighbours of this cell and then of all the other cells
     int IDNewCell = 1;
     for (int centreCell = 0; centreCell < params.nrCellsInSimulation; ++centreCell) {
-        makeNeighbours(cells, centreCell, IDNewCell);
+        makeNeighbours(cells, centreCell, IDNewCell, params);
     }
 
     //Define for each cell if it is "within simulation" or "in Centre"
@@ -77,7 +77,7 @@ int Initial::getNumberOfInSimulationCells(int initialRadius) {
 }
 
 
-double Initial::nextX(double centerCoordinate, int neighbour) {
+double Initial::nextX(double centerCoordinate, int neighbour, Parameters &params) {
     double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double x;
     int distanceBetweenCells = 1;
@@ -87,7 +87,7 @@ double Initial::nextX(double centerCoordinate, int neighbour) {
 }
 
 
-double Initial::nextY(double centerCoordinate, int neighbour) {
+double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params) {
     double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double y;
     int distanceBetweenCells = 1;
@@ -97,13 +97,13 @@ double Initial::nextY(double centerCoordinate, int neighbour) {
 }
 
 
-void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell) {
+void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell, Parameters &params) {
     bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
     for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
         //define the coordinates of the neighbour
-        double x = nextX(cells[IDCentreCell].getX(), neighbour);
-        double y = nextY(cells[IDCentreCell].getY(), neighbour);
+        double x = nextX(cells[IDCentreCell].getX(), neighbour, params);
+        double y = nextY(cells[IDCentreCell].getY(), neighbour, params);
 
         //create a temporary Instance of this cell
         Cell tempCell(x, y, params.firstZ, IDNewCell);

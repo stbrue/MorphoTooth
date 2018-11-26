@@ -17,7 +17,7 @@ int main() {
 
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
-    for (int step = 0; step < params.iterations; ++step) {
+    for (int step = 0; step < params.maxNrOfIterations; ++step) {
         Model::iterationStep(cells, params, step);
 
         //Abort the loop if there is an error
@@ -45,14 +45,14 @@ int main() {
         }
 
         //All 1000 iterations do an output
-        if (step % 1000 == nrOfPoints) {
+        if (step % 1000 == params.outputInterval) {
             Output::ROutput(cells, params);
         }
         params.currentIteration += 1;
     }
 
     Output::ROutput(cells, params);
-    Output::XYZOutputSimple(cells, params);
+    //Output::XYZOutputSimple(cells, params);
 
     return 0;
 }

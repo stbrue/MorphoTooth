@@ -58,7 +58,7 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   contactArea     diffusion area (relative cell area or perimeter part)
      */
-    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
+    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea, Parameters &params);
 
     /**
      * @brief   Calculates protein concentration differences due to diffusion in horizontal direction
@@ -69,7 +69,7 @@ public:
      * @param   diffusionArea   pDiffusionArea for non-epithelial and eDiffusionArea for epithelial diffusion
      */
     static void
-    horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea);
+    horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea, Parameters &params);
 
     /**
      * @brief   Calls all methods that implement the reaction (Activation, Inhibition, Expression, Degradation) of the proteins
@@ -158,7 +158,7 @@ public:
      * @param   compressionMatrixNonNeighbours
      */
     static void repulsionBetweenNonNeighbours(double dx, double dy, double dz, double currentDistance,
-                                              std::vector<std::vector<double>> &compressionMatrixNonNeighbours);
+                                              std::vector<std::vector<double>> &compressionMatrixNonNeighbours, Parameters &params);
 
     /**
      *
@@ -173,11 +173,11 @@ public:
     repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance,
                                           double originalDistance,
                                           std::vector<std::vector<double>> &compressionMatrixNeighbours,
-                                          bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, double adh);
+                                          bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, Parameters &params);
 
     static std::vector<std::vector<double>> setUpCompressionMatrix();
 
-    static void resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix);
+    static void resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix, Parameters &params);
 
     static void updateTempPositions(std::vector<Cell> &cells, Parameters &params, int cell,
                                     std::vector<std::vector<double>> compressionMatrix, bool isNeighbour);

@@ -84,11 +84,11 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
                     if (layer < (cells[cell].getMesenchymeThickness() - 1)) { // if its not the lowest layer
                         downDiffusion(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme);
                     } else { // if its the lowest layer -> vertical sink
-                        sink(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme);
+                        sink(cells, cell, layer, protein, relativeDiffusionAreaMesenchyme, params);
                     }
-                    horizontalDiffusion(cells, cell, layer, protein, mTotalDiffusionArea);
+                    horizontalDiffusion(cells, cell, layer, protein, mTotalDiffusionArea, params);
                 } else if (layer == 0) { // if we are in the epithelium, do no up Diffusion
-                    horizontalDiffusion(cells, cell, layer, protein, eTotalDiffusionArea);
+                    horizontalDiffusion(cells, cell, layer, protein, eTotalDiffusionArea, params);
                     downDiffusion(cells, cell, layer, protein, relativeDiffusionAreaEpithel);
                 }
             }
@@ -100,7 +100,22 @@ void Model::diffusion(std::vector<Cell> &cells, Parameters &params) {
         for (int protein = 0; protein < params.nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double delta = params.delta;
-                double diffusionRate = params.diffusionRates[protein];
+                double diffusionRate;
+                switch (protein) {
+                    case PAct:
+                        diffusionRate = params.ActDiffusion;
+                        break;
+                    case PInh:
+                        diffusionRate = params.InhDiffusion;
+                        break;
+                    case PSec1:
+                        diffusionRate = params.Sec1Diffusion;
+                        break;
+                    case PSec2:
+                        diffusionRate = params.Sec2Diffusion;
+                        break;
+                }
+
                 double tempConcentration = cells[cell].getTempProteinConcentrations()[protein][layer];
                 double newConcentration = delta * diffusionRate * tempConcentration;
                 cells[cell].addProteinConcentration(protein, layer, newConcentration);
@@ -127,16 +142,18 @@ void Model::downDiffusion(std::vector<Cell> &cells, int cell, int layer, int pro
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
 
-void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea) {
+void Model::sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea,
+                 Parameters &params) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = (relativeDiffusionArea *
                                (-oldConcentration *
-                                params.sink));
+                                params.sinkAmount));
 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
 
-void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea) {
+void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea,
+                                Parameters &params) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = 0;
     bool borderDiffusionDone = false;
@@ -152,7 +169,7 @@ void Model::horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, i
             // if the neighbour is not within simulation and the borderDiffusion has not yet been calculated, there is a sink
         else /*if (borderDiffusionDone == false)*/ {
             double pMargin = cells[cell].getMargin() / totalDiffusionArea;
-            sink(cells, cell, layer, protein, pMargin);
+            sink(cells, cell, layer, protein, pMargin, params);
             borderDiffusionDone = true;
         }
     }
@@ -459,8 +476,8 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
     std::vector<std::vector<double>> compressionMatrixNonNeighbour = Model::setUpCompressionMatrix();
 
     for (int cell1 = 0; cell1 < params.nrCellsInSimulation; ++cell1) {
-        resetCompressionMatrix(compressionMatrixNeighbour);
-        resetCompressionMatrix(compressionMatrixNonNeighbour);
+        resetCompressionMatrix(compressionMatrixNeighbour, params);
+        resetCompressionMatrix(compressionMatrixNonNeighbour, params);
 
         for (int cell2 = 0; cell2 < params.nrCellsInSimulation; ++cell2) {
             if (cell1 == cell2) {
@@ -501,9 +518,10 @@ void Model::repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params) {
 
                 Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, currentDistance, originalDistance,
                                                              compressionMatrixNeighbour,
-                                                             cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params.adh);
+                                                             cell1IsEKCell, cell2IsEKCell, cell1IsInCenter, params);
             } else {
-                Model::repulsionBetweenNonNeighbours(dx, dy, dz, currentDistance, compressionMatrixNonNeighbour);
+                Model::repulsionBetweenNonNeighbours(dx, dy, dz, currentDistance, compressionMatrixNonNeighbour,
+                                                     params);
             }
         }
 
@@ -619,7 +637,7 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
                                                   double originalDistance,
                                                   std::vector<std::vector<double>> &compressionMatrixNeighbours,
                                                   bool cell1IsEKCell,
-                                                  bool cell2IsEKCell, bool cell1IsInCenter, double adh) {
+                                                  bool cell2IsEKCell, bool cell1IsInCenter, Parameters &params) {
     //rounding
     if (fabs(dx) < params.round1) {
         dx = 0;
@@ -653,14 +671,15 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
         //adh: Parameter describing how strong adhesion is
         //This is just a vector showing in the same direction as cell1->cell2, but elongated by Adh
     else if (cell1IsInCenter) {
-        compressionMatrixNeighbours[X].push_back(dx * adh);
-        compressionMatrixNeighbours[Y].push_back(dy * adh);
-        compressionMatrixNeighbours[Z].push_back(dz * adh);
+        compressionMatrixNeighbours[X].push_back(dx * params.adh);
+        compressionMatrixNeighbours[Y].push_back(dy * params.adh);
+        compressionMatrixNeighbours[Z].push_back(dz * params.adh);
     }
 }
 
 void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, double currentDistance,
-                                          std::vector<std::vector<double>> &compressionMatrixNonNeighbours) {
+                                          std::vector<std::vector<double>> &compressionMatrixNonNeighbours,
+                                          Parameters &params) {
 
     //If the cell is enough far away (in any dimension) there is no repulsion
     if (dx > params.repDistance || dy > params.repDistance || dz > params.repDistance) {
@@ -719,7 +738,7 @@ std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
     return compressionMatrix;
 }
 
-void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix) {
+void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix, Parameters &params) {
     for (int dimension = 0; dimension < params.dimensions; ++dimension) {
         compressionMatrix[dimension].clear();
     }

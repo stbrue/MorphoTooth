@@ -37,7 +37,7 @@ public:
     *                              higher in y and then clockwise)
     * @return  x-value of neighbour (rounded to 6 decimal places)
     */
-    static double nextX(double centerX, int neighbour);
+    static double nextX(double centerX, int neighbour, Parameters &params);
 
 
     /**
@@ -47,7 +47,7 @@ public:
     *                              higher in y and then clockwise)
      * @return  y-value of neighbour (rounded to 6 decimal places)
     */
-    static double nextY(double centerX, int neighbour);
+    static double nextY(double centerX, int neighbour, Parameters &params);
 
     /**
     * @brief Instantiates all the initial cells and calculates their borders
@@ -62,7 +62,7 @@ public:
     * @param   IDCentreCell ID of the cell that gets new neighbours
     * @param   IDNewCell   ID that a new cell gets (always one higher than the ID of the last cell in cells)
     */
-    static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell);
+    static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell, Parameters &params);
 
     static void printInitialGrid(std::vector<Cell> &cells);
 

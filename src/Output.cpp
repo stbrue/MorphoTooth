@@ -20,14 +20,6 @@ void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells
         outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
     }
 
-    outputFile << "Rest of the cells" << std::endl;
-
-    int firstOutOfSimulation = params.nrCellsInSimulation;
-
-    for (int cell = 7; cell < cells.size(); ++cell) {
-        outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
-    }
-
     outputFile.close();
 }
 

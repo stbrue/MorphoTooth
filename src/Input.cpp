@@ -47,6 +47,11 @@ Parameters Input::setParameters() {
     params.error = false;
     params.cellDivisionCount = 0;
     params.currentIteration = 0;
+    params.dimensions = 3;
+
+    // Read in values from inputFile
+
+    double parameter[46] = {0};
 
     // Read in values from inputFile
     std::string line;
@@ -55,131 +60,66 @@ Parameters Input::setParameters() {
     std::ifstream InputFile("TestInput.txt");
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
-            switch (counter) {
-                case 0: {
-                    params.iterations = std::stoi(line);
-                    break;
-                }
-                case 1: {
-                    params.initialRadius = std::stoi(line);
-                    break;
-                }
-                case 2: {
-                    params.diffusionRates.push_back(std::stod(line));
-                    break;
-                }
-                case 3: {
-                    params.diffusionRates.push_back(std::stod(line));
-                    break;
-                }
-                case 4: {
-                    params.diffusionRates.push_back(std::stod(line));
-                    break;
-                }
-                case 5: {
-                    params.diffusionRates.push_back(std::stod(line));
-                    break;
-                }
-                case 6: {
-                    params.delta = std::stod(line);
-                    break;
-                }
-                case 7: {
-                    params.act = std::stod(line);
-                    break;
-                }
-                case 8: {
-                    params.inh = std::stod(line);
-                    break;
-                }
-                case 9: {
-                    params.mu = std::stod(line);
-                    break;
-                }
-                case 10: {
-                    params.inT = std::stod(line);
-                    break;
-                }
-                case 11: {
-                    params.set = std::stod(line);
-                    break;
-                }
-                case 12: {
-                    params.sec = std::stod(line);
-                    break;
-                }
-                case 13: {
-                    params.sec2Inhibition = std::stod(line);
-                    break;
-                }
-                case 14: {
-                    params.lbi = std::stod(line);
-                    break;
-                }
-                case 15: {
-                    params.bbi = std::stod(line);
-                    break;
-                }
-                case 16: {
-                    params.swi = std::stod(line);
-                    break;
-                }
-                case 17: {
-                    params.dff = std::stod(line);
-                    break;
-                }
-                case 18: {
-                    params.egr = std::stod(line);
-                    break;
-                }
-                case 19: {
-                    params.mgr = std::stod(line);
-                    break;
-                }
-                case 20: {
-                    params.dgr = std::stod(line);
-                    break;
-                }
-                case 21: {
-                    params.boy = std::stod(line);
-                    break;
-                }
-                case 22: {
-                    params.rep = std::stod(line);
-                    break;
-                }
-                case 23: {
-                    params.adh = std::stod(line);
-                    break;
-                }
-                case 24: {
-                    params.ntr = std::stod(line);
-                    break;
-                }
-                case 25: {
-                    params.bwi = std::stod(line);
-                    break;
-                }
-                case 26: {
-                    params.abi = std::stod(line);
-                    break;
-                }
-                case 27: {
-                    params.pbi = std::stod(line);
-                    break;
-                }
-                case 28: {
-                    params.bgr = std::stod(line);
-                    break;
-                }
-                default: {
-                    std::cout << "Error in reading of input values" << std::endl;
-                }
-            }
+            parameter[counter] = std::stod(line);
             counter += 1;
         }
         InputFile.close();
-    } else std::cout << "Unable to open file";
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    parameter[0] = 0;
+
+    // Initialize parameters with values from the file
+    //Model parameters
+    params.distanceCellDivision = parameter[1];
+    params.EKThreshold = parameter[2];
+    params.powerOfRep = static_cast<int>(parameter[3]);
+    params.repDistance = parameter[4];
+    params.zDiff = parameter[5];
+    params.sinkAmount = parameter[6];
+    params.initialRadius = static_cast<int>(parameter[7]);
+    params.ActDiffusion = parameter[8];
+    params.InhDiffusion = parameter[9];
+    params.Sec1Diffusion = parameter[10];
+    params.Sec2Diffusion = parameter[11];
+    params.delta = parameter[12];
+    params.act = parameter[13];
+    params.inh = parameter[14];
+    params.mu = parameter[15];
+    params.inT = parameter[16];
+    params.set = parameter[17];
+    params.sec = parameter[18];
+    params.sec2Inhibition = parameter[19];
+    params.lbi = parameter[20];
+    params.bbi = parameter[21];
+    params.swi = parameter[22];
+    params.dff = parameter[23];
+    params.egr = parameter[24];
+    params.mgr = parameter[25];
+    params.dgr = parameter[26];
+    params.boy = parameter[27];
+    params.rep = parameter[28];
+    params.adh = parameter[29];
+    params.ntr = parameter[30];
+    params.bwi = parameter[31];
+    params.abi = parameter[32];
+    params.pbi = parameter[33];
+    params.bgr = parameter[34];
+
+    //Implementation parameters
+    params.maxNrOfIterations = static_cast<int>(parameter[35]);
+    params.maxCellDivisionCount = static_cast<int>(parameter[36]);
+    params.outputInterval = static_cast<int>(parameter[37]);
+    params.printInterval = static_cast<int>(parameter[38]);
+    params.outputPrecision = static_cast<int>(parameter[39]);
+    params.round1 = parameter[40];
+    params.round2 = parameter[41];
+    params.round3 = parameter[42];
+    params.nrOfProteins = static_cast<int>(parameter[43]);
+    params.firstX = parameter[44];
+    params.firstY = parameter[45];
+    params.firstZ = parameter[46];
 
     return params;
 }

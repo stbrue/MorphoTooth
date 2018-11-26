@@ -171,6 +171,53 @@ public:
     int cellDivisionCount;
 
     int currentIteration;
+
+    double distanceCellDivision;
+
+    double EKThreshold;
+
+    int powerOfRep;
+
+    double repDistance;
+
+    double zDiff;
+
+    double sinkAmount;
+
+    double ActDiffusion;
+
+    double InhDiffusion;
+
+    double Sec1Diffusion;
+
+    double Sec2Diffusion;
+
+    int maxNrOfIterations;
+
+    int maxCellDivisionCount;
+
+    int outputInterval;
+
+    int printInterval;
+
+    int outputPrecision;
+
+    double round1;
+
+    double round2;
+
+    double round3;
+
+    int nrOfProteins;
+
+    double firstX;
+
+    double firstY;
+
+    double firstZ;
+
+    int dimensions;
+
 };
 
 
