@@ -134,13 +134,13 @@ void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
     outputFile.close();
 }
 
-/*void Output::meshOutput(std::vector<Cell> cells, Parameters params) {
+void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
     std::ofstream outputFile;
     outputFile.precision(12);
     std::stringstream stringstream;
     std::string fileName;
 
-    std::string name = "MeshOutput";
+    std::string name = "GeomorphLinkOutput";
     std::string file = ".txt";
 
     stringstream << name << params.iterations << file;
@@ -148,27 +148,17 @@ void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
 
     outputFile.open(fileName);
 
-    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Triangle" << std::endl;
-
-    int triangleCount = 0;
-
+    //Print the ID's of each pair of neighbours
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         std::vector<int> neighbours = cells[cell].getNeighbours();
         for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
-            int IDofN = neighbours[neighbour];
-            bool neighbourIsInSimulation = cells[IDofN].isInSimulation();
-            if (neighbourIsInSimulation) {
-                outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
-                           << cells[cell].getZ() << "\t" << groupCount << "\t"
-                           << cells[cell].getProteinConcentrations()[0][0] << "\t" << cells[cell].isKnotCell()
-                           << std::endl;
-                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
-                           << cells[IDofN].getZ() << "\t" << groupCount << "\t"
-                           << cells[IDofN].getProteinConcentrations()[0][0] << "\t" << cells[IDofN].isKnotCell()
-                           << std::endl;
-                groupCount += 1;
+            int IDOfN = neighbours[neighbour];
+            bool neighbourIsInSimulation = cells[IDOfN].isInSimulation();
+            if (IDOfN > cell && neighbourIsInSimulation) {
+                outputFile << cell << "\t" << IDOfN << std::endl;
             }
         }
     }
+
     outputFile.close();
-}*/
+}
