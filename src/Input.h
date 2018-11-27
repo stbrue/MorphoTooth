@@ -24,6 +24,13 @@ public:
 
     static void changeInputFile(Parameters params, double newValue);
 
+    static void changeInputFile(Parameters params, int newValue);
+
+    static bool isInteger(double value);
+
+    static bool isInteger(int value);
+
+
 };
 
 

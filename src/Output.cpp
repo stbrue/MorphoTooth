@@ -45,7 +45,7 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
     outputFile.precision(params.outputPrecision);
     outputFile.open("BigOutputMorphoTooth.txt");
 
-    outputFile << "Iterations: " << params.iterations << "Cells in Simulation: " << params.nrCellsInSimulation
+    outputFile << "Iterations: " << params.currentIteration << "Cells in Simulation: " << params.nrCellsInSimulation
                << std::endl;
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {

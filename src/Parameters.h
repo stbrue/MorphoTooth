@@ -19,11 +19,6 @@ public:
     int initialRadius;
 
     /**
-     * @brief   How often the forces and reactions are applied and calculated in total
-     */
-    int iterations;
-
-    /**
      * @brief   Each protein has its own diffusion rate. The higher the rate the more of this protein diffuses
      */
     std::vector<double> diffusionRates;
@@ -227,6 +222,8 @@ public:
     int nrOfConditions;
 
     double valueOfParameterToChange;
+
+    bool parameterToChangeIsInt;
 };
 
 

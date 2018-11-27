@@ -6,12 +6,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 
 Parameters Input::defineParametersSealTest() {
     Parameters params;
 
     params.initialRadius = 2;
-    params.iterations = 3;
     params.diffusionRates = {0.2, 0.2, 0.2, 0};
     params.nrCellsInSimulation = 0;
     params.delta = 0.05;
@@ -127,6 +127,7 @@ Parameters Input::setParameters() {
     params.percentageSteps = parameter[49];
 
     params.valueOfParameterToChange = parameter[params.parameterToChange];
+    params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
 
     return params;
 }
@@ -162,5 +163,50 @@ void Input::changeInputFile(Parameters params, double newValue) {
     //Rename the InputFileout to "IntputFile" to overwrite the InputFile
     rename("InputFileout.txt", "InputFile.txt");
 
+}
+
+void Input::changeInputFile(Parameters params, int newValue) {
+    // Read in the InputFile
+    std::string lineTemp;
+    int counter = 0;
+
+    std::ifstream InputFile("InputFile.txt");
+    std::ofstream InputFileout("InputFileout.txt");
+
+    // Convert the newValue into a string
+    std::ostringstream newValueS;
+    newValueS << newValue;
+    std::string newValueString = newValueS.str();
+
+    // Read in the file and write each line (possibly changed) into the InputFileout
+    if (InputFile.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            if (counter == params.parameterToChange) {
+                lineTemp = newValueString;
+            }
+            counter += 1;
+            lineTemp += "\n";
+            InputFileout << lineTemp;
+        }
+        InputFile.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    //Rename the InputFileout to "IntputFile" to overwrite the InputFile
+    rename("InputFileout.txt", "InputFile.txt");
+
+}
+
+bool Input::isInteger(int value) {
+    if (value == std::floor(value))
+        return true;
+    return false;
+}
+
+bool Input::isInteger(double value) {
+    if (value == std::floor(value))
+        return true;
+    return false;
 }
 
