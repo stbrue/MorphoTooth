@@ -22,7 +22,7 @@ public:
 
     static Parameters setParameters();
 
-    //static void changeInputFile(std::string parameterToChange);
+    static void changeInputFile(Parameters params, double newValue);
 
 };
 

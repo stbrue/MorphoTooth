@@ -218,6 +218,15 @@ public:
 
     int dimensions;
 
+    int parameterToChange;
+
+    double totalPlusMinusScope;
+
+    double percentageSteps;
+
+    int nrOfConditions;
+
+    double valueOfParameterToChange;
 };
 
 

@@ -5,10 +5,12 @@
 #ifndef MORPHOTOOTH_PROGRAMMORPHOTOOTH_H
 #define MORPHOTOOTH_PROGRAMMORPHOTOOTH_H
 
+#include "Parameters.h"
+
 
 class ProgramMorphoTooth {
 public:
-    static void runProgram();
+    static void runProgram(Parameters &params);
 };
 
 

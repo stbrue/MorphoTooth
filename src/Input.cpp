@@ -5,6 +5,7 @@
 #include "Input.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 Parameters Input::defineParametersSealTest() {
     Parameters params;
@@ -48,10 +49,11 @@ Parameters Input::setParameters() {
     params.cellDivisionCount = 0;
     params.currentIteration = 0;
     params.dimensions = 3;
+    params.nrOfConditions = 1;
 
     // Read in values from inputFile
 
-    double parameter[46] = {0};
+    double parameter[49] = {0};
 
     // Read in values from inputFile
     std::string line;
@@ -120,6 +122,45 @@ Parameters Input::setParameters() {
     params.firstX = parameter[44];
     params.firstY = parameter[45];
     params.firstZ = parameter[46];
+    params.parameterToChange = static_cast<int>(parameter[47]);
+    params.totalPlusMinusScope = parameter[48];
+    params.percentageSteps = parameter[49];
+
+    params.valueOfParameterToChange = parameter[params.parameterToChange];
 
     return params;
 }
+
+void Input::changeInputFile(Parameters params, double newValue) {
+    // Read in the InputFile
+    std::string lineTemp;
+    int counter = 0;
+
+    std::ifstream InputFile("InputFile.txt");
+    std::ofstream InputFileout("InputFileout.txt");
+
+    // Convert the newValue into a string
+    std::ostringstream newValueS;
+    newValueS << newValue;
+    std::string newValueString = newValueS.str();
+
+    // Read in the file and write each line (possibly changed) into the InputFileout
+    if (InputFile.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            if (counter == params.parameterToChange) {
+                lineTemp = newValueString;
+            }
+            counter += 1;
+            lineTemp += "\n";
+            InputFileout << lineTemp;
+        }
+        InputFile.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    //Rename the InputFileout to "IntputFile" to overwrite the InputFile
+    rename("InputFileout.txt", "InputFile.txt");
+
+}
+

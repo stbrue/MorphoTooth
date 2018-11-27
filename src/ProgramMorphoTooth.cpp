@@ -11,9 +11,7 @@
 #include "Model.h"
 #include "Parameters.h"
 
-void ProgramMorphoTooth::runProgram() {
-    //Make instance of Parameters by reading in the parameters from input file
-    Parameters params = Input::setParameters();
+void ProgramMorphoTooth::runProgram(Parameters &params) {
 
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(params);
