@@ -5,6 +5,8 @@
 
 
 int main() {
+    //Test for git
+
     //Make instance of Parameters by reading in the parameters from input file
     Parameters paramsInitial = Input::setParameters("InputFile.txt");
 
