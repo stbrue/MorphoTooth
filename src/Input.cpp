@@ -179,7 +179,7 @@ void Input::changeInputFile(Parameters params, int newValue) {
     std::string newValueString = newValueS.str();
 
     // Read in the file and write each line (possibly changed) into the InputFileout
-    if (InputFile.is_open()) {
+    if (InputFile.is_open() && InputFileout.is_open()) {
         while (getline(InputFile, lineTemp)) {
             if (counter == params.parameterToChange) {
                 lineTemp = newValueString;
@@ -189,12 +189,13 @@ void Input::changeInputFile(Parameters params, int newValue) {
             InputFileout << lineTemp;
         }
         InputFile.close();
+        InputFileout.close();
     } else {
         std::cout << "Unable to open file";
     }
 
     //Rename the InputFileout to "IntputFile" to overwrite the InputFile
-    rename("InputFileout.txt", "InputFile.txt");
+    rename("InputFileout.txt", "InputFileTemp.txt");
 
 }
 

@@ -70,7 +70,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
     int conditions = static_cast<int>(std::floor(conditionsDouble + 0.5));
     paramsInitial.nrOfConditions = conditions;
 
-    if (parameterToChangeIsInt){
+    if (parameterToChangeIsInt) {
         //Calculate starting condition
         double startingValueDouble = paramsInitial.valueOfParameterToChange -
                                      (paramsInitial.valueOfParameterToChange * paramsInitial.totalPlusMinusScope);
@@ -78,7 +78,10 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
 
         // Calculate the change per step (per condition)
         double changePerConditionDouble = paramsInitial.valueOfParameterToChange * paramsInitial.percentageSteps;
-        int changePerCondition =  static_cast<int>(std::floor(changePerConditionDouble + 0.5));
+        int changePerCondition = static_cast<int>(std::floor(changePerConditionDouble + 0.5));
+
+        //Set starting conditions
+        Input::changeInputFile(paramsInitial, startingValue);
 
         //Loop that starts the program with different conditions (input parameters)
         for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
@@ -102,6 +105,9 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
         // Calculate the change per step (per condition)
         double changePerConditionDouble = paramsInitial.valueOfParameterToChange * paramsInitial.percentageSteps;
 
+        //Set starting conditions
+        Input::changeInputFile(paramsInitial, startingValueDouble);
+
         //Loop that starts the program with different conditions (input parameters)
         for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
             //Re-read the InputFile
@@ -116,7 +122,6 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
 
         }
     }
-
 
 
 }
