@@ -68,10 +68,10 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     std::string fileName;
 
     std::string path = "./Outputfiles/";
-    std::string name = "BigOutput";
+    std::string name = "ToothBig";
     std::string file = ".txt";
 
-    stringstream << path << name << params.currentIteration << file;
+    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
@@ -80,7 +80,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
                << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
-               << "EK" << std::endl;
+               << "EK" << "\t" << "TotalIterations" << std::endl;
 
     int groupCount = 0;
 
@@ -96,7 +96,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
                            << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[cell].getDiffState() << "\t"
-                           << cells[cell].isKnotCell()
+                           << cells[cell].isKnotCell() << "\t" << params.currentIteration
                            << std::endl;
                 outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
                            << cells[IDofN].getZ() << "\t" << groupCount << "\t"
@@ -104,7 +104,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
                            << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[IDofN].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[IDofN].getDiffState()
-                           << "\t" << cells[IDofN].isKnotCell()
+                           << "\t" << cells[IDofN].isKnotCell() << "\t" << params.currentIteration
                            << std::endl;
                 groupCount += 1;
             }
@@ -142,10 +142,10 @@ void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
     std::string fileName;
 
     std::string path = "./Outputfiles/";
-    std::string name = "GeomorphLinkOutput";
+    std::string name = "Link";
     std::string file = ".txt";
 
-    stringstream << path << name << params.currentIteration << file;
+    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);

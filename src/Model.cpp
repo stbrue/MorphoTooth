@@ -857,8 +857,8 @@ std::vector<std::vector<int>> Model::searchMotherCells(std::vector<Cell> &cells,
                 if (distance >= params.distanceCellDivision && cell < neighbourID) {
                     std::vector<int> pair = {cell, neighbourID};
                     motherCells.push_back(pair);
-                    std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
-                    std::cout.flush();
+                    //std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
+                    //std::cout.flush();
                     params.cellDivisionCount += 1;
                 }
             }

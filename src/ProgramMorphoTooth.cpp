@@ -14,22 +14,30 @@
 
 void ProgramMorphoTooth::runProgram(Parameters &params) {
 
+    //Print information that program is started with value of parameter to change
+    std::cout << "##################################################" << std::endl;
+    std::cout << "Starting Simulation with parameter to change " << params.parameterToChange << " : "
+              << params.valueOfParameterToChange << std::endl;
+    std::cout << "##################################################" << std::endl;
+    std::cout.flush();
+
     //Construct the initial grid of cells
     std::vector<Cell> cells = Initial::makeInitialGrid(params);
 
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
-    for (int step = 0; step < params.maxNrOfIterations; ++step) {
+    for (int step = 0; step < params.maxNrOfIterations + 1; ++step) {
         Model::iterationStep(cells, params, step);
 
         //Abort the loop if there is an error
         if (params.error) {
-            std::cout << "The loop is stopped because there was an error at iteration: " << step << std::endl;
+            std::cout << "The simulation was stopped because there was an error at iteration: " << step << std::endl;
             break;
         }
 
         if (params.cellDivisionCount >= params.maxCellDivisionCount) {
-            std::cout << "The loop is stopped because this was cell division number " << params.cellDivisionCount
+            std::cout << "The simulation was was stopped because this was cell division number "
+                      << params.cellDivisionCount
                       << std::endl;
             std::cout << "This was at iteration " << step << std::endl;
             break;
@@ -39,7 +47,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
             break;
         }
 
-        //Print every 100 iteration the count
+        //Print every 1000 iteration the count
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
@@ -58,7 +66,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
 
     Output::ROutput(cells, params);
     Output::geomorphLinkOutput(cells, params);
-    Output::XYZOutputSimple(cells, params);
+    //Output::XYZOutputSimple(cells, params);
 
 }
 
@@ -86,13 +94,14 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
         //Loop that starts the program with different conditions (input parameters)
         for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
             //Re-read the InputFile
-            Parameters params = Input::setParameters();
+            std::string InputFileName = "InputFileTemp.txt";
+            Parameters params = Input::setParameters(InputFileName);
 
             // run the program with current conditions
             ProgramMorphoTooth::runProgram(params);
 
             // change the conditions
-            double newValueDouble = ((condition + 1) * changePerCondition) + paramsInitial.valueOfParameterToChange;
+            double newValueDouble = ((condition + 1) * changePerCondition) + startingValue;
             int newValue = static_cast<int>(std::floor(newValueDouble + 0.5));
             Input::changeInputFile(params, newValue);
         }
@@ -111,13 +120,14 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
         //Loop that starts the program with different conditions (input parameters)
         for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
             //Re-read the InputFile
-            Parameters params = Input::setParameters();
+            std::string InputFileName = "InputFileTemp.txt";
+            Parameters params = Input::setParameters(InputFileName);
 
             // run the program with current conditions
             ProgramMorphoTooth::runProgram(params);
 
             // change the conditions
-            double newValue = ((condition + 1) * changePerConditionDouble) + paramsInitial.valueOfParameterToChange;
+            double newValue = ((condition + 1) * changePerConditionDouble) + startingValueDouble;
             Input::changeInputFile(params, newValue);
 
         }

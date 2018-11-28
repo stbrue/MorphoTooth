@@ -6,6 +6,7 @@
 #define MORPHOTOOTH_INPUT_H
 
 #include "Parameters.h"
+#include<string>
 
 
 /**
@@ -20,7 +21,7 @@ public:
      */
     static Parameters defineParametersSealTest();
 
-    static Parameters setParameters();
+    static Parameters setParameters(std::string InputFileName);
 
     static void changeInputFile(Parameters params, double newValue);
 

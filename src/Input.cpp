@@ -41,7 +41,7 @@ Parameters Input::defineParametersSealTest() {
     return params;
 }
 
-Parameters Input::setParameters() {
+Parameters Input::setParameters(std::string InputFileName) {
     Parameters params;
 
     // Set initial values independent of inputFile
@@ -59,7 +59,7 @@ Parameters Input::setParameters() {
     std::string line;
     int counter = 0;
 
-    std::ifstream InputFile("InputFile.txt");
+    std::ifstream InputFile(InputFileName);
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
             parameter[counter] = std::stod(line);
@@ -133,39 +133,9 @@ Parameters Input::setParameters() {
 }
 
 void Input::changeInputFile(Parameters params, double newValue) {
-    // Read in the InputFile
-    std::string lineTemp;
-    int counter = 0;
+    // Delete old InputFileTemp
+    remove("InputFileTemp.txt");
 
-    std::ifstream InputFile("InputFile.txt");
-    std::ofstream InputFileout("InputFileout.txt");
-
-    // Convert the newValue into a string
-    std::ostringstream newValueS;
-    newValueS << newValue;
-    std::string newValueString = newValueS.str();
-
-    // Read in the file and write each line (possibly changed) into the InputFileout
-    if (InputFile.is_open()) {
-        while (getline(InputFile, lineTemp)) {
-            if (counter == params.parameterToChange) {
-                lineTemp = newValueString;
-            }
-            counter += 1;
-            lineTemp += "\n";
-            InputFileout << lineTemp;
-        }
-        InputFile.close();
-    } else {
-        std::cout << "Unable to open file";
-    }
-
-    //Rename the InputFileout to "IntputFile" to overwrite the InputFile
-    rename("InputFileout.txt", "InputFile.txt");
-
-}
-
-void Input::changeInputFile(Parameters params, int newValue) {
     // Read in the InputFile
     std::string lineTemp;
     int counter = 0;
@@ -194,7 +164,44 @@ void Input::changeInputFile(Parameters params, int newValue) {
         std::cout << "Unable to open file";
     }
 
-    //Rename the InputFileout to "IntputFile" to overwrite the InputFile
+    //Rename the InputFileout to IntputFileTemp
+    rename("InputFileout.txt", "InputFileTemp.txt");
+
+}
+
+void Input::changeInputFile(Parameters params, int newValue) {
+    // Delete old InputFileTemp
+    remove("InputFileTemp.txt");
+
+    // Read in the InputFile
+    std::string lineTemp;
+    int counter = 0;
+
+    std::ifstream InputFile("InputFile.txt");
+    std::ofstream InputFileout("InputFileout.txt");
+
+    // Convert the newValue into a string
+    std::ostringstream newValueS;
+    newValueS << newValue;
+    std::string newValueString = newValueS.str();
+
+    // Read in the file and write each line (possibly changed) into the InputFileout
+    if (InputFile.is_open() && InputFileout.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            if (counter == params.parameterToChange) {
+                lineTemp = newValueString;
+            }
+            counter += 1;
+            lineTemp += "\n";
+            InputFileout << lineTemp;
+        }
+        InputFile.close();
+        InputFileout.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    //Rename the InputFileout IntputFileTemp
     rename("InputFileout.txt", "InputFileTemp.txt");
 
 }
