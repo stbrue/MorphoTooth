@@ -230,7 +230,7 @@ void Input::changeInputFile(int nrOfParameter) {
     // Read in the InputFile to change the parameter "parameterToChange"
     std::string lineTemp;
     counter = 0;
-    int lineOfParameterToChange = 47; // The parameter "parameterToChange" is on the 47th line of the inputFile
+    int lineOfParameterToChange = 45; // The parameter "parameterToChange" is on the 47th line of the inputFile
 
     std::ifstream InputFile("InputFile.txt");
     std::ofstream InputFileout("InputFileout.txt");
