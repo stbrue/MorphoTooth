@@ -50,7 +50,7 @@ void Model::errorTesting(std::vector<Cell> cells, Parameters &params) {
         double z = cells[cell].getZ();
 
         if (Model::NanIsPresent(x, y, z)) {
-            //params.error = true;
+            params.error = true;
             std::cout << "There is a fucking Nan in iteration " << params.currentIteration << std::endl;
         }
     }
@@ -253,6 +253,7 @@ void Model::epithelialProliferation(std::vector<Cell> &cells, Parameters &params
             bool neighbourIsInSimulation = cells[neighbourID].isInSimulation();
             if (neighbourIsInSimulation == false) {
                 std::cout << "Something very strange in Epithelial Proliferation happened 1" << std::endl;
+                params.error = true;
                 continue;
             }
             dz = cells[cell].getZ() - cells[neighbourID].getZ();

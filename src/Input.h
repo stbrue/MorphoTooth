@@ -23,13 +23,19 @@ public:
 
     static Parameters setParameters(std::string InputFileName);
 
-    static void changeInputFile(Parameters params, double newValue);
+    static void changeInputFileTemp(Parameters params, double newValue);
 
-    static void changeInputFile(Parameters params, int newValue);
+    static void changeInputFileTemp(Parameters params, int newValue);
 
-    static bool isInteger(double value);
+    static void changeInputFile(int nrOfParameter);
 
-    static bool isInteger(int value);
+    //static bool isInteger(double value);
+
+    //static bool isInteger(int value);
+
+    //static void defineParameterToChange(Parameters &paramsInitial);
+
+    static int defineNrOfParametersToChange();
 
 
 };

@@ -166,7 +166,6 @@ void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
     /*if (nrCellsInCentre < 7) {
         nrCellsInCentre = 7;
     }*/
-    params.nrCellsInCenter = nrCellsInCentre;
 
     //change state of "inCentre" for all these cells
     for (int cell = 0; cell < nrCellsInCentre; ++cell) {

@@ -13,6 +13,8 @@ public:
     static void runProgram(Parameters &params);
 
     static void runProgramWithDifferentConditions(Parameters &paramsInitial, bool parameterToChangeIsInt);
+
+
 };
 
 

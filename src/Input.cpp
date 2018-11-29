@@ -12,7 +12,7 @@ Parameters Input::defineParametersSealTest() {
     Parameters params;
 
     params.initialRadius = 2;
-    params.diffusionRates = {0.2, 0.2, 0.2, 0};
+    //params.diffusionRates = {0.2, 0.2, 0.2, 0};
     params.nrCellsInSimulation = 0;
     params.delta = 0.05;
     params.egr = 0.017;
@@ -50,12 +50,13 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.currentIteration = 0;
     params.dimensions = 3;
     params.nrOfConditions = 1;
+    params.powerOfRep = 8;
+    params.initialRadius = 2;
 
     // Read in values from inputFile
 
-    double parameter[49] = {0};
+    double parameter[47] = {0};
 
-    // Read in values from inputFile
     std::string line;
     int counter = 0;
 
@@ -76,63 +77,61 @@ Parameters Input::setParameters(std::string InputFileName) {
     //Model parameters
     params.distanceCellDivision = parameter[1];
     params.EKThreshold = parameter[2];
-    params.powerOfRep = static_cast<int>(parameter[3]);
-    params.repDistance = parameter[4];
-    params.zDiff = parameter[5];
-    params.sinkAmount = parameter[6];
-    params.initialRadius = static_cast<int>(parameter[7]);
-    params.ActDiffusion = parameter[8];
-    params.InhDiffusion = parameter[9];
-    params.Sec1Diffusion = parameter[10];
-    params.Sec2Diffusion = parameter[11];
-    params.delta = parameter[12];
-    params.act = parameter[13];
-    params.inh = parameter[14];
-    params.mu = parameter[15];
-    params.inT = parameter[16];
-    params.set = parameter[17];
-    params.sec = parameter[18];
-    params.sec2Inhibition = parameter[19];
-    params.lbi = parameter[20];
-    params.bbi = parameter[21];
-    params.swi = parameter[22];
-    params.dff = parameter[23];
-    params.egr = parameter[24];
-    params.mgr = parameter[25];
-    params.dgr = parameter[26];
-    params.boy = parameter[27];
-    params.rep = parameter[28];
-    params.adh = parameter[29];
-    params.ntr = parameter[30];
-    params.bwi = parameter[31];
-    params.abi = parameter[32];
-    params.pbi = parameter[33];
-    params.bgr = parameter[34];
+    params.repDistance = parameter[3];
+    params.zDiff = parameter[4];
+    params.sinkAmount = parameter[5];
+    params.ActDiffusion = parameter[6];
+    params.InhDiffusion = parameter[7];
+    params.Sec1Diffusion = parameter[8];
+    params.Sec2Diffusion = parameter[9];
+    params.delta = parameter[10];
+    params.act = parameter[11];
+    params.inh = parameter[12];
+    params.mu = parameter[13];
+    params.inT = parameter[14];
+    params.set = parameter[15];
+    params.sec = parameter[16];
+    params.sec2Inhibition = parameter[17];
+    params.lbi = parameter[18];
+    params.bbi = parameter[19];
+    params.swi = parameter[20];
+    params.dff = parameter[21];
+    params.egr = parameter[22];
+    params.mgr = parameter[23];
+    params.dgr = parameter[24];
+    params.boy = parameter[25];
+    params.rep = parameter[26];
+    params.adh = parameter[27];
+    params.ntr = parameter[28];
+    params.bwi = parameter[29];
+    params.abi = parameter[30];
+    params.pbi = parameter[31];
+    params.bgr = parameter[32];
 
     //Implementation parameters
-    params.maxNrOfIterations = static_cast<int>(parameter[35]);
-    params.maxCellDivisionCount = static_cast<int>(parameter[36]);
-    params.outputInterval = static_cast<int>(parameter[37]);
-    params.printInterval = static_cast<int>(parameter[38]);
-    params.outputPrecision = static_cast<int>(parameter[39]);
-    params.round1 = parameter[40];
-    params.round2 = parameter[41];
-    params.round3 = parameter[42];
-    params.nrOfProteins = static_cast<int>(parameter[43]);
-    params.firstX = parameter[44];
-    params.firstY = parameter[45];
-    params.firstZ = parameter[46];
-    params.parameterToChange = static_cast<int>(parameter[47]);
-    params.totalPlusMinusScope = parameter[48];
-    params.percentageSteps = parameter[49];
+    params.maxNrOfIterations = static_cast<int>(parameter[33]);
+    params.maxCellDivisionCount = static_cast<int>(parameter[34]);
+    params.outputInterval = static_cast<int>(parameter[35]);
+    params.printInterval = static_cast<int>(parameter[36]);
+    params.outputPrecision = static_cast<int>(parameter[37]);
+    params.round1 = parameter[38];
+    params.round2 = parameter[39];
+    params.round3 = parameter[40];
+    params.nrOfProteins = static_cast<int>(parameter[41]);
+    params.firstX = parameter[42];
+    params.firstY = parameter[43];
+    params.firstZ = parameter[44];
+    params.parameterToChange = static_cast<int>(parameter[45]);
+    params.totalPlusMinusScope = parameter[46];
+    params.percentageSteps = parameter[47];
 
     params.valueOfParameterToChange = parameter[params.parameterToChange];
-    params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
+    //params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
 
     return params;
 }
 
-void Input::changeInputFile(Parameters params, double newValue) {
+void Input::changeInputFileTemp(Parameters params, double newValue) {
     // Delete old InputFileTemp
     remove("InputFileTemp.txt");
 
@@ -169,7 +168,7 @@ void Input::changeInputFile(Parameters params, double newValue) {
 
 }
 
-void Input::changeInputFile(Parameters params, int newValue) {
+/*void Input::changeInputFileTemp(Parameters params, int newValue) {
     // Delete old InputFileTemp
     remove("InputFileTemp.txt");
 
@@ -204,9 +203,66 @@ void Input::changeInputFile(Parameters params, int newValue) {
     //Rename the InputFileout IntputFileTemp
     rename("InputFileout.txt", "InputFileTemp.txt");
 
+}*/
+
+void Input::changeInputFile(int nrOfParameter) {
+    // Read in "ParametersToChange.txt" to know the parameterToChange
+    std::string line;
+    int counter = 0;
+    double parameterToChange = 0;
+
+    std::ifstream ParameterToChangeFile("ParametersToChange.txt");
+
+    // Read in the file and save the parameterToChange
+    if (ParameterToChangeFile.is_open()) {
+        while (getline(ParameterToChangeFile, line)) {
+            if (counter == nrOfParameter) {
+                parameterToChange = std::stod(line);
+                break;
+            }
+            counter += 1;
+        }
+        ParameterToChangeFile.close();
+    } else {
+        std::cout << "Unable to open file ParametersToChange.txt" << std::endl;
+    }
+
+    // Read in the InputFile to change the parameter "parameterToChange"
+    std::string lineTemp;
+    counter = 0;
+    int lineOfParameterToChange = 47; // The parameter "parameterToChange" is on the 47th line of the inputFile
+
+    std::ifstream InputFile("InputFile.txt");
+    std::ofstream InputFileout("InputFileout.txt");
+
+    // Convert the parameterToChange into a string
+    std::ostringstream parameterToChangeS;
+    parameterToChangeS << parameterToChange;
+    std::string parameterToChangeString = parameterToChangeS.str();
+
+    // Read in the file and write each line (possibly changed) into the InputFileout
+    if (InputFile.is_open() && InputFileout.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            if (counter == lineOfParameterToChange) {
+                lineTemp = parameterToChangeString;
+            }
+            counter += 1;
+            lineTemp += "\n";
+            InputFileout << lineTemp;
+        }
+        InputFile.close();
+        InputFileout.close();
+    } else {
+        std::cout << "Unable to open InputFile.txt" << std::endl;
+    }
+
+    //Overwrite InputFile.txt with InputFileout.txt
+    remove("InputFile.txt");
+    rename("InputFileout.txt", "InputFile.txt");
+
 }
 
-bool Input::isInteger(int value) {
+/*bool Input::isInteger(int value) {
     if (value == std::floor(value))
         return true;
     return false;
@@ -217,4 +273,23 @@ bool Input::isInteger(double value) {
         return true;
     return false;
 }
+*/
 
+int Input::defineNrOfParametersToChange() {
+    // Read in the File
+    std::string lineTemp;
+    int counter = 0;
+
+    std::ifstream InputFile("ParametersToChange.txt");
+
+    // Read in the file and count the number of lines
+    if (InputFile.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            counter += 1;
+        }
+        InputFile.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+    return counter;
+}

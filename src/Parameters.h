@@ -19,21 +19,10 @@ public:
     int initialRadius;
 
     /**
-     * @brief   Each protein has its own diffusion rate. The higher the rate the more of this protein diffuses
-     */
-    std::vector<double> diffusionRates;
-
-    /**
      * @brief   How many cells are included in the calculations.
      * Only cells that have a closed sequence of neighbours (that are not at the border) are included
      */
     int nrCellsInSimulation;
-
-    /**
-     * @brief   How many cells are in the center
-     * Depends on InitialRadius
-     */
-    int nrCellsInCenter;
 
     /**
      * @brief   This factor is multiplied with the forces to reduce their impact. To avoid too big fluctuations
