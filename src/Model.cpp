@@ -789,20 +789,34 @@ void Model::ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
 }
 
 void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
-    //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
     double diffState = cells[cell].getDiffState();
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (isKnotCell) {
-        newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
-    } else if (diffState > params.inT) {           //int: inductive threshold
-        newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
+    if (params.newInhAndSecProduction == 0){
+        //original version
+        //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
+
+        if (isKnotCell) {
+            newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
+        } else if (diffState > params.inT) {           //int: inductive threshold
+            newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
+        }
+    }
+
+    else {
+        // new version
+        //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
+
+        if (isKnotCell || diffState > params.inT) {
+            newConcentration = epithelialActConcentration - params.mu * epithelialInhConcentration;
+        }
     }
 
     cells[cell].addTempConcentration(PInh, LEpithelium, newConcentration);
+
 }
 
 void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
@@ -811,12 +825,18 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (isKnotCell) {
-        newConcentration = params.sec - params.mu * epithelialSec1Concentration;
-    } else if (diffState > params.set) {
-        newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
+    if (params.newInhAndSecProduction == 0){
+        //original version
+        if (isKnotCell) {
+            newConcentration = params.sec - params.mu * epithelialSec1Concentration;
+        } else if (diffState > params.set) {
+            newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
+        }
+    } else {
+        if (isKnotCell || diffState > params.set){
+            newConcentration = params.sec - params.mu * epithelialSec1Concentration;
+        }
     }
-
 
     // [Sec1] does not get smaller (except by diffusion)
     if (newConcentration < 0) {

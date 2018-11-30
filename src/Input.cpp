@@ -55,7 +55,7 @@ Parameters Input::setParameters(std::string InputFileName) {
 
     // Read in values from inputFile
 
-    double parameter[47] = {0};
+    double parameter[48] = {0};
 
     std::string line;
     int counter = 0;
@@ -124,6 +124,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.parameterToChange = static_cast<int>(parameter[45]);
     params.totalPlusMinusScope = parameter[46];
     params.percentageSteps = parameter[47];
+    params.newInhAndSecProduction = static_cast<int>(parameter[48]);
 
     params.valueOfParameterToChange = parameter[params.parameterToChange];
     //params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);

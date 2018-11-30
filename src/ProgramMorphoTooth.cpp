@@ -73,9 +73,17 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
 void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsInitial, bool parameterToChangeIsInt) {
 
     //Calculate how many conditions there are
-    double conditionsDouble =
-            (2 * paramsInitial.totalPlusMinusScope / paramsInitial.percentageSteps) + 1; // in both directions -> *2
-    int conditions = static_cast<int>(std::floor(conditionsDouble + 0.5));
+    double conditionsDouble;
+    int conditions;
+
+    if (paramsInitial.totalPlusMinusScope == 0) {
+        conditions = 1;
+    } else {
+        conditionsDouble =
+                (2 * paramsInitial.totalPlusMinusScope / paramsInitial.percentageSteps) + 1; // in both directions -> *2
+        conditions = static_cast<int>(std::floor(conditionsDouble + 0.5));
+    }
+
     paramsInitial.nrOfConditions = conditions;
 
     /*if (parameterToChangeIsInt) {

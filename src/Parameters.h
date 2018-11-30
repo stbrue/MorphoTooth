@@ -212,7 +212,7 @@ public:
 
     double valueOfParameterToChange;
 
-    bool parameterToChangeIsInt;
+    int newInhAndSecProduction;
 };
 
 
