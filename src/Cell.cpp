@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Cell.h"
 
+/*
 
 //Getter
 double Cell::getX() const {
@@ -143,7 +144,7 @@ void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
             return;
         }
     }*/
-
+/*
     for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
         if (Cell::neighbours[neighbour] == oldNeighbourID) {
             setNeighbour(neighbour, newNeighbourID);
@@ -315,7 +316,7 @@ void Cell::updateCoordinates(double delta) {
     Cell::y += Cell::tempY * delta;
     Cell::z += Cell::tempZ * delta;
 }
-
+*/
 
 
 
