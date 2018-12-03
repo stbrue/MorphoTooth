@@ -47,10 +47,17 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
             break;
         }
 
+        //For debugging
+        if (params.currentIteration == 9999) {
+
+        }
+
         //Print every 1000 iteration the count
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "Number of neighbours: " << cells[1].getNrOfNeighbours() << std::endl;
+            std::cout << "Length of neighbours: " << cells[1].getNeighbours().size() << std::endl;
             std::cout.flush();
         }
 

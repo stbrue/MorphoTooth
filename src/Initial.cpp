@@ -37,8 +37,6 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     labelNrCellsInSimulation(cells, params);
     labelCellsInCentre(cells, params);  // has to be called after labelNrCellsInSimulation!!
 
-    //reduceNeighboursOutOfSimulation(cells, params.nrCellsInSimulation);       //not needed for this way of implementation
-
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
     Geometrics::calculateInitialOriginalDistances(cells, params);
 

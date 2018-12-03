@@ -60,6 +60,8 @@ private:
      */
     std::vector<int> neighbours;
 
+    int nrOfNeighbours;
+
     /**
      * the differentiation state is a variable indicating the "age" of a cell
      */
@@ -172,6 +174,8 @@ public:
 
     std::vector<int> getNeighbours() const;
 
+    int getNrOfNeighbours() const;
+
     int getMesenchymeThickness() const;
 
     bool isInSimulation() const;
@@ -238,6 +242,8 @@ public:
     void setKnotCell(bool knot);
 
     void addNeighbour(int neighbourID);
+
+    void incrementNrOfNeighbours();
 
     void setNeighbour(int position, int newNeighbourID);
 
@@ -368,6 +374,10 @@ inline std::vector<int> Cell::getNeighbours() const {
     return neighbours;
 }
 
+inline int Cell::getNrOfNeighbours() const {
+    return nrOfNeighbours;
+}
+
 inline bool Cell::isKnotCell() const {
     return knot;
 }
@@ -451,6 +461,11 @@ inline void Cell::setKnotCell(bool knot) {
 
 inline void Cell::addNeighbour(int neighbourID) {
     Cell::neighbours.push_back(neighbourID);
+    Cell::incrementNrOfNeighbours();
+}
+
+inline void Cell::incrementNrOfNeighbours() {
+    Cell::nrOfNeighbours += 1;
 }
 
 inline void Cell::setNeighbour(int position, int newNeighbourID) {
@@ -475,6 +490,7 @@ inline void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
 
 inline void Cell::insertNeighbour(int newNeighbourID, int position) {
     Cell::neighbours.insert(Cell::neighbours.begin() + position, newNeighbourID);
+    Cell::incrementNrOfNeighbours();
 }
 
 inline void Cell::setInSimulation(bool inSimulation) {
@@ -582,6 +598,7 @@ inline Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(I
     cellArea = 0;
     margin = 0;
     marginArea = 0;
+    nrOfNeighbours = 0;
 }
 
 //Editors

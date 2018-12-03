@@ -795,7 +795,7 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (params.newInhAndSecProduction == 0){
+    if (params.newInhAndSecProduction == 0) {
         //original version
         //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
 
@@ -804,9 +804,7 @@ void Model::InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &para
         } else if (diffState > params.inT) {           //int: inductive threshold
             newConcentration = epithelialActConcentration * diffState - params.mu * epithelialInhConcentration;
         }
-    }
-
-    else {
+    } else {
         // new version
         //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
 
@@ -825,7 +823,7 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
-    if (params.newInhAndSecProduction == 0){
+    if (params.newInhAndSecProduction == 0) {
         //original version
         if (isKnotCell) {
             newConcentration = params.sec - params.mu * epithelialSec1Concentration;
@@ -833,7 +831,7 @@ void Model::Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &par
             newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
         }
     } else {
-        if (isKnotCell || diffState > params.set){
+        if (isKnotCell || diffState > params.set) {
             newConcentration = params.sec - params.mu * epithelialSec1Concentration;
         }
     }

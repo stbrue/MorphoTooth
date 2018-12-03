@@ -9,7 +9,6 @@ set(HEADER_FILES
         Parameters.h
         )
 set(SOURCE_FILES
-        Cell.cpp
         Geometrics.cpp
         Initial.cpp
         Model.cpp
