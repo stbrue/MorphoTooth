@@ -8,26 +8,28 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="MorphoTooth" targetName="MorphoTooth_run" />
-      <config projectName="MorphoTooth" targetName="gtest" />
-      <config projectName="MorphoTooth" targetName="gtest_main" />
-      <config projectName="MorphoTooth" targetName="MorphoTooth_lib" />
-      <config projectName="MorphoTooth" targetName="Unit_Tests_run" />
-      <config projectName="MorphoTooth" targetName="gmock_main" />
       <config projectName="MorphoTooth" targetName="gmock" />
+      <config projectName="MorphoTooth" targetName="gmock_main" />
+      <config projectName="MorphoTooth" targetName="MorphoTooth_lib" />
+      <config projectName="MorphoTooth" targetName="gtest_main" />
+      <config projectName="MorphoTooth" targetName="gtest" />
+      <config projectName="MorphoTooth" targetName="Unit_Tests_run" />
+      <config projectName="MorphoTooth" targetName="MorphoTooth_run" />
     </generated>
   </component>
-  <component name="CMakeSettings">
+  <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Cell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="537">
-              <caret line="278" column="1" lean-forward="true" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
+              <caret line="278" column="1" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -80,8 +82,8 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+            <state relative-caret-position="391">
+              <caret line="23" column="95" lean-forward="true" selection-start-line="23" selection-start-column="95" selection-end-line="23" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -307,7 +309,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -323,7 +325,7 @@
   </component>
   <component name="RunManager" selected="Application.MorphoTooth_run">
     <configuration name="GeometricsTestFixture.crossProduct_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_NegativeDoubles" TEST_MODE="SUITE_TEST" />
-    <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_PositiveDoubles" TEST_MODE="SUITE_TEST" />
+    <configuration name="GeometricsTestFixture.crossProduct_PositiveDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="crossProduct_PositiveDoubles" TEST_MODE="SUITE_TEST" />
     <configuration name="GeometricsTestFixture.vectorSum_NegativeDoubles" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="GeometricsTestFixture" TEST_METHOD="vectorSum_NegativeDoubles" TEST_MODE="SUITE_TEST" />
     <configuration name="InitialTestFixture.calculateInitialCellBorders" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="InitialTestFixture" TEST_METHOD="calculateInitialCellBorders" TEST_MODE="SUITE_TEST" />
     <configuration name="ModelTestFixture.errorTestingforNan" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MorphoTooth" TARGET_NAME="Unit_Tests_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MorphoTooth" RUN_TARGET_NAME="Unit_Tests_run" TEST_CLASS="ModelTestFixture" TEST_METHOD="errorTestingforNan" TEST_MODE="SUITE_TEST" />
@@ -355,7 +357,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Google Test.ModelTestFixture.errorTestingforNan" />
-        <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_PositiveDoubles" />
         <item itemvalue="Google Test.GeometricsTestFixture.crossProduct_NegativeDoubles" />
         <item itemvalue="Google Test.InitialTestFixture.calculateInitialCellBorders" />
         <item itemvalue="Google Test.GeometricsTestFixture.vectorSum_NegativeDoubles" />
@@ -453,19 +454,20 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="436908000" />
+    <option name="totallyTimeSpent" value="437375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30885416" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30885416" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.27708095" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.5005701" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.15393387" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -486,7 +488,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.2777778" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout>
@@ -820,14 +821,14 @@
     <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="537">
-          <caret line="278" column="1" lean-forward="true" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
+          <caret line="278" column="1" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+        <state relative-caret-position="391">
+          <caret line="23" column="95" lean-forward="true" selection-start-line="23" selection-start-column="95" selection-end-line="23" selection-end-column="95" />
         </state>
       </provider>
     </entry>
