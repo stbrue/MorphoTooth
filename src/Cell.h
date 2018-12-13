@@ -619,6 +619,9 @@ inline Cell::Cell() {
     margin = 0;
     marginArea = 0;
     nrOfNeighbours = 0;
+    for (int neighbour = 0; neighbour < maxNrOfNeighbours; ++neighbour) {
+        neighbours[neighbour] = -1;
+    }
 }
 
 //Editors

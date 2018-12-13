@@ -948,7 +948,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
             newCellPosition = M2Position;
         }
 
-        cells[N1].insertNeighbour(newCell.getID(), newCellPosition + 1);
+        cells[N1].insertNeighbour(newCell.getID(), newCellPosition);
     }
 
     // Same for N2
