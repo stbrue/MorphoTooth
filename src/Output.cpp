@@ -85,8 +85,8 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     int groupCount = 0;
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        std::vector<int> neighbours = cells[cell].getNeighbours();
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        int *neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int IDofN = neighbours[neighbour];
             // if neighbour is in simulation
             if (IDofN < maxNrOfCells) {
@@ -154,8 +154,8 @@ void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) 
 
     //Print the ID's of each pair of neighbours
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        std::vector<int> neighbours = cells[cell].getNeighbours();
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        int *neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int IDOfN = neighbours[neighbour];
             // if neighbour is in Simulation
             if (IDOfN < maxNrOfCells) {

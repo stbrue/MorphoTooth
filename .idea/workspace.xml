@@ -25,19 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Geometrics.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geometrics.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Geometrics.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geometrics.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Initial.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initial.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Initial.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initial.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Output.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parameters.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parameters.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProgramMorphoTooth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProgramMorphoTooth.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/consts.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/consts.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -55,22 +48,10 @@
       <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18037">
-              <caret line="1061" column="4" selection-start-line="1061" selection-start-column="4" selection-end-line="1061" selection-end-column="4" />
+            <state relative-caret-position="31">
+              <caret line="1115" column="75" selection-start-line="1115" selection-start-column="75" selection-end-line="1115" selection-end-column="75" />
               <folding>
                 <element signature="e#45#61#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Model.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-              <folding>
-                <element signature="e#101#118#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,8 +60,8 @@
       <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Output.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2686">
-              <caret line="158" column="46" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
+            <state relative-caret-position="847">
+              <caret line="157" column="75" selection-start-line="157" selection-start-column="75" selection-end-line="157" selection-end-column="75" />
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
               </folding>
@@ -88,11 +69,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Geometrics.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3893">
-              <caret line="233" selection-start-line="233" selection-end-line="233" />
+            <state relative-caret-position="512">
+              <caret line="284" column="5" selection-start-line="284" selection-start-column="5" selection-end-line="284" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Geometrics.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Geometrics.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -100,8 +90,8 @@
       <file leaf-file-name="Initial.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2431">
-              <caret line="143" selection-start-line="143" selection-end-line="143" />
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -109,7 +99,7 @@
       <file leaf-file-name="Parameters.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parameters.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3298">
+            <state relative-caret-position="1595">
               <caret line="194" column="18" selection-start-line="194" selection-start-column="18" selection-end-line="194" selection-end-column="18" />
             </state>
           </provider>
@@ -118,17 +108,8 @@
       <file leaf-file-name="Input.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Input.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
+            <state relative-caret-position="-2043">
               <caret line="131" selection-start-line="131" selection-end-line="131" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InputFile.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="768">
-              <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -136,8 +117,8 @@
       <file leaf-file-name="ProgramMorphoTooth.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="493">
+              <caret line="29" column="14" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="14" />
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
               </folding>
@@ -145,11 +126,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cell.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Initial.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Initial.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#105#122#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cell.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Cell.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4199">
-              <caret line="247" column="9" selection-start-line="247" selection-start-column="9" selection-end-line="247" selection-end-column="9" />
+            <state relative-caret-position="169">
+              <caret line="175" column="24" selection-start-line="175" selection-start-column="24" selection-end-line="175" selection-end-column="24" />
+              <folding>
+                <element signature="e#98#115#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -165,7 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cellDivi</find>
       <find>setParam</find>
       <find>setP</find>
       <find>Something very</find>
@@ -195,6 +190,7 @@
       <find>labelCellsIn</find>
       <find>label</find>
       <find>cellDivision</find>
+      <find>initialN</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -246,20 +242,20 @@
         <option value="$PROJECT_DIR$/cmake-build-debug/InputFile.txt" />
         <option value="$PROJECT_DIR$/src/Cell.cpp" />
         <option value="$PROJECT_DIR$/src/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/consts.h" />
         <option value="$PROJECT_DIR$/src/Model.h" />
-        <option value="$PROJECT_DIR$/src/Geometrics.h" />
         <option value="$PROJECT_DIR$/src/Output.h" />
         <option value="$PROJECT_DIR$/src/Initial.h" />
-        <option value="$PROJECT_DIR$/src/Output.cpp" />
-        <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
-        <option value="$PROJECT_DIR$/src/Cell.h" />
-        <option value="$PROJECT_DIR$/src/Model.cpp" />
         <option value="$PROJECT_DIR$/src/ProgramMorphoTooth.cpp" />
         <option value="$PROJECT_DIR$/src/Parameters.h" />
         <option value="$PROJECT_DIR$/src/Input.cpp" />
-        <option value="$PROJECT_DIR$/src/Initial.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-release/InputFile.txt" />
+        <option value="$PROJECT_DIR$/src/consts.h" />
+        <option value="$PROJECT_DIR$/src/Geometrics.h" />
+        <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
+        <option value="$PROJECT_DIR$/src/Initial.cpp" />
+        <option value="$PROJECT_DIR$/src/Model.cpp" />
+        <option value="$PROJECT_DIR$/src/Output.cpp" />
+        <option value="$PROJECT_DIR$/src/Cell.h" />
       </list>
     </option>
   </component>
@@ -274,10 +270,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-18" />
-    <option name="y" value="-18" />
-    <option name="width" value="1953" />
-    <option name="height" value="1060" />
+    <option name="width" value="960" />
+    <option name="height" value="1042" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -291,11 +285,6 @@
             <path>
               <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
               <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MorphoTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="cmake-build-release" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MorphoTooth" type="b2602c69:ProjectViewProjectNode" />
@@ -435,7 +424,7 @@
       <workItem from="1543563731442" duration="3111000" />
       <workItem from="1544175185870" duration="750000" />
       <workItem from="1544622601767" duration="954000" />
-      <workItem from="1544686458558" duration="237000" />
+      <workItem from="1544686458558" duration="5658000" />
     </task>
     <servers />
   </component>
@@ -472,22 +461,24 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="454496000" />
+    <option name="totallyTimeSpent" value="459750000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1064" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30833334" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15260416" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.27650273" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.25614035" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.26010928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48916763" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4885246" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Inspection Results" order="8" weight="0.3295325" />
@@ -495,8 +486,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.27719298" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -528,17 +517,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp</url>
-          <line>59</line>
-          <option name="timeStamp" value="160" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="168" />
+      <option name="time" value="169" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -703,41 +685,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cell.cpp" />
-    <entry file="file://$PROJECT_DIR$/src/consts.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Geometrics.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="131" column="51" selection-start-line="131" selection-start-column="51" selection-end-line="131" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Output.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Initial.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
@@ -758,75 +709,112 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Output.cpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2686">
-          <caret line="158" column="46" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
-            <element signature="e#45#64#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Cell.h">
+    <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4199">
-          <caret line="247" column="9" selection-start-line="247" selection-start-column="9" selection-end-line="247" selection-end-column="9" />
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Parameters.h">
+    <entry file="file://$PROJECT_DIR$/src/consts.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3298">
-          <caret line="194" column="18" selection-start-line="194" selection-start-column="18" selection-end-line="194" selection-end-column="18" />
+        <state relative-caret-position="518">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
+    <entry file="file://$PROJECT_DIR$/src/Geometrics.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#45#64#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="444">
+          <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
+    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2431">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
+        <state relative-caret-position="512">
+          <caret line="284" column="5" selection-start-line="284" selection-start-column="5" selection-end-line="284" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Input.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2043">
+          <caret line="131" selection-start-line="131" selection-end-line="131" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18037">
-          <caret line="1061" column="4" selection-start-line="1061" selection-start-column="4" selection-end-line="1061" selection-end-column="4" />
+        <state relative-caret-position="31">
+          <caret line="1115" column="75" selection-start-line="1115" selection-start-column="75" selection-end-line="1115" selection-end-column="75" />
           <folding>
             <element signature="e#45#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Input.cpp">
+    <entry file="file://$PROJECT_DIR$/src/Output.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        <state relative-caret-position="847">
+          <caret line="157" column="75" selection-start-line="157" selection-start-column="75" selection-end-line="157" selection-end-column="75" />
+          <folding>
+            <element signature="e#45#64#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile.txt">
+    <entry file="file://$PROJECT_DIR$/src/Parameters.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
+        <state relative-caret-position="1595">
+          <caret line="194" column="18" selection-start-line="194" selection-start-column="18" selection-end-line="194" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Geometrics.cpp">
+    <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3893">
-          <caret line="233" selection-start-line="233" selection-end-line="233" />
+        <state relative-caret-position="493">
+          <caret line="29" column="14" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="14" />
+          <folding>
+            <element signature="e#45#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Initial.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#105#122#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Initial.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Cell.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="175" column="24" selection-start-line="175" selection-start-column="24" selection-end-line="175" selection-end-column="24" />
+          <folding>
+            <element signature="e#98#115#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

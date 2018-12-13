@@ -6,6 +6,7 @@
 #define TOOTHMAKER_CELL_H
 
 #include <vector>
+#include "consts.h"
 
 /**
  * Object that contains all information and features about a cell
@@ -58,7 +59,7 @@ private:
     /**
      * contains all neighbours (their ID). The order is relevant (clockwise order)
      */
-    std::vector<int> neighbours;
+    int neighbours[maxNrOfNeighbours];
 
     int nrOfNeighbours;
 
@@ -172,7 +173,7 @@ public:
 
     bool isKnotCell() const;
 
-    std::vector<int> getNeighbours() const;
+    int *getNeighbours();
 
     int getNrOfNeighbours() const;
 
@@ -301,7 +302,6 @@ public:
     Cell();
 
     //Editors
-    void deleteNeighbour(int neighbour);
 
     /**
      * sets the vector tempConcentrations to 0
@@ -374,7 +374,8 @@ inline double Cell::getDiffState() const {
     return diffState;
 }
 
-inline std::vector<int> Cell::getNeighbours() const {
+inline int *Cell::getNeighbours() {
+    int *neighbours = Cell::neighbours;
     return neighbours;
 }
 
@@ -472,7 +473,7 @@ inline void Cell::setKnotCell(bool knot) {
 }
 
 inline void Cell::addNeighbour(int neighbourID) {
-    Cell::neighbours.push_back(neighbourID);
+    Cell::neighbours[Cell::nrOfNeighbours] = neighbourID;
     Cell::incrementNrOfNeighbours();
 }
 
@@ -492,7 +493,7 @@ inline void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
         }
     }*/
 
-    for (int neighbour = 0; neighbour < Cell::neighbours.size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < maxNrOfNeighbours; ++neighbour) {
         if (Cell::neighbours[neighbour] == oldNeighbourID) {
             setNeighbour(neighbour, newNeighbourID);
             return;
@@ -501,7 +502,14 @@ inline void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
 }
 
 inline void Cell::insertNeighbour(int newNeighbourID, int position) {
-    Cell::neighbours.insert(Cell::neighbours.begin() + position, newNeighbourID);
+    // shift all entries from "position" to the end of the array one towards the "right"
+    for (int index = position; index < maxNrOfNeighbours -
+                                       2; ++index) { // -1 because Nr Of neighbour is one more than max index, -2 because we have [position + 1]
+        Cell::neighbours[position + 1] = Cell::neighbours[position];
+    }
+    // replace the value at "position" with the new value
+    Cell::neighbours[position] = newNeighbourID;
+
     Cell::incrementNrOfNeighbours();
 }
 
@@ -614,10 +622,6 @@ inline Cell::Cell() {
 }
 
 //Editors
-
-inline void Cell::deleteNeighbour(int neighbour) {
-    neighbours.erase(neighbours.begin() + neighbour);
-}
 
 inline void Cell::resetTempProteinConcentrations() {
     for (int layer = 0; layer < mesenchymeThickness; ++layer) {

@@ -212,13 +212,13 @@ void Geometrics::calculateCellBorders(Cell (&cells)[maxNrOfCells], int nrCellsIn
 
         //Now calculate the new border points
         //last and first neighbour
-        int neighbour1 = (cells[centreCell].getNeighbours().size() - 1);
+        int neighbour1 = cells[centreCell].getNrOfNeighbours() - 1;
         int neighbour2 = 0;
 
         Geometrics::setBorders(cells, centreCell, neighbour1, neighbour2);
 
         //all other neighbour pairs
-        for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNeighbours().size() - 1); ++neighbour1) {
+        for (int neighbour1 = 0; neighbour1 < (cells[centreCell].getNrOfNeighbours() - 1); ++neighbour1) {
             int neighbour2 = neighbour1 + 1;
 
             Geometrics::setBorders(cells, centreCell, neighbour1, neighbour2);
@@ -275,12 +275,11 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     return;
 }
 
-void Geometrics::calculateInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params) {
+void Geometrics::setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params) {
     double initialDistance = 1;
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        std::vector<int> neighbours = cells[cell].getNeighbours();
 
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
             cells[cell].addOriginalDistance(initialDistance, neighbour);
         }
     }

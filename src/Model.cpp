@@ -159,7 +159,7 @@ Model::horizontalDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = 0;
     bool borderDiffusionDone = false;
-    for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
         int neighbourID = cells[cell].getNeighbours()[neighbour];
 
         // if neighbour is in simulation
@@ -251,7 +251,7 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
             continue;
         }
 
-        for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             // if neighbour is out of simulation (cannot be)
             if (neighbourID == maxNrOfCells) {
@@ -325,7 +325,7 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
         double ddd = 0;
         double factor = 0;
 
-        for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             //if neighbour is not in simulation
             if (neighbourID == maxNrOfCells) {
@@ -510,8 +510,8 @@ void Model::repulsionAndAdhesion(Cell (&cells)[maxNrOfCells], Parameters &params
             if (cell2IsNeighbour) {
                 //For knowing the originalDistance we have to know which position cell2 has in the neighbour list of cell1
                 int positionOfCell2;
-                std::vector<int> neighboursOfCell1 = cells[cell1].getNeighbours();
-                for (int neighbour = 0; neighbour < neighboursOfCell1.size(); ++neighbour) {
+                int *neighboursOfCell1 = cells[cell1].getNeighbours();
+                for (int neighbour = 0; neighbour < cells[cell1].getNrOfNeighbours(); ++neighbour) {
                     if (neighboursOfCell1[neighbour] == cell2) {
                         positionOfCell2 = neighbour;
                         break;
@@ -553,7 +553,7 @@ void Model::nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params) {
 
         bool cellIsInCenter = cells[cell].isInCentre();
         if (cellIsInCenter) {
-            for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+            for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
                 int neighbourID = cells[cell].getNeighbours()[neighbour];
 
                 //only neighbours that are within simulation are taken into account
@@ -565,7 +565,7 @@ void Model::nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params) {
                 }
             }
         } else {
-            for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+            for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
                 int neighbourID = cells[cell].getNeighbours()[neighbour];
                 bool neighbourIsInCenter = cells[neighbourID].isInCentre();
 
@@ -747,12 +747,13 @@ void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compression
 }
 
 bool Model::isNeighbourOf(Cell (&cells)[maxNrOfCells], int cell, int potentialNeighbour) {
-    std::vector<int> neighbours = cells[cell].getNeighbours();
-    if (std::find(neighbours.begin(), neighbours.end(), potentialNeighbour) != neighbours.end()) {
-        return true;
-    } else {
-        return false;
+    int *neighbours = cells[cell].getNeighbours();
+    for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
+        if (neighbours[neighbour] == potentialNeighbour) {
+            return true;
+        }
     }
+    return false;
 }
 
 void Model::EKDifferentiation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell) {
@@ -868,7 +869,7 @@ void Model::Sec1ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &
 std::vector<std::vector<int>> Model::searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params) {
     std::vector<std::vector<int>> motherCells;
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             //if neighbour is in simulation
             if (neighbourID < maxNrOfCells) {
@@ -888,11 +889,11 @@ std::vector<std::vector<int>> Model::searchMotherCells(Cell (&cells)[maxNrOfCell
 }
 
 std::vector<int> Model::findCommonNeighbours(int M1, int M2, Cell (&cells)[maxNrOfCells], Parameters &params) {
-    std::vector<int> neighboursOfM1 = cells[M1].getNeighbours();
+    int *neighboursOfM1 = cells[M1].getNeighbours();
     int N1 = 0;         // Common neighbour 1
     int N2 = 0;         // Common neighbour 2
 
-    for (int neighbour = 0; neighbour < neighboursOfM1.size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < cells[M1].getNrOfNeighbours(); ++neighbour) {
         int IDOfNeighbour = neighboursOfM1[neighbour];
         bool isNeighbourOfM2 = Model::isNeighbourOf(cells, M2, IDOfNeighbour);
         if (isNeighbourOfM2 && N1 == 0) {
@@ -921,8 +922,8 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
     cells[M2].replaceNeighbour(M1, newCell.getID());
 
     // The neighbours of N1 and N2 should include the mother cells (adjacent)
-    std::vector<int> neighboursOfN1 = cells[N1].getNeighbours();
-    std::vector<int> neighboursOfN2 = cells[N2].getNeighbours();
+    int *neighboursOfN1 = cells[N1].getNeighbours();
+    int *neighboursOfN2 = cells[N2].getNeighbours();
 
     // the common neighbours of the mother cells have the new cell as new neighbour (between the two adjacent mother cells)
     int M1Position = 0;         //M1 is the ...th neighbour of a common neighbour
@@ -931,7 +932,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
 
     // Insert the new cell as neighbour of N1 if N1 is InSimulation
     if (N1 < maxNrOfCells) {
-        for (int neighbour = 0; neighbour < neighboursOfN1.size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < cells[N1].getNrOfNeighbours(); ++neighbour) {
             if (neighboursOfN1[neighbour] == M1) {
                 M1Position = neighbour;
             }
@@ -952,7 +953,7 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
 
     // Same for N2
     if (N2 < maxNrOfCells) {
-        for (int neighbour = 0; neighbour < neighboursOfN2.size(); ++neighbour) {
+        for (int neighbour = 0; neighbour < cells[N2].getNrOfNeighbours(); ++neighbour) {
             if (neighboursOfN2[neighbour] == M1) {
                 M1Position = neighbour;
             }
@@ -999,9 +1000,9 @@ void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, Cell (&cells)
         newCell.setInCentre(true);
         params.nrCellsInCenter += 1;
     }*/
-    std::vector<int> neighbours = newCell.getNeighbours();
+    int *neighbours = newCell.getNeighbours();
     bool isInCentre = true;
-    for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < newCell.getNrOfNeighbours(); ++neighbour) {
         int IDNeighbour = neighbours[neighbour];
         if (IDNeighbour == maxNrOfCells) {
             isInCentre = false;
@@ -1022,7 +1023,7 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
         int M2 = motherCells[pair][second];      // Mother Cell 2
 
         //Find common neighbours of both mother cells
-        std::vector<int> neighboursOfM1 = cells[M1].getNeighbours();
+        int *neighboursOfM1 = cells[M1].getNeighbours();
         int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[first];         // Common neighbour 1
         int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[second];         // Common neighbour 2
 
@@ -1062,9 +1063,9 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
 void
 Model::calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params, Cell &newCell, int M1, int M2,
                                      int N1, int N2) {
-    std::vector<int> neighboursOfNewCell = newCell.getNeighbours();
+    int *neighboursOfNewCell = newCell.getNeighbours();
 
-    for (int neighbour = 0; neighbour < neighboursOfNewCell.size(); ++neighbour) {
+    for (int neighbour = 0; neighbour < newCell.getNrOfNeighbours(); ++neighbour) {
         int oldCell = neighboursOfNewCell[neighbour];
 
         // if old Cell is in Simulation
@@ -1076,8 +1077,8 @@ Model::calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &pa
 
             //We have to know which position newCell has in the neighbour list of the old cell
             int positionOfNewCell;
-            std::vector<int> neighboursOfOldCell = cells[oldCell].getNeighbours();
-            for (int neighbour = 0; neighbour < neighboursOfOldCell.size(); ++neighbour) {
+            int *neighboursOfOldCell = cells[oldCell].getNeighbours();
+            for (int neighbour = 0; neighbour < cells[oldCell].getNrOfNeighbours(); ++neighbour) {
                 if (neighboursOfOldCell[neighbour] == newCell.getID()) {
                     positionOfNewCell = neighbour;
                     break;
@@ -1111,8 +1112,8 @@ void Model::newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &
         double zComponent = 0;
 
         //Calculate unit vectors from cell to all its neighbours and add the components to xComponent, etc.
-        std::vector<int> neighbours = cells[cell].getNeighbours();
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        int *neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = neighbours[neighbour];
 
             // if neighbour is in simulation

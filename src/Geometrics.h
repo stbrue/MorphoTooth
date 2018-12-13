@@ -140,7 +140,7 @@ public:
     */
     static void setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int neighbour1, int neighbour2);
 
-    static void calculateInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params);
+    static void setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params);
 };
 
 

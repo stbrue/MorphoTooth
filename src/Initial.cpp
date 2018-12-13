@@ -39,7 +39,7 @@ void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]) {
     labelCellsInCentre(cells, params);  // has to be called after labelCellsInSimulation!!
 
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
-    Geometrics::calculateInitialOriginalDistances(cells, params);
+    Geometrics::setInitialOriginalDistances(cells, params);
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         cells[cell].resetTempCoordinates();
@@ -150,8 +150,9 @@ void Initial::labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &pa
         }
 
         //Change the ID of out-of-simulation cells also in neighbour arrays
-        std::vector<int> neighbours = cells[cell].getNeighbours();
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+        int* neighbours = cells[cell].getNeighbours(); // a pointer to array with neighbours
+
+        for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
             int neighbourID = neighbours[neighbour];
             if (neighbourID >= params.nrCellsInSimulation) {
                 cells[cell].replaceNeighbour(neighbourID, maxNrOfCells);
