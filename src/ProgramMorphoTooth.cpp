@@ -11,6 +11,7 @@
 #include "Geometrics.h"
 #include "Model.h"
 #include "Parameters.h"
+#include "consts.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params) {
 
@@ -21,8 +22,15 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     std::cout << "###########################################################" << std::endl;
     std::cout.flush();
 
+    // Make an array holding maxNrOfCells objects of Cell
+    //Allocate memory
+    //Object2 *cells = static_cast<CellsPointer *>(::operator new(sizeof(CellsPointer) * maxNrOfCells));
+
+    //Vector containing all cells
+    Cell cells[maxNrOfCells];
+
     //Construct the initial grid of cells
-    std::vector<Cell> cells = Initial::makeInitialGrid(params);
+    Initial::makeInitialGrid(params, cells);
 
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
@@ -48,16 +56,14 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 9999) {
-
+        if (params.currentIteration == 1156) {
+            int a = 0;
         }
 
         //Print every 1000 iteration the count
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
-            std::cout << "Number of neighbours: " << cells[1].getNrOfNeighbours() << std::endl;
-            std::cout << "Length of neighbours: " << cells[1].getNeighbours().size() << std::endl;
             std::cout.flush();
         }
 

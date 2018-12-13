@@ -8,6 +8,7 @@
 
 #include "Cell.h"
 #include "Parameters.h"
+#include "consts.h"
 
 /**
  * @brief   Contains all methods that are used to calculate geometrical values (distances, norm, cross product,...)
@@ -84,7 +85,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   nrCellsInSimulation number of cells that are in simulation (have a closed neighbour sequence)
      */
-    static void calculatePerimeterAndArea(std::vector<Cell> &cells, Parameters &params);
+    static void calculatePerimeterAndArea(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   calculates a part of the cell perimeter (= length of border to a neighbour)
@@ -93,7 +94,7 @@ public:
      * @param   borderPoint1    first border point
      * @param   borderPoint2    second border point
      */
-    static void calculatePerimeterParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    static void calculatePerimeterParts(Cell (&cells)[maxNrOfCells], int cell, int borderPoint1, int borderPoint2);
 
     /**
      * @brief   calculates a part of the cell area (= triangle between two border points and center cell)
@@ -102,7 +103,7 @@ public:
      * @param   borderPoint1    first neighbour
      * @param   borderPoint2    second neighbour (adjacent to borderPoint1)
      */
-    static void calculateCellAreaParts(std::vector<Cell> &cells, int cell, int borderPoint1, int borderPoint2);
+    static void calculateCellAreaParts(Cell (&cells)[maxNrOfCells], int cell, int borderPoint1, int borderPoint2);
 
     /**
      * @brief   calculates the distance of a cell to the origin in the xy plane
@@ -123,12 +124,12 @@ public:
     * @param   cells   Vector containing all cells
     * @param   nrCellsInSimulation     How many cells are in simulation
     */
-    static void calculateCellBorders(std::vector<Cell> &cells, int nrCellsInSimulation);
+    static void calculateCellBorders(Cell (&cells)[maxNrOfCells], int nrCellsInSimulation);
 
     static double calculateMargin(std::vector<std::vector<double>> marginPoints);
 
     static double
-    calculateMarginArea(std::vector<Cell> &cells, int cell, std::vector<std::vector<double>> marginPoints);
+    calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell, std::vector<std::vector<double>> marginPoints);
 
     /**
     * @brief   Calculates and sets the midpoint between two (or one) adjacent neighbours and the center cell (Voronoi node)
@@ -137,9 +138,9 @@ public:
     * @param   neighbour1 Which neighbour (first, second, ...)
     * @param   neighbour2 Which neighbour (first, second, ...)
     */
-    static void setBorders(std::vector<Cell> &cells, int centreCell, int neighbour1, int neighbour2);
+    static void setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int neighbour1, int neighbour2);
 
-    static void calculateInitialOriginalDistances(std::vector<Cell> &cells, Parameters &params);
+    static void calculateInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params);
 };
 
 

@@ -8,21 +8,22 @@
 
 #include "Cell.h"
 #include "Parameters.h"
+#include "consts.h"
 
 class Output {
 
 public:
-    static void initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells);
+    static void initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells);
 
-    static void initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells);
+    static void initialCellBordersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells);
 
-    static void bigOutput(std::vector<Cell> cells, Parameters params);
+    static void bigOutput(Cell (&cells)[maxNrOfCells], Parameters params);
 
-    static void ROutput(std::vector<Cell> cells, Parameters params);
+    static void ROutput(Cell (&cells)[maxNrOfCells], Parameters params);
 
-    static void XYZOutputSimple(std::vector<Cell> cells, Parameters params);
+    static void XYZOutputSimple(Cell (&cells)[maxNrOfCells], Parameters params);
 
-    static void geomorphLinkOutput(std::vector<Cell> cells, Parameters params);
+    static void geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params);
 
 };
 

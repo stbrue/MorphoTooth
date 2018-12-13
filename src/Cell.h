@@ -178,8 +178,6 @@ public:
 
     int getMesenchymeThickness() const;
 
-    bool isInSimulation() const;
-
     bool isInCentre() const;
 
     std::vector<std::vector<double>> getBorderPoints() const;
@@ -202,6 +200,12 @@ public:
 
 
     //Setter
+
+    void setX(double X);
+
+    void setY(double Y);
+
+    void setZ(double Z);
 
     void addX(double newX);
 
@@ -294,7 +298,7 @@ public:
     void newMarginPoint(double x, double y, double z);
 
     //Constructor
-    Cell(double x, double y, double z, int ID);
+    Cell();
 
     //Editors
     void deleteNeighbour(int neighbour);
@@ -382,10 +386,6 @@ inline bool Cell::isKnotCell() const {
     return knot;
 }
 
-inline bool Cell::isInSimulation() const {
-    return inSimulation;
-}
-
 inline bool Cell::isInCentre() const {
     return inCentre;
 }
@@ -431,6 +431,18 @@ inline const std::vector<std::vector<double>> &Cell::getTempProteinConcentration
 }
 
 //Setter
+
+inline void Cell::setX(double X) {
+    Cell::x = X;
+}
+
+inline void Cell::setY(double Y) {
+    Cell::y = Y;
+}
+
+inline void Cell::setZ(double Z) {
+    Cell::z = Z;
+}
 
 inline void Cell::addX(double newX) {
     Cell::x += newX;
@@ -575,8 +587,8 @@ inline void Cell::replaceOriginalDistance(double distance, int position) {
     originalDistances[position] = distance;
 }
 
-//Constructor
-inline Cell::Cell(double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID) {
+//Constructor double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID
+inline Cell::Cell() {
     knot = false;
     inSimulation = false;
     inCentre = false;

@@ -8,6 +8,7 @@
 
 #include "Cell.h"
 #include "Parameters.h"
+#include "consts.h"
 
 /**
  * @brief   Set up of the initial cell grid
@@ -54,7 +55,7 @@ public:
     * @param params struct containing all parameters
     * @return a vector containing all cells
     */
-    static std::vector<Cell> makeInitialGrid(Parameters &params);
+    static void makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]);
 
     /**
     * @brief   Creates or declares all neighbours for one centre cell
@@ -62,43 +63,22 @@ public:
     * @param   IDCentreCell ID of the cell that gets new neighbours
     * @param   IDNewCell   ID that a new cell gets (always one higher than the ID of the last cell in cells)
     */
-    static void makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell, Parameters &params);
-
-    static void printInitialGrid(std::vector<Cell> &cells);
-
-    static void printInitialNeighbours(std::vector<Cell> cells);
+    static void makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params);
 
     /**
     * @brief   Checks if cells are "within simulation" (have a closed neighbour sequence) and labels them accordingly
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &params);
+    static void labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
     * @brief   Checks if cells are "in the center" (have neighbours that are all within simulation or at least 7) and labels them accordingly
-    * @attention   This function has to be called after labelNrCellsInSimulation because it needs the this as parameter
+    * @attention   This function has to be called after labelCellsInSimulation because it needs the this as parameter
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelCellsInCentre(std::vector<Cell> &cells, Parameters &params);
-
-    /**
-    * @brief   Deletes entries of neighbours that each cell has maximally one entry of a neighbour cell that is not within simulation
-    * @param   cells   Vector containing all cells
-    * @param   nrCellsInSimulation     How many cells are within simulation
-    */
-    static void reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCellsInSimulation);
-
-    /**
-    * @brief   Checks if a certain neighbour is within simulation
-    * @param   cells   Vector containing all cells
-    * @param   IDCentreCell    ID of the cell of which we look at the neighbours
-    * @param   neighbour       which neighbour we look at (the first, second, third..)
-    * @return  true if this neighbour is within simulation (has a closed neighbour sequence)
-    */
-    static bool isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour);
-
+    static void labelCellsInCentre(Cell (&cells)[maxNrOfCells], Parameters &params);
 
 };
 

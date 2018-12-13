@@ -30,4 +30,6 @@ const int initialNrOfNeighbours = 6;
 const double totalDegrees = 360;
 const double degrees = totalDegrees / initialNrOfNeighbours;
 
+const int maxNrOfCells = 210;
+
 #endif //MORPHOTOOTH_CONSTS_H

@@ -52,6 +52,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.nrOfConditions = 1;
     params.powerOfRep = 8;
     params.initialRadius = 2;
+    params.round4 = 1000;
 
     // Read in values from inputFile
 

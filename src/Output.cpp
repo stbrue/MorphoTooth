@@ -10,7 +10,7 @@
 #include "consts.h"
 #include <sstream>
 
-void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells) {
+void Output::initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
     outputFile.open("Initial_Cell_Centers.txt");
 
@@ -23,7 +23,7 @@ void Output::initialCellCentersXY(std::vector<Cell> cells, int InSimulationCells
     outputFile.close();
 }
 
-void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells) {
+void Output::initialCellBordersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
     outputFile.open("Initial_Cell_Borders.txt");
 
@@ -40,7 +40,7 @@ void Output::initialCellBordersXY(std::vector<Cell> cells, int InSimulationCells
     outputFile.close();
 }
 
-void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
+void Output::bigOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     std::ofstream outputFile;
     outputFile.precision(params.outputPrecision);
     outputFile.open("BigOutputMorphoTooth.txt");
@@ -63,7 +63,7 @@ void Output::bigOutput(std::vector<Cell> cells, Parameters params) {
     outputFile.close();
 }
 
-void Output::ROutput(std::vector<Cell> cells, Parameters params) {
+void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     std::stringstream stringstream;
     std::string fileName;
 
@@ -88,8 +88,8 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
         std::vector<int> neighbours = cells[cell].getNeighbours();
         for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
             int IDofN = neighbours[neighbour];
-            bool neighbourIsInSimulation = cells[IDofN].isInSimulation();
-            if (neighbourIsInSimulation) {
+            // if neighbour is in simulation
+            if (IDofN < maxNrOfCells) {
                 outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
                            << cells[cell].getZ() << "\t" << groupCount << "\t"
                            << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << "\t"
@@ -113,7 +113,7 @@ void Output::ROutput(std::vector<Cell> cells, Parameters params) {
     outputFile.close();
 }
 
-void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
+void Output::XYZOutputSimple(Cell (&cells)[maxNrOfCells], Parameters params) {
     std::stringstream stringstream;
     std::string fileName;
 
@@ -136,7 +136,7 @@ void Output::XYZOutputSimple(std::vector<Cell> cells, Parameters params) {
     outputFile.close();
 }
 
-void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
+void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
 
     std::stringstream stringstream;
     std::string fileName;
@@ -157,8 +157,8 @@ void Output::geomorphLinkOutput(std::vector<Cell> cells, Parameters params) {
         std::vector<int> neighbours = cells[cell].getNeighbours();
         for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
             int IDOfN = neighbours[neighbour];
-            bool neighbourIsInSimulation = cells[IDOfN].isInSimulation();
-            if (neighbourIsInSimulation) {
+            // if neighbour is in Simulation
+            if (IDOfN < maxNrOfCells) {
                 outputFile << cell << "\t" << IDOfN << std::endl;
             }
         }

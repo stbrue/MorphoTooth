@@ -8,13 +8,14 @@
 
 #include "Cell.h"
 #include "Parameters.h"
+#include "consts.h"
 
 class Model {
 public:
 
     static bool NanIsPresent(double x, double y, double z);
 
-    static void iterationStep(std::vector<Cell> &cells, Parameters &params, int iteration);
+    static void iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params, int iteration);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
@@ -23,10 +24,10 @@ public:
      * @param   parameters  struct containing all parameters
      */
 
-    static bool testPositions(std::vector<Cell> cells);
+    static bool testPositions(Cell cells[maxNrOfCells]);
 
 
-    static void diffusion(std::vector<Cell> &cells, Parameters &parameters);
+    static void diffusion(Cell (&cells)[maxNrOfCells], Parameters &parameters);
 
     /**
      * @brief   Calculates the resulting protein concentration differences due to diffusion between a cell and an upper one
@@ -37,7 +38,8 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
-    static void upDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
+    static void
+    upDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int protein, double relativeDiffusionArea);
 
     /**
      * @brief   Calculates the resulting protein concentration differences due to diffusion between a cell and an lower one
@@ -48,7 +50,8 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
-    static void downDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea);
+    static void
+    downDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int protein, double relativeDiffusionArea);
 
     /**
      * @brief   Calculates protein concentration differences due to a sink (for cells at the border)
@@ -58,7 +61,9 @@ public:
      * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
      * @param   contactArea     diffusion area (relative cell area or perimeter part)
      */
-    static void sink(std::vector<Cell> &cells, int cell, int layer, int protein, double relativeDiffusionArea, Parameters &params);
+    static void
+    sink(Cell (&cells)[maxNrOfCells], int cell, int layer, int protein, double relativeDiffusionArea,
+         Parameters &params);
 
     /**
      * @brief   Calculates protein concentration differences due to diffusion in horizontal direction
@@ -69,14 +74,15 @@ public:
      * @param   diffusionArea   pDiffusionArea for non-epithelial and eDiffusionArea for epithelial diffusion
      */
     static void
-    horizontalDiffusion(std::vector<Cell> &cells, int cell, int layer, int protein, double totalDiffusionArea, Parameters &params);
+    horizontalDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int protein, double totalDiffusionArea,
+                        Parameters &params);
 
     /**
      * @brief   Calls all methods that implement the reaction (Activation, Inhibition, Expression, Degradation) of the proteins
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      */
-    static void reaction(std::vector<Cell> &cells, Parameters &params);
+    static void reaction(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   Cell becomes an enamel knot cell if Act concentration is >1 and if it is in the center
@@ -84,7 +90,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void EKDifferentiation(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void EKDifferentiation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   Reaction (Self-activation and inhibition by Inh) and Degradation of Act
@@ -93,7 +99,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void ActReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void ActReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   Inh is produced if the differentiation state is higher than a threshold and if the cell is an EK cell
@@ -101,7 +107,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void InhReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void InhReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   Sec1 is produced if differentiation state is higher than a threshold or if the cell is an EK cell
@@ -110,7 +116,7 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void Sec1ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void Sec1ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   Sec2 is produced proportionally to Act concentration minus inhibition by Sec1 and minus degradation
@@ -118,21 +124,21 @@ public:
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell);
+    static void Sec2ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   If a center cell deviates too much in buccal or lingual direction (y), then its Act concentration is set to a certain value
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      */
-    static void buccalLingualBias(std::vector<Cell> &cells, Parameters &params);
+    static void buccalLingualBias(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   Increases the differentiation state of each cell proportionally to Sec1 concentration
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      */
-    static void differentiation(std::vector<Cell> &cells, Parameters &params);
+    static void differentiation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   Cells are drifting away from the center proportional to a proliferation rate and inverse proportional
@@ -140,14 +146,14 @@ public:
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      */
-    static void epithelialProliferation(std::vector<Cell> &cells, Parameters &params);
+    static void epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   A force that is normal to the epithelial cell surface and proportional to Sec1 concentration
      * @param   cells   vector containing all cells
      * @param   params  struct containing all cells
      */
-    static void buoyancy(std::vector<Cell> &cells, Parameters &params);
+    static void buoyancy(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   if two cells are too close there is a force that pushes them away from each other (repulsion)
@@ -158,59 +164,62 @@ public:
      * @param   compressionMatrixNonNeighbours
      */
     static void repulsionBetweenNonNeighbours(double dx, double dy, double dz, double currentDistance,
-                                              std::vector<std::vector<double>> &compressionMatrixNonNeighbours, Parameters &params);
+                                              std::vector<std::vector<double>> &compressionMatrixNonNeighbours,
+                                              Parameters &params);
 
     /**
      *
      * @param cells
      * @param params
      */
-    static void repulsionAndAdhesion(std::vector<Cell> &cells, Parameters &params);
+    static void repulsionAndAdhesion(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static bool isNeighbourOf(std::vector<Cell> &cells, int cell, int potentialNeighbour);
+    static bool isNeighbourOf(Cell (&cells)[maxNrOfCells], int cell, int potentialNeighbour);
 
     static void
     repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double dz, double currentDistance,
                                           double originalDistance,
                                           std::vector<std::vector<double>> &compressionMatrixNeighbours,
-                                          bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter, Parameters &params);
+                                          bool cell1IsEKCell, bool cell2IsEKCell, bool cell1IsInCenter,
+                                          Parameters &params);
 
     static std::vector<std::vector<double>> setUpCompressionMatrix();
 
     static void resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix, Parameters &params);
 
-    static void updateTempPositions(std::vector<Cell> &cells, Parameters &params, int cell,
+    static void updateTempPositions(Cell (&cells)[maxNrOfCells], Parameters &params, int cell,
                                     std::vector<std::vector<double>> compressionMatrix, bool isNeighbour);
 
-    static void nucleusTraction(std::vector<Cell> &cells, Parameters &params);
+    static void nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void anteriorPosteriorBias(std::vector<Cell> &cells, Parameters &params);
+    static void anteriorPosteriorBias(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void applyForces(std::vector<Cell> &cells, Parameters &params);
+    static void applyForces(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void cellDivision(std::vector<Cell> &cells, Parameters &params);
+    static void cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static std::vector<std::vector<int>> searchMotherCells(std::vector<Cell> &cells, Parameters &params);
+    static std::vector<std::vector<int>> searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static std::vector<int> findCommonNeighbours(int M1, int M2, std::vector<Cell> &cells, Parameters &params);
+    static std::vector<int> findCommonNeighbours(int M1, int M2, Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, std::vector<Cell> &cells,
+    static void updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, Cell (&cells)[maxNrOfCells],
                                          Parameters &params);
 
-    static void setMeanProteinConcentrations(int M1, int M2, Cell &newCell, std::vector<Cell> &cells,
+    static void setMeanProteinConcentrations(int M1, int M2, Cell &newCell, Cell (&cells)[maxNrOfCells],
                                              Parameters &params);
 
-    static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, std::vector<Cell> &cells, Parameters &params);
+    static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void errorTesting(std::vector<Cell> cells, Parameters &params);
+    static void errorTesting(Cell cells[maxNrOfCells], Parameters &params);
 
     static void
-    calculateNewOriginalDistances(std::vector<Cell> &cells, Parameters &params, Cell &newCell, int M1, int M2, int N1,
+    calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params, Cell &newCell, int M1, int M2,
+                                  int N1,
                                   int N2);
 
-    static void newEpithelialProliferation(std::vector<Cell> &cells, Parameters &params);
+    static void newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static void downGrowth(std::vector<Cell> &cells, Parameters &params, double xShift, double yShift, int cell);
+    static void downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double xShift, double yShift, int cell);
 };
 
 

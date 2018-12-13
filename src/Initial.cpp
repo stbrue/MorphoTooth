@@ -14,18 +14,19 @@
 #include "consts.h"
 
 
-std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
+void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]) {
     //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
     params.nrCellsInSimulation = Initial::getNumberOfInSimulationCells(params.initialRadius);
 
     //Make the first cell
-    Cell cell1(params.firstX, params.firstY, params.firstZ, firstID);
-
-    //Vector containing all cells
-    std::vector<Cell> cells;
+    Cell cell1;
+    cell1.setX(params.firstX);
+    cell1.setY(params.firstY);
+    cell1.setZ(params.firstZ);
+    cell1.setID(firstID);
 
     //Include the first cell
-    cells.push_back(cell1);
+    cells[first] = cell1;
 
     //Make the neighbours of this cell and then of all the other cells
     int IDNewCell = 1;
@@ -34,17 +35,17 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
     }
 
     //Define for each cell if it is "within simulation" or "in Centre"
-    labelNrCellsInSimulation(cells, params);
-    labelCellsInCentre(cells, params);  // has to be called after labelNrCellsInSimulation!!
+    labelCellsInSimulation(cells, params);
+    labelCellsInCentre(cells, params);  // has to be called after labelCellsInSimulation!!
 
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
     Geometrics::calculateInitialOriginalDistances(cells, params);
 
-    for (int cell = 0; cell < cells.size(); ++cell) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         cells[cell].resetTempCoordinates();
     }
 
-    return cells;
+    return;
 }
 
 /**
@@ -54,7 +55,13 @@ std::vector<Cell> Initial::makeInitialGrid(Parameters &params) {
  * @return  true if the cells have the same position
  */
 bool operator==(const Cell &c1, const Cell &c2) {
-    return (c1.getX() == c2.getX() && c1.getY() == c2.getY() && c1.getZ() == c2.getZ());
+    double x1 = std::floor(c1.getX() * 1000 + 0.5) / 1000;
+    double x2 = std::floor(c2.getX() * 1000 + 0.5) / 1000;
+    double y1 = std::floor(c1.getY() * 1000 + 0.5) / 1000;
+    double y2 = std::floor(c2.getY() * 1000 + 0.5) / 1000;
+    double z1 = std::floor(c1.getZ() * 1000 + 0.5) / 1000;
+    double z2 = std::floor(c2.getZ() * 1000 + 0.5) / 1000;
+    return (x1 == x2 && y1 == y2 && z1 == z2);
 }
 
 int Initial::getTotalNumberOfCells(int initialRadius) {
@@ -95,7 +102,7 @@ double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params
 }
 
 
-void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &IDNewCell, Parameters &params) {
+void Initial::makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params) {
     bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
     for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
@@ -104,22 +111,27 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
         double y = nextY(cells[IDCentreCell].getY(), neighbour, params);
 
         //create a temporary Instance of this cell
-        Cell tempCell(x, y, params.firstZ, IDNewCell);
+        Cell tempCell;
+        tempCell.setX(x);
+        tempCell.setY(y);
+        tempCell.setZ(params.firstZ);
+        tempCell.setID(IDNewCell);
 
         //check if this neighbour is already an existing cell
         isAlreadyExisting = false;
-        for (auto cell : cells) {
-            if (cell == tempCell) {
+        for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+            if (cells[cell] == tempCell) {
                 //declare it as a neighbour
-                cells[IDCentreCell].addNeighbour(cell.getID());
+                cells[IDCentreCell].addNeighbour(cell);
                 isAlreadyExisting = true;
                 break;
             }
         }
 
+
         if (isAlreadyExisting == false) {
             //Create this new cell
-            cells.push_back(tempCell);
+            cells[IDNewCell] = tempCell;
             //Declare it as a neighbour
             cells[IDCentreCell].addNeighbour(IDNewCell);
             IDNewCell++;
@@ -127,101 +139,37 @@ void Initial::makeNeighbours(std::vector<Cell> &cells, int IDCentreCell, int &ID
     }
 }
 
-void Initial::printInitialGrid(std::vector<Cell> &cells) {
-    for (auto cell : cells) {
-        std::cout << cell.getID() << ": " << cell.getX() << "/" << cell.getY() << std::endl;
-        std::cout << "In simulation: " << cell.isInSimulation() << std::endl;
-        std::cout << "In center: " << cell.isInCentre() << std::endl;
-    }
-}
-
-void Initial::printInitialNeighbours(std::vector<Cell> cells) {
-    for (auto cell : cells) {
-        std::vector<int> neighbours = cell.getNeighbours();
-        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
-            std::cout << neighbours[neighbour] << "  ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-
-void Initial::labelNrCellsInSimulation(std::vector<Cell> &cells, Parameters &params) {
-    //for each cell
-    for (int cell = 0; cell < cells.size(); ++cell) {
-        if (cells[cell].getID() < params.nrCellsInSimulation) {
+void Initial::labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &params) {
+    //for each cell in the array
+    for (int cell = 0; cell < maxNrOfCells; ++cell) {
+        if (cell < params.nrCellsInSimulation) {
+            // Label cells within simulation
             cells[cell].setInSimulation(true);
-        } else {
-            cells[cell].setInSimulation(false);
+        } else { // Give all out-of-simulation cells the ID "maxNrOfCells"
+            cells[cell].setID(maxNrOfCells);
+        }
+
+        //Change the ID of out-of-simulation cells also in neighbour arrays
+        std::vector<int> neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < neighbours.size(); ++neighbour) {
+            int neighbourID = neighbours[neighbour];
+            if (neighbourID >= params.nrCellsInSimulation) {
+                cells[cell].replaceNeighbour(neighbourID, maxNrOfCells);
+            }
         }
     }
 }
 
 
-void Initial::labelCellsInCentre(std::vector<Cell> &cells, Parameters &params) {
+void Initial::labelCellsInCentre(Cell (&cells)[maxNrOfCells], Parameters &params) {
     int nrCellsNotInCentre = ((params.initialRadius - 1) * initialNrOfNeighbours) + 1;
     int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
-    /*if (nrCellsInCentre < 7) {
-        nrCellsInCentre = 7;
-    }*/
 
-    //change state of "inCentre" for all these cells
     for (int cell = 0; cell < nrCellsInCentre; ++cell) {
         cells[cell].setInCentre(true);
     }
 }
 
-
-void Initial::reduceNeighboursOutOfSimulation(std::vector<Cell> &cells, int nrCellsInSimulation) {
-    bool neighbour1 = false;
-    bool neighbour2 = false;
-    std::vector<int> neighboursToDelete;
-    int deletedNeighbours;
-    for (int cell = 0; cell < nrCellsInSimulation; ++cell) {
-        for (int neighbour = 0; neighbour < (cells[cell].getNeighbours().size() - 1); ++neighbour) {
-
-            //Check if two adjacent neighbours are within simulation
-            neighbour1 = isNeighbourInSimulation(cells, cell, neighbour);
-            neighbour2 = isNeighbourInSimulation(cells, cell, neighbour + 1);
-
-            //If two adjacent neighbours are not within simulation remember the first one
-            if (neighbour1 == false && neighbour2 == false) {
-                neighboursToDelete.push_back(neighbour);
-            }
-        }
-        //Delete all the remembered cells
-        deletedNeighbours = 0;
-        for (auto neighbourToDelete : neighboursToDelete) {
-            cells[cell].deleteNeighbour(neighbourToDelete - deletedNeighbours);
-            deletedNeighbours++;
-        }
-        neighboursToDelete.clear();
-    }
-    //if a cell has two neighbours out of simulation, delete the second
-    for (int cell = 7; cell < nrCellsInSimulation; ++cell) {
-        neighbour1 = false;
-        for (int neighbour = 0; neighbour < cells[cell].getNeighbours().size(); ++neighbour) {
-            if (isNeighbourInSimulation(cells, cell, neighbour) == false && neighbour1 == false) {
-                neighbour1 = true;
-                continue;
-            }
-            if (isNeighbourInSimulation(cells, cell, neighbour) == false && neighbour1 == true) {
-                cells[cell].deleteNeighbour(neighbour);
-                break; // it is never the case that a cell has three neighbours out of simulation at this point
-            }
-        }
-    }
-}
-
-
-bool Initial::isNeighbourInSimulation(std::vector<Cell> &cells, int IDCentreCell, int neighbour) {
-    int IDOfNeighbour = cells[IDCentreCell].getNeighbours()[neighbour];
-    if (cells[IDOfNeighbour].isInSimulation()) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
 
