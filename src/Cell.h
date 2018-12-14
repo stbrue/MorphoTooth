@@ -502,13 +502,25 @@ inline void Cell::replaceNeighbour(int oldNeighbourID, int newNeighbourID) {
 }
 
 inline void Cell::insertNeighbour(int newNeighbourID, int position) {
-    // shift all entries from "position" to the end of the array one towards the "right"
+    int tempArray[maxNrOfNeighbours];
+
+    // write all values of the array before "position" into tempArray
+    for (int index = 0; index < position; ++index) {
+        tempArray[index] = Cell::neighbours[index];
+    }
+
+    // write all remaining values from the array one position later into tempArray
     for (int index = position; index < maxNrOfNeighbours -
-                                       2; ++index) { // -1 because Nr Of neighbour is one more than max index, -2 because we have [position + 1]
-        Cell::neighbours[position + 1] = Cell::neighbours[position];
+                                       1; ++index) { // -1 because we have [position + 1]
+        tempArray[index + 1] = Cell::neighbours[index];
     }
     // replace the value at "position" with the new value
-    Cell::neighbours[position] = newNeighbourID;
+    tempArray[position] = newNeighbourID;
+
+    // replace the array with the tempArray
+    for (int index = 0; index < maxNrOfNeighbours; ++index) {
+        Cell::neighbours[index] = tempArray[index];
+    }
 
     Cell::incrementNrOfNeighbours();
 }
