@@ -15,17 +15,9 @@
 class Input {
 public:
 
-    /**
-     * @brief   Returns a struct with the parameters for a seal tooth (for testing purpose only)
-     * @return  params  struct containing all parameter values
-     */
-    static Parameters defineParametersSealTest();
-
     static Parameters setParameters(std::string InputFileName);
 
     static void changeInputFileTemp(Parameters params, double newValue);
-
-    static void changeInputFileTemp(Parameters params, int newValue);
 
     static void changeInputFile(int nrOfParameter);
 

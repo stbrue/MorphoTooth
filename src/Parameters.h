@@ -192,8 +192,6 @@ public:
 
     double round3;
 
-    double round4;
-
     int nrOfProteins;
 
     double firstX;

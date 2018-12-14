@@ -11,7 +11,7 @@
 #include "consts.h"
 
 
-void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params, int iteration) {
+void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
@@ -44,7 +44,7 @@ bool Model::NanIsPresent(double x, double y, double z) {
 }
 
 void Model::errorTesting(Cell *cells, Parameters &params) {
-    if (params.nrCellsInSimulation > maxNrOfCells){
+    if (params.nrCellsInSimulation > maxNrOfCells) {
         params.error = true;
         std::cout << "There are too many cells in the simulation" << std::endl;
         std::cout.flush();
@@ -121,6 +121,10 @@ void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {
                     case PSec2:
                         diffusionRate = params.Sec2Diffusion;
                         break;
+                    default:
+                        params.error = true;
+                        std::cout << "The diffusion rate is not accessible" << std::endl;
+                        std::cout.flush();
                 }
 
                 double tempConcentration = cells[cell].getTempProteinConcentrations()[protein][layer];
@@ -250,7 +254,7 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
         bool isInCentre = cells[cell].isInCentre();
         bool isKnotCell = cells[cell].isKnotCell();
 
-        if (isInCentre == false) {
+        if (!isInCentre) {
             continue;
         }
 
@@ -518,13 +522,20 @@ void Model::repulsionAndAdhesion(Cell (&cells)[maxNrOfCells], Parameters &params
                 //For knowing the originalDistance we have to know which position cell2 has in the neighbour list of cell1
                 int positionOfCell2;
                 int *neighboursOfCell1 = cells[cell1].getNeighbours();
+                bool positionFound = false;
                 for (int neighbour = 0; neighbour < cells[cell1].getNrOfNeighbours(); ++neighbour) {
                     if (neighboursOfCell1[neighbour] == cell2) {
                         positionOfCell2 = neighbour;
+                        positionFound = true;
                         break;
                     }
                 }
 
+                if (!positionFound) {
+                    params.error = true;
+                    std::cout << "There was an error in updating neighbour relationships" << std::endl;
+                    return;
+                }
                 double originalDistance = cells[cell1].getOriginalDistances()[positionOfCell2];
 
                 Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, currentDistance, originalDistance,
@@ -577,7 +588,7 @@ void Model::nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params) {
                 bool neighbourIsInCenter = cells[neighbourID].isInCentre();
 
                 //only the neighbours that are within simulation but not in the center are taken into account
-                if (neighbourID < maxNrOfCells && (neighbourIsInCenter == false)) {
+                if (neighbourID < maxNrOfCells && !neighbourIsInCenter) {
                     numberOfNeighboursInSimulation += 1;
                     totalX += cells[neighbourID].getX();
                     totalY += cells[neighbourID].getY();
@@ -599,7 +610,7 @@ void Model::nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params) {
         yShift = YDeviationFromAverage * params.delta * params.ntr;
 
         // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
-        if (cells[cell].isKnotCell() == false) {
+        if (!cells[cell].isKnotCell()) {
             double inverseDiffState = 1 - cells[cell].getDiffState();
             if (inverseDiffState < 0) {
                 inverseDiffState = 0;
@@ -995,18 +1006,8 @@ Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, Cell (&cells)
     }
 }
 
-void Model::defineIfNewCellInCentre(int N1, int N2, Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params) {
-    /*//The new cell is in the centre if it has no neighbours that are out of simulation
-    bool N1InCentre = cells[N1].isInSimulation();
-    bool N2InCentre = cells[N2].isInSimulation();
-    // the mother cells are anyway in simulation (otherwise they would not be mother cells)
-
-    if (N1InCentre == false || N2InCentre == false) {
-        newCell.setInCentre(false);
-    } else {
-        newCell.setInCentre(true);
-        params.nrCellsInCenter += 1;
-    }*/
+void Model::defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params) {
+    //The new cell is in the centre if it has no neighbours that are out of simulation
     int *neighbours = newCell.getNeighbours();
     bool isInCentre = true;
     for (int neighbour = 0; neighbour < newCell.getNrOfNeighbours(); ++neighbour) {
@@ -1024,13 +1025,11 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
     std::vector<std::vector<int>> motherCells = Model::searchMotherCells(cells, params);
 
     // for all pairs, create a new cell between them and update the neighbour relationships
-    for (int pair = 0; pair < motherCells.size(); ++pair) {
-
-        int M1 = motherCells[pair][first];      // Mother Cell 1
-        int M2 = motherCells[pair][second];      // Mother Cell 2
+    for (auto pair : motherCells){
+        int M1 = pair[first];               // Mother Cell 1
+        int M2 = pair[second];              // Mother Cell 2
 
         //Find common neighbours of both mother cells
-        int *neighboursOfM1 = cells[M1].getNeighbours();
         int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[first];         // Common neighbour 1
         int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[second];         // Common neighbour 2
 
@@ -1056,7 +1055,7 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
         // Update the neighbour relationships
         Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
         //The new cell is in centre if it has no neighbours that are out of simulation
-        Model::defineIfNewCellInCentre(N1, N2, newCell, cells, params);
+        Model::defineIfNewCellInCentre(newCell, cells, params);
 
         //Insert the new cell into the cells array (no problem for next new cells, because it is inserted at the end of
         // in-simulation-cells)
@@ -1064,6 +1063,7 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
 
         //calculate new OriginalDistances
         Model::calculateNewOriginalDistances(cells, params, newCell, M1, M2, N1, N2);
+
     }
 }
 
@@ -1085,9 +1085,9 @@ Model::calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &pa
             //We have to know which position newCell has in the neighbour list of the old cell
             int positionOfNewCell;
             int *neighboursOfOldCell = cells[oldCell].getNeighbours();
-            for (int neighbour = 0; neighbour < cells[oldCell].getNrOfNeighbours(); ++neighbour) {
-                if (neighboursOfOldCell[neighbour] == newCell.getID()) {
-                    positionOfNewCell = neighbour;
+            for (int neighbourOfOldCell = 0; neighbourOfOldCell < cells[oldCell].getNrOfNeighbours(); ++neighbourOfOldCell) {
+                if (neighboursOfOldCell[neighbourOfOldCell] == newCell.getID()) {
+                    positionOfNewCell = neighbourOfOldCell;
                     break;
                 }
             }
@@ -1209,7 +1209,7 @@ void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters &
     std::cout << "Maximum Nr of neighbours: " << maxNrOfNeighboursPresent << std::endl;
     std::cout.flush();
 
-    if (maxNrOfNeighboursPresent > maxNrOfNeighbours){
+    if (maxNrOfNeighboursPresent > maxNrOfNeighbours) {
         params.error = true;
     }
 }

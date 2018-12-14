@@ -129,7 +129,7 @@ public:
     static double calculateMargin(std::vector<std::vector<double>> marginPoints);
 
     static double
-    calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell, std::vector<std::vector<double>> marginPoints);
+    calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell);
 
     /**
     * @brief   Calculates and sets the midpoint between two (or one) adjacent neighbours and the center cell (Voronoi node)

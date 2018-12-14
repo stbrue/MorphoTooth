@@ -19,7 +19,6 @@ const int Z = 2;
 
 const int first = 0;
 const int second = 1;
-const int third = 2;
 
 const double half = 0.5;
 

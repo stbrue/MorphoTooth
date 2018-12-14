@@ -121,7 +121,7 @@ void Geometrics::calculatePerimeterAndArea(Cell (&cells)[maxNrOfCells], Paramete
         if (cells[cell].getMarginPoints().size() == 2) {
             margin = Geometrics::calculateMargin(cells[cell].getMarginPoints());
             cells[cell].setMargin(margin);
-            marginArea = Geometrics::calculateMarginArea(cells, cell, cells[cell].getMarginPoints());
+            marginArea = Geometrics::calculateMarginArea(cells, cell);
             cells[cell].setMarginArea(marginArea);
         } else if (cells[cell].getMarginPoints().size() == 1) {
             std::cout << "There is only one margin point" << std::endl;
@@ -189,7 +189,7 @@ double Geometrics::calculateMargin(std::vector<std::vector<double>> marginPoints
 }
 
 double
-Geometrics::calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell, std::vector<std::vector<double>> marginPoints) {
+Geometrics::calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell) {
     double dx1 = cells[cell].getMarginPoints()[first][X] - cells[cell].getX();
     double dx2 = cells[cell].getMarginPoints()[second][X] - cells[cell].getX();
     double dy1 = cells[cell].getMarginPoints()[first][Y] - cells[cell].getY();
@@ -271,8 +271,6 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
         cells[centreCell].newMarginPoint(x, y, z);
         return;
     }
-
-    return;
 }
 
 void Geometrics::setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params) {

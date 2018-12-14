@@ -17,13 +17,7 @@
  */
 class Initial {
 
-private:
-    static const int distanceBetweenCells = 1;
-
-
 public:
-    int getTotalNumberOfCells(int initialRadius);
-
     /**
     * @brief   Calculates how many cells are "in simulation" (have a closed neighbour sequence)
     * @param   initialRadius

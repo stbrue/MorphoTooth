@@ -35,7 +35,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < params.maxNrOfIterations + 1; ++step) {
-        Model::iterationStep(cells, params, step);
+        Model::iterationStep(cells, params);
 
         //Abort the loop if there is an error
         if (params.error) {

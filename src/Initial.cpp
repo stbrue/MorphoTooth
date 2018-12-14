@@ -3,10 +3,7 @@
 //
 
 #include "Initial.h"
-
-#define _USE_MATH_DEFINES
-
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include "Cell.h"
 #include "Parameters.h"
@@ -44,8 +41,6 @@ void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         cells[cell].resetTempCoordinates();
     }
-
-    return;
 }
 
 /**
@@ -63,15 +58,6 @@ bool operator==(const Cell &c1, const Cell &c2) {
     double z2 = std::floor(c2.getZ() * 1000 + 0.5) / 1000;
     return (x1 == x2 && y1 == y2 && z1 == z2);
 }
-
-int Initial::getTotalNumberOfCells(int initialRadius) {
-    int j = 0;
-    for (int i = 1; i <= initialRadius; ++i) {
-        j += i;
-    }
-    return (initialNrOfNeighbours * j + 1);
-}
-
 
 int Initial::getNumberOfInSimulationCells(int initialRadius) {
     int j = 0;
@@ -129,7 +115,7 @@ void Initial::makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int 
         }
 
 
-        if (isAlreadyExisting == false) {
+        if (!isAlreadyExisting) {
             //Create this new cell
             cells[IDNewCell] = tempCell;
             //Declare it as a neighbour

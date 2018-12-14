@@ -15,7 +15,7 @@ public:
 
     static bool NanIsPresent(double x, double y, double z);
 
-    static void iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params, int iteration);
+    static void iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
@@ -23,10 +23,6 @@ public:
      * @param   cells   vector containing all cells
      * @param   parameters  struct containing all parameters
      */
-
-    static bool testPositions(Cell cells[maxNrOfCells]);
-
-
     static void diffusion(Cell (&cells)[maxNrOfCells], Parameters &parameters);
 
     /**
@@ -119,14 +115,6 @@ public:
     static void Sec1ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
 
     /**
-     * @brief   Sec2 is produced proportionally to Act concentration minus inhibition by Sec1 and minus degradation
-     * @param   cells   vector containing all cells
-     * @param   params  struct containing all parameters
-     * @param   cell    ID of cell in question
-     */
-    static void Sec2ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &params, int cell);
-
-    /**
      * @brief   If a center cell deviates too much in buccal or lingual direction (y), then its Act concentration is set to a certain value
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
@@ -208,7 +196,7 @@ public:
     static void setMeanProteinConcentrations(int M1, int M2, Cell &newCell, Cell (&cells)[maxNrOfCells],
                                              Parameters &params);
 
-    static void defineIfNewCellInCentre(int N1, int N2, Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params);
+    static void defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params);
 
     static void errorTesting(Cell cells[maxNrOfCells], Parameters &params);
 
