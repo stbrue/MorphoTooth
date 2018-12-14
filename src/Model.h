@@ -220,6 +220,8 @@ public:
     static void newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     static void downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double xShift, double yShift, int cell);
+
+    static void printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters params);
 };
 
 

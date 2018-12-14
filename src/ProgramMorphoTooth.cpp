@@ -64,6 +64,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
+            Model::printMaximumNrOfNeighbours(cells, params);
             std::cout.flush();
         }
 

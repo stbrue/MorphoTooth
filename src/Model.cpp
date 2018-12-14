@@ -54,6 +54,7 @@ void Model::errorTesting(Cell *cells, Parameters &params) {
             std::cout << "There is a Nan in iteration " << params.currentIteration << std::endl;
         }
     }
+
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {
@@ -1188,4 +1189,17 @@ void Model::downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double x
     cells[cell].addTempY(yShift * epithelialGrowth);
     cells[cell].addTempZ(params.dgr * epithelialGrowth);
 
+}
+
+void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters params) {
+    // print the nr of neighbours of the cell with the most neighbours
+    int maxNrOfNeighboursPresent = 0;
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        int nrOfNeighbours = cells[cell].getNrOfNeighbours();
+        if (nrOfNeighbours > maxNrOfNeighboursPresent) {
+            maxNrOfNeighboursPresent = nrOfNeighbours;
+        }
+    }
+    std::cout << "Maximum Nr of neighbours: " << maxNrOfNeighboursPresent << std::endl;
+    std::cout.flush();
 }
