@@ -49,7 +49,7 @@ private:
     /**
      * This are the distances the cell has to its neighbours when it (or a new neighbour) is inserted into the grid
      */
-    std::vector<double> originalDistances;
+    double originalDistances[maxNrOfNeighbours];
 
     /**
      * The ID of a cell is identical with their index in the vector containing all cells
@@ -165,7 +165,7 @@ public:
 
     double getTempZ() const;
 
-    const std::vector<double> &getOriginalDistances() const;
+    double *getOriginalDistances();
 
     int getID() const;
 
@@ -362,7 +362,8 @@ inline double Cell::getTempZ() const {
     return tempZ;
 }
 
-inline const std::vector<double> &Cell::getOriginalDistances() const {
+inline double *Cell::getOriginalDistances() {
+    double *originalDistances = Cell::originalDistances;
     return originalDistances;
 }
 
@@ -600,7 +601,25 @@ inline void Cell::multiplyTempZ(double tempZ) {
 }
 
 inline void Cell::addOriginalDistance(double distance, int position) {
-    Cell::originalDistances.insert(Cell::originalDistances.begin() + position, distance);
+    int tempArray[maxNrOfNeighbours];
+
+    // write all values of the array before "position" into tempArray
+    for (int index = 0; index < position; ++index) {
+        tempArray[index] = Cell::originalDistances[index];
+    }
+
+    // write all remaining values from the array one position later into tempArray
+    for (int index = position; index < maxNrOfNeighbours -
+                                       1; ++index) { // -1 because we have [position + 1]
+        tempArray[index + 1] = Cell::originalDistances[index];
+    }
+    // replace the value at "position" with the new value
+    tempArray[position] = distance;
+
+    // replace the array with the tempArray
+    for (int index = 0; index < maxNrOfNeighbours; ++index) {
+        Cell::originalDistances[index] = tempArray[index];
+    }
 }
 
 inline void Cell::replaceOriginalDistance(double distance, int position) {

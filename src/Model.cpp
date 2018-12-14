@@ -44,6 +44,12 @@ bool Model::NanIsPresent(double x, double y, double z) {
 }
 
 void Model::errorTesting(Cell *cells, Parameters &params) {
+    if (params.nrCellsInSimulation > maxNrOfCells){
+        params.error = true;
+        std::cout << "There are too many cells in the simulation" << std::endl;
+        std::cout.flush();
+    }
+
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         double x = cells[cell].getX();
         double y = cells[cell].getY();
@@ -1191,7 +1197,7 @@ void Model::downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double x
 
 }
 
-void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters &params) {
     // print the nr of neighbours of the cell with the most neighbours
     int maxNrOfNeighboursPresent = 0;
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
@@ -1202,4 +1208,8 @@ void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters p
     }
     std::cout << "Maximum Nr of neighbours: " << maxNrOfNeighboursPresent << std::endl;
     std::cout.flush();
+
+    if (maxNrOfNeighboursPresent > maxNrOfNeighbours){
+        params.error = true;
+    }
 }
