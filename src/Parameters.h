@@ -213,6 +213,10 @@ public:
     double valueOfParameterToChange;
 
     int newInhAndSecProduction;
+
+    int parameterWithNoise;
+
+    double sdPercentage;
 };
 
 

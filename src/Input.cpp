@@ -31,7 +31,7 @@ Parameters Input::setParameters(std::string InputFileName) {
 
     // Read in values from inputFile
 
-    double parameter[41] = {0};
+    double parameter[43] = {0};
 
     std::string line;
     int counter = 0;
@@ -93,6 +93,8 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.totalPlusMinusScope = parameter[38];
     params.percentageSteps = parameter[39];
     params.newInhAndSecProduction = static_cast<int>(parameter[40]);
+    params.parameterWithNoise = static_cast<int>(parameter[41]);
+    params.sdPercentage = parameter[42];
 
     params.valueOfParameterToChange = parameter[params.parameterToChange];
     //params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
@@ -224,4 +226,35 @@ int Input::defineNrOfParametersToChange() {
         std::cout << "Unable to open file";
     }
     return counter;
+}
+
+double Input::getParameterAffectedByNoise(Parameters &params) {
+    // The parameterWithNoise'th line of the file holds the value of the parameter
+    // Read in the File
+    std::string lineTemp;
+    int counter = 0;
+    double parameterAffectedByNoiseValue;
+
+    std::ifstream InputFile("InputFile.txt");
+
+    // Read in the file and return the value of the parameterWithNoise'th line
+    if (InputFile.is_open()) {
+        while (getline(InputFile, lineTemp)) {
+            if (counter == params.parameterWithNoise) {
+                parameterAffectedByNoiseValue = std::stod(lineTemp);
+                InputFile.close();
+                return parameterAffectedByNoiseValue;
+            }
+            counter += 1;
+        }
+        InputFile.close();
+        std::cout << "ParameterWithNoise was not found." << std::endl;
+        params.error = true;
+        return 2;
+    } else {
+        std::cout << "Unable to open file";
+        params.error = true;
+        return 1;
+    }
+
 }

@@ -9,9 +9,11 @@
 #include "Geometrics.h"
 #include "Parameters.h"
 #include "consts.h"
+#include "Noise.h"
 
 
 void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
+    Noise::addNoiseToParameter(params);
     Model::diffusion(cells, params);
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);

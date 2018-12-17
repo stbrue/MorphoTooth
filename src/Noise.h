@@ -6,8 +6,15 @@
 #define MORPHOTOOTH_NOISE_H
 
 
-class Noise {
+#include "Parameters.h"
 
+class Noise {
+public:
+    static void addNoiseToParameter(Parameters &params);
+
+    static double generateNoiseValue(double mean, double sd);
+
+    static void addToParameter(int parameterIndex, Parameters &params, double value);
 };
 
 

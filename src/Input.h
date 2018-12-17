@@ -29,6 +29,8 @@ public:
 
     static int defineNrOfParametersToChange();
 
+    static double getParameterAffectedByNoise(Parameters &params);
+
 
 };
 
