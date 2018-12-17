@@ -12,19 +12,12 @@
 #include "Model.h"
 #include "Parameters.h"
 #include "consts.h"
+#include "Print.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params) {
 
     //Print information that program is started with value of parameter to change
-    std::cout << "###########################################################" << std::endl;
-    std::cout << "# Starting Simulation with parameter to change " << params.parameterToChange << ": "
-              << params.valueOfParameterToChange << " #" << std::endl;
-    std::cout << "###########################################################" << std::endl;
-    std::cout.flush();
-
-    // Make an array holding maxNrOfCells objects of Cell
-    //Allocate memory
-    //Object2 *cells = static_cast<CellsPointer *>(::operator new(sizeof(CellsPointer) * maxNrOfCells));
+    Print::printStartOfSimulation(params);
 
     //Vector containing all cells
     Cell cells[maxNrOfCells];
@@ -80,6 +73,8 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     Output::ROutput(cells, params);
     Output::geomorphLinkOutput(cells, params);
     //Output::XYZOutputSimple(cells, params);
+
+    Print::printEndOfSimulation();
 
 }
 
