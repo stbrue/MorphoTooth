@@ -19,11 +19,19 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.nrOfConditions = 1;
     params.powerOfRep = 8;
     params.initialRadius = 2;
-    params.round4 = 1000;
+    params.round1 = 1.00e-15;
+    params.round2 = 1.00e-8;
+    params.round3 = 1.00e+6;
+    params.nrOfProteins = 3;
+    params.firstX = 0;
+    params.firstY = 0;
+    params.firstZ = 1;
+    params.outputPrecision = 12;
+
 
     // Read in values from inputFile
 
-    double parameter[48] = {0};
+    double parameter[41] = {0};
 
     std::string line;
     int counter = 0;
@@ -81,18 +89,10 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.maxCellDivisionCount = static_cast<int>(parameter[34]);
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
-    params.outputPrecision = static_cast<int>(parameter[37]);
-    params.round1 = parameter[38];
-    params.round2 = parameter[39];
-    params.round3 = parameter[40];
-    params.nrOfProteins = static_cast<int>(parameter[41]);
-    params.firstX = parameter[42];
-    params.firstY = parameter[43];
-    params.firstZ = parameter[44];
-    params.parameterToChange = static_cast<int>(parameter[45]);
-    params.totalPlusMinusScope = parameter[46];
-    params.percentageSteps = parameter[47];
-    params.newInhAndSecProduction = static_cast<int>(parameter[48]);
+    params.parameterToChange = static_cast<int>(parameter[37]);
+    params.totalPlusMinusScope = parameter[38];
+    params.percentageSteps = parameter[39];
+    params.newInhAndSecProduction = static_cast<int>(parameter[40]);
 
     params.valueOfParameterToChange = parameter[params.parameterToChange];
     //params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
@@ -137,43 +137,6 @@ void Input::changeInputFileTemp(Parameters params, double newValue) {
 
 }
 
-/*void Input::changeInputFileTemp(Parameters params, int newValue) {
-    // Delete old InputFileTemp
-    remove("InputFileTemp.txt");
-
-    // Read in the InputFile
-    std::string lineTemp;
-    int counter = 0;
-
-    std::ifstream InputFile("InputFile.txt");
-    std::ofstream InputFileout("InputFileout.txt");
-
-    // Convert the newValue into a string
-    std::ostringstream newValueS;
-    newValueS << newValue;
-    std::string newValueString = newValueS.str();
-
-    // Read in the file and write each line (possibly changed) into the InputFileout
-    if (InputFile.is_open() && InputFileout.is_open()) {
-        while (getline(InputFile, lineTemp)) {
-            if (counter == params.parameterToChange) {
-                lineTemp = newValueString;
-            }
-            counter += 1;
-            lineTemp += "\n";
-            InputFileout << lineTemp;
-        }
-        InputFile.close();
-        InputFileout.close();
-    } else {
-        std::cout << "Unable to open file";
-    }
-
-    //Rename the InputFileout IntputFileTemp
-    rename("InputFileout.txt", "InputFileTemp.txt");
-
-}*/
-
 void Input::changeInputFile(int nrOfParameter) {
     // Read in "ParametersToChange.txt" to know the parameterToChange
     std::string line;
@@ -199,7 +162,7 @@ void Input::changeInputFile(int nrOfParameter) {
     // Read in the InputFile to change the parameter "parameterToChange"
     std::string lineTemp;
     counter = 0;
-    int lineOfParameterToChange = 45; // The parameter "parameterToChange" is on the 47th line of the inputFile
+    int lineOfParameterToChange = 37; // The parameter "parameterToChange" is on the 37th line of the inputFile
 
     std::ifstream InputFile("InputFile.txt");
     std::ofstream InputFileout("InputFileout.txt");

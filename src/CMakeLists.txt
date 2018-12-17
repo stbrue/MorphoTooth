@@ -13,7 +13,7 @@ set(SOURCE_FILES
         Initial.cpp
         Model.cpp
         Output.cpp
-        Input.cpp Input.h consts.h ProgramMorphoTooth.cpp ProgramMorphoTooth.h)
+        Input.cpp Input.h consts.h ProgramMorphoTooth.cpp ProgramMorphoTooth.h Noise.cpp Noise.h)
 
 
 add_library(${CMAKE_PROJECT_NAME}_lib STATIC

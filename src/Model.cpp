@@ -1025,7 +1025,7 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
     std::vector<std::vector<int>> motherCells = Model::searchMotherCells(cells, params);
 
     // for all pairs, create a new cell between them and update the neighbour relationships
-    for (auto pair : motherCells){
+    for (auto pair : motherCells) {
         int M1 = pair[first];               // Mother Cell 1
         int M2 = pair[second];              // Mother Cell 2
 
@@ -1085,7 +1085,8 @@ Model::calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &pa
             //We have to know which position newCell has in the neighbour list of the old cell
             int positionOfNewCell;
             int *neighboursOfOldCell = cells[oldCell].getNeighbours();
-            for (int neighbourOfOldCell = 0; neighbourOfOldCell < cells[oldCell].getNrOfNeighbours(); ++neighbourOfOldCell) {
+            for (int neighbourOfOldCell = 0;
+                 neighbourOfOldCell < cells[oldCell].getNrOfNeighbours(); ++neighbourOfOldCell) {
                 if (neighboursOfOldCell[neighbourOfOldCell] == newCell.getID()) {
                     positionOfNewCell = neighbourOfOldCell;
                     break;
@@ -1195,21 +1196,4 @@ void Model::downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double x
     cells[cell].addTempY(yShift * epithelialGrowth);
     cells[cell].addTempZ(params.dgr * epithelialGrowth);
 
-}
-
-void Model::printMaximumNrOfNeighbours(Cell (&cells)[maxNrOfCells], Parameters &params) {
-    // print the nr of neighbours of the cell with the most neighbours
-    int maxNrOfNeighboursPresent = 0;
-    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        int nrOfNeighbours = cells[cell].getNrOfNeighbours();
-        if (nrOfNeighbours > maxNrOfNeighboursPresent) {
-            maxNrOfNeighboursPresent = nrOfNeighbours;
-        }
-    }
-    std::cout << "Maximum Nr of neighbours: " << maxNrOfNeighboursPresent << std::endl;
-    std::cout.flush();
-
-    if (maxNrOfNeighboursPresent > maxNrOfNeighbours) {
-        params.error = true;
-    }
 }

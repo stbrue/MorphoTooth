@@ -6,7 +6,7 @@
 
 int main() {
     //Make instance of Parameters by reading in the parameters from input file
-    Parameters paramsInitial = Input::setParameters("InputFile.txt");
+    //Parameters paramsInitial = Input::setParameters("InputFile.txt");
 
     //Define the number of parameters to change
     int nrOfParameterToChange = Input::defineNrOfParametersToChange();
