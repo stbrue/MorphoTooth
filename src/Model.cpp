@@ -45,7 +45,7 @@ bool Model::NanIsPresent(double x, double y, double z) {
     return false;
 }
 
-void Model::errorTesting(Cell *cells, Parameters &params) {
+bool Model::errorTesting(Cell *cells, Parameters &params) {
     if (params.nrCellsInSimulation > maxNrOfCells) {
         params.error = true;
         std::cout << "There are too many cells in the simulation" << std::endl;
@@ -63,6 +63,25 @@ void Model::errorTesting(Cell *cells, Parameters &params) {
         }
     }
 
+    if (params.error){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+bool Model::endOfSimulation(Parameters &params, int iterationStep) {
+    if (params.cellDivisionCount >= params.maxCellDivisionCount) {
+        std::cout << "The simulation was was stopped because this was cell division number "
+                  << params.cellDivisionCount
+                  << std::endl;
+        std::cout << "This was at iteration " << iterationStep << std::endl;
+        return true;
+    }
+
+    if (params.currentIteration == params.maxNrOfIterations) {
+    }
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {

@@ -31,23 +31,16 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         Model::iterationStep(cells, params);
 
         //Abort the loop if there is an error
-        if (params.error) {
+        if (Model::errorTesting(cells, params)) {
             std::cout << "The simulation was stopped because there was an error at iteration: " << step << std::endl;
             break;
         }
 
-        if (params.cellDivisionCount >= params.maxCellDivisionCount) {
-            std::cout << "The simulation was was stopped because this was cell division number "
-                      << params.cellDivisionCount
-                      << std::endl;
-            std::cout << "This was at iteration " << step << std::endl;
+        //Abort the loop if one of the end-determing variables reaches its maximum (number of cell divisions or iteration)
+        if (Model::endOfSimulation(params, step)){
             break;
         }
-
-        if (params.currentIteration == params.maxNrOfIterations) {
-            break;
-        }
-
+        
         //For debugging
         if (params.currentIteration == 1156) {
             int a = 0;
