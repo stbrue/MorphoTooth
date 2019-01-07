@@ -8,6 +8,11 @@
 #include "Input.h"
 
 void Noise::addNoiseToParameter(Parameters &params) {
+    // If the noise parameter is set to 0, no noise is calculated
+    if (params.parameterWithNoise == 0) {
+        return;
+    }
+
     // Get the value of the parameter that gets noise
     double valueOfParameterAffectedByNoise = Input::getParameterAffectedByNoise(params);
 

@@ -16,8 +16,8 @@ void Print::printStartOfSimulation(Parameters params) {
 }
 
 void Print::printParameterToChange(Parameters params) {
-    // Print only if the parameter gets changed (if there are more than one condition)
-    if (params.nrOfConditions > 1) {
+    // Print only if the parameter gets changed
+    if (params.totalPlusMinusScope > 0) {
         std::cout << "###########################################################" << std::endl;
         std::cout << "# Parameter to change " << params.parameterToChange << ": "
                   << params.valueOfParameterToChange << " #" << std::endl;
@@ -27,8 +27,8 @@ void Print::printParameterToChange(Parameters params) {
 }
 
 void Print::printParameterWithNoise(Parameters params) {
-    // Print only if a parameter has noise (if the standard deviation is > 0)
-    if (params.sdPercentage > 0) {
+    // Print only if a parameter has noise
+    if (params.parameterWithNoise > 0) {
         std::cout << "#############################################################" << std::endl;
         std::cout << "# Parameter with Noise: " << params.parameterWithNoise << " #" << std::endl;
         std::cout << "#############################################################" << std::endl;
