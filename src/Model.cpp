@@ -63,11 +63,7 @@ bool Model::errorTesting(Cell *cells, Parameters &params) {
         }
     }
 
-    if (params.error){
-        return true;
-    } else {
-        return false;
-    }
+    return params.error;
 
 }
 
@@ -81,7 +77,9 @@ bool Model::endOfSimulation(Parameters &params, int iterationStep) {
     }
 
     if (params.currentIteration == params.maxNrOfIterations) {
+        return true;
     }
+    return false;
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {

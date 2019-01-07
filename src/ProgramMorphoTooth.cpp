@@ -36,11 +36,11 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
             break;
         }
 
-        //Abort the loop if one of the end-determing variables reaches its maximum (number of cell divisions or iteration)
-        if (Model::endOfSimulation(params, step)){
+        //Abort the loop if one of the end-determining variables reaches its maximum (number of cell divisions or iteration)
+        if (Model::endOfSimulation(params, step)) {
             break;
         }
-        
+
         //For debugging
         if (params.currentIteration == 1156) {
             int a = 0;
