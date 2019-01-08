@@ -186,7 +186,7 @@ public:
 
     static void cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static std::vector<std::vector<int>> searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params);
+    static std::vector<int> searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     static std::vector<int> findCommonNeighbours(int M1, int M2, Cell (&cells)[maxNrOfCells], Parameters &params);
 

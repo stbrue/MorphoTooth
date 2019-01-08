@@ -42,9 +42,12 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 2225) {
-            int a = 0;
+        if (params.currentIteration == 1165 || params.currentIteration == 1600 || params.currentIteration == 1639 ||
+            params.currentIteration == 1644) {
+            Output::ROutput(cells, params);
+            Output::geomorphLinkOutput(cells, params);
         }
+
 
         //Print every 1000 iteration the count
         if (step % params.printInterval == 0) {

@@ -68,14 +68,15 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     // File name
     std::stringstream stringstream;
     std::string fileName;
-    
+
     mkdir("./Outputfiles");
 
     std::string path = "./Outputfiles/";
     std::string name = "ToothBig";
     std::string file = ".txt";
 
-    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << file;
+    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
+                 << params.currentIteration << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
@@ -162,7 +163,8 @@ void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) 
     std::string name = "Link";
     std::string file = ".txt";
 
-    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << file;
+    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
+                 << params.currentIteration << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);

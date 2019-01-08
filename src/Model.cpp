@@ -903,8 +903,8 @@ void Model::Sec1ReactionAndDegradation(Cell (&cells)[maxNrOfCells], Parameters &
     cells[cell].addTempConcentration(3, 0, newConcentration);
 }*/
 
-std::vector<std::vector<int>> Model::searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params) {
-    std::vector<std::vector<int>> motherCells;
+std::vector<int> Model::searchMotherCells(Cell (&cells)[maxNrOfCells], Parameters &params) {
+
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
@@ -913,15 +913,20 @@ std::vector<std::vector<int>> Model::searchMotherCells(Cell (&cells)[maxNrOfCell
                 double distance = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 //if distance >2 and cell has to be smaller than the neighbour (in that way we look at each pair of cells only once)
                 if (distance >= params.distanceCellDivision && cell < neighbourID) {
-                    std::vector<int> pair = {cell, neighbourID};
-                    motherCells.push_back(pair);
+                    std::vector<int> motherCells;
+                    motherCells.push_back(cell);
+                    motherCells.push_back(neighbourID);
                     //std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
                     //std::cout.flush();
                     params.cellDivisionCount += 1;
+                    // If a pair is found, return it instantly
+                    return motherCells;
                 }
             }
         }
     }
+    // if no pair is found, return a vector (0,0)
+    std::vector<int> motherCells = {0, 0};
     return motherCells;
 }
 
@@ -1040,49 +1045,57 @@ void Model::defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[maxNrOfCells], 
 }
 
 void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
-    //Check if two neighbouring cells are too far away (>distanceCellDivision) and write the pair into vector motherCells
-    std::vector<std::vector<int>> motherCells = Model::searchMotherCells(cells, params);
+    while (true) {
+        //Check if two neighbouring cells are too far away (>distanceCellDivision) and write the pair into vector motherCells
+        std::vector<int> motherCells = Model::searchMotherCells(cells, params);
 
-    // for all pairs, create a new cell between them and update the neighbour relationships
-    for (auto pair : motherCells) {
-        int M1 = pair[first];               // Mother Cell 1
-        int M2 = pair[second];              // Mother Cell 2
+        // If the vector is (0,0), there is no more pair of mother cells found -> return
+        // else, do insert a new cell between these two mother cells
+        if (motherCells[first] == 0 && motherCells[second] == 0) {
+            return;
+        } else {
+            // Print that there is a cell division
+            std::cout << "new cell: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "at iteration: " << params.currentIteration << std::endl;
 
-        //Find common neighbours of both mother cells
-        int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[first];         // Common neighbour 1
-        int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[second];         // Common neighbour 2
+            int M1 = motherCells[first];               // Mother Cell 1
+            int M2 = motherCells[second];              // Mother Cell 2
 
-        // Calculate the position of the new cell (between the mother cells)
-        double numberOfMothercells = 2;
-        double newX = (cells[M1].getX() + cells[M2].getX()) / numberOfMothercells;
-        double newY = (cells[M1].getY() + cells[M2].getY()) / numberOfMothercells;
-        double newZ = (cells[M1].getZ() + cells[M2].getZ()) / numberOfMothercells;
+            //Find common neighbours of both mother cells
+            int N1 = Model::findCommonNeighbours(M1, M2, cells, params)[first];         // Common neighbour 1
+            int N2 = Model::findCommonNeighbours(M1, M2, cells, params)[second];         // Common neighbour 2
 
-        // Create the instance of the new cell
-        Cell newCell;
-        newCell.setX(newX);
-        newCell.setY(newY);
-        newCell.setZ(newZ);
-        newCell.setID(params.nrCellsInSimulation);
-        std::cout << "new cell: " << params.nrCellsInSimulation << std::endl;
-        params.nrCellsInSimulation += 1;
-        //The new cell is anyway not a knot cell (set in the constructor)
-        //The new cell is also in Simulation
-        newCell.setInSimulation(true);
-        //The new cell has the mean of the mother cell's protein concentrations
-        Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
-        // Update the neighbour relationships
-        Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
-        //The new cell is in centre if it has no neighbours that are out of simulation
-        Model::defineIfNewCellInCentre(newCell, cells, params);
+            // Calculate the position of the new cell (between the mother cells)
+            double numberOfMothercells = 2;
+            double newX = (cells[M1].getX() + cells[M2].getX()) / numberOfMothercells;
+            double newY = (cells[M1].getY() + cells[M2].getY()) / numberOfMothercells;
+            double newZ = (cells[M1].getZ() + cells[M2].getZ()) / numberOfMothercells;
 
-        //Insert the new cell into the cells array (no problem for next new cells, because it is inserted at the end of
-        // in-simulation-cells)
-        cells[params.nrCellsInSimulation - 1] = newCell;
+            // Create the instance of the new cell
+            Cell newCell;
+            newCell.setX(newX);
+            newCell.setY(newY);
+            newCell.setZ(newZ);
+            newCell.setID(params.nrCellsInSimulation);
 
-        //calculate new OriginalDistances
-        Model::calculateNewOriginalDistances(cells, params, newCell, M1, M2, N1, N2);
+            params.nrCellsInSimulation += 1;
+            //The new cell is anyway not a knot cell (set in the constructor)
+            //The new cell is also in Simulation
+            newCell.setInSimulation(true);
+            //The new cell has the mean of the mother cell's protein concentrations
+            Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
+            // Update the neighbour relationships
+            Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
+            //The new cell is in centre if it has no neighbours that are out of simulation
+            Model::defineIfNewCellInCentre(newCell, cells, params);
 
+            //Insert the new cell into the cells array (no problem for next new cells, because it is inserted at the end of
+            // in-simulation-cells)
+            cells[params.nrCellsInSimulation - 1] = newCell;
+
+            //calculate new OriginalDistances
+            Model::calculateNewOriginalDistances(cells, params, newCell, M1, M2, N1, N2);
+        }
     }
 }
 
