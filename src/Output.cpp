@@ -9,6 +9,7 @@
 #include "Parameters.h"
 #include "consts.h"
 #include <sstream>
+#include <io.h>
 
 void Output::initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
@@ -64,8 +65,11 @@ void Output::bigOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
 }
 
 void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+    // File name
     std::stringstream stringstream;
     std::string fileName;
+    
+    mkdir("./Outputfiles");
 
     std::string path = "./Outputfiles/";
     std::string name = "ToothBig";
@@ -75,13 +79,26 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
+
+    // Header
+    outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
+               "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
+               << std::endl;
+
+    outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.parameterToChange
+               << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
+               << params.nrCellsInSimulation << std::endl;
+
+    outputFile << std::endl;
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
                << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
-               << "EK" << "\t" << "TotalIterations" << std::endl;
+               << "EK" << "\t" << std::endl;
 
+
+    // Body
     int groupCount = 0;
 
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
@@ -96,7 +113,7 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
                            << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[cell].getDiffState() << "\t"
-                           << cells[cell].isKnotCell() << "\t" << params.currentIteration
+                           << cells[cell].isKnotCell()
                            << std::endl;
                 outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
                            << cells[IDofN].getZ() << "\t" << groupCount << "\t"
@@ -104,7 +121,7 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
                            << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[IDofN].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[IDofN].getDiffState()
-                           << "\t" << cells[IDofN].isKnotCell() << "\t" << params.currentIteration
+                           << "\t" << cells[IDofN].isKnotCell()
                            << std::endl;
                 groupCount += 1;
             }

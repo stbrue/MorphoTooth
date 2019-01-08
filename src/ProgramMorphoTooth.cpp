@@ -42,7 +42,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 1156) {
+        if (params.currentIteration == 2225) {
             int a = 0;
         }
 
