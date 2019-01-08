@@ -33,6 +33,8 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         //Abort the loop if there is an error
         if (Model::errorTesting(cells, params)) {
             std::cout << "The simulation was stopped because there was an error at iteration: " << step << std::endl;
+            Output::ROutput(cells, params);
+            Output::geomorphLinkOutput(cells, params);
             break;
         }
 
@@ -42,8 +44,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 1165 || params.currentIteration == 1600 || params.currentIteration == 1639 ||
-            params.currentIteration == 1644) {
+        if (params.currentIteration == 1643) {
             Output::ROutput(cells, params);
             Output::geomorphLinkOutput(cells, params);
         }
@@ -53,6 +54,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "Number of neighbours: " << cells[0].getNrOfNeighbours() << std::endl;
             std::cout.flush();
         }
 

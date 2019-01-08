@@ -284,7 +284,7 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             // if neighbour is out of simulation (cannot be)
-            if (neighbourID == maxNrOfCells) {
+            if (neighbourID > maxNrOfCells) {
                 std::cout << "Something very strange in Epithelial Proliferation happened 1" << std::endl;
                 params.error = true;
                 continue;
@@ -358,7 +358,7 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             //if neighbour is not in simulation
-            if (neighbourID == maxNrOfCells) {
+            if (neighbourID > maxNrOfCells) {
                 continue;
             }
             bool neighbourIsCenterCell = cells[neighbourID].isInCentre();
@@ -1047,7 +1047,7 @@ void Model::defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[maxNrOfCells], 
     bool isInCentre = true;
     for (int neighbour = 0; neighbour < newCell.getNrOfNeighbours(); ++neighbour) {
         int IDNeighbour = neighbours[neighbour];
-        if (IDNeighbour == maxNrOfCells) {
+        if (IDNeighbour > maxNrOfCells) {
             isInCentre = false;
         }
     }
@@ -1097,6 +1097,9 @@ void Model::cellDivision(Cell (&cells)[maxNrOfCells], Parameters &params) {
             Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
             // Update the neighbour relationships
             Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
+            // Test if a neighbour is multiple times in the neighbour-vector
+            Model::multipleNeighbour(cells, params);
+
             //The new cell is in centre if it has no neighbours that are out of simulation
             Model::defineIfNewCellInCentre(newCell, cells, params);
 
@@ -1239,4 +1242,26 @@ void Model::downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double x
     cells[cell].addTempY(yShift * epithelialGrowth);
     cells[cell].addTempZ(params.dgr * epithelialGrowth);
 
+}
+
+bool Model::multipleNeighbour(Cell (&cells)[maxNrOfCells], Parameters &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        int *neighbours = cells[cell].getNeighbours();
+        for (int neighbour1 = 0; neighbour1 < maxNrOfNeighbours; ++neighbour1) {
+            int lastNeighbour = neighbours[neighbour1];
+            if (lastNeighbour == -1) {
+                continue;
+            }
+            for (int neighbour2 = neighbour1 + 1; neighbour2 < maxNrOfNeighbours; ++neighbour2) {
+                int nextNeighbour = neighbours[neighbour2];
+                if (nextNeighbour == -1) {
+                    continue;
+                }
+                if (lastNeighbour == nextNeighbour) {
+                    std::cout << "There are multiple neighbours with same ID in vector" << std::endl;
+                    params.error = true;
+                }
+            }
+        }
+    }
 }

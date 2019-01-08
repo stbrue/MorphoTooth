@@ -105,7 +105,7 @@ void Initial::makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int 
 
         //check if this neighbour is already an existing cell
         isAlreadyExisting = false;
-        for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        for (int cell = 0; cell < IDNewCell; ++cell) {
             if (cells[cell] == tempCell) {
                 //declare it as a neighbour
                 cells[IDCentreCell].addNeighbour(cell);
@@ -131,17 +131,17 @@ void Initial::labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &pa
         if (cell < params.nrCellsInSimulation) {
             // Label cells within simulation
             cells[cell].setInSimulation(true);
-        } else { // Give all out-of-simulation cells the ID "maxNrOfCells"
-            cells[cell].setID(maxNrOfCells);
+        } else { // Give all out-of-simulation cells an ID higher than "maxNrOfCells"
+            cells[cell].setID(cells[cell].getID() + maxNrOfCells);
         }
 
         //Change the ID of out-of-simulation cells also in neighbour arrays
-        int* neighbours = cells[cell].getNeighbours(); // a pointer to array with neighbours
+        int *neighbours = cells[cell].getNeighbours(); // a pointer to array with neighbours
 
         for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
             int neighbourID = neighbours[neighbour];
             if (neighbourID >= params.nrCellsInSimulation) {
-                cells[cell].replaceNeighbour(neighbourID, maxNrOfCells);
+                cells[cell].replaceNeighbour(neighbourID, neighbourID + maxNrOfCells);
             }
         }
     }

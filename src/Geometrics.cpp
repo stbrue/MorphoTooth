@@ -243,13 +243,13 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     }
 
     //if no neighbour is in simulation, set the border point to 0 (as a marker and placeholder)
-    if (IDn1 == maxNrOfCells && IDn2 == maxNrOfCells) {
+    if (IDn1 > maxNrOfCells && IDn2 > maxNrOfCells) {
         cells[centreCell].newBorderPoint(0, 0, 0);
         return;
     }
 
     //if only the first neighbour is in simulation, take the point between the center cell and the first neighbour
-    if (IDn1 < maxNrOfCells && IDn2 == maxNrOfCells) {
+    if (IDn1 < maxNrOfCells && IDn2 > maxNrOfCells) {
         double nrOfPoints = 2;
         double x = (cells[centreCell].getX() + cells[IDn1].getX()) / nrOfPoints;
         double y = (cells[centreCell].getY() + cells[IDn1].getY()) / nrOfPoints;
@@ -261,7 +261,7 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     }
 
     //if only the second neighbour is in simulation, take the point between the center cell and the second neighbour
-    if (IDn1 == maxNrOfCells && IDn2 < maxNrOfCells) {
+    if (IDn1 > maxNrOfCells && IDn2 < maxNrOfCells) {
         double nrOfPoints = 2;
         double x = (cells[centreCell].getX() + cells[IDn2].getX()) / nrOfPoints;
         double y = (cells[centreCell].getY() + cells[IDn2].getY()) / nrOfPoints;

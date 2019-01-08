@@ -211,6 +211,8 @@ public:
 
     static bool endOfSimulation(Parameters &params, int iterationStep);
 
+    static bool multipleNeighbour(Cell (&cells)[maxNrOfCells], Parameters &params);
+
 };
 
 
