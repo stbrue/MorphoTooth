@@ -49,7 +49,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
 
-        //Print every 1000 iteration the count
+        //Print every 100 iteration the count
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
             std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
@@ -57,12 +57,11 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
 
-        /*//All 1000 iterations do an output
+        //All x iterations do an output
         if (step % params.outputInterval == 0) {
             Output::ROutput(cells, params);
             Output::geomorphLinkOutput(cells, params);
-            Output::XYZOutputSimple(cells, params);
-        }*/
+        }
         params.currentIteration += 1;
     }
 

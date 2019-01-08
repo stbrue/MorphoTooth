@@ -985,7 +985,13 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
 
         // The new cell inherits the higher position. In the extreme case this is the last position (equal to the first)
         if (M1Position > M2Position) {
-            newCellPosition = M1Position;
+            // if M1 is the last neighbour of N1 and M2 the first, insert the new cell at last position -> M1Position + 1
+            if (neighboursOfN1[M1Position + 1] == -1) {
+                newCellPosition = M1Position + 1;
+            } else { // else, insert it at position of M1
+                newCellPosition = M1Position;
+            }
+
         } else if (M1Position < M2Position) {
             newCellPosition = M2Position;
         }
@@ -1004,8 +1010,13 @@ void Model::updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCe
             }
         }
 
+        // if M1 is the last neighbour of N2 and M2 the first, insert the new cell at last position -> M1Position + 1
         if (M1Position > M2Position) {
-            newCellPosition = M1Position;
+            if (neighboursOfN2[M1Position + 1] == -1) {
+                newCellPosition = M1Position + 1;
+            } else { // else, insert it at position of M1
+                newCellPosition = M1Position;
+            }
         } else if (M1Position < M2Position) {
             newCellPosition = M2Position;
         }
