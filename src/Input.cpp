@@ -142,16 +142,26 @@ void Input::changeInputFileTemp(Parameters params, double newValue) {
 void Input::changeInputFile(int nrOfParameter) {
     // Read in "ParametersToChange.txt" to know the parameterToChange
     std::string line;
-    int counter = 0;
+    int counter = 1;
     double parameterToChange = 0;
+    double plusMinusScope = 0;
+    double percentageStep = 0;
+
+    int lineOfParameterToChange = (nrOfParameter * 3) - 2;
+    int lineOfPlusMinusScope = (nrOfParameter * 3) - 1;
+    int lineOfPercentageStep = (nrOfParameter * 3);
 
     std::ifstream ParameterToChangeFile("ParametersToChange.txt");
 
     // Read in the file and save the parameterToChange
     if (ParameterToChangeFile.is_open()) {
         while (getline(ParameterToChangeFile, line)) {
-            if (counter == nrOfParameter) {
+            if (counter == lineOfParameterToChange) {
                 parameterToChange = std::stod(line);
+            } else if (counter == lineOfPlusMinusScope) {
+                plusMinusScope = std::stod(line);
+            } else if (counter == lineOfPercentageStep) {
+                percentageStep = std::stod(line);
                 break;
             }
             counter += 1;
@@ -164,7 +174,9 @@ void Input::changeInputFile(int nrOfParameter) {
     // Read in the InputFile to change the parameter "parameterToChange"
     std::string lineTemp;
     counter = 0;
-    int lineOfParameterToChange = 37; // The parameter "parameterToChange" is on the 37th line of the inputFile
+    int lineOfParameterToChangeInInputFile = 37; // The parameter "parameterToChange" is on the 37th line of the inputFile
+    int lineOfPlusMinusScopeInInputFile = 38;
+    int lineOfPercentageStepInInputFile = 39;
 
     std::ifstream InputFile("InputFile.txt");
     std::ofstream InputFileout("InputFileout.txt");
@@ -174,11 +186,18 @@ void Input::changeInputFile(int nrOfParameter) {
     parameterToChangeS << parameterToChange;
     std::string parameterToChangeString = parameterToChangeS.str();
 
+    std::string plusMinusScopeString = Input::doubleToString(plusMinusScope);
+    std::string percentageStepString = Input::doubleToString(percentageStep);
+
     // Read in the file and write each line (possibly changed) into the InputFileout
     if (InputFile.is_open() && InputFileout.is_open()) {
         while (getline(InputFile, lineTemp)) {
-            if (counter == lineOfParameterToChange) {
+            if (counter == lineOfParameterToChangeInInputFile) {
                 lineTemp = parameterToChangeString;
+            } else if (counter == lineOfPlusMinusScopeInInputFile) {
+                lineTemp = plusMinusScopeString;
+            } else if (counter == lineOfPercentageStepInInputFile) {
+                lineTemp = percentageStepString;
             }
             counter += 1;
             lineTemp += "\n";
@@ -225,7 +244,7 @@ int Input::defineNrOfParametersToChange() {
     } else {
         std::cout << "Unable to open file";
     }
-    return counter;
+    return counter / 3;
 }
 
 double Input::getParameterAffectedByNoise(Parameters &params) {
@@ -257,4 +276,11 @@ double Input::getParameterAffectedByNoise(Parameters &params) {
         return 1;
     }
 
+}
+
+std::string Input::doubleToString(double value) {
+    std::ostringstream strs;
+    strs << value;
+    std::string str = strs.str();
+    return str;
 }

@@ -31,6 +31,8 @@ public:
 
     static double getParameterAffectedByNoise(Parameters &params);
 
+    static std::string doubleToString(double value);
+
 
 };
 

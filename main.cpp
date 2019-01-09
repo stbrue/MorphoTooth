@@ -9,7 +9,7 @@ int main() {
     //Define the number of parameters to change
     int nrOfParameterToChange = Input::defineNrOfParametersToChange();
 
-    for (int parameter = 0; parameter < nrOfParameterToChange; ++parameter) {
+    for (int parameter = 1; parameter <= nrOfParameterToChange; ++parameter) {
         // Set parameterToChange and valueOfParameterToChange in InputFile.txt
         Input::changeInputFile(parameter);
 
