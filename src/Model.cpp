@@ -604,14 +604,19 @@ void Model::nucleusTraction(Cell (&cells)[maxNrOfCells], Parameters &params) {
         } else {
             for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
                 int neighbourID = cells[cell].getNeighbours()[neighbour];
-                bool neighbourIsInCenter = cells[neighbourID].isInCentre();
 
-                //only the neighbours that are within simulation but not in the center are taken into account
-                if (neighbourID < maxNrOfCells && !neighbourIsInCenter) {
-                    numberOfNeighboursInSimulation += 1;
-                    totalX += cells[neighbourID].getX();
-                    totalY += cells[neighbourID].getY();
-                    totalZ += cells[neighbourID].getZ();
+                if (neighbourID > maxNrOfCells) {
+                    continue;
+                } else {
+                    bool neighbourIsInCenter = cells[neighbourID].isInCentre();
+
+                    //only the neighbours that are within simulation but not in the center are taken into account
+                    if (neighbourID < maxNrOfCells && !neighbourIsInCenter) {
+                        numberOfNeighboursInSimulation += 1;
+                        totalX += cells[neighbourID].getX();
+                        totalY += cells[neighbourID].getY();
+                        totalZ += cells[neighbourID].getZ();
+                    }
                 }
             }
         }
