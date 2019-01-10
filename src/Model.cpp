@@ -76,10 +76,7 @@ bool Model::endOfSimulation(Parameters &params, int iterationStep) {
         return true;
     }
 
-    if (params.currentIteration == params.maxNrOfIterations) {
-        return true;
-    }
-    return false;
+    return (params.currentIteration == params.maxNrOfIterations);
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {
@@ -188,7 +185,7 @@ Model::horizontalDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int
                            Parameters &params) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double newConcentration = 0;
-    bool borderDiffusionDone = false;
+    //bool borderDiffusionDone = false;
     for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
         int neighbourID = cells[cell].getNeighbours()[neighbour];
 
@@ -203,7 +200,7 @@ Model::horizontalDiffusion(Cell (&cells)[maxNrOfCells], int cell, int layer, int
         else /*if (borderDiffusionDone == false)*/ {
             double pMargin = cells[cell].getMargin() / totalDiffusionArea;
             sink(cells, cell, layer, protein, pMargin, params);
-            borderDiffusionDone = true;
+            //borderDiffusionDone = true;
         }
     }
 }
@@ -1269,4 +1266,5 @@ bool Model::multipleNeighbour(Cell (&cells)[maxNrOfCells], Parameters &params) {
             }
         }
     }
+    return false;
 }

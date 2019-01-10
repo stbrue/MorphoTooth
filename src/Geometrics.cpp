@@ -107,8 +107,8 @@ void Geometrics::calculatePerimeterAndArea(Cell (&cells)[maxNrOfCells], Paramete
         calculateCellAreaParts(cells, cell, borderPoint1, borderPoint2);
 
         //All other neighbour pairs
-        for (int borderPoint1 = 0; borderPoint1 < (cells[cell].getBorderPoints().size() - 1); ++borderPoint1) {
-            int borderPoint2 = borderPoint1 + 1;
+        for (int unsigned borderPoint1 = 0; borderPoint1 < (cells[cell].getBorderPoints().size() - 1); ++borderPoint1) {
+            int unsigned borderPoint2 = borderPoint1 + 1;
             //Perimeter
             calculatePerimeterParts(cells, cell, borderPoint1, borderPoint2);
             //Cell Area
