@@ -8,6 +8,7 @@
 #include <fstream>
 #include "Parameters.h"
 #include "consts.h"
+#include "Geometrics.h"
 #include <sstream>
 #include <io.h>
 
@@ -181,6 +182,59 @@ void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) 
                 outputFile << cell << "\t" << IDOfN << std::endl;
             }
         }
+    }
+
+    outputFile.close();
+}
+
+void Output::plyOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+    // Do the triangulation
+    std::vector<std::vector<int>> faces;
+    Geometrics::triangulation(cells, params, faces);
+
+    // Open File
+    std::stringstream stringstream;
+    std::string fileName;
+
+    mkdir("./Outputfiles");
+
+    std::string path = "./Outputfiles/";
+    std::string name = "Ply";
+    std::string file = ".ply";
+
+    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
+                 << params.currentIteration << file;
+    fileName = stringstream.str();
+
+    std::ofstream outputFile(path);
+    outputFile.precision(12);
+    outputFile.open(fileName);
+
+    //Header
+    outputFile << "ply" << std::endl;
+    outputFile << "format ascii 1.0" << std::endl;
+    outputFile << "comment this file is a teeth made with MorphoTooth" << std::endl;
+    outputFile << "comment " << "parameterToChange: " << params.parameterToChange << " value of ParameterToChange: "
+               << params.valueOfParameterToChange << std::endl;
+    outputFile << "element vertex " << params.nrCellsInSimulation << std::endl;
+    outputFile << "property float x" << std::endl;
+    outputFile << "property float y" << std::endl;
+    outputFile << "property float z" << std::endl;
+    outputFile << "element face " << faces.size() << std::endl;
+    outputFile << "property list unchar int vertex_indices" << std::endl;
+    outputFile << "end_header" << std::endl;
+
+    // List of X,Y,Z coordinates per line (vertex 0 - vertex n)
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        outputFile << cells[cell].getX() << " " << cells[cell].getY() << " " << cells[cell].getZ() << std::endl;
+    }
+    for (int face = 0; face < faces.size(); ++face) {
+        std::vector<int> currentFace = faces[face];
+        outputFile << currentFace.size();
+        for (int vertex = 0; vertex < currentFace.size(); ++vertex) {
+            outputFile << " " << currentFace[vertex];
+        }
+        outputFile << std::endl;
     }
 
     outputFile.close();

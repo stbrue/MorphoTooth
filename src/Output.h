@@ -25,6 +25,8 @@ public:
 
     static void geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params);
 
+    static void plyOutput(Cell (&cells)[maxNrOfCells], Parameters params);
+
 };
 
 

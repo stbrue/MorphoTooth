@@ -7,6 +7,7 @@
 #include "Geometrics.h"
 #include "Parameters.h"
 #include "consts.h"
+#include "Model.h"
 
 double Geometrics::squareCenterDistance3D(Cell cell1, Cell cell2) {
     double dx = cell2.getX() - cell1.getX();
@@ -279,6 +280,29 @@ void Geometrics::setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parame
 
         for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
             cells[cell].addOriginalDistance(initialDistance, neighbour);
+        }
+    }
+}
+
+void Geometrics::triangulation(Cell (&cells)[maxNrOfCells], Parameters &params, std::vector<std::vector<int>> &faces) {
+    // Loop through all cells and their neighbours and if both have a common neighbour, these three cells form a face
+    for (int cell1 = 0; cell1 < params.nrCellsInSimulation; ++cell1) {
+        int *neighbours = cells[cell1].getNeighbours();
+        int nrOfNeighbours = cells[cell1].getNrOfNeighbours();
+        for (int neighbour = 0; neighbour < nrOfNeighbours; ++neighbour) {
+            int cell2 = neighbours[neighbour];
+            if (cell2 <= cell1 || cell2 > params.nrCellsInSimulation) {
+                continue;
+            }
+            std::vector<int> commonNeighbours = Model::findCommonNeighbours(cell1, cell2, cells, params);
+            for (int commonNeighbour = 0; commonNeighbour < commonNeighbours.size(); ++commonNeighbour) {
+                int cell3 = commonNeighbours[commonNeighbour];
+                if (cell3 <= cell2 || cell3 > params.nrCellsInSimulation) {
+                    continue;
+                }
+                std::vector<int> face = {cell1, cell2, cell3};
+                faces.push_back(face);
+            }
         }
     }
 }

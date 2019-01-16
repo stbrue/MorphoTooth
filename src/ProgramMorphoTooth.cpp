@@ -69,6 +69,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     Output::ROutput(cells, params);
     Output::geomorphLinkOutput(cells, params);
     //Output::XYZOutputSimple(cells, params);
+    Output::plyOutput(cells, params);
 
     Print::printEndOfSimulation();
 

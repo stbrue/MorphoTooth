@@ -141,6 +141,8 @@ public:
     static void setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int neighbour1, int neighbour2);
 
     static void setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params);
+
+    static void triangulation(Cell (&cells)[maxNrOfCells], Parameters &params, std::vector<std::vector<int>> &faces);
 };
 
 
