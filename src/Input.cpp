@@ -8,49 +8,38 @@
 #include <sstream>
 #include <cmath>
 
-Parameters Input::setParameters(std::string InputFileName) {
+Parameters Input::setParametersInitial(std::string InputFileName) {
+    // Set up vector and struct
     Parameters params;
-
-    // Set initial values independent of inputFile
-    params.error = false;
-    params.cellDivisionCount = 0;
-    params.currentIteration = 0;
-    params.dimensions = 3;
-    params.nrOfConditions = 1;
-    params.powerOfRep = 8;
-    params.initialRadius = 2;
-    params.round1 = 1.00e-15;
-    params.round2 = 1.00e-8;
-    params.round3 = 1.00e+6;
-    params.nrOfProteins = 3;
-    params.firstX = 0;
-    params.firstY = 0;
-    params.firstZ = 1;
-    params.outputPrecision = 12;
-
+    double parameter[60] = {0};
 
     // Read in values from inputFile
-
-    double parameter[43] = {0};
-
     std::string line;
     int counter = 0;
 
     std::ifstream InputFile(InputFileName);
+    std::string delimiter = ":";
+
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
-            parameter[counter] = std::stod(line);
-            counter += 1;
+            if (line.length() > 0) {
+                std::string token = line.substr(line.find(delimiter) + 1, line.length());
+                parameter[counter] = std::stod(token);
+                counter += 1;
+            } else {
+                std::cout << "There was an empty line in InputFile.txt at line " << counter << std::endl;
+                std::cout << "Therefore the reading in was stopped" << std::endl;
+                break;
+            }
         }
         InputFile.close();
     } else {
-        std::cout << "Unable to open file";
+        std::cout << "Unable to open file" << std::endl;
     }
-
-    parameter[0] = 0;
 
     // Initialize parameters with values from the file
     //Model parameters
+    params.initialRadius = parameter[0];
     params.distanceCellDivision = parameter[1];
     params.EKThreshold = parameter[2];
     params.repDistance = parameter[3];
@@ -89,28 +78,180 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.maxCellDivisionCount = static_cast<int>(parameter[34]);
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
-    params.parameterToChange = static_cast<int>(parameter[37]);
-    params.totalPlusMinusScope = parameter[38];
-    params.percentageSteps = parameter[39];
-    params.newInhAndSecProduction = static_cast<int>(parameter[40]);
-    params.parameterWithNoise = static_cast<int>(parameter[41]);
-    params.sdPercentage = parameter[42];
+    params.outputPrecision = static_cast<int>(parameter[37]);
+    params.newInhAndSecProduction = static_cast<int>(parameter[38]);
+    params.parameterWithNoise = static_cast<int>(parameter[39]);
+    params.sdPercentage = parameter[40];
 
+    // Manage the parameters to change
+    params.nrOfParametersToChange = static_cast<int>(parameter[41]);
+    int indexOfParameter = 42;
+    for (int parameterToChange = 0; parameterToChange < params.nrOfParametersToChange; ++parameterToChange) {
+        double dParameterToChange = parameter[indexOfParameter];
+        double totalPlusMinusScope = parameter[indexOfParameter + 1];
+        double percentageSteps = parameter[indexOfParameter + 2];
+        double valueOfParameterToChange = parameter[static_cast<int>(dParameterToChange)];
+        indexOfParameter += 3;
+
+        std::vector<double> currentValuesOfParameterToChange = {dParameterToChange, totalPlusMinusScope,
+                                                                percentageSteps, valueOfParameterToChange};
+        params.parameterToChangeValues.push_back(currentValuesOfParameterToChange);
+    }
+
+    return params;
+}
+
+void Input::createInputFileTemp(int parameter, Parameters params) {
+    std::ofstream InputFileTemp("InputFileTemp.txt");
+    std::string line;
+
+    if (InputFileTemp.is_open()) {
+        InputFileTemp << params.initialRadius << "\n";
+        InputFileTemp << params.distanceCellDivision << "\n";
+        InputFileTemp << params.EKThreshold << "\n";
+        InputFileTemp << params.repDistance << "\n";
+        InputFileTemp << params.zDiff << "\n";
+        InputFileTemp << params.sinkAmount << "\n";
+        InputFileTemp << params.ActDiffusion << "\n";
+        InputFileTemp << params.InhDiffusion << "\n";
+        InputFileTemp << params.Sec1Diffusion << "\n";
+        InputFileTemp << params.Sec2Diffusion << "\n";
+        InputFileTemp << params.delta << "\n";
+        InputFileTemp << params.act << "\n";
+        InputFileTemp << params.inh << "\n";
+        InputFileTemp << params.mu << "\n";
+        InputFileTemp << params.inT << "\n";
+        InputFileTemp << params.set << "\n";
+        InputFileTemp << params.sec << "\n";
+        InputFileTemp << params.sec2Inhibition << "\n";
+        InputFileTemp << params.lbi << "\n";
+        InputFileTemp << params.bbi << "\n";
+        InputFileTemp << params.swi << "\n";
+        InputFileTemp << params.dff << "\n";
+        InputFileTemp << params.egr << "\n";
+        InputFileTemp << params.mgr << "\n";
+        InputFileTemp << params.dgr << "\n";
+        InputFileTemp << params.boy << "\n";
+        InputFileTemp << params.rep << "\n";
+        InputFileTemp << params.adh << "\n";
+        InputFileTemp << params.ntr << "\n";
+        InputFileTemp << params.bwi << "\n";
+        InputFileTemp << params.abi << "\n";
+        InputFileTemp << params.pbi << "\n";
+        InputFileTemp << params.bgr << "\n";
+        InputFileTemp << params.maxNrOfIterations << "\n";
+        InputFileTemp << params.maxCellDivisionCount << "\n";
+        InputFileTemp << params.outputInterval << "\n";
+        InputFileTemp << params.printInterval << "\n";
+        InputFileTemp << params.outputPrecision << "\n";
+        InputFileTemp << params.newInhAndSecProduction << "\n";
+        InputFileTemp << params.parameterWithNoise << "\n";
+        InputFileTemp << params.sdPercentage << "\n";
+        InputFileTemp << params.parameterToChangeValues[parameter][0] << "\n";
+        InputFileTemp << params.parameterToChangeValues[parameter][1] << "\n";
+        InputFileTemp << params.parameterToChangeValues[parameter][2] << "\n";
+        InputFileTemp << params.parameterToChangeValues[parameter][3] << "\n";
+    }
+
+    InputFileTemp.close();
+}
+
+Parameters Input::setParameters(std::string InputFileName) {
+    // Set up vector and struct
+    Parameters params;
+    double parameter[60] = {0};
+
+    // Set initial values independent of inputFile
+    params.error = false;
+    params.cellDivisionCount = 0;
+    params.currentIteration = 0;
+    params.dimensions = 3;
+    params.nrOfConditions = 1;
+    params.powerOfRep = 8;
+    params.round1 = 1.00e-15;
+    params.round2 = 1.00e-8;
+    params.round3 = 1.00e+6;
+    params.nrOfProteins = 3;
+    params.firstX = 0;
+    params.firstY = 0;
+    params.firstZ = 1;
+
+    // Read in values from inputFile
+    std::string line;
+    int counter = 0;
+
+    std::ifstream InputFile(InputFileName);
+    if (InputFile.is_open()) {
+        while (getline(InputFile, line)) {
+            parameter[counter] = std::stod(line);
+            counter += 1;
+        }
+        InputFile.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    // Initialize parameters with values from the file
+    //Model parameters
+    params.initialRadius = parameter[0];
+    params.distanceCellDivision = parameter[1];
+    params.EKThreshold = parameter[2];
+    params.repDistance = parameter[3];
+    params.zDiff = parameter[4];
+    params.sinkAmount = parameter[5];
+    params.ActDiffusion = parameter[6];
+    params.InhDiffusion = parameter[7];
+    params.Sec1Diffusion = parameter[8];
+    params.Sec2Diffusion = parameter[9];
+    params.delta = parameter[10];
+    params.act = parameter[11];
+    params.inh = parameter[12];
+    params.mu = parameter[13];
+    params.inT = parameter[14];
+    params.set = parameter[15];
+    params.sec = parameter[16];
+    params.sec2Inhibition = parameter[17];
+    params.lbi = parameter[18];
+    params.bbi = parameter[19];
+    params.swi = parameter[20];
+    params.dff = parameter[21];
+    params.egr = parameter[22];
+    params.mgr = parameter[23];
+    params.dgr = parameter[24];
+    params.boy = parameter[25];
+    params.rep = parameter[26];
+    params.adh = parameter[27];
+    params.ntr = parameter[28];
+    params.bwi = parameter[29];
+    params.abi = parameter[30];
+    params.pbi = parameter[31];
+    params.bgr = parameter[32];
+
+    //Implementation parameters
+    params.maxNrOfIterations = static_cast<int>(parameter[33]);
+    params.maxCellDivisionCount = static_cast<int>(parameter[34]);
+    params.outputInterval = static_cast<int>(parameter[35]);
+    params.printInterval = static_cast<int>(parameter[36]);
+    params.outputPrecision = static_cast<int>(parameter[37]);
+    params.newInhAndSecProduction = static_cast<int>(parameter[38]);
+    params.parameterWithNoise = static_cast<int>(parameter[39]);
+    params.sdPercentage = parameter[40];
+
+    // Parameters to change
+    params.parameterToChange = parameter[41];
+    params.totalPlusMinusScope = parameter[42];
+    params.percentageSteps = parameter[43];
     params.valueOfParameterToChange = parameter[params.parameterToChange];
-    //params.parameterToChangeIsInt = Input::isInteger(params.valueOfParameterToChange);
 
     return params;
 }
 
 void Input::changeInputFileTemp(Parameters params, double newValue) {
-    // Delete old InputFileTemp
-    remove("InputFileTemp.txt");
-
-    // Read in the InputFile
+    // Read in the InputFileTemp
     std::string lineTemp;
     int counter = 0;
 
-    std::ifstream InputFile("InputFile.txt");
+    std::ifstream InputFile("InputFileTemp.txt");
     std::ofstream InputFileout("InputFileout.txt");
 
     // Convert the newValue into a string
@@ -134,7 +275,10 @@ void Input::changeInputFileTemp(Parameters params, double newValue) {
         std::cout << "Unable to open file";
     }
 
-    //Rename the InputFileout to IntputFileTemp
+    // Delete old InputFileTemp
+    remove("InputFileTemp.txt");
+
+    //Rename the InputFileout to InputFileTemp
     rename("InputFileout.txt", "InputFileTemp.txt");
 
 }

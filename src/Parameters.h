@@ -202,15 +202,19 @@ public:
 
     int dimensions;
 
+    int nrOfParametersToChange;
+
+    std::vector<std::vector<double>> parameterToChangeValues;
+
     int parameterToChange;
 
     double totalPlusMinusScope;
 
     double percentageSteps;
 
-    int nrOfConditions;
-
     double valueOfParameterToChange;
+
+    int nrOfConditions;
 
     int newInhAndSecProduction;
 

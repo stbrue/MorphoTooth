@@ -15,6 +15,8 @@
 class Input {
 public:
 
+    static Parameters setParametersInitial(std::string InputFileName);
+
     static Parameters setParameters(std::string InputFileName);
 
     static void changeInputFileTemp(Parameters params, double newValue);
@@ -32,6 +34,8 @@ public:
     static double getParameterAffectedByNoise(Parameters &params);
 
     static std::string doubleToString(double value);
+
+    static void createInputFileTemp(int parameter, Parameters params);
 
 
 };

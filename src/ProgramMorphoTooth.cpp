@@ -44,9 +44,8 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 1643) {
-            Output::ROutput(cells, params);
-            Output::geomorphLinkOutput(cells, params);
+        if (params.currentIteration == 5040) {
+            int a = 0;
         }
 
 
@@ -76,7 +75,6 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
 }
 
 void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsInitial, bool parameterToChangeIsInt) {
-
     //Calculate how many conditions there are
     double conditionsDouble;
     int conditions;
@@ -91,35 +89,6 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
 
     paramsInitial.nrOfConditions = conditions;
 
-    /*if (parameterToChangeIsInt) {
-        //Calculate starting condition
-        double startingValueDouble = paramsInitial.valueOfParameterToChange -
-                                     (paramsInitial.valueOfParameterToChange * paramsInitial.totalPlusMinusScope);
-        int startingValue = static_cast<int>(std::floor(startingValueDouble + 0.5));
-
-        // Calculate the change per step (per condition)
-        double changePerConditionDouble = paramsInitial.valueOfParameterToChange * paramsInitial.percentageSteps;
-        int changePerCondition = static_cast<int>(std::floor(changePerConditionDouble + 0.5));
-
-        //Set starting conditions
-        Input::changeInputFileTemp(paramsInitial, startingValue);
-
-        //Loop that starts the program with different conditions (input parameters)
-        for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
-            //Re-read the InputFile
-            std::string InputFileName = "InputFileTemp.txt";
-            Parameters params = Input::setParameters(InputFileName);
-
-            // run the program with current conditions
-            ProgramMorphoTooth::runProgram(params);
-
-            // change the conditions
-            double newValueDouble = ((condition + 1) * changePerCondition) + startingValue;
-            int newValue = static_cast<int>(std::floor(newValueDouble + 0.5));
-            Input::changeInputFileTemp(params, newValue);
-        }
-
-    } else {*/
     //Calculate starting condition
     double startingValueDouble = paramsInitial.valueOfParameterToChange -
                                  (paramsInitial.valueOfParameterToChange * paramsInitial.totalPlusMinusScope);
@@ -133,8 +102,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
     //Loop that starts the program with different conditions (input parameters)
     for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
         //Re-read the InputFile
-        std::string InputFileName = "InputFileTemp.txt";
-        Parameters params = Input::setParameters(InputFileName);
+        Parameters params = Input::setParameters("InputFileTemp.txt");
 
         // run the program with current conditions
         ProgramMorphoTooth::runProgram(params);
