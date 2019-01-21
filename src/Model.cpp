@@ -74,9 +74,20 @@ bool Model::endOfSimulation(Parameters &params, int iterationStep) {
                   << std::endl;
         std::cout << "This was at iteration " << iterationStep << std::endl;
         return true;
+    } else if (params.currentIteration == params.maxNrOfIterations) {
+        std::cout << "The simulation was was stopped because the maxNrOfIterations was achieved :) "
+                  << params.cellDivisionCount
+                  << std::endl;
+        std::cout << "This was at iteration " << iterationStep << std::endl;
+        return true;
+    } else if (params.nrCellsInSimulation >= maxNrOfCells) {
+        std::cout << "The simulation was was stopped because there are too many cells "
+                  << params.cellDivisionCount
+                  << std::endl;
+        std::cout << "This was at iteration " << iterationStep << std::endl;
     }
 
-    return (params.currentIteration == params.maxNrOfIterations);
+    return (params.nrCellsInSimulation >= maxNrOfCells);
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {

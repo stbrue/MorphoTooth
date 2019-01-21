@@ -61,6 +61,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         if (step % params.outputInterval == 0) {
             Output::ROutput(cells, params);
             Output::geomorphLinkOutput(cells, params);
+            Output::plyOutput(cells, params);
         }
         params.currentIteration += 1;
     }
