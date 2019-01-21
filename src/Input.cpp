@@ -101,8 +101,8 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
     return params;
 }
 
-void Input::createInputFileTemp(int parameter, Parameters params) {
-    std::ofstream InputFileTemp("InputFileTemp.txt");
+void Input::createInputFileTemp(int parameter, Parameters params, std::string fileName) {
+    std::ofstream InputFileTemp(fileName);
     std::string line;
 
     if (InputFileTemp.is_open()) {
@@ -246,12 +246,18 @@ Parameters Input::setParameters(std::string InputFileName) {
     return params;
 }
 
-void Input::changeInputFileTemp(Parameters params, double newValue) {
+void Input::changeInputFileTemp(Parameters params, double newValue, std::string nameInputFileTemp) {
     // Read in the InputFileTemp
     std::string lineTemp;
     int counter = 0;
 
-    std::ifstream InputFile("InputFileTemp.txt");
+    // Create name for output (only temporary)
+    std::stringstream outFileS;
+    outFileS << "TempOut" << nameInputFileTemp.substr(9, 2) << ".txt";
+    std::string outFileString = outFileS.str();
+
+
+    std::ifstream InputFile(nameInputFileTemp);
     std::ofstream InputFileout("InputFileout.txt");
 
     // Convert the newValue into a string

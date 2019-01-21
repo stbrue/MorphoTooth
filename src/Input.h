@@ -19,7 +19,7 @@ public:
 
     static Parameters setParameters(std::string InputFileName);
 
-    static void changeInputFileTemp(Parameters params, double newValue);
+    static void changeInputFileTemp(Parameters params, double newValue, std::string nameInputFileTemp);
 
     static void changeInputFile(int nrOfParameter);
 
@@ -35,7 +35,7 @@ public:
 
     static std::string doubleToString(double value);
 
-    static void createInputFileTemp(int parameter, Parameters params);
+    static void createInputFileTemp(int parameter, Parameters params, std::string fileName);
 
 
 };
