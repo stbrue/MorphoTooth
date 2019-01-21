@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <sstream>
 #include "ProgramMorphoTooth.h"
 #include "Input.h"
 
@@ -8,10 +9,13 @@ int main(int argc, char *argv[]) {
     std::string simulationNumber = argv[1];
 
     // Name the files corresponding to the simulationNumber
-    char nameInputFile[256];
-    sprintf(nameInputFile, "InputFile%s.txt", simulationNumber);
-    char nameInputFileTemp[256];
-    sprintf(nameInputFileTemp, "InputFileTemp%s.txt", simulationNumber);
+    std::stringstream sInputFile;
+    sInputFile << "InputFile" << simulationNumber << ".txt";
+    std::string nameInputFile = sInputFile.str();
+
+    std::stringstream sInputFileTemp;
+    sInputFileTemp << "InputFileTemp" << simulationNumber << ".txt";
+    std::string nameInputFileTemp = sInputFileTemp.str();
 
     // Read in InputFile.txt and set initial parameters
     Parameters paramsInitial = Input::setParametersInitial(nameInputFile);
@@ -41,7 +45,7 @@ int main(int argc, char *argv[]) {
             Parameters params = Input::setParameters(nameInputFileTemp);
 
             // Run the program with different values of this parameter
-            ProgramMorphoTooth::runProgramWithDifferentConditions(params, false);
+            ProgramMorphoTooth::runProgramWithDifferentConditions(params, nameInputFileTemp);
         }
     }
 
