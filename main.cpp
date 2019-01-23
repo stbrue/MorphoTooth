@@ -5,8 +5,8 @@
 #include "Input.h"
 
 
-int main() {
-    std::string simulationNumber = "01";
+int main(int argc, char *argv[]) {
+    std::string simulationNumber = argv[1];
 
     // Name the files corresponding to the simulationNumber
     std::stringstream sInputFile;
