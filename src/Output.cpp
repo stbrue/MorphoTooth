@@ -10,7 +10,6 @@
 #include "consts.h"
 #include "Geometrics.h"
 #include <sstream>
-#include <io.h>
 
 void Output::initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
@@ -69,8 +68,6 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     // File name
     std::stringstream stringstream;
     std::string fileName;
-
-    mkdir("./Outputfiles");
 
     std::string path = "./Outputfiles/";
     std::string name = "ToothBig";
@@ -194,9 +191,7 @@ void Output::plyOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
 
     // Open File
     std::stringstream stringstream;
-    std::string fileName;
-
-    mkdir("./Outputfiles");
+    std::string fileName;);
 
     std::string path = "./Outputfiles/";
     std::string name = "Ply";
