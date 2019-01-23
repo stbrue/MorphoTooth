@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <sstream>
+#include <Utility.h>
 #include "ProgramMorphoTooth.h"
 #include "Input.h"
 
@@ -20,7 +21,7 @@ int main() {
     // Read in InputFile.txt and set initial parameters
     Parameters paramsInitial = Input::setParametersInitial(nameInputFile);
 
-    // If no parameter has to be changed, set all values connected with parameterToChange to zero and start one simulation only
+    // If no parameter has to be changed, set all values connected with parameterToChange to zero and start the simulation only with the same parameters
     if (paramsInitial.nrOfParametersToChange == 0) {
         std::vector<double> zeroVector = {0, 0, 0, 0};
         paramsInitial.parameterToChangeValues.push_back(zeroVector);
@@ -31,8 +32,11 @@ int main() {
         // Set the parameters
         Parameters params = Input::setParameters(nameInputFileTemp);
 
-        // Run the program once
-        ProgramMorphoTooth::runProgram(params);
+        // Run the program as often as declared in the InputFile with "repetitions"
+        for (int repetition = 0; repetition < params.repetitions; ++repetition) {
+            Utility::resetNonConstantParameters(params);
+            ProgramMorphoTooth::runProgram(params);
+        }
     }
 
         // else do the simulation with different parameters

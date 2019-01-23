@@ -221,6 +221,8 @@ public:
     int parameterWithNoise;
 
     double sdPercentage;
+
+    int repetitions;
 };
 
 

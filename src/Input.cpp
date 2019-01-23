@@ -101,7 +101,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
     params.outputPrecision = static_cast<int>(parameter[37]);
-    params.newInhAndSecProduction = static_cast<int>(parameter[38]);
+    params.repetitions = static_cast<int>(parameter[38]);
     params.parameterWithNoise = static_cast<int>(parameter[39]);
     params.sdPercentage = parameter[40];
 
@@ -166,7 +166,7 @@ void Input::createInputFileTemp(int parameter, Parameters params, std::string fi
         InputFileTemp << params.outputInterval << "\n";
         InputFileTemp << params.printInterval << "\n";
         InputFileTemp << params.outputPrecision << "\n";
-        InputFileTemp << params.newInhAndSecProduction << "\n";
+        InputFileTemp << params.repetitions << "\n";
         InputFileTemp << params.parameterWithNoise << "\n";
         InputFileTemp << params.sdPercentage << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][0] << "\n";
@@ -255,7 +255,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
     params.outputPrecision = static_cast<int>(parameter[37]);
-    params.newInhAndSecProduction = static_cast<int>(parameter[38]);
+    params.repetitions = static_cast<int>(parameter[38]);
     params.parameterWithNoise = static_cast<int>(parameter[39]);
     params.sdPercentage = parameter[40];
 

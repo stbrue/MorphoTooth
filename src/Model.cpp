@@ -18,8 +18,8 @@ void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    Model::epithelialProliferation(cells, params);
-    //Model::newEpithelialProliferation(cells, params);
+    //Model::epithelialProliferation(cells, params);
+    Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -76,7 +76,6 @@ bool Model::endOfSimulation(Parameters &params, int iterationStep) {
         return true;
     } else if (params.currentIteration == params.maxNrOfIterations) {
         std::cout << "The simulation was was stopped because the maxNrOfIterations was achieved :) "
-                  << params.cellDivisionCount
                   << std::endl;
         std::cout << "This was at iteration " << iterationStep << std::endl;
         return true;
@@ -274,8 +273,6 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
 
     //for all cells in the center
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-
-
         double xDeviation = 0;
         double yDeviation = 0;
         double zDeviation = 0;
@@ -1187,7 +1184,7 @@ void Model::newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &
             int neighbourID = neighbours[neighbour];
 
             // if neighbour is in simulation
-            if (neighbourID < maxNrOfCells) {
+            if (neighbourID < params.nrCellsInSimulation) {
                 double xDifference = cells[cell].getX() - cells[neighbourID].getX();
                 double yDifference = cells[cell].getY() - cells[neighbourID].getY();
                 double zDifference = cells[cell].getZ() - cells[neighbourID].getZ();
@@ -1221,11 +1218,11 @@ void Model::newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &
         double yShift = (yComponent / lengthOfSum) * params.egr * inverseDiffState;
         double zShift = (zComponent / lengthOfSum) * params.egr * inverseDiffState;
 
-        if (cells[cell].isInCentre()) {
-            cells[cell].addTempX(xShift);
-            cells[cell].addTempY(yShift);
-            cells[cell].addTempZ(zShift);
-        } else {
+        cells[cell].addTempX(xShift);
+        cells[cell].addTempY(yShift);
+        cells[cell].addTempZ(zShift);
+
+        if (!cells[cell].isInCentre()) {
             //Downgrowth (cervical loop formation)
             Model::downGrowth(cells, params, xShift, yShift, cell);
         }
