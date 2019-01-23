@@ -275,12 +275,12 @@ void Input::changeInputFileTemp(Parameters params, double newValue, std::string 
 
     // Create name for output (only temporary)
     std::stringstream outFileS;
-    outFileS << "TempOut" << nameInputFileTemp.substr(9, 2) << ".txt";
+    outFileS << "TempOut" << nameInputFileTemp.substr(13, 2) << ".txt";
     std::string outFileString = outFileS.str();
 
 
     std::ifstream InputFile(nameInputFileTemp);
-    std::ofstream InputFileout("InputFileout.txt");
+    std::ofstream InputFileout(outFileString);
 
     // Convert the newValue into a string
     std::ostringstream newValueS;
@@ -303,11 +303,15 @@ void Input::changeInputFileTemp(Parameters params, double newValue, std::string 
         std::cout << "Unable to open file";
     }
 
+    // Convert the std::strings into const chars*
+    const char *cInputFileTemp = nameInputFileTemp.c_str();
+    const char *cInputFileOut = outFileString.c_str();
+
     // Delete old InputFileTemp
-    remove("InputFileTemp.txt");
+    remove(cInputFileTemp);
 
     //Rename the InputFileout to InputFileTemp
-    rename("InputFileout.txt", "InputFileTemp.txt");
+    rename(cInputFileOut, cInputFileTemp);
 
 }
 

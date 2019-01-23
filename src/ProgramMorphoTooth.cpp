@@ -102,7 +102,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
 
     //Loop that starts the program with different conditions (input parameters)
     for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
-        //Re-read the InputFile
+        //Re-read the InputFileTemp
         Parameters params = Input::setParameters(nameInputFileTemp);
 
         // run the program with current conditions
