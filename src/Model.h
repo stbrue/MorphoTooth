@@ -13,8 +13,6 @@
 class Model {
 public:
 
-    static bool NanIsPresent(double x, double y, double z);
-
     static void iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     /**
@@ -198,8 +196,6 @@ public:
 
     static void defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[maxNrOfCells], Parameters &params);
 
-    static bool errorTesting(Cell cells[maxNrOfCells], Parameters &params);
-
     static void
     calculateNewOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params, Cell &newCell, int M1, int M2,
                                   int N1,
@@ -208,8 +204,6 @@ public:
     static void newEpithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &params);
 
     static void downGrowth(Cell (&cells)[maxNrOfCells], Parameters &params, double xShift, double yShift, int cell);
-
-    static bool endOfSimulation(Parameters &params, int iterationStep);
 
     static bool multipleNeighbour(Cell (&cells)[maxNrOfCells], Parameters &params);
 

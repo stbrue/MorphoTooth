@@ -7,11 +7,27 @@
 
 
 #include "Parameters.h"
+#include "Cell.h"
+#include <string>
 
 class Utility {
 
 public:
     static void resetNonConstantParameters(Parameters &params);
+
+    static void trimString(std::string &str);
+
+    static void leftTrim(std::string &str);
+
+    static void rightTrim(std::string &str);
+
+    static std::string doubleToString(double value);
+
+    static bool NanIsPresent(double x, double y, double z);
+
+    static bool errorTesting(Cell cells[maxNrOfCells], Parameters &params);
+
+    static bool endOfSimulation(Parameters &params, int iterationStep);
 };
 
 

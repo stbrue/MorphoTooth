@@ -10,6 +10,7 @@
 #include "Parameters.h"
 #include "consts.h"
 #include "Noise.h"
+#include "Utility.h"
 
 
 void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
@@ -18,8 +19,8 @@ void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
     Model::reaction(cells, params);
     Model::buccalLingualBias(cells, params);
     Model::differentiation(cells, params);
-    //Model::epithelialProliferation(cells, params);
-    Model::newEpithelialProliferation(cells, params);
+    Model::epithelialProliferation(cells, params);
+    //Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, params);
     Model::repulsionAndAdhesion(cells, params);
     Model::nucleusTraction(cells, params);
@@ -27,66 +28,8 @@ void Model::iterationStep(Cell (&cells)[maxNrOfCells], Parameters &params) {
     Model::applyForces(cells, params);
     Model::cellDivision(cells, params);
     Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
-    Model::errorTesting(cells, params);
+    Utility::errorTesting(cells, params);
 
-}
-
-bool Model::NanIsPresent(double x, double y, double z) {
-    if (x != x) {
-        std::cout << "x value is Nan" << std::endl;
-        return true;
-    } else if (y != y) {
-        std::cout << "y value is Nan" << std::endl;
-        return true;
-    } else if (z != z) {
-        std::cout << "z value is Nan" << std::endl;
-        return true;
-    }
-    return false;
-}
-
-bool Model::errorTesting(Cell *cells, Parameters &params) {
-    if (params.nrCellsInSimulation > maxNrOfCells) {
-        params.error = true;
-        std::cout << "There are too many cells in the simulation" << std::endl;
-        std::cout.flush();
-    }
-
-    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        double x = cells[cell].getX();
-        double y = cells[cell].getY();
-        double z = cells[cell].getZ();
-
-        if (Model::NanIsPresent(x, y, z)) {
-            params.error = true;
-            std::cout << "There is a Nan in iteration " << params.currentIteration << std::endl;
-        }
-    }
-
-    return params.error;
-
-}
-
-bool Model::endOfSimulation(Parameters &params, int iterationStep) {
-    if (params.cellDivisionCount >= params.maxCellDivisionCount) {
-        std::cout << "The simulation was was stopped because this was cell division number "
-                  << params.cellDivisionCount
-                  << std::endl;
-        std::cout << "This was at iteration " << iterationStep << std::endl;
-        return true;
-    } else if (params.currentIteration == params.maxNrOfIterations) {
-        std::cout << "The simulation was was stopped because the maxNrOfIterations was achieved :) "
-                  << std::endl;
-        std::cout << "This was at iteration " << iterationStep << std::endl;
-        return true;
-    } else if (params.nrCellsInSimulation >= maxNrOfCells) {
-        std::cout << "The simulation was was stopped because there are too many cells "
-                  << params.cellDivisionCount
-                  << std::endl;
-        std::cout << "This was at iteration " << iterationStep << std::endl;
-    }
-
-    return (params.nrCellsInSimulation >= maxNrOfCells);
 }
 
 void Model::diffusion(Cell (&cells)[maxNrOfCells], Parameters &params) {

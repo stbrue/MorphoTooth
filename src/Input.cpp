@@ -3,31 +3,11 @@
 //
 
 #include "Input.h"
+#include "Utility.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <cmath>
-#include <algorithm>
-#include <cctype>
-
-void Input::trimString(std::string &str) {
-    Input::leftTrim(str);
-    Input::rightTrim(str);
-}
-
-void Input::leftTrim(std::string &str) {
-    // trim from start to first occurence that is not a space
-    str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](int ch) {
-        return !std::isspace(ch);
-    }));
-}
-
-void Input::rightTrim(std::string &str) {
-    // trim from last occurence that is not a space to end
-    str.erase(std::find_if(str.rbegin(), str.rend(), [](int ch) {
-        return !std::isspace(ch);
-    }).base(), str.end());
-}
 
 Parameters Input::setParametersInitial(std::string InputFileName) {
     // Set up vector and struct
@@ -43,7 +23,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
 
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
-            Input::trimString(line);
+            Utility::trimString(line);
             if (line.length() > 0) {
                 std::string token = line.substr(line.find(delimiter) + 1, line.length());
                 parameter[counter] = std::stod(token);
@@ -61,7 +41,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
 
     // Initialize parameters with values from the file
     //Model parameters
-    params.initialRadius = parameter[0];
+    params.initialRadius = static_cast<int>(parameter[0]);
     params.distanceCellDivision = parameter[1];
     params.EKThreshold = parameter[2];
     params.repDistance = parameter[3];
@@ -215,7 +195,7 @@ Parameters Input::setParameters(std::string InputFileName) {
 
     // Initialize parameters with values from the file
     //Model parameters
-    params.initialRadius = parameter[0];
+    params.initialRadius = static_cast<int>(parameter[0]);
     params.distanceCellDivision = parameter[1];
     params.EKThreshold = parameter[2];
     params.repDistance = parameter[3];
@@ -260,7 +240,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.sdPercentage = parameter[40];
 
     // Parameters to change
-    params.parameterToChange = parameter[41];
+    params.parameterToChange = static_cast<int>(parameter[41]);
     params.totalPlusMinusScope = parameter[42];
     params.percentageSteps = parameter[43];
     params.valueOfParameterToChange = parameter[params.parameterToChange];
@@ -315,114 +295,6 @@ void Input::changeInputFileTemp(Parameters params, double newValue, std::string 
 
 }
 
-void Input::changeInputFile(int nrOfParameter) {
-    // Read in "ParametersToChange.txt" to know the parameterToChange
-    std::string line;
-    int counter = 1;
-    double parameterToChange = 0;
-    double plusMinusScope = 0;
-    double percentageStep = 0;
-
-    int lineOfParameterToChange = (nrOfParameter * 3) - 2;
-    int lineOfPlusMinusScope = (nrOfParameter * 3) - 1;
-    int lineOfPercentageStep = (nrOfParameter * 3);
-
-    std::ifstream ParameterToChangeFile("ParametersToChange.txt");
-
-    // Read in the file and save the parameterToChange
-    if (ParameterToChangeFile.is_open()) {
-        while (getline(ParameterToChangeFile, line)) {
-            if (counter == lineOfParameterToChange) {
-                parameterToChange = std::stod(line);
-            } else if (counter == lineOfPlusMinusScope) {
-                plusMinusScope = std::stod(line);
-            } else if (counter == lineOfPercentageStep) {
-                percentageStep = std::stod(line);
-                break;
-            }
-            counter += 1;
-        }
-        ParameterToChangeFile.close();
-    } else {
-        std::cout << "Unable to open file ParametersToChange.txt" << std::endl;
-    }
-
-    // Read in the InputFile to change the parameter "parameterToChange"
-    std::string lineTemp;
-    counter = 0;
-    int lineOfParameterToChangeInInputFile = 37; // The parameter "parameterToChange" is on the 37th line of the inputFile
-    int lineOfPlusMinusScopeInInputFile = 38;
-    int lineOfPercentageStepInInputFile = 39;
-
-    std::ifstream InputFile("InputFile.txt");
-    std::ofstream InputFileout("InputFileout.txt");
-
-    // Convert the parameterToChange into a string
-    std::ostringstream parameterToChangeS;
-    parameterToChangeS << parameterToChange;
-    std::string parameterToChangeString = parameterToChangeS.str();
-
-    std::string plusMinusScopeString = Input::doubleToString(plusMinusScope);
-    std::string percentageStepString = Input::doubleToString(percentageStep);
-
-    // Read in the file and write each line (possibly changed) into the InputFileout
-    if (InputFile.is_open() && InputFileout.is_open()) {
-        while (getline(InputFile, lineTemp)) {
-            if (counter == lineOfParameterToChangeInInputFile) {
-                lineTemp = parameterToChangeString;
-            } else if (counter == lineOfPlusMinusScopeInInputFile) {
-                lineTemp = plusMinusScopeString;
-            } else if (counter == lineOfPercentageStepInInputFile) {
-                lineTemp = percentageStepString;
-            }
-            counter += 1;
-            lineTemp += "\n";
-            InputFileout << lineTemp;
-        }
-        InputFile.close();
-        InputFileout.close();
-    } else {
-        std::cout << "Unable to open InputFile.txt" << std::endl;
-    }
-
-    //Overwrite InputFile.txt with InputFileout.txt
-    remove("InputFile.txt");
-    rename("InputFileout.txt", "InputFile.txt");
-
-}
-
-/*bool Input::isInteger(int value) {
-    if (value == std::floor(value))
-        return true;
-    return false;
-}
-
-bool Input::isInteger(double value) {
-    if (value == std::floor(value))
-        return true;
-    return false;
-}
-*/
-
-int Input::defineNrOfParametersToChange() {
-    // Read in the File
-    std::string lineTemp;
-    int counter = 0;
-
-    std::ifstream InputFile("ParametersToChange.txt");
-
-    // Read in the file and count the number of lines
-    if (InputFile.is_open()) {
-        while (getline(InputFile, lineTemp)) {
-            counter += 1;
-        }
-        InputFile.close();
-    } else {
-        std::cout << "Unable to open file";
-    }
-    return counter / 3;
-}
-
 double Input::getParameterAffectedByNoise(Parameters &params) {
     // The parameterWithNoise'th line of the file holds the value of the parameter
     // Read in the File
@@ -452,11 +324,4 @@ double Input::getParameterAffectedByNoise(Parameters &params) {
         return 1;
     }
 
-}
-
-std::string Input::doubleToString(double value) {
-    std::ostringstream strs;
-    strs << value;
-    std::string str = strs.str();
-    return str;
 }

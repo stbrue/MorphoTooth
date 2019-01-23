@@ -33,15 +33,7 @@ public:
 
     static double getParameterAffectedByNoise(Parameters &params);
 
-    static std::string doubleToString(double value);
-
     static void createInputFileTemp(int parameter, Parameters params, std::string fileName);
-
-    static void trimString(std::string &str);
-
-    static void leftTrim(std::string &str);
-
-    static void rightTrim(std::string &str);
 
 
 };

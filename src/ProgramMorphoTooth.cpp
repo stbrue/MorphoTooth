@@ -13,6 +13,7 @@
 #include "Parameters.h"
 #include "consts.h"
 #include "Print.h"
+#include "Utility.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params) {
 
@@ -31,7 +32,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         Model::iterationStep(cells, params);
 
         //Abort the loop if there is an error
-        if (Model::errorTesting(cells, params)) {
+        if (Utility::errorTesting(cells, params)) {
             std::cout << "The simulation was stopped because there was an error at iteration: " << step << std::endl;
             Output::ROutput(cells, params);
             Output::geomorphLinkOutput(cells, params);
@@ -39,7 +40,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //Abort the loop if one of the end-determining variables reaches its maximum (number of cell divisions or iteration)
-        if (Model::endOfSimulation(params, step)) {
+        if (Utility::endOfSimulation(params, step)) {
             break;
         }
 
