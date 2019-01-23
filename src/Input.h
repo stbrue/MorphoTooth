@@ -37,6 +37,12 @@ public:
 
     static void createInputFileTemp(int parameter, Parameters params, std::string fileName);
 
+    static void trimString(std::string &str);
+
+    static void leftTrim(std::string &str);
+
+    static void rightTrim(std::string &str);
+
 
 };
 

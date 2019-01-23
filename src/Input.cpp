@@ -7,6 +7,27 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
+#include <cctype>
+
+void Input::trimString(std::string &str) {
+    Input::leftTrim(str);
+    Input::rightTrim(str);
+}
+
+void Input::leftTrim(std::string &str) {
+    // trim from start to first occurence that is not a space
+    str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](int ch) {
+        return !std::isspace(ch);
+    }));
+}
+
+void Input::rightTrim(std::string &str) {
+    // trim from last occurence that is not a space to end
+    str.erase(std::find_if(str.rbegin(), str.rend(), [](int ch) {
+        return !std::isspace(ch);
+    }).base(), str.end());
+}
 
 Parameters Input::setParametersInitial(std::string InputFileName) {
     // Set up vector and struct
@@ -22,6 +43,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
 
     if (InputFile.is_open()) {
         while (getline(InputFile, line)) {
+            Input::trimString(line);
             if (line.length() > 0) {
                 std::string token = line.substr(line.find(delimiter) + 1, line.length());
                 parameter[counter] = std::stod(token);
