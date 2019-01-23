@@ -271,13 +271,16 @@ void Model::epithelialProliferation(Cell (&cells)[maxNrOfCells], Parameters &par
     double dx = 0;
     double dy = 0;
     double dz = 0;
-    double xDeviation = 0;
-    double yDeviation = 0;
-    double zDeviation = 0;
-    double totalDeviation = 0;
 
     //for all cells in the center
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+
+
+        double xDeviation = 0;
+        double yDeviation = 0;
+        double zDeviation = 0;
+        double totalDeviation = 0;
+
         bool isInCentre = cells[cell].isInCentre();
         bool isKnotCell = cells[cell].isKnotCell();
 

@@ -191,7 +191,7 @@ void Output::plyOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
 
     // Open File
     std::stringstream stringstream;
-    std::string fileName;);
+    std::string fileName;
 
     std::string path = "./Outputfiles/";
     std::string name = "Ply";
