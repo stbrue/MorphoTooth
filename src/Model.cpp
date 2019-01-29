@@ -115,7 +115,8 @@ void Model::upDiffusion(Cell (&cells)[totalNrOfCells], int cell, int layer, int 
     cells[cell].addTempConcentration(protein, layer, newConcentration);
 }
 
-void Model::downDiffusion(Cell (&cells)[totalNrOfCells], int cell, int layer, int protein, double relativeDiffusionArea) {
+void
+Model::downDiffusion(Cell (&cells)[totalNrOfCells], int cell, int layer, int protein, double relativeDiffusionArea) {
     double oldConcentration = cells[cell].getProteinConcentrations()[protein][layer];
     double neighbourConcentration = cells[cell].getProteinConcentrations()[protein][layer + 1]; // a layer below
     double newConcentration = (relativeDiffusionArea * (neighbourConcentration - oldConcentration));
@@ -241,8 +242,8 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], Parameters &p
                 continue;
             }
             dz = cells[cell].getZ() - cells[neighbourID].getZ();
-            // if the neighbour is a certain amount higher than cell, calculate the relative x/y/z deviations
-            if (dz < params.zDiff) {
+            // if the neighbour is higher than cell, calculate the relative x/y/z deviations
+            if (dz < 0) {
                 double distance3D = Geometrics::centerDistance3D(cells[cell], cells[neighbourID]);
                 dx = cells[cell].getX() - cells[neighbourID].getX(); //<0 if neighbour is more right
                 dy = cells[cell].getY() - cells[neighbourID].getY();
