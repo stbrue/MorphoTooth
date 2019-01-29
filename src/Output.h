@@ -13,19 +13,19 @@
 class Output {
 
 public:
-    static void initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells);
+    static void initialCellCentersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells);
 
-    static void initialCellBordersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells);
+    static void initialCellBordersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells);
 
-    static void bigOutput(Cell (&cells)[maxNrOfCells], Parameters params);
+    static void bigOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void ROutput(Cell (&cells)[maxNrOfCells], Parameters params);
+    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void XYZOutputSimple(Cell (&cells)[maxNrOfCells], Parameters params);
+    static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params);
+    static void geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void plyOutput(Cell (&cells)[maxNrOfCells], Parameters params);
+    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
 };
 

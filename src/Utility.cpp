@@ -58,9 +58,8 @@ bool Utility::NanIsPresent(double x, double y, double z) {
 }
 
 
-
 bool Utility::errorTesting(Cell *cells, Parameters &params) {
-    if (params.nrCellsInSimulation > maxNrOfCells) {
+    if (params.nrCellsInSimulation > totalNrOfCells) {
         params.error = true;
         std::cout << "There are too many cells in the simulation" << std::endl;
         std::cout.flush();
@@ -82,23 +81,16 @@ bool Utility::errorTesting(Cell *cells, Parameters &params) {
 }
 
 bool Utility::endOfSimulation(Parameters &params, int iterationStep) {
-    if (params.cellDivisionCount >= params.maxCellDivisionCount) {
-        std::cout << "The simulation was was stopped because this was cell division number "
-                  << params.cellDivisionCount
+    if (params.nrCellsInSimulation >= params.maxNrOfCells) {
+        std::cout << "The simulation was was stopped because maxNrOfCells was achieved at iteration "
+                  << params.currentIteration
                   << std::endl;
-        std::cout << "This was at iteration " << iterationStep << std::endl;
         return true;
     } else if (params.currentIteration == params.maxNrOfIterations) {
         std::cout << "The simulation was was stopped because the maxNrOfIterations was achieved :) "
                   << std::endl;
         std::cout << "This was at iteration " << iterationStep << std::endl;
         return true;
-    } else if (params.nrCellsInSimulation >= maxNrOfCells) {
-        std::cout << "The simulation was was stopped because there are too many cells "
-                  << params.cellDivisionCount
-                  << std::endl;
-        std::cout << "This was at iteration " << iterationStep << std::endl;
     }
-
-    return (params.nrCellsInSimulation >= maxNrOfCells);
+    return false;
 }

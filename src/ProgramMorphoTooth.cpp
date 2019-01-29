@@ -21,7 +21,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     Print::printStartOfSimulation(params);
 
     //Vector containing all cells
-    Cell cells[maxNrOfCells];
+    Cell cells[totalNrOfCells];
 
     //Construct the initial grid of cells
     Initial::makeInitialGrid(params, cells);
@@ -29,13 +29,11 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < params.maxNrOfIterations + 1; ++step) {
+        params.currentIteration = step;
         Model::iterationStep(cells, params);
 
         //Abort the loop if there is an error
         if (Utility::errorTesting(cells, params)) {
-            std::cout << "The simulation was stopped because there was an error at iteration: " << step << std::endl;
-            Output::ROutput(cells, params);
-            Output::geomorphLinkOutput(cells, params);
             break;
         }
 
@@ -45,18 +43,16 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         }
 
         //For debugging
-        if (params.currentIteration == 1040) {
+        if (params.currentIteration == 9751) {
             int a = 0;
         }
 
-
-        //Print every 100 iteration the count
+        //Print every "printInterval" iteration the count
         if (step % params.printInterval == 0) {
             std::cout << step << std::endl;
-            std::cout << "ncels: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "Cells in simulation: " << params.nrCellsInSimulation << std::endl;
             std::cout.flush();
         }
-
 
         //All x iterations do an output
         if (step % params.outputInterval == 0) {
@@ -64,7 +60,6 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
             Output::geomorphLinkOutput(cells, params);
             Output::plyOutput(cells, params);
         }
-        params.currentIteration += 1;
     }
 
     Output::ROutput(cells, params);

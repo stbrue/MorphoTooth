@@ -91,7 +91,7 @@ double Geometrics::vectorSum(std::vector<double> v) {
     return sum;
 }
 
-void Geometrics::calculatePerimeterAndArea(Cell (&cells)[maxNrOfCells], Parameters &params) {
+void Geometrics::calculatePerimeterAndArea(Cell (&cells)[totalNrOfCells], Parameters &params) {
 
     //Perimeter: distance between two adjacent border points
     //Area: polygon consisting of triangles. Each triangle is made up by 2 adjacent borderpoints and the center cell
@@ -140,7 +140,7 @@ void Geometrics::calculatePerimeterAndArea(Cell (&cells)[maxNrOfCells], Paramete
     }
 }
 
-void Geometrics::calculatePerimeterParts(Cell (&cells)[maxNrOfCells], int cell, int borderPoint1, int borderPoint2) {
+void Geometrics::calculatePerimeterParts(Cell (&cells)[totalNrOfCells], int cell, int borderPoint1, int borderPoint2) {
     double z1 = cells[cell].getBorderPoints()[borderPoint1][Z];
     double z2 = cells[cell].getBorderPoints()[borderPoint2][Z];
     // if one of the border Points is inexistent (=0), set the perimeter part to 0 (marker and placeholder)
@@ -156,7 +156,7 @@ void Geometrics::calculatePerimeterParts(Cell (&cells)[maxNrOfCells], int cell, 
     cells[cell].newPerimeterPart(perimeterPart);
 }
 
-void Geometrics::calculateCellAreaParts(Cell (&cells)[maxNrOfCells], int cell, int borderPoint1, int borderPoint2) {
+void Geometrics::calculateCellAreaParts(Cell (&cells)[totalNrOfCells], int cell, int borderPoint1, int borderPoint2) {
     double z1 = cells[cell].getBorderPoints()[borderPoint1][Z];
     double z2 = cells[cell].getBorderPoints()[borderPoint2][Z];
 
@@ -190,7 +190,7 @@ double Geometrics::calculateMargin(std::vector<std::vector<double>> marginPoints
 }
 
 double
-Geometrics::calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell) {
+Geometrics::calculateMarginArea(Cell (&cells)[totalNrOfCells], int cell) {
     double dx1 = cells[cell].getMarginPoints()[first][X] - cells[cell].getX();
     double dx2 = cells[cell].getMarginPoints()[second][X] - cells[cell].getX();
     double dy1 = cells[cell].getMarginPoints()[first][Y] - cells[cell].getY();
@@ -205,7 +205,7 @@ Geometrics::calculateMarginArea(Cell (&cells)[maxNrOfCells], int cell) {
     return marginArea;
 }
 
-void Geometrics::calculateCellBorders(Cell (&cells)[maxNrOfCells], int nrCellsInSimulation) {
+void Geometrics::calculateCellBorders(Cell (&cells)[totalNrOfCells], int nrCellsInSimulation) {
     for (int centreCell = 0; centreCell < nrCellsInSimulation; ++centreCell) {
         // first of all delete all the border points and margin points
         cells[centreCell].deleteBorderPoints();
@@ -228,13 +228,13 @@ void Geometrics::calculateCellBorders(Cell (&cells)[maxNrOfCells], int nrCellsIn
 }
 
 
-void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int neighbour1, int neighbour2) {
+void Geometrics::setBorders(Cell (&cells)[totalNrOfCells], int centreCell, int neighbour1, int neighbour2) {
     // IDs of the neighbours
     int IDn1 = cells[centreCell].getNeighbours()[neighbour1];
     int IDn2 = cells[centreCell].getNeighbours()[neighbour2];
 
     //if both neighbours are in simulation, calculate the midpoint of centreCell and these two neighbours
-    if (IDn1 < maxNrOfCells && IDn2 < maxNrOfCells) {
+    if (IDn1 < totalNrOfCells && IDn2 < totalNrOfCells) {
         double nrOfPoints = 3;
         double x = (cells[centreCell].getX() + cells[IDn1].getX() + cells[IDn2].getX()) / nrOfPoints;
         double y = (cells[centreCell].getY() + cells[IDn1].getY() + cells[IDn2].getY()) / nrOfPoints;
@@ -244,13 +244,13 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     }
 
     //if no neighbour is in simulation, set the border point to 0 (as a marker and placeholder)
-    if (IDn1 > maxNrOfCells && IDn2 > maxNrOfCells) {
+    if (IDn1 > totalNrOfCells && IDn2 > totalNrOfCells) {
         cells[centreCell].newBorderPoint(0, 0, 0);
         return;
     }
 
     //if only the first neighbour is in simulation, take the point between the center cell and the first neighbour
-    if (IDn1 < maxNrOfCells && IDn2 > maxNrOfCells) {
+    if (IDn1 < totalNrOfCells && IDn2 > totalNrOfCells) {
         double nrOfPoints = 2;
         double x = (cells[centreCell].getX() + cells[IDn1].getX()) / nrOfPoints;
         double y = (cells[centreCell].getY() + cells[IDn1].getY()) / nrOfPoints;
@@ -262,7 +262,7 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     }
 
     //if only the second neighbour is in simulation, take the point between the center cell and the second neighbour
-    if (IDn1 > maxNrOfCells && IDn2 < maxNrOfCells) {
+    if (IDn1 > totalNrOfCells && IDn2 < totalNrOfCells) {
         double nrOfPoints = 2;
         double x = (cells[centreCell].getX() + cells[IDn2].getX()) / nrOfPoints;
         double y = (cells[centreCell].getY() + cells[IDn2].getY()) / nrOfPoints;
@@ -274,7 +274,7 @@ void Geometrics::setBorders(Cell (&cells)[maxNrOfCells], int centreCell, int nei
     }
 }
 
-void Geometrics::setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parameters &params) {
+void Geometrics::setInitialOriginalDistances(Cell (&cells)[totalNrOfCells], Parameters &params) {
     double initialDistance = 1;
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
 
@@ -284,7 +284,7 @@ void Geometrics::setInitialOriginalDistances(Cell (&cells)[maxNrOfCells], Parame
     }
 }
 
-void Geometrics::triangulation(Cell (&cells)[maxNrOfCells], Parameters &params, std::vector<std::vector<int>> &faces) {
+void Geometrics::triangulation(Cell (&cells)[totalNrOfCells], Parameters &params, std::vector<std::vector<int>> &faces) {
     // Loop through all cells and their neighbours and if both have a common neighbour, these three cells form a face
     for (int cell1 = 0; cell1 < params.nrCellsInSimulation; ++cell1) {
         int *neighbours = cells[cell1].getNeighbours();

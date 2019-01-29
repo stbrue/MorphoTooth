@@ -20,6 +20,8 @@ public:
 
     static void printParameters(Parameters params);
 
+    static void error(int currentIteration);
+
 };
 
 

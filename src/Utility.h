@@ -25,7 +25,7 @@ public:
 
     static bool NanIsPresent(double x, double y, double z);
 
-    static bool errorTesting(Cell cells[maxNrOfCells], Parameters &params);
+    static bool errorTesting(Cell cells[totalNrOfCells], Parameters &params);
 
     static bool endOfSimulation(Parameters &params, int iterationStep);
 };

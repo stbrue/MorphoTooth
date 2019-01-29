@@ -49,7 +49,7 @@ public:
     * @param params struct containing all parameters
     * @return a vector containing all cells
     */
-    static void makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]);
+    static void makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells]);
 
     /**
     * @brief   Creates or declares all neighbours for one centre cell
@@ -57,14 +57,14 @@ public:
     * @param   IDCentreCell ID of the cell that gets new neighbours
     * @param   IDNewCell   ID that a new cell gets (always one higher than the ID of the last cell in cells)
     */
-    static void makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params);
+    static void makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params);
 
     /**
     * @brief   Checks if cells are "within simulation" (have a closed neighbour sequence) and labels them accordingly
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &params);
+    static void labelCellsInSimulation(Cell (&cells)[totalNrOfCells], Parameters &params);
 
     /**
     * @brief   Checks if cells are "in the center" (have neighbours that are all within simulation or at least 7) and labels them accordingly
@@ -72,7 +72,7 @@ public:
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelCellsInCentre(Cell (&cells)[maxNrOfCells], Parameters &params);
+    static void labelCellsInCentre(Cell (&cells)[totalNrOfCells], Parameters &params);
 
 };
 

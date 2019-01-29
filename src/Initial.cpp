@@ -11,7 +11,7 @@
 #include "consts.h"
 
 
-void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[maxNrOfCells]) {
+void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells]) {
     //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
     params.nrCellsInSimulation = Initial::getNumberOfInSimulationCells(params.initialRadius);
 
@@ -88,7 +88,7 @@ double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params
 }
 
 
-void Initial::makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params) {
+void Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params) {
     bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
     for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
@@ -125,14 +125,14 @@ void Initial::makeNeighbours(Cell (&cells)[maxNrOfCells], int IDCentreCell, int 
     }
 }
 
-void Initial::labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &params) {
+void Initial::labelCellsInSimulation(Cell (&cells)[totalNrOfCells], Parameters &params) {
     //for each cell in the array
-    for (int cell = 0; cell < maxNrOfCells; ++cell) {
+    for (int cell = 0; cell < totalNrOfCells; ++cell) {
         if (cell < params.nrCellsInSimulation) {
             // Label cells within simulation
             cells[cell].setInSimulation(true);
-        } else { // Give all out-of-simulation cells an ID higher than "maxNrOfCells"
-            cells[cell].setID(cells[cell].getID() + maxNrOfCells);
+        } else { // Give all out-of-simulation cells an ID higher than "totalNrOfCells"
+            cells[cell].setID(cells[cell].getID() + totalNrOfCells);
         }
 
         //Change the ID of out-of-simulation cells also in neighbour arrays
@@ -141,14 +141,14 @@ void Initial::labelCellsInSimulation(Cell (&cells)[maxNrOfCells], Parameters &pa
         for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
             int neighbourID = neighbours[neighbour];
             if (neighbourID >= params.nrCellsInSimulation) {
-                cells[cell].replaceNeighbour(neighbourID, neighbourID + maxNrOfCells);
+                cells[cell].replaceNeighbour(neighbourID, neighbourID + totalNrOfCells);
             }
         }
     }
 }
 
 
-void Initial::labelCellsInCentre(Cell (&cells)[maxNrOfCells], Parameters &params) {
+void Initial::labelCellsInCentre(Cell (&cells)[totalNrOfCells], Parameters &params) {
     int nrCellsNotInCentre = ((params.initialRadius - 1) * initialNrOfNeighbours) + 1;
     int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
 

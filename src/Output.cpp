@@ -11,7 +11,7 @@
 #include "Geometrics.h"
 #include <sstream>
 
-void Output::initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
+void Output::initialCellCentersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
     outputFile.open("Initial_Cell_Centers.txt");
 
@@ -24,7 +24,7 @@ void Output::initialCellCentersXY(Cell (&cells)[maxNrOfCells], int InSimulationC
     outputFile.close();
 }
 
-void Output::initialCellBordersXY(Cell (&cells)[maxNrOfCells], int InSimulationCells) {
+void Output::initialCellBordersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells) {
     std::ofstream outputFile;
     outputFile.open("Initial_Cell_Borders.txt");
 
@@ -41,7 +41,7 @@ void Output::initialCellBordersXY(Cell (&cells)[maxNrOfCells], int InSimulationC
     outputFile.close();
 }
 
-void Output::bigOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Output::bigOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     std::ofstream outputFile;
     outputFile.precision(params.outputPrecision);
     outputFile.open("BigOutputMorphoTooth.txt");
@@ -64,7 +64,7 @@ void Output::bigOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     outputFile.close();
 }
 
-void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     // File name
     std::stringstream stringstream;
     std::string fileName;
@@ -105,7 +105,7 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int IDofN = neighbours[neighbour];
             // if neighbour is in simulation
-            if (IDofN < maxNrOfCells) {
+            if (IDofN < totalNrOfCells) {
                 outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
                            << cells[cell].getZ() << "\t" << groupCount << "\t"
                            << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << "\t"
@@ -129,7 +129,7 @@ void Output::ROutput(Cell (&cells)[maxNrOfCells], Parameters params) {
     outputFile.close();
 }
 
-void Output::XYZOutputSimple(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params) {
     std::stringstream stringstream;
     std::string fileName;
 
@@ -152,7 +152,7 @@ void Output::XYZOutputSimple(Cell (&cells)[maxNrOfCells], Parameters params) {
     outputFile.close();
 }
 
-void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
 
     std::stringstream stringstream;
     std::string fileName;
@@ -175,7 +175,7 @@ void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) 
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int IDOfN = neighbours[neighbour];
             // if neighbour is in Simulation
-            if (IDOfN < maxNrOfCells) {
+            if (IDOfN < totalNrOfCells) {
                 outputFile << cell << "\t" << IDOfN << std::endl;
             }
         }
@@ -184,7 +184,7 @@ void Output::geomorphLinkOutput(Cell (&cells)[maxNrOfCells], Parameters params) 
     outputFile.close();
 }
 
-void Output::plyOutput(Cell (&cells)[maxNrOfCells], Parameters params) {
+void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     // Do the triangulation
     std::vector<std::vector<int>> faces;
     Geometrics::triangulation(cells, params, faces);

@@ -43,6 +43,9 @@ void Print::printEndOfSimulation() {
     std::cout << "##################################################################################" << std::endl;
 }
 
-
+void Print::error(int currentIteration) {
+    std::cout << "The simulation was stopped because there was an error at iteration: " << currentIteration
+              << std::endl;
+};
 
 

@@ -77,7 +77,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
 
     //Implementation parameters
     params.maxNrOfIterations = static_cast<int>(parameter[33]);
-    params.maxCellDivisionCount = static_cast<int>(parameter[34]);
+    params.maxNrOfCells = static_cast<int>(parameter[34]);
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
     params.outputPrecision = static_cast<int>(parameter[37]);
@@ -142,7 +142,7 @@ void Input::createInputFileTemp(int parameter, Parameters params, std::string fi
         InputFileTemp << params.pbi << "\n";
         InputFileTemp << params.bgr << "\n";
         InputFileTemp << params.maxNrOfIterations << "\n";
-        InputFileTemp << params.maxCellDivisionCount << "\n";
+        InputFileTemp << params.maxNrOfCells << "\n";
         InputFileTemp << params.outputInterval << "\n";
         InputFileTemp << params.printInterval << "\n";
         InputFileTemp << params.outputPrecision << "\n";
@@ -231,7 +231,7 @@ Parameters Input::setParameters(std::string InputFileName) {
 
     //Implementation parameters
     params.maxNrOfIterations = static_cast<int>(parameter[33]);
-    params.maxCellDivisionCount = static_cast<int>(parameter[34]);
+    params.maxNrOfCells = static_cast<int>(parameter[34]);
     params.outputInterval = static_cast<int>(parameter[35]);
     params.printInterval = static_cast<int>(parameter[36]);
     params.outputPrecision = static_cast<int>(parameter[37]);

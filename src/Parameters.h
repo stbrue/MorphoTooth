@@ -178,7 +178,7 @@ public:
 
     int maxNrOfIterations;
 
-    int maxCellDivisionCount;
+    int maxNrOfCells;
 
     int outputInterval;
 
