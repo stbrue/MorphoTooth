@@ -94,7 +94,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params) {
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
                << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
-               << "EK" << "\t" << std::endl;
+               << "EK" << "\t" << "CentreCell" << std::endl;
 
 
     // Body
@@ -112,7 +112,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params) {
                            << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[cell].getDiffState() << "\t"
-                           << cells[cell].isKnotCell()
+                           << cells[cell].isKnotCell() << "\t" << cells[cell].isInCentre()
                            << std::endl;
                 outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
                            << cells[IDofN].getZ() << "\t" << groupCount << "\t"
@@ -120,7 +120,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params) {
                            << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
                            << cells[IDofN].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
                            << cells[IDofN].getDiffState()
-                           << "\t" << cells[IDofN].isKnotCell()
+                           << "\t" << cells[IDofN].isKnotCell() << "\t" << cells[IDofN].isInCentre()
                            << std::endl;
                 groupCount += 1;
             }

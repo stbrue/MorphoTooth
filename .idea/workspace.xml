@@ -24,9 +24,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="InputFile01.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile01.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+            <state relative-caret-position="438">
+              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -61,13 +59,13 @@
     <findStrings>
       <find>endOfSimulation</find>
       <find>##################################################################################</find>
-      <find>Simulation has started</find>
+      <find />
       <find>getNeighbours</find>
       <find>commonNeig</find>
       <find>down</find>
       <find>,</find>
       <find>initialRadius</find>
-      <find>error in</find>
+      <find />
       <find>endo</find>
       <find>mkdir</find>
       <find>changeInpu</find>
@@ -81,7 +79,7 @@
       <find>errorTest</find>
       <find>endOf</find>
       <find>epithelialP</find>
-      <find>there are</find>
+      <find />
       <find>multipleNei</find>
       <find>multip</find>
       <find>maxCell</find>
@@ -94,7 +92,7 @@
       <replace />
       <replace>differentiation</replace>
       <replace>NrCellsInCenter</replace>
-      <replace>Cell (&amp;cells)[maxNrOfCells]</replace>
+      <replace />
       <replace>.</replace>
       <replace>totalNrOfCells</replace>
     </replaceStrings>
@@ -169,7 +167,7 @@
     <packageJsonPaths />
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="960" />
     <option name="height" value="1040" />
   </component>
@@ -343,7 +341,7 @@
       <workItem from="1548153143614" duration="4581000" />
       <workItem from="1548239304230" duration="10084000" />
       <workItem from="1548333774314" duration="804000" />
-      <workItem from="1548752507871" duration="13832000" />
+      <workItem from="1548752507871" duration="14133000" />
     </task>
     <servers />
   </component>
@@ -380,10 +378,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="588139000" />
+    <option name="totallyTimeSpent" value="588440000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="960" height="1040" extended-state="1" />
+    <frame x="0" y="0" width="960" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27224576" />
@@ -719,8 +717,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile01.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        <state relative-caret-position="438">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
         </state>
       </provider>
     </entry>
