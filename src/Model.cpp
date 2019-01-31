@@ -611,7 +611,7 @@ void Model::anteriorPosteriorBias(Cell (&cells)[totalNrOfCells], Parameters &par
                 cells[cell].multiplyTempX(params.abi); //Abi: Parameter for anterior bias
                 cells[cell].multiplyTempZ(params.bgr); //Bgr: Parameter for border growth (bias in z-direction)
             } else if (cells[cell].getX() < 0) {
-                cells[cell].multiplyTempX(params.abi); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempX(params.pbi); //Abi: Parameter for anterior bias
                 cells[cell].multiplyTempZ(params.bgr); //Bgr: Parameter for border growth (bias in z-direction)
             }
         }
