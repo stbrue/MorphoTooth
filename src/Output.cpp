@@ -64,7 +64,7 @@ void Output::bigOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     outputFile.close();
 }
 
-void Output::RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params) {
+void Output::RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
     // File name
     std::stringstream stringstream;
     std::string fileName;
@@ -74,7 +74,7 @@ void Output::RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params) 
     std::string file = ".txt";
 
     stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
-                 << params.currentIteration << file;
+                 << params.currentIteration << "_" << repetition << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
