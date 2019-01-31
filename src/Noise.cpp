@@ -47,7 +47,7 @@ void Noise::addToParameter(int parameterIndex, Parameters &params, double value)
             break;
         }
         case 4: {
-            params.zDiff += value;
+            params.powerOfRep += value;
             break;
         }
         case 5: {
@@ -63,102 +63,94 @@ void Noise::addToParameter(int parameterIndex, Parameters &params, double value)
             break;
         }
         case 8: {
-            params.Sec1Diffusion += value;
+            params.SecDiffusion += value;
             break;
         }
         case 9: {
-            params.Sec2Diffusion += value;
-            break;
-        }
-        case 10: {
             params.delta += value;
             break;
         }
-        case 11: {
+        case 10: {
             params.act += value;
             break;
         }
-        case 12: {
+        case 11: {
             params.inh += value;
             break;
         }
-        case 13: {
+        case 12: {
             params.mu += value;
             break;
         }
-        case 14: {
+        case 13: {
             params.inT += value;
             break;
         }
-        case 15: {
+        case 14: {
             params.set += value;
             break;
         }
-        case 16: {
+        case 15: {
             params.sec += value;
             break;
         }
-        case 17: {
-            params.sec2Inhibition += value;
-            break;
-        }
-        case 18: {
+        case 16: {
             params.lbi += value;
             break;
         }
-        case 19: {
+        case 17: {
             params.bbi += value;
             break;
         }
-        case 20: {
+        case 18: {
             params.swi += value;
             break;
         }
-        case 21: {
+        case 19: {
             params.dff += value;
             break;
         }
-        case 22: {
+        case 20: {
             params.egr += value;
             break;
         }
-        case 23: {
+        case 21: {
             params.mgr += value;
             break;
         }
-        case 24: {
+        case 22: {
             params.dgr += value;
             break;
         }
-        case 25: {
+        case 23: {
             params.boy += value;
             break;
         }
-        case 26: {
+        case 24: {
             params.rep += value;
             break;
         }
-        case 27: {
+        case 25: {
             params.adh += value;
             break;
         }
-        case 28: {
+        case 26: {
             params.ntr += value;
             break;
         }
-        case 29: {
+        case 27: {
             params.bwi += value;
             break;
         }
-        case 30: {
+        case 28: {
             params.abi += value;
             break;
         }
-        case 31: {
+        case 29: {
             params.pbi += value;
             break;
         }
-        case 32: {
+        case 30: {
             params.bgr += value;
             break;
         }
@@ -166,12 +158,10 @@ void Noise::addToParameter(int parameterIndex, Parameters &params, double value)
             std::cout << "Parameter could not be added" << std::endl;
             params.error = true;
         }
-
     }
 }
 
 void Noise::updateParams(Parameters noiseParams, Parameters &params) {
     params.error = noiseParams.error;
-    params.cellDivisionCount = noiseParams.cellDivisionCount;
     params.nrCellsInSimulation = noiseParams.nrCellsInSimulation;
 }

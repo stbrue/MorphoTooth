@@ -70,7 +70,7 @@ private:
 
     /**
      * proteinConcentrations[protein][layer]
-     * Proteins: Act, Inh, Sec1, Sec2
+     * Proteins: Act, Inh, Sec
      * Layers: Epithelium, Mesenchyme1, Mesenchyme2,.. MesenchymeThickness
      */
     std::vector<std::vector<double>> proteinConcentrations;

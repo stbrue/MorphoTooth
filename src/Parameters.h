@@ -51,20 +51,15 @@ public:
     double inT;
 
     /**
-     * @brief   Fgf threshold. If the concentration of Act is higher than this threshold, then Sec1 (ECM) is produced
+     * @brief   Fgf threshold. If the concentration of Act is higher than this threshold, then Sec (ECM) is produced
      */
     double set;
 
     /**
-     * @brief   Sec1 (ECM) production rate
+     * @brief   Sec (ECM) production rate
      */
     double sec;
-
-    /**
-     * @brief   not needed
-     */
-    double sec2Inhibition;
-
+    
     /**
      * @brief   Act concentration beyond swi (distance of initial BMP from midline)
      * Bias by initial BMP distribution in buccal direction
@@ -149,12 +144,7 @@ public:
      */
     bool error;
 
-    /**
-     * this integer can be used to stop the loop after a specific number of cell divisions
-     */
-    int cellDivisionCount;
-
-    /**
+     /**
      * counter of the big loop. Can be used for example by output functions or for debugging
      */
     int currentIteration;
@@ -179,8 +169,6 @@ public:
      */
     double repDistance;
 
-    double zDiff;
-
     /**
      * This represents how strong the protein sink at the tissue borders is. The protein concentrations of the border cells get multiplied by this parameter
      */
@@ -197,11 +185,9 @@ public:
     double InhDiffusion;
 
     /**
-     * protein-specific diffusion rate of Sec1
+     * protein-specific diffusion rate of Sec
      */
-    double Sec1Diffusion;
-
-    double Sec2Diffusion;
+    double SecDiffusion;
 
     /**
      * How many iterations are to be done

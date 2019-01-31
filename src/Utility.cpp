@@ -11,9 +11,7 @@
 #include <iostream>
 
 void Utility::resetNonConstantParameters(Parameters &params) {
-
     params.error = false;
-    params.cellDivisionCount = 0;
     params.currentIteration = 0;
 }
 

@@ -29,7 +29,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   cell    ID of lower cell
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
-     * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
+     * @param   protein 0:Act, 1:Inh, 2:Sec
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
     static void
@@ -41,7 +41,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   cell    ID of upper cell
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
-     * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
+     * @param   protein 0:Act, 1:Inh, 2:Sec
      * @param   pCellArea   diffusion area (cell area, relative to total diffusion area)
      */
     static void
@@ -52,7 +52,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   cell    ID of cell in question
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
-     * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
+     * @param   protein 0:Act, 1:Inh, 2:Sec
      * @param   contactArea     diffusion area (relative cell area or perimeter part)
      */
     static void
@@ -64,7 +64,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   cell    ID of cell in question
      * @param   layer   0 if in epithelium, >0 if in mesenchymal layer
-     * @param   protein 0:Act, 1:Inh, 2:Sec1, 3:Sec2
+     * @param   protein 0:Act, 1:Inh, 2:Sec
      * @param   diffusionArea   pDiffusionArea for non-epithelial and eDiffusionArea for epithelial diffusion
      */
     static void
@@ -104,13 +104,13 @@ public:
     static void InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters &params, int cell);
 
     /**
-     * @brief   Sec1 is produced if differentiation state is higher than a threshold or if the cell is an EK cell
+     * @brief   Sec is produced if differentiation state is higher than a threshold or if the cell is an EK cell
      * @details The production is proportional to a secretion rate (sec) and to the differentiation state minus the degradation
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      * @param   cell    ID of cell in question
      */
-    static void Sec1ReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters &params, int cell);
+    static void SecReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters &params, int cell);
 
     /**
      * @brief   If a center cell deviates too much in buccal or lingual direction (y), then its Act concentration is set to a certain value
@@ -120,7 +120,7 @@ public:
     static void buccalLingualBias(Cell (&cells)[totalNrOfCells], Parameters &params);
 
     /**
-     * @brief   Increases the differentiation state of each cell proportionally to Sec1 concentration
+     * @brief   Increases the differentiation state of each cell proportionally to Sec concentration
      * @param   cells   vector containing all cells
      * @param   params  struct containing all parameters
      */
@@ -135,7 +135,7 @@ public:
     static void epithelialProliferation(Cell (&cells)[totalNrOfCells], Parameters &params);
 
     /**
-     * @brief   A force that is normal to the epithelial cell surface and proportional to Sec1 concentration
+     * @brief   A force that is normal to the epithelial cell surface and proportional to Sec concentration
      * @param   cells   vector containing all cells
      * @param   params  struct containing all cells
      */

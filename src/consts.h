@@ -8,8 +8,7 @@
 
 const int PAct = 0;
 const int PInh = 1;
-const int PSec1 = 2;
-const int PSec2 = 3;
+const int PSec = 2;
 
 const int LEpithelium = 0;
 

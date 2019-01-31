@@ -85,11 +85,8 @@ void Model::diffusion(Cell (&cells)[totalNrOfCells], Parameters &params) {
                     case PInh:
                         diffusionRate = params.InhDiffusion;
                         break;
-                    case PSec1:
-                        diffusionRate = params.Sec1Diffusion;
-                        break;
-                    case PSec2:
-                        diffusionRate = params.Sec2Diffusion;
+                    case PSec:
+                        diffusionRate = params.SecDiffusion;
                         break;
                     default:
                         params.error = true;
@@ -164,8 +161,7 @@ void Model::reaction(Cell (&cells)[totalNrOfCells], Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         ActReactionAndDegradation(cells, params, cell);
         InhReactionAndDegradation(cells, params, cell);
-        Sec1ReactionAndDegradation(cells, params, cell);
-        //Sec2AndDegradation(cells, params, cell); // not used, since [Sec2] is always = 0
+        SecReactionAndDegradation(cells, params, cell);
     }
 
     //Update the final protein concentrations (including delta)
@@ -205,8 +201,8 @@ void Model::buccalLingualBias(Cell (&cells)[totalNrOfCells], Parameters &params)
 void Model::differentiation(Cell (&cells)[totalNrOfCells], Parameters &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         //Increase the diff state of each cell
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
-        double addDiff = params.dff * epithelialSec1Concentration;
+        double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
+        double addDiff = params.dff * epithelialSecConcentration;
         cells[cell].addDiffState(addDiff);
     }
 }
@@ -402,9 +398,9 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], Parameters &p
         }
 
         d = sqrt(aa * aa + bb * bb);
-        double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
+        double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
         if (d > 0) {
-            factor = (d + params.mgr * epithelialSec1Concentration) / d;        //mgr: mesenchymal proliferation rate
+            factor = (d + params.mgr * epithelialSecConcentration) / d;        //mgr: mesenchymal proliferation rate
             aa = aa * factor;
             bb = bb * factor;
         }
@@ -436,8 +432,8 @@ void Model::buoyancy(Cell (&cells)[totalNrOfCells], Parameters &params) {
             double YRelativeToZ = cells[cell].getTempY() * relativeZDistance;
             double relativeDistance1 = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
                                             distanceToOrigin2D * distanceToOrigin2D);
-            double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
-            double relativeDistance2 = params.boy * epithelialSec1Concentration / relativeDistance1;     //boy: buoyancy
+            double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
+            double relativeDistance2 = params.boy * epithelialSecConcentration / relativeDistance1;     //boy: buoyancy
 
             if (relativeDistance2 > 0) {
                 double inverseDiffState = 1 - cells[cell].getDiffState();
@@ -766,10 +762,8 @@ void Model::ActReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters 
 
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
-    //double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
 
-    double positiveTerm = params.act * epithelialActConcentration; //- epithelialSec2Concentration
-    // not necessary since [Sec2] is always = 0
+    double positiveTerm = params.act * epithelialActConcentration;
     if (positiveTerm < 0) {
         positiveTerm = 0;
     }
@@ -814,52 +808,31 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters 
 
 }
 
-void Model::Sec1ReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters &params, int cell) {
+void Model::SecReactionAndDegradation(Cell (&cells)[totalNrOfCells], Parameters &params, int cell) {
     double diffState = cells[cell].getDiffState();
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
+    double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
 
     if (params.newInhAndSecProduction == 0) {
         //original version
         if (isKnotCell) {
-            newConcentration = params.sec - params.mu * epithelialSec1Concentration;
+            newConcentration = params.sec - params.mu * epithelialSecConcentration;
         } else if (diffState > params.set) {
-            newConcentration = params.sec * diffState - params.mu * epithelialSec1Concentration;
+            newConcentration = params.sec * diffState - params.mu * epithelialSecConcentration;
         }
     } else {
         if (isKnotCell || diffState > params.set) {
-            newConcentration = params.sec - params.mu * epithelialSec1Concentration;
+            newConcentration = params.sec - params.mu * epithelialSecConcentration;
         }
     }
 
-    // [Sec1] does not get smaller (except by diffusion)
+    // [Sec] does not get smaller (except by diffusion)
     if (newConcentration < 0) {
         newConcentration = 0;
     }
-    cells[cell].addTempConcentration(PSec1, LEpithelium, newConcentration);
+    cells[cell].addTempConcentration(PSec, LEpithelium, newConcentration);
 }
-
-
-/**
- * This method is not used, because the parameter acec (influence of activator on sec2) is zero, meaning that there is no
- * Sec2 production at all.
- */
-/*void Model::Sec2ReactionAndDegradation(std::vector<Cell> &cells, Parameters &params, int cell) {
-    double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
-    double epithelialSec1Concentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
-    double epithelialSec2Concentration = cells[cell].getProteinConcentrations()[PSec2][LEpithelium];
-
-    double newConcentration =
-            params.acec * epithelialActConcentration -                   //Act activates Sec2 production
-            params.mu * epithelialSec2Concentration -                   //Minus normal degradation of Sec2
-            params.sec2Inhibition * epithelialSec1Concentration;        //Minus Inhibition by Sec1
-    if (newConcentration < 0) {
-        newConcentration = 0;
-    }
-
-    cells[cell].addTempConcentration(3, 0, newConcentration);
-}*/
 
 std::vector<int> Model::searchMotherCells(Cell (&cells)[totalNrOfCells], Parameters &params) {
 
@@ -876,7 +849,6 @@ std::vector<int> Model::searchMotherCells(Cell (&cells)[totalNrOfCells], Paramet
                     motherCells.push_back(neighbourID);
                     //std::cout << "Cell division between cell " << cell << " and " << neighbourID << std::endl;
                     //std::cout.flush();
-                    params.cellDivisionCount += 1;
                     // If a pair is found, return it instantly
                     return motherCells;
                 }
@@ -1183,7 +1155,7 @@ void Model::newEpithelialProliferation(Cell (&cells)[totalNrOfCells], Parameters
 
 void Model::downGrowth(Cell (&cells)[totalNrOfCells], Parameters &params, double xShift, double yShift, int cell) {
 
-    double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec1][LEpithelium];
+    double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
     double inverseDiffState = 1 - cells[cell].getDiffState();
     if (inverseDiffState < 0) {
         inverseDiffState = 0;
