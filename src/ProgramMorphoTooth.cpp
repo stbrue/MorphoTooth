@@ -56,14 +56,23 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
 
         //All x iterations do an output
         if (step % params.outputInterval == 0) {
-            Output::ROutput(cells, params);
-            Output::plyOutput(cells, params);
+            if (params.parameterWithNoise > 0) {
+                Output::RNoiseOutput(cells, params, repetition);
+            }
+            if (params.parameterToChange > 0){
+                Output::RParameterChange(cells, params);
+            }
         }
     }
 
-    Output::ROutput(cells, params);
+    // Create OutputFiles anyway at end of simulation (also if there was an error)
     Output::plyOutput(cells, params);
-    Output::RNoiseOutput(cells, params, repetition);
+    if (params.parameterWithNoise > 0) {
+        Output::RNoiseOutput(cells, params, repetition);
+    }
+    if (params.parameterToChange > 0){
+        Output::RParameterChange(cells, params);
+    }
 
     Print::printEndOfSimulation();
 
@@ -100,7 +109,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
         Parameters params = Input::setParameters(nameInputFileTemp);
 
         // run the program with current conditions
-        ProgramMorphoTooth::runProgram(params);
+        ProgramMorphoTooth::runProgram(params, 0);
 
         // change the conditions
         double newValue = ((condition + 1) * changePerConditionDouble) + startingValueDouble;

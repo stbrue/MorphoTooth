@@ -64,13 +64,13 @@ void Output::bigOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     outputFile.close();
 }
 
-void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params) {
+void Output::RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params) {
     // File name
     std::stringstream stringstream;
     std::string fileName;
 
     std::string path = "./Outputfiles/";
-    std::string name = "ToothBig";
+    std::string name = "RParameterChange";
     std::string file = ".txt";
 
     stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"

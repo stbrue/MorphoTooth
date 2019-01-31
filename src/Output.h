@@ -19,7 +19,7 @@ public:
 
     static void bigOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params);
+    static void RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params);
 
     static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params);
 
