@@ -11,123 +11,6 @@
 #include "Geometrics.h"
 #include <sstream>
 
-void Output::initialCellCentersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells) {
-    std::ofstream outputFile;
-    outputFile.open("Initial_Cell_Centers.txt");
-
-    outputFile << "X\tY" << std::endl;
-
-    for (int cell = 0; cell < InSimulationCells; ++cell) {
-        outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << std::endl;
-    }
-
-    outputFile.close();
-}
-
-void Output::initialCellBordersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells) {
-    std::ofstream outputFile;
-    outputFile.open("Initial_Cell_Borders.txt");
-
-    outputFile << "X\tY" << std::endl;
-
-    for (int cell = 0; cell < InSimulationCells; ++cell) {
-        for (int borderPoint = 0; borderPoint < cells[cell].getBorderPoints().size(); ++borderPoint) {
-            outputFile << cells[cell].getBorderPoints()[borderPoint][X] << "\t"
-                       << cells[cell].getBorderPoints()[borderPoint][Y] << std::endl;
-        }
-    }
-
-
-    outputFile.close();
-}
-
-void Output::bigOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
-    std::ofstream outputFile;
-    outputFile.precision(params.outputPrecision);
-    outputFile.open("BigOutputMorphoTooth.txt");
-
-    outputFile << "Iterations: " << params.currentIteration << "Cells in Simulation: " << params.nrCellsInSimulation
-               << std::endl;
-
-    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        outputFile << "Cell Nr.: " << cell << std::endl;
-        outputFile << "X, Y, Z: " << cells[cell].getX() << "\t" << cells[cell].getY() << "\t" << cells[cell].getZ()
-                   << std::endl;
-        outputFile << "Diff State: " << cells[cell].getDiffState() << std::endl;
-        outputFile << "Epithelial Act: " << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << std::endl;
-        outputFile << "Epithelial Inh: " << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << std::endl;
-        outputFile << "Epithelial Sec: " << cells[cell].getProteinConcentrations()[PSec][LEpithelium] << std::endl;
-        outputFile << std::endl;
-    }
-
-    outputFile.close();
-}
-
-void Output::RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
-    // File name
-    std::stringstream stringstream;
-    std::string fileName;
-
-    std::string path = "./Outputfiles/";
-    std::string name = "RParameterChange";
-    std::string file = ".txt";
-
-    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
-                 << params.currentIteration << "_" << repetition << file;
-    fileName = stringstream.str();
-
-    std::ofstream outputFile(path);
-    outputFile.precision(params.outputPrecision);
-    outputFile.open(fileName);
-
-    // Header
-    outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
-               "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
-               << std::endl;
-
-    outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.parameterToChange
-               << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
-               << params.nrCellsInSimulation << std::endl;
-
-    outputFile << std::endl;
-
-    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
-               << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
-               << "EK" << "\t" << "CentreCell" << std::endl;
-
-
-    // Body
-    int groupCount = 0;
-
-    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        int *neighbours = cells[cell].getNeighbours();
-        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
-            int IDofN = neighbours[neighbour];
-            // if neighbour is in simulation
-            if (IDofN < totalNrOfCells) {
-                outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
-                           << cells[cell].getZ() << "\t" << groupCount << "\t"
-                           << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << "\t"
-                           << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
-                           << cells[cell].getProteinConcentrations()[PSec][LEpithelium] << "\t"
-                           << cells[cell].getDiffState() << "\t"
-                           << cells[cell].isKnotCell() << "\t" << cells[cell].isInCentre()
-                           << std::endl;
-                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
-                           << cells[IDofN].getZ() << "\t" << groupCount << "\t"
-                           << cells[IDofN].getProteinConcentrations()[PAct][LEpithelium] << "\t"
-                           << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
-                           << cells[IDofN].getProteinConcentrations()[PSec][LEpithelium] << "\t"
-                           << cells[IDofN].getDiffState()
-                           << "\t" << cells[IDofN].isKnotCell() << "\t" << cells[IDofN].isInCentre()
-                           << std::endl;
-                groupCount += 1;
-            }
-        }
-    }
-    outputFile.close();
-}
-
 void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params) {
     std::stringstream stringstream;
     std::string fileName;
@@ -234,19 +117,50 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     outputFile.close();
 }
 
-void Output::RNoiseOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
-    // File name
+void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
+    int outputCondition = 0;
+
+    if (params.parameterWithNoise > 0) {
+        outputCondition = 1;
+    }
+    else if (params.parameterToChange > 0){
+        outputCondition = 2;
+    }
+
+    // Create File name depending on the simulation conditions (if there was noise or parameter scanning or neither)
     std::stringstream stringstream;
     std::string fileName;
-
     std::string path = "./Outputfiles/";
-    std::string name = "RNoise_";
     std::string file = ".txt";
 
-    stringstream << path << name << params.parameterWithNoise << "_"
-                 << params.currentIteration << "_" << repetition << file;
-    fileName = stringstream.str();
+    switch (outputCondition) {
+        case 1: {
+            std::string name = "RNoise_";
 
+            stringstream << path << name << params.parameterWithNoise << "_"
+                         << params.currentIteration << "_" << repetition << file;
+            fileName = stringstream.str();
+            break;
+        }
+        case 2: {
+            std::string name = "RParameterChange";
+
+            stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
+                         << params.currentIteration << "_" << repetition << file;
+            fileName = stringstream.str();
+            break;
+        }
+        default: {
+            std::string name = "ROutputNormal_";
+
+            stringstream << path << name << params.parameterWithNoise << "_"
+                         << params.currentIteration << file;
+            fileName = stringstream.str();
+            break;
+        }
+    }
+
+    // Open file
     std::ofstream outputFile(path);
     outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);

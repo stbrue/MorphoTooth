@@ -13,13 +13,6 @@
 class Output {
 
 public:
-    static void initialCellCentersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells);
-
-    static void initialCellBordersXY(Cell (&cells)[totalNrOfCells], int InSimulationCells);
-
-    static void bigOutput(Cell (&cells)[totalNrOfCells], Parameters params);
-
-    static void RParameterChange(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 
     static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params);
 
@@ -27,7 +20,7 @@ public:
 
     static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 
-    static void RNoiseOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
+    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 
 };
 

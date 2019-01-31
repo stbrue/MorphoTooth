@@ -56,23 +56,13 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
 
         //All x iterations do an output
         if (step % params.outputInterval == 0) {
-            if (params.parameterWithNoise > 0) {
-                Output::RNoiseOutput(cells, params, repetition);
-            }
-            if (params.parameterToChange > 0){
-                Output::RParameterChange(cells, params, repetition);
-            }
+            Output::ROutput(cells, params, repetition);
         }
     }
 
     // Create OutputFiles anyway at end of simulation (also if there was an error)
     Output::plyOutput(cells, params, repetition);
-    if (params.parameterWithNoise > 0) {
-        Output::RNoiseOutput(cells, params, repetition);
-    }
-    if (params.parameterToChange > 0){
-        Output::RParameterChange(cells, params, repetition);
-    }
+    Output::ROutput(cells, params, repetition);
 
     Print::printEndOfSimulation();
 
