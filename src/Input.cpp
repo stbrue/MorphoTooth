@@ -9,7 +9,7 @@
 #include <sstream>
 #include <cmath>
 
-Parameters Input::setParametersInitial(std::string InputFileName) {
+Parameters Input::setParametersInitial(std::string nameInputFile) {
     // Set up vector and struct
     Parameters params;
     double parameter[60] = {0};
@@ -18,7 +18,7 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
     std::string line;
     int counter = 0;
 
-    std::ifstream InputFile(InputFileName);
+    std::ifstream InputFile(nameInputFile);
     std::string delimiter = ":";
 
     if (InputFile.is_open()) {
@@ -100,6 +100,8 @@ Parameters Input::setParametersInitial(std::string InputFileName) {
         params.parameterToChangeValues.push_back(currentValuesOfParameterToChange);
     }
 
+    params.valueOfParameterAffectedByNoise = parameter[params.parameterWithNoise];
+
     return params;
 }
 
@@ -153,6 +155,7 @@ void Input::createInputFileTemp(int parameter, Parameters params, std::string fi
         InputFileTemp << params.parameterToChangeValues[parameter][1] << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][2] << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][3] << "\n";
+        InputFileTemp << params.valueOfParameterAffectedByNoise << "\n";
     }
 
     InputFileTemp.close();
@@ -245,6 +248,8 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.percentageSteps = parameter[43];
     params.valueOfParameterToChange = parameter[params.parameterToChange];
 
+    params.valueOfParameterAffectedByNoise = parameter[45];
+
     return params;
 }
 
@@ -292,36 +297,5 @@ void Input::changeInputFileTemp(Parameters params, double newValue, std::string 
 
     //Rename the InputFileout to InputFileTemp
     rename(cInputFileOut, cInputFileTemp);
-
-}
-
-double Input::getParameterAffectedByNoise(Parameters &params) {
-    // The parameterWithNoise'th line of the file holds the value of the parameter
-    // Read in the File
-    std::string lineTemp;
-    int counter = 0;
-    double parameterAffectedByNoiseValue;
-
-    std::ifstream InputFile("InputFile.txt");
-
-    // Read in the file and return the value of the parameterWithNoise'th line
-    if (InputFile.is_open()) {
-        while (getline(InputFile, lineTemp)) {
-            if (counter == params.parameterWithNoise) {
-                parameterAffectedByNoiseValue = std::stod(lineTemp);
-                InputFile.close();
-                return parameterAffectedByNoiseValue;
-            }
-            counter += 1;
-        }
-        InputFile.close();
-        std::cout << "ParameterWithNoise was not found." << std::endl;
-        params.error = true;
-        return 2;
-    } else {
-        std::cout << "Unable to open file";
-        params.error = true;
-        return 1;
-    }
 
 }

@@ -7,21 +7,21 @@
 #include "Noise.h"
 #include "Input.h"
 
-void Noise::addNoiseToParameter(Parameters &params) {
+Parameters Noise::setNoiseParameter(Parameters params) {
     // If the noise parameter is set to 0, no noise is calculated
     if (params.parameterWithNoise == 0) {
-        return;
+        return params;
     }
 
-    // Get the value of the parameter that gets noise
-    double valueOfParameterAffectedByNoise = Input::getParameterAffectedByNoise(params);
-
     // get noise value (mean = 0)
-    double sd = valueOfParameterAffectedByNoise * params.sdPercentage;
+    double sd = params.valueOfParameterAffectedByNoise * params.sdPercentage;
     double noiseValue = Noise::generateNoiseValue(0, sd);
 
-    // add noise value to the parameter
-    Noise::addToParameter(params.parameterWithNoise, params, noiseValue);
+    // Create new struct Parameters with NoiseValues
+    Parameters noiseParams = params;
+    Noise::addToParameter(params.parameterWithNoise, noiseParams, noiseValue);
+
+    return noiseParams;
 }
 
 double Noise::generateNoiseValue(double mean, double sd) {
@@ -168,4 +168,10 @@ void Noise::addToParameter(int parameterIndex, Parameters &params, double value)
         }
 
     }
+}
+
+void Noise::updateParams(Parameters noiseParams, Parameters &params) {
+    params.error = noiseParams.error;
+    params.cellDivisionCount = noiseParams.cellDivisionCount;
+    params.nrCellsInSimulation = noiseParams.nrCellsInSimulation;
 }

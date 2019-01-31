@@ -14,21 +14,22 @@
 
 
 void Model::iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params) {
-    Noise::addNoiseToParameter(params);
-    Model::diffusion(cells, params);
-    Model::reaction(cells, params);
-    Model::buccalLingualBias(cells, params);
-    Model::differentiation(cells, params);
-    Model::epithelialProliferation(cells, params);
+    Parameters noiseParams = Noise::setNoiseParameter(params);
+    Model::diffusion(cells, noiseParams);
+    Model::reaction(cells, noiseParams);
+    Model::buccalLingualBias(cells, noiseParams);
+    Model::differentiation(cells, noiseParams);
+    Model::epithelialProliferation(cells, noiseParams);
     //Model::newEpithelialProliferation(cells, params);
-    Model::buoyancy(cells, params);
-    Model::repulsionAndAdhesion(cells, params);
-    Model::nucleusTraction(cells, params);
-    Model::anteriorPosteriorBias(cells, params);
-    Model::applyForces(cells, params);
-    Model::cellDivision(cells, params);
-    Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
-    Utility::errorTesting(cells, params);
+    Model::buoyancy(cells, noiseParams);
+    Model::repulsionAndAdhesion(cells, noiseParams);
+    Model::nucleusTraction(cells, noiseParams);
+    Model::anteriorPosteriorBias(cells, noiseParams);
+    Model::applyForces(cells, noiseParams);
+    Model::cellDivision(cells, noiseParams);
+    Geometrics::calculateCellBorders(cells, noiseParams.nrCellsInSimulation);
+    Utility::errorTesting(cells, noiseParams);
+    Noise::updateParams(noiseParams, params);
 
 }
 

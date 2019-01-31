@@ -7,21 +7,15 @@
 
 
 int main() {
+    // Arguments read in by command line
     std::string simulationNumber = "01";
+    std::string nameInputFile = "InputFile01.txt";
+    std::string nameInputFileTemp = "InputFileTemp01.txt";
 
-    // Name the files corresponding to the simulationNumber
-    std::stringstream sInputFile;
-    sInputFile << "InputFile" << simulationNumber << ".txt";
-    std::string nameInputFile = sInputFile.str();
-
-    std::stringstream sInputFileTemp;
-    sInputFileTemp << "InputFileTemp" << simulationNumber << ".txt";
-    std::string nameInputFileTemp = sInputFileTemp.str();
-
-    // Read in InputFile.txt and set initial parameters
+    // Read InputFile.txt and set initial parameters
     Parameters paramsInitial = Input::setParametersInitial(nameInputFile);
 
-    // If no parameter has to be changed, set all values connected with parameterToChange to zero and start the simulation only with the same parameters
+    // If no parameter has to be changed, set all values connected with parameterToChange to zero and start the simulation with the same parameters
     if (paramsInitial.nrOfParametersToChange == 0) {
         std::vector<double> zeroVector = {0, 0, 0, 0};
         paramsInitial.parameterToChangeValues.push_back(zeroVector);

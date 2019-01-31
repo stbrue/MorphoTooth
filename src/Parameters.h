@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <string>
 
 /**
  * Contains all parameter (values that are set in the beginning or that have to be accessed globally)
@@ -223,6 +224,8 @@ public:
     double sdPercentage;
 
     int repetitions;
+
+    double valueOfParameterAffectedByNoise;
 };
 
 
