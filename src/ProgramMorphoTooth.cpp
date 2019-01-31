@@ -60,7 +60,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
                 Output::RNoiseOutput(cells, params, repetition);
             }
             if (params.parameterToChange > 0){
-                Output::RParameterChange(cells, params);
+                Output::RParameterChange(cells, params, repetition);
             }
         }
     }
@@ -71,7 +71,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
         Output::RNoiseOutput(cells, params, repetition);
     }
     if (params.parameterToChange > 0){
-        Output::RParameterChange(cells, params);
+        Output::RParameterChange(cells, params, repetition);
     }
 
     Print::printEndOfSimulation();

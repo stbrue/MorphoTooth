@@ -25,7 +25,7 @@ public:
 
     static void geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params);
+    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 
     static void RNoiseOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 

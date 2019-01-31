@@ -184,7 +184,7 @@ void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params
     outputFile.close();
 }
 
-void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
+void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
     // Do the triangulation
     std::vector<std::vector<int>> faces;
     Geometrics::triangulation(cells, params, faces);
@@ -198,7 +198,7 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
     std::string file = ".ply";
 
     stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
-                 << params.currentIteration << file;
+                 << params.currentIteration << "_" << repetition << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
