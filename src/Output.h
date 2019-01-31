@@ -27,6 +27,8 @@ public:
 
     static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
+    static void RNoiseOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
+
 };
 
 

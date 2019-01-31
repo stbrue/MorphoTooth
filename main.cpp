@@ -29,7 +29,7 @@ int main() {
         // Run the program as often as declared in the InputFile with "repetitions"
         for (int repetition = 0; repetition < params.repetitions; ++repetition) {
             Utility::resetNonConstantParameters(params);
-            ProgramMorphoTooth::runProgram(params);
+            ProgramMorphoTooth::runProgram(params, repetition);
         }
     }
 

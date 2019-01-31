@@ -234,3 +234,68 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
 
     outputFile.close();
 }
+
+void Output::RNoiseOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
+    // File name
+    std::stringstream stringstream;
+    std::string fileName;
+
+    std::string path = "./Outputfiles/";
+    std::string name = "RNoise_";
+    std::string file = ".txt";
+
+    stringstream << path << name << params.parameterWithNoise << "_"
+                 << params.currentIteration << "_" << repetition << file;
+    fileName = stringstream.str();
+
+    std::ofstream outputFile(path);
+    outputFile.precision(params.outputPrecision);
+    outputFile.open(fileName);
+
+    // Header
+    outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
+               "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
+               << std::endl;
+
+    outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.parameterToChange
+               << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
+               << params.nrCellsInSimulation << std::endl;
+
+    outputFile << std::endl;
+
+    outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
+               << "EpithelialAct" << "\t" << "EpithelialInh" << "\t" << "EpithelialSec" << "\t" << "DiffState" << "\t"
+               << "EK" << "\t" << "CentreCell" << std::endl;
+
+
+    // Body
+    int groupCount = 0;
+
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        int *neighbours = cells[cell].getNeighbours();
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
+            int IDofN = neighbours[neighbour];
+            // if neighbour is in simulation
+            if (IDofN < totalNrOfCells) {
+                outputFile << cell << "\t" << cells[cell].getX() << "\t" << cells[cell].getY() << "\t"
+                           << cells[cell].getZ() << "\t" << groupCount << "\t"
+                           << cells[cell].getProteinConcentrations()[PAct][LEpithelium] << "\t"
+                           << cells[cell].getProteinConcentrations()[PInh][LEpithelium] << "\t"
+                           << cells[cell].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
+                           << cells[cell].getDiffState() << "\t"
+                           << cells[cell].isKnotCell() << "\t" << cells[cell].isInCentre()
+                           << std::endl;
+                outputFile << IDofN << "\t" << cells[IDofN].getX() << "\t" << cells[IDofN].getY() << "\t"
+                           << cells[IDofN].getZ() << "\t" << groupCount << "\t"
+                           << cells[IDofN].getProteinConcentrations()[PAct][LEpithelium] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[PInh][LEpithelium] << "\t"
+                           << cells[IDofN].getProteinConcentrations()[PSec1][LEpithelium] << "\t"
+                           << cells[IDofN].getDiffState()
+                           << "\t" << cells[IDofN].isKnotCell() << "\t" << cells[IDofN].isInCentre()
+                           << std::endl;
+                groupCount += 1;
+            }
+        }
+    }
+    outputFile.close();
+}

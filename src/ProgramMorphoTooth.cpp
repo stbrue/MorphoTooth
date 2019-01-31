@@ -15,7 +15,7 @@
 #include "Print.h"
 #include "Utility.h"
 
-void ProgramMorphoTooth::runProgram(Parameters &params) {
+void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
 
     //Print information that program is started with value of parameter to change
     Print::printStartOfSimulation(params);
@@ -57,15 +57,13 @@ void ProgramMorphoTooth::runProgram(Parameters &params) {
         //All x iterations do an output
         if (step % params.outputInterval == 0) {
             Output::ROutput(cells, params);
-            Output::geomorphLinkOutput(cells, params);
             Output::plyOutput(cells, params);
         }
     }
 
     Output::ROutput(cells, params);
-    Output::geomorphLinkOutput(cells, params);
-    //Output::XYZOutputSimple(cells, params);
     Output::plyOutput(cells, params);
+    Output::RNoiseOutput(cells, params, repetition);
 
     Print::printEndOfSimulation();
 

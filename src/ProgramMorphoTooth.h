@@ -10,7 +10,7 @@
 
 class ProgramMorphoTooth {
 public:
-    static void runProgram(Parameters &params);
+    static void runProgram(Parameters &params, int repetition);
 
     static void runProgramWithDifferentConditions(Parameters &paramsInitial, std::string nameInputFileTemp);
 
