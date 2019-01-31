@@ -17,9 +17,9 @@ void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells])
 
     //Make the first cell
     Cell cell1;
-    cell1.setX(params.firstX);
-    cell1.setY(params.firstY);
-    cell1.setZ(params.firstZ);
+    cell1.setX(firstX);
+    cell1.setY(firstY);
+    cell1.setZ(firstZ);
     cell1.setID(firstID);
 
     //Include the first cell
@@ -74,7 +74,7 @@ double Initial::nextX(double centerCoordinate, int neighbour, Parameters &params
     int distanceBetweenCells = 1;
     x = centerCoordinate + (distanceBetweenCells * sin(a * (degrees * neighbour)));
     //return the rounded value
-    return (std::floor(x * params.round3 + 0.5) / params.round3);
+    return (std::floor(x * round3 + 0.5) / round3);
 }
 
 
@@ -84,7 +84,7 @@ double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params
     int distanceBetweenCells = 1;
     y = centerCoordinate + (distanceBetweenCells * cos(a * (degrees * neighbour)));
     //return the rounded value
-    return (std::floor(y * params.round3 + 0.5) / params.round3);
+    return (std::floor(y * round3 + 0.5) / round3);
 }
 
 
@@ -100,7 +100,7 @@ void Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, in
         Cell tempCell;
         tempCell.setX(x);
         tempCell.setY(y);
-        tempCell.setZ(params.firstZ);
+        tempCell.setZ(firstZ);
         tempCell.setID(IDNewCell);
 
         //check if this neighbour is already an existing cell

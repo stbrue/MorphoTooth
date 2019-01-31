@@ -15,18 +15,18 @@
 struct Parameters {
 public:
     /**
-     * @brief   Defines the initial amount of total cells and cells that are in the center
+     * @brief   Defines the initial amount of circles/rows of cells. For seals 2 is appropriate
      */
     int initialRadius;
 
     /**
      * @brief   How many cells are included in the calculations.
-     * Only cells that have a closed sequence of neighbours (that are not at the border) are included
+     * Its increased only by cell division
      */
     int nrCellsInSimulation;
 
     /**
-     * @brief   This factor is multiplied with the forces to reduce their impact. To avoid too big fluctuations
+     * @brief   Force vectors are multiplied by delta to reduce their impact i.e. to avoid too large fluctuations
      */
     double delta;
 
@@ -61,7 +61,7 @@ public:
     double sec;
 
     /**
-     * @brief   Same as inT?
+     * @brief   not needed
      */
     double sec2Inhibition;
 
@@ -78,13 +78,12 @@ public:
     double bbi;
 
     /**
-     * @brief   Distance of initial BMP from midline
-     * bucco-lingual bias
+     * @brief   Distance of initial BMP from midline, i.e. range where buccal-lingual-bias does apply
      */
     double swi;
 
     /**
-     * @brief   Differentiation rate
+     * @brief   Differentiation rate of the cells
      */
     double dff;
 
@@ -114,13 +113,13 @@ public:
     double rep;
 
     /**
-     * @brief   Neighbour traction (effect of adhesion and repulsion between neighbours)
+     * @brief   Neighbour traction (effect of adhesion AND repulsion between neighbours)
      */
     double adh;
 
     /**
      * @brief   Nuclear traction
-     * Affects cell size
+     * Affects cell size, leads to roundening of cells
      */
     double ntr;
 
@@ -155,76 +154,142 @@ public:
      */
     int cellDivisionCount;
 
+    /**
+     * counter of the big loop. Can be used for example by output functions or for debugging
+     */
     int currentIteration;
 
+    /**
+     * Defines the distance that two cells must have minimally that cell division takes place
+     */
     double distanceCellDivision;
 
+    /**
+     * Defines the Act Concentration that a cell must reach to become a EK cell
+     */
     double EKThreshold;
 
+    /**
+     * How strong the effect of repulsion between non-neighbours is reduced (the effect is divided by a number to the power of "powerOfRep"
+     */
     int powerOfRep;
 
+    /**
+     * Defines the distance two non-neighbouring cells have to deceed that repulsion between them acts
+     */
     double repDistance;
 
     double zDiff;
 
+    /**
+     * This represents how strong the protein sink at the tissue borders is. The protein concentrations of the border cells get multiplied by this parameter
+     */
     double sinkAmount;
 
+    /**
+     * protein-specific diffusion rate of Act
+     */
     double ActDiffusion;
 
+    /**
+     * protein-specific diffusion rate of Inh
+     */
     double InhDiffusion;
 
+    /**
+     * protein-specific diffusion rate of Sec1
+     */
     double Sec1Diffusion;
 
     double Sec2Diffusion;
 
+    /**
+     * How many iterations are to be done
+     */
     int maxNrOfIterations;
 
+    /**
+     * The maximum number of cells in the simulation. If this number is reached, the simulation stops
+     */
     int maxNrOfCells;
 
+    /**
+     * Every x-iteration Outputfiles are generated
+     */
     int outputInterval;
 
+    /**
+     * Every x-iteration the iteration and nrCellsInSimulation is printed in the console
+     */
     int printInterval;
 
+    /**
+     * How many decimal places are written into the output files
+     */
     int outputPrecision;
 
-    double round1;
-
-    double round2;
-
-    double round3;
-
-    int nrOfProteins;
-
-    double firstX;
-
-    double firstY;
-
-    double firstZ;
-
-    int dimensions;
-
+    /**
+     * States how many parameter-screens should be done. The screenings however happen sequentially.
+     */
     int nrOfParametersToChange;
 
+    /**
+     * For implementation reasons this vector holds the values related to parameter scanning that are read initially
+     */
     std::vector<std::vector<double>> parameterToChangeValues;
 
+    /**
+     * Defines which parameter is changed between several simulations. This can be used to do a parameter screening.
+     */
     int parameterToChange;
 
+    /**
+     * Used for parameter screening. Defines the range in which the parameter takes values -> default value plus/minus x
+     * This value is read as a decimal representation of percentage. -> E.g. 0.5 for plus minus 50% around the default value
+     */
     double totalPlusMinusScope;
 
+    /**
+     * Used for parameter screening. Defines the step size in the screening (in percent) -> E.g. 0.2 means that the differences
+     * between the parameter value of two simulations is 20% of the default value
+     */
     double percentageSteps;
 
+    /**
+     * Holds the default value of the parameter which is changed during the parameter screening.
+     */
     double valueOfParameterToChange;
 
+    /**
+     * Results from totalPlusMinusScope and percentageSteps and states how many simulations in the parameter screening have to be done
+     */
     int nrOfConditions;
 
+    /**
+     * If 0 the reaction function of Inh and Sec are as in the original version (ToothMaker)
+     * If 1 the reaction function of Inh and Sec are in a binary way (either on or off) depending on the differentiation state of a cell
+     */
     int newInhAndSecProduction;
 
+    /**
+     * Which parameter is affected by noise during the simulation. The value is the position of the parameter in the input file
+     */
     int parameterWithNoise;
 
+    /**
+     * To define the amplitude of noise. The standard deviation of the distribution from which the noise values are taken
+     * is: the default value of the parameter * "sdPercentage".
+     */
     double sdPercentage;
 
+    /**
+     * How many times the simulation with the same parameters has to be repeated
+     */
     int repetitions;
 
+    /**
+     * Holds the value of the parameter that is affected by noise
+     */
     double valueOfParameterAffectedByNoise;
 };
 

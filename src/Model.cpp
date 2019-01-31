@@ -53,7 +53,7 @@ void Model::diffusion(Cell (&cells)[totalNrOfCells], Parameters &params) {
         double relativeDiffusionAreaEpithel = cellArea / eTotalDiffusionArea;
 
         //Diffusion in all layers in all directions
-        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
+        for (int protein = 0; protein < nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 //Layer 0 is Epithel, Layer 2 - 4 are Mesenchyme
                 if (layer != 0) { // if we are not within the epithelial layer
@@ -74,7 +74,7 @@ void Model::diffusion(Cell (&cells)[totalNrOfCells], Parameters &params) {
 
     // Calculate the final protein concentrations (including diffusion coefficients and delta)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
+        for (int protein = 0; protein < nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double delta = params.delta;
                 double diffusionRate;
@@ -170,7 +170,7 @@ void Model::reaction(Cell (&cells)[totalNrOfCells], Parameters &params) {
 
     //Update the final protein concentrations (including delta)
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
-        for (int protein = 0; protein < params.nrOfProteins; ++protein) {
+        for (int protein = 0; protein < nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double newConcentration =
                         params.delta * cells[cell].getTempProteinConcentrations()[protein][layer];
@@ -636,19 +636,19 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
                                                   bool cell1IsEKCell,
                                                   bool cell2IsEKCell, bool cell1IsInCenter, Parameters &params) {
     //rounding
-    if (fabs(dx) < params.round1) {
+    if (fabs(dx) < round1) {
         dx = 0;
     }
-    if (fabs(dy) < params.round1) {
+    if (fabs(dy) < round1) {
         dy = 0;
     }
-    if (fabs(dz) < params.round1) {
+    if (fabs(dz) < round1) {
         dz = 0;
     }
-    if (originalDistance < params.round2) {
+    if (originalDistance < round2) {
         originalDistance = 0;
     }
-    if (currentDistance < params.round2) {
+    if (currentDistance < round2) {
         currentDistance = 0;
     }
 
@@ -684,13 +684,13 @@ void Model::repulsionBetweenNonNeighbours(double dx, double dy, double dz, doubl
     }
 
     //rounding
-    if (fabs(dx) < params.round1) {
+    if (fabs(dx) < round1) {
         dx = 0;
     }
-    if (fabs(dy) < params.round1) {
+    if (fabs(dy) < round1) {
         dy = 0;
     }
-    if (fabs(dz) < params.round1) {
+    if (fabs(dz) < round1) {
         dz = 0;
     }
 
@@ -736,7 +736,7 @@ std::vector<std::vector<double>> Model::setUpCompressionMatrix() {
 }
 
 void Model::resetCompressionMatrix(std::vector<std::vector<double>> &compressionMatrix, Parameters &params) {
-    for (int dimension = 0; dimension < params.dimensions; ++dimension) {
+    for (int dimension = 0; dimension < dimensions; ++dimension) {
         compressionMatrix[dimension].clear();
     }
 }
@@ -988,7 +988,7 @@ Model::setMeanProteinConcentrations(int M1, int M2, Cell &newCell, Cell (&cells)
     std::vector<std::vector<double>> M1Concentrations = cells[M1].getProteinConcentrations();
     std::vector<std::vector<double>> M2Concentrations = cells[M2].getProteinConcentrations();
 
-    for (int protein = 0; protein < params.nrOfProteins; ++protein) {
+    for (int protein = 0; protein < nrOfProteins; ++protein) {
         for (int layer = 0; layer < newCell.getMesenchymeThickness(); ++layer) {
             double numberOfMotherCells = 2;
             double M1Concentration = M1Concentrations[protein][layer];

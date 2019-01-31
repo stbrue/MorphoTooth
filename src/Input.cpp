@@ -170,16 +170,8 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.error = false;
     params.cellDivisionCount = 0;
     params.currentIteration = 0;
-    params.dimensions = 3;
     params.nrOfConditions = 1;
     params.powerOfRep = 8;
-    params.round1 = 1.00e-15;
-    params.round2 = 1.00e-8;
-    params.round3 = 1.00e+6;
-    params.nrOfProteins = 3;
-    params.firstX = 0;
-    params.firstY = 0;
-    params.firstZ = 1;
 
     // Read in values from inputFile
     std::string line;

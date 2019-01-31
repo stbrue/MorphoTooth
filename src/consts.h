@@ -32,4 +32,16 @@ const double degrees = totalDegrees / initialNrOfNeighbours;
 const int totalNrOfCells = 410;
 const int maxNrOfNeighbours = 20;
 
+const double round1 = 1.00e-15;
+const double round2 = 1.00e-8;
+const double round3 = 1.00e+6;
+
+const int nrOfProteins = 3;
+
+const double firstX = 0;
+const double firstY = 0;
+const double firstZ = 1;
+
+const int dimensions = 3;
+
 #endif //MORPHOTOOTH_CONSTS_H
