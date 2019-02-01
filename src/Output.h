@@ -22,6 +22,8 @@ public:
 
     static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
 
+    static std::string createOutputFileName(char outputType, Parameters params, int repetition);
+
 };
 
 

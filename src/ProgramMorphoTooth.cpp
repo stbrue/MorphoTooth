@@ -16,6 +16,7 @@
 #include "Utility.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
+    int success;
 
     //Print information that program is started with value of parameter to change
     Print::printStartOfSimulation(params);
@@ -38,9 +39,18 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
         }
 
         //Abort the loop if one of the end-determining variables reaches its maximum (number of cell divisions or iteration)
-        if (Utility::endOfSimulation(params, step)) {
+        success = Utility::endOfSimulation(params, step);
+        // success (# of cells reached)
+        if (success == 0) {
             break;
         }
+        // no success (# of iterations reached)
+        else if (success == 1){
+            std::cout << "Nr of cells: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "Iteration: " << step << std::endl;
+            break;
+        }
+        // not yet finished (success == 2) --> go on with simulation
 
         //For debugging
         if (params.currentIteration == 9751) {
@@ -55,16 +65,20 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
         }
 
         //All x iterations do an output
-        if (step % params.outputInterval == 0) {
-            Output::ROutput(cells, params, repetition);
+        if (params.outputInterval != 0){
+            if (step % params.outputInterval == 0) {
+                Output::ROutput(cells, params, repetition);
+            }
         }
     }
 
-    // Create OutputFiles anyway at end of simulation (also if there was an error)
-    Output::plyOutput(cells, params, repetition);
-    Output::ROutput(cells, params, repetition);
+    // Create OutputFiles only if the simulation was a success (target nr of cells reached without exceeding iterations)
+    if (success == 0) {
+        Output::plyOutput(cells, params, repetition);
+        Output::ROutput(cells, params, repetition);
+    }
 
-    Print::printEndOfSimulation();
+    Print::printEndOfSimulation(success);
 
 }
 

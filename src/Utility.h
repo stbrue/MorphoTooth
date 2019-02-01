@@ -27,7 +27,7 @@ public:
 
     static bool errorTesting(Cell cells[totalNrOfCells], Parameters &params);
 
-    static bool endOfSimulation(Parameters &params, int iterationStep);
+    static int endOfSimulation(Parameters &params, int iterationStep);
 };
 
 

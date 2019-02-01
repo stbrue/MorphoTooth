@@ -35,17 +35,19 @@ void Print::printParameterWithNoise(Parameters params) {
     }
 }
 
-void Print::printEndOfSimulation() {
-    std::cout << "##################################################################################" << std::endl;
-    std::cout << "##################################################################################" << std::endl;
-    std::cout << "## Simulation is completed                                                      ##" << std::endl;
-    std::cout << "##################################################################################" << std::endl;
-    std::cout << "##################################################################################" << std::endl;
+void Print::printEndOfSimulation(int success) {
+    if (success == 0) {
+        std::cout << "##################################################################################" << std::endl;
+        std::cout << "##################################################################################" << std::endl;
+        std::cout << "## Simulation has completed with success                                        ##" << std::endl;
+        std::cout << "##################################################################################" << std::endl;
+        std::cout << "##################################################################################" << std::endl;
+    } else {
+        std::cout << "##################################################################################" << std::endl;
+        std::cout << "## Simulation has completed without success                                     ##" << std::endl;
+        std::cout << "##################################################################################" << std::endl;
+    }
 }
 
-void Print::error(int currentIteration) {
-    std::cout << "The simulation was stopped because there was an error at iteration: " << currentIteration
-              << std::endl;
-};
 
 

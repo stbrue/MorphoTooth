@@ -72,19 +72,10 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     Geometrics::triangulation(cells, params, faces);
 
     // Open File
-    std::stringstream stringstream;
-    std::string fileName;
-
     std::string path = "./Outputfiles/";
-    std::string name = "Ply";
-    std::string file = ".ply";
-
-    stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
-                 << params.currentIteration << "_" << repetition << file;
-    fileName = stringstream.str();
-
+    std::string fileName = Output::createOutputFileName('P', params, repetition);
     std::ofstream outputFile(path);
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
 
     //Header
@@ -118,49 +109,10 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
 }
 
 void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
-    int outputCondition = 0;
-
-    if (params.parameterWithNoise > 0) {
-        outputCondition = 1;
-    }
-    else if (params.parameterToChange > 0){
-        outputCondition = 2;
-    }
-
-    // Create File name depending on the simulation conditions (if there was noise or parameter scanning or neither)
-    std::stringstream stringstream;
-    std::string fileName;
-    std::string path = "./Outputfiles/";
-    std::string file = ".txt";
-
-    switch (outputCondition) {
-        case 1: {
-            std::string name = "RNoise_";
-
-            stringstream << path << name << params.parameterWithNoise << "_"
-                         << params.currentIteration << "_" << repetition << file;
-            fileName = stringstream.str();
-            break;
-        }
-        case 2: {
-            std::string name = "RParameterChange";
-
-            stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
-                         << params.currentIteration << "_" << repetition << file;
-            fileName = stringstream.str();
-            break;
-        }
-        default: {
-            std::string name = "ROutputNormal_";
-
-            stringstream << path << name << params.parameterWithNoise << "_"
-                         << params.currentIteration << file;
-            fileName = stringstream.str();
-            break;
-        }
-    }
-
     // Open file
+    std::string fileName = Output::createOutputFileName('R', params, repetition);
+    std::string path = "./Outputfiles/";
+
     std::ofstream outputFile(path);
     outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
@@ -211,4 +163,57 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repet
         }
     }
     outputFile.close();
+}
+
+std::string Output::createOutputFileName(char outputType, Parameters params, int repetition) {
+    int outputCondition = 0;
+
+    if (params.parameterWithNoise > 0) {
+        outputCondition = 1;
+    } else if (params.parameterToChange > 0) {
+        outputCondition = 2;
+    }
+
+    // Create File name depending on the simulation conditions (if there was noise or parameter scanning or neither)
+    std::stringstream stringstream;
+    std::string fileName;
+    std::string file;
+    std::string path = "./Outputfiles/";
+
+    std::stringstream nameStream;
+
+    switch (outputType) {
+        case 'R': {
+            file = ".txt";
+            break;
+        }
+        case 'P': {
+            file = ".ply";
+            break;
+        }
+        default: {
+            std::cout << "There was an error with creating output files." << std::endl;
+            std::cout.flush();
+        }
+    }
+
+    switch (outputCondition) {
+        case 1: {
+            stringstream << path << outputType << "Noise_" << params.parameterWithNoise << "_" << params.sdPercentage
+                         << "_" << repetition << file;
+            fileName = stringstream.str();
+            return fileName;
+        }
+        case 2: {
+            stringstream << path << outputType << "ParameterChange_" << params.parameterToChange << "_"
+                         << params.valueOfParameterToChange << "_" << repetition << file;
+            fileName = stringstream.str();
+            return fileName;
+        }
+        default: {
+            stringstream << path << outputType << "OutputNormal_" << repetition << file;
+            fileName = stringstream.str();
+            return fileName;
+        }
+    }
 }

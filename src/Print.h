@@ -16,11 +16,7 @@ public:
 
     static void printParameterWithNoise(Parameters params);
 
-    static void printEndOfSimulation();
-
-    static void printParameters(Parameters params);
-
-    static void error(int currentIteration);
+    static void printEndOfSimulation(int success);
 
 };
 

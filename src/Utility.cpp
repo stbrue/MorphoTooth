@@ -78,17 +78,16 @@ bool Utility::errorTesting(Cell *cells, Parameters &params) {
 
 }
 
-bool Utility::endOfSimulation(Parameters &params, int iterationStep) {
+int Utility::endOfSimulation(Parameters &params, int iterationStep) {
     if (params.nrCellsInSimulation >= params.maxNrOfCells) {
-        std::cout << "The simulation was was stopped because maxNrOfCells was achieved at iteration "
-                  << params.currentIteration
-                  << std::endl;
-        return true;
+        std::cout << "The simulation was was stopped because maxNrOfCells was reached :)" << std::endl;
+        std::cout << "This was at iteration " << iterationStep << std::endl;
+        return 0;
     } else if (params.currentIteration == params.maxNrOfIterations) {
-        std::cout << "The simulation was was stopped because the maxNrOfIterations was achieved :) "
+        std::cout << "The simulation was was stopped because the maxNrOfIterations was reached."
                   << std::endl;
         std::cout << "This was at iteration " << iterationStep << std::endl;
-        return true;
+        return 1;
     }
-    return false;
+    return 2;
 }
