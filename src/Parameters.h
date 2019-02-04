@@ -59,7 +59,7 @@ public:
      * @brief   Sec (ECM) production rate
      */
     double sec;
-    
+
     /**
      * @brief   Act concentration beyond swi (distance of initial BMP from midline)
      * Bias by initial BMP distribution in buccal direction
@@ -144,9 +144,9 @@ public:
      */
     bool error;
 
-     /**
-     * counter of the big loop. Can be used for example by output functions or for debugging
-     */
+    /**
+    * counter of the big loop. Can be used for example by output functions or for debugging
+    */
     int currentIteration;
 
     /**
@@ -277,6 +277,11 @@ public:
      * Holds the value of the parameter that is affected by noise
      */
     double valueOfParameterAffectedByNoise;
+
+    /**
+     * The parameter with noise is changed only every x-iteration
+     */
+    int noiseDuration;
 };
 
 

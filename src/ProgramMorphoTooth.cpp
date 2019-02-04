@@ -18,7 +18,7 @@
 void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
     int success;
 
-    //Print information that program is started with value of parameter to change
+    //Print information that program has started with value of parameter to change
     Print::printStartOfSimulation(params);
 
     //Vector containing all cells
@@ -27,45 +27,48 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
     //Construct the initial grid of cells
     Initial::makeInitialGrid(params, cells);
 
+    // A struct that holds the parameter values with noise added
+    Parameters noiseParams = params;
+
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < params.maxNrOfIterations + 1; ++step) {
-        params.currentIteration = step;
-        Model::iterationStep(cells, params);
+        noiseParams.currentIteration = step;
+        Model::iterationStep(cells, params, noiseParams);
 
         //Abort the loop if there is an error
-        if (Utility::errorTesting(cells, params)) {
+        if (Utility::errorTesting(cells, noiseParams)) {
             break;
         }
 
         //Abort the loop if one of the end-determining variables reaches its maximum (number of cell divisions or iteration)
-        success = Utility::endOfSimulation(params, step);
+        success = Utility::endOfSimulation(noiseParams, step);
         // success (# of cells reached)
         if (success == 0) {
             break;
         }
-        // no success (# of iterations reached)
-        else if (success == 1){
-            std::cout << "Nr of cells: " << params.nrCellsInSimulation << std::endl;
+            // no success (# of iterations reached)
+        else if (success == 1) {
+            std::cout << "Nr of cells: " << noiseParams.nrCellsInSimulation << std::endl;
             std::cout << "Iteration: " << step << std::endl;
             break;
         }
         // not yet finished (success == 2) --> go on with simulation
 
         //For debugging
-        if (params.currentIteration == 9751) {
+        if (noiseParams.currentIteration == 9751) {
             int a = 0;
         }
 
         //Print every "printInterval" iteration the count
-        if (step % params.printInterval == 0) {
+        if (step % noiseParams.printInterval == 0) {
             std::cout << step << std::endl;
-            std::cout << "Cells in simulation: " << params.nrCellsInSimulation << std::endl;
+            std::cout << "Cells in simulation: " << noiseParams.nrCellsInSimulation << std::endl;
             std::cout.flush();
         }
 
         //All x iterations do an output
-        if (params.outputInterval != 0){
+        if (params.outputInterval != 0) {
             if (step % params.outputInterval == 0) {
                 Output::ROutput(cells, params, repetition);
             }

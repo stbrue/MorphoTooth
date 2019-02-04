@@ -13,8 +13,8 @@
 #include "Utility.h"
 
 
-void Model::iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params) {
-    Parameters noiseParams = Noise::setNoiseParameter(params);
+void Model::iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params, Parameters &noiseParams) {
+    Noise::setNoiseParameter(params, noiseParams);
     Model::diffusion(cells, noiseParams);
     Model::reaction(cells, noiseParams);
     Model::buccalLingualBias(cells, noiseParams);

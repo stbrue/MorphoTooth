@@ -13,7 +13,7 @@
 class Model {
 public:
 
-    static void iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params);
+    static void iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params, Parameters &noiseParams);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
