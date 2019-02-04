@@ -120,11 +120,11 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repet
     // Header
     outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
                "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
-               << std::endl;
+               << "\t" << "Repetition" << std::endl;
 
     outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.parameterToChange
                << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
-               << params.nrCellsInSimulation << std::endl;
+               << params.nrCellsInSimulation << "\t" << repetition << std::endl;
 
     outputFile << std::endl;
 
