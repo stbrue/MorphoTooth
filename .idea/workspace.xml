@@ -25,7 +25,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Output.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Output.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Noise.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Noise.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -105,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Noise.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Noise.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Noise.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="171" column="59" selection-start-line="171" selection-start-column="59" selection-end-line="171" selection-end-column="59" />
+            <state relative-caret-position="159">
+              <caret line="33" column="28" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -123,7 +124,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Output.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="261">
@@ -254,9 +255,9 @@
         <option value="$PROJECT_DIR$/src/Model.h" />
         <option value="$PROJECT_DIR$/src/Noise.h" />
         <option value="$PROJECT_DIR$/src/ProgramMorphoTooth.cpp" />
-        <option value="$PROJECT_DIR$/src/Noise.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-release/InputFile01.txt" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
+        <option value="$PROJECT_DIR$/src/Noise.cpp" />
       </list>
     </option>
   </component>
@@ -446,7 +447,7 @@
       <workItem from="1548333774314" duration="804000" />
       <workItem from="1548752507871" duration="21357000" />
       <workItem from="1548923020041" duration="19737000" />
-      <workItem from="1549269420846" duration="2720000" />
+      <workItem from="1549269420846" duration="4086000" />
     </task>
     <servers />
   </component>
@@ -483,7 +484,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="618121000" />
+    <option name="totallyTimeSpent" value="619487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -810,13 +811,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Noise.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="171" column="59" selection-start-line="171" selection-start-column="59" selection-end-line="171" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-release/InputFile01.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -832,6 +826,13 @@
             <element signature="e#193#930#0" />
             <element signature="e#932#2000#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Noise.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="33" column="28" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
         </state>
       </provider>
     </entry>
