@@ -10,7 +10,7 @@
 
 class Print {
 public:
-    static void printStartOfSimulation(Parameters params);
+    static void printStartOfSimulation(Parameters params, int repetition);
 
     static void printParameterToChange(Parameters params);
 

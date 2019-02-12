@@ -41,7 +41,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
             break;
         }
 
-        //Abort the loop if maxNrOfIterations is reached (success = 1), make an output if a multiple of minNrOfCells is
+        //Abort the loop if maxNrOfIterations or maxNrOfCells is reached (success = 1), make an output if a multiple of minNrOfCells is
         //achieved (success = 2 or greater) or just continue with the simulation (success = 0)
         success = Utility::endOfSimulation(noiseParams, step, success);
         if (success == 1) {

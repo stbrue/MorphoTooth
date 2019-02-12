@@ -30,7 +30,7 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, i
     path = pathss.str();
     directory = directoryss.str();
 #ifdef __linux__
-    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG);
 #elif _WIN32
     mkdir(directory.c_str());
 #endif
@@ -105,7 +105,7 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     path = pathss.str();
     directory = directoryss.str();
 #ifdef __linux__
-    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG);
 #elif _WIN32
     mkdir(directory.c_str());
 #endif
@@ -158,7 +158,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repet
     path = pathss.str();
     directory = directoryss.str();
 #ifdef __linux__
-    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG);
 #elif _WIN32
     mkdir(directory.c_str());
 #endif
@@ -230,7 +230,7 @@ std::string Output::createOutputFileName(char outputType, Parameters params, std
     std::stringstream stringstream;
     std::string fileName;
     std::string file;
-    
+
     std::stringstream nameStream;
 
     switch (outputType) {

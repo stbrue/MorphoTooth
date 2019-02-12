@@ -5,10 +5,11 @@
 #include <iostream>
 #include "Print.h"
 
-void Print::printStartOfSimulation(Parameters params) {
+void Print::printStartOfSimulation(Parameters params, int repetition) {
     std::cout << "##################################################################################" << std::endl;
     std::cout << "##################################################################################" << std::endl;
-    std::cout << "## Simulation has started                                                       ##" << std::endl;
+    std::cout << "## Simulation " << repetition << " has started                                                 ##"
+              << std::endl;
     std::cout << "##################################################################################" << std::endl;
 
     Print::printParameterToChange(params);

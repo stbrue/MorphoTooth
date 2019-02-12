@@ -987,6 +987,10 @@ void Model::defineIfNewCellInCentre(Cell &newCell, Cell (&cells)[totalNrOfCells]
 
 void Model::cellDivision(Cell (&cells)[totalNrOfCells], Parameters &params) {
     while (true) {
+        // do only cell division if maxNrOfCells is not reached yet
+        if (params.nrCellsInSimulation == maxNrOfCells) {
+            return;
+        }
 
         //Check if two neighbouring cells are too far away (>distanceCellDivision) and write the pair into vector motherCells
         std::vector<int> motherCells = Model::searchMotherCells(cells, params);
