@@ -14,15 +14,15 @@ class Output {
 
 public:
 
-    static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params);
+    static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
 
     static void geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params);
 
-    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
+    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
 
-    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition);
+    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
 
-    static std::string createOutputFileName(char outputType, Parameters params, int repetition);
+    static std::string createOutputFileName(char outputType, Parameters params, std::string path, int repetition);
 
 };
 

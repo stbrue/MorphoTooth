@@ -11,23 +11,47 @@
 #include "Geometrics.h"
 #include <sstream>
 
-void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params) {
+#ifdef __linux__
+#include <sys/stat.h>
+#elif _WIN32
+
+#include <direct.h>
+
+#endif
+
+void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
+    // Define and create directory depending on success number
+    std::string path;
+    std::string directory;
+    std::stringstream pathss;
+    std::stringstream directoryss;
+    pathss << "./Outputfiles" << ((success - 1) * params.minNrOfCells) << "/";
+    directoryss << "./Outputfiles" << ((success - 1) * params.minNrOfCells);
+    path = pathss.str();
+    directory = directoryss.str();
+#ifdef __linux__
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+#elif _WIN32
+    mkdir(directory.c_str());
+#endif
+
+    // Open File
+    std::string name = "XYZSimple_";
+    std::string file = ".txt";
     std::stringstream stringstream;
     std::string fileName;
-
-    std::string path = "./Outputfiles/";
-    std::string name = "XYZSimple";
-    std::string file = ".txt";
-
-    stringstream << path << name << params.currentIteration << file;
+    stringstream << path << name << params.parameterWithNoise << "_" << params.sdPercentage << "_" << repetition
+                 << file;
     fileName = stringstream.str();
 
     std::ofstream outputFile(path);
-    outputFile.precision(12);
+    outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
 
+    // Header
     outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
 
+    // Body
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << "\t" << cells[cell].getZ() << std::endl;
     }
@@ -66,14 +90,28 @@ void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params
     outputFile.close();
 }
 
-void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
+void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
     // Do the triangulation
     std::vector<std::vector<int>> faces;
     Geometrics::triangulation(cells, params, faces);
 
+    // Define and create directory depending on success number
+    std::string path;
+    std::string directory;
+    std::stringstream pathss;
+    std::stringstream directoryss;
+    pathss << "./Outputfiles" << ((success - 1) * params.minNrOfCells) << "/";
+    directoryss << "./Outputfiles" << ((success - 1) * params.minNrOfCells);
+    path = pathss.str();
+    directory = directoryss.str();
+#ifdef __linux__
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+#elif _WIN32
+    mkdir(directory.c_str());
+#endif
+
     // Open File
-    std::string path = "./Outputfiles/";
-    std::string fileName = Output::createOutputFileName('P', params, repetition);
+    std::string fileName = Output::createOutputFileName('P', params, path, repetition);
     std::ofstream outputFile(path);
     outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
@@ -108,11 +146,25 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     outputFile.close();
 }
 
-void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition) {
-    // Open file
-    std::string fileName = Output::createOutputFileName('R', params, repetition);
-    std::string path = "./Outputfiles/";
+void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
 
+    // Define and create directory depending on success number
+    std::string path;
+    std::string directory;
+    std::stringstream pathss;
+    std::stringstream directoryss;
+    pathss << "./Outputfiles" << ((success - 1) * params.minNrOfCells) << "/";
+    directoryss << "./Outputfiles" << ((success - 1) * params.minNrOfCells);
+    path = pathss.str();
+    directory = directoryss.str();
+#ifdef __linux__
+    mkdir(directory.c_str(), S_IRWXU | S_IRWXG)
+#elif _WIN32
+    mkdir(directory.c_str());
+#endif
+
+    // Open file
+    std::string fileName = Output::createOutputFileName('R', params, path, repetition);
     std::ofstream outputFile(path);
     outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
@@ -165,7 +217,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repet
     outputFile.close();
 }
 
-std::string Output::createOutputFileName(char outputType, Parameters params, int repetition) {
+std::string Output::createOutputFileName(char outputType, Parameters params, std::string path, int repetition) {
     int outputCondition = 0;
 
     if (params.parameterWithNoise > 0) {
@@ -178,8 +230,7 @@ std::string Output::createOutputFileName(char outputType, Parameters params, int
     std::stringstream stringstream;
     std::string fileName;
     std::string file;
-    std::string path = "./Outputfiles/";
-
+    
     std::stringstream nameStream;
 
     switch (outputType) {
@@ -192,7 +243,7 @@ std::string Output::createOutputFileName(char outputType, Parameters params, int
             break;
         }
         default: {
-            std::cout << "There was an error with creating output files." << std::endl;
+            std::cout << "There was an error with creating output file name" << std::endl;
             std::cout.flush();
         }
     }

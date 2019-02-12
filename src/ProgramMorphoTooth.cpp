@@ -16,7 +16,7 @@
 #include "Utility.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
-    int success;
+    int success = 0;
 
     //Print information that program has started with value of parameter to change
     Print::printStartOfSimulation(params);
@@ -41,19 +41,17 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
             break;
         }
 
-        //Abort the loop if one of the end-determining variables reaches its maximum (number of cell divisions or iteration)
-        success = Utility::endOfSimulation(noiseParams, step);
-        // success (# of cells reached)
-        if (success == 0) {
+        //Abort the loop if maxNrOfIterations is reached (success = 1), make an output if a multiple of minNrOfCells is
+        //achieved (success = 2 or greater) or just continue with the simulation (success = 0)
+        success = Utility::endOfSimulation(noiseParams, step, success);
+        if (success == 1) {
             break;
+        } else if (success >= 2) {
+            Output::plyOutput(cells, params, repetition, success);
+            Output::ROutput(cells, params, repetition, success);
+            Output::XYZOutputSimple(cells, params, repetition, success);
         }
-            // no success (# of iterations reached)
-        else if (success == 1) {
-            std::cout << "Nr of cells: " << noiseParams.nrCellsInSimulation << std::endl;
-            std::cout << "Iteration: " << step << std::endl;
-            break;
-        }
-        // not yet finished (success == 2) --> go on with simulation
+        // not yet finished (success == 0) --> go on with simulation
 
         //For debugging
         if (noiseParams.currentIteration == 9751) {
@@ -70,19 +68,12 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
         //All x iterations do an output
         if (params.outputInterval != 0) {
             if (step % params.outputInterval == 0) {
-                Output::ROutput(cells, params, repetition);
+                Output::ROutput(cells, params, repetition, success);
             }
         }
     }
 
-    // Create OutputFiles only if the simulation was a success (target nr of cells reached without exceeding iterations)
-    if (success == 0) {
-        Output::plyOutput(cells, params, repetition);
-        Output::ROutput(cells, params, repetition);
-    }
-
-    Print::printEndOfSimulation(success);
-
+    Print::printEndOfSimulation();
 }
 
 void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsInitial, std::string nameInputFileTemp) {

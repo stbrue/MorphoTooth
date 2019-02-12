@@ -16,7 +16,7 @@ public:
 
     static void printParameterWithNoise(Parameters params);
 
-    static void printEndOfSimulation(int success);
+    static void printEndOfSimulation();
 
 };
 

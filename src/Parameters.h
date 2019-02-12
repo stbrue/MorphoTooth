@@ -197,7 +197,7 @@ public:
     /**
      * The maximum number of cells in the simulation. If this number is reached, the simulation stops
      */
-    int maxNrOfCells;
+    int minNrOfCells;
 
     /**
      * Every x-iteration Outputfiles are generated
