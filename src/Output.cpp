@@ -135,13 +135,12 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         outputFile << cells[cell].getX() << " " << cells[cell].getY() << " " << cells[cell].getZ() << std::endl;
     }
-    for (int face = 0; face < faces.size(); ++face) {
-        std::vector<int> currentFace = faces[face];
-        outputFile << currentFace.size();
-        for (int vertex = 0; vertex < currentFace.size(); ++vertex) {
-            outputFile << " " << currentFace[vertex];
+
+    for (auto face : faces) {
+        outputFile << face.size();
+        for (auto vertex : face) {
+            outputFile << " " << vertex;
         }
-        outputFile << std::endl;
     }
 
     outputFile.close();
