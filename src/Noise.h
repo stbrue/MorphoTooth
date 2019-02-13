@@ -12,7 +12,7 @@ class Noise {
 public:
     static void setNoiseParameter(Parameters params, Parameters &noiseParams);
 
-    static double generateNoiseValue(double mean, double sd);
+    static double generateNoiseValue(Parameters &params, double mean, double sd);
 
     static void addToParameter(int parameterIndex, Parameters &params, double value);
 

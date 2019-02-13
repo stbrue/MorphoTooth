@@ -287,6 +287,8 @@ public:
      * The parameter with noise is changed only every x-iteration
      */
     int noiseDuration;
+
+    unsigned int seed;
 };
 
 

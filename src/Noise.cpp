@@ -3,7 +3,6 @@
 //
 
 #include <random>
-#include <chrono>
 #include <iostream>
 #include "Noise.h"
 #include "Input.h"
@@ -22,18 +21,15 @@ void Noise::setNoiseParameter(Parameters params, Parameters &noiseParams) {
 
     // get noise value (mean = 0)
     double sd = params.valueOfParameterAffectedByNoise * params.sdPercentage;
-    double noiseValue = Noise::generateNoiseValue(0, sd);
+    double noiseValue = Noise::generateNoiseValue(params, 0, sd);
 
     // Create new struct Parameters with NoiseValues
     Noise::addToParameter(params.parameterWithNoise, noiseParams, noiseValue);
-
-    return;
 }
 
-double Noise::generateNoiseValue(double mean, double sd) {
+double Noise::generateNoiseValue(Parameters &params, double mean, double sd) {
     //Instantiation of pseudo random number generator
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine generator(seed);
+    std::default_random_engine generator(params.seed);
     std::normal_distribution<double> distribution(mean, sd);
 
     double noiseValue = distribution(generator);

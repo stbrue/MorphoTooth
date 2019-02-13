@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <chrono>
 
 Parameters Input::setParametersInitial(std::string nameInputFile) {
     // Set up vector and struct
@@ -74,7 +75,7 @@ Parameters Input::setParametersInitial(std::string nameInputFile) {
     params.bgr = parameter[30];
 
     //Implementation parameters
-    params.newInhAndSecProduction = static_cast<int>(parameter[31]);        
+    params.newInhAndSecProduction = static_cast<int>(parameter[31]);
     params.maxNrOfIterations = static_cast<int>(parameter[32]);
     params.minNrOfCells = static_cast<int>(parameter[33]);
     params.outputInterval = static_cast<int>(parameter[34]);
@@ -172,6 +173,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.currentIteration = 0;
     params.nrOfConditions = 1;
     params.powerOfRep = 8;
+    params.seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // Read in values from inputFile
     std::string line;
@@ -223,7 +225,7 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.bgr = parameter[30];
 
     //Implementation parameters
-    params.newInhAndSecProduction = static_cast<int>(parameter[31]);        
+    params.newInhAndSecProduction = static_cast<int>(parameter[31]);
     params.maxNrOfIterations = static_cast<int>(parameter[32]);
     params.minNrOfCells = static_cast<int>(parameter[33]);
     params.outputInterval = static_cast<int>(parameter[34]);
