@@ -112,5 +112,7 @@ int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSucce
 }
 
 void Utility::checkForFullNeighbourVector(Cell *cells, Parameters &params, int cellID) {
-    params.endOfSimulation = (cells[cellID].getNrOfNeighbours() == maxNrOfNeighbours);
+    if (cellID < maxNrOfCells) {
+        params.endOfSimulation = (cells[cellID].getNrOfNeighbours() == maxNrOfNeighbours);
+    }
 }
