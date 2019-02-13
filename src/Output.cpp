@@ -50,9 +50,11 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, i
     outputFile.open(fileName);
 
     // Header
-    outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
+    outputFile << "ParameterWithNoise" << "\t" << "sdPercentage" << "\t" << "noiseDuration" << std::endl;
+    outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.noiseDuration << std::endl;
 
     // Body
+    outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         outputFile << cells[cell].getX() << "\t" << cells[cell].getY() << "\t" << cells[cell].getZ() << std::endl;
     }

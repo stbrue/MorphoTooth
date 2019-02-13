@@ -9,10 +9,12 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <chrono>
 
 void Utility::resetNonConstantParameters(Parameters &params) {
     params.error = false;
     params.currentIteration = 0;
+    params.seed = std::chrono::system_clock::now().time_since_epoch().count();
 }
 
 void Utility::trimString(std::string &str) {
