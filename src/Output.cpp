@@ -40,7 +40,8 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, i
     std::string file = ".txt";
     std::stringstream stringstream;
     std::string fileName;
-    stringstream << path << name << params.parameterWithNoise << "_" << params.sdPercentage << "_" << repetition
+    stringstream << path << name << params.parameterWithNoise << "_" << params.sdPercentage << "_"
+                 << params.noiseDuration << "_" << repetition
                  << file;
     fileName = stringstream.str();
 
@@ -251,7 +252,7 @@ std::string Output::createOutputFileName(char outputType, Parameters params, std
     switch (outputCondition) {
         case 1: {
             stringstream << path << outputType << "Noise_" << params.parameterWithNoise << "_" << params.sdPercentage
-                         << "_" << repetition << file;
+                         << "_" << params.noiseDuration << "_" << repetition << file;
             fileName = stringstream.str();
             return fileName;
         }
