@@ -1033,6 +1033,9 @@ void Model::cellDivision(Cell (&cells)[totalNrOfCells], Parameters &params) {
             Model::setMeanProteinConcentrations(M1, M2, newCell, cells, params);
             // Update the neighbour relationships
             Model::updateNeighbourRelations(M1, M2, N1, N2, newCell, cells, params);
+            // Check if a common neighbour (N1 or N2) has a full neighbour - vector, if so, end the simulation
+            Utility::checkForFullNeighbourVector(cells, params, N1);
+            Utility::checkForFullNeighbourVector(cells, params, N2);
             // Test if a neighbour is multiple times in the neighbour-vector
             bool multipleNeighbours = Model::multipleNeighbour(cells, params);
             if (multipleNeighbours) {
@@ -1050,6 +1053,10 @@ void Model::cellDivision(Cell (&cells)[totalNrOfCells], Parameters &params) {
         }
         // Do only further cell division if the maximal nr of cells is not achieved yet in this iteration
         if (params.nrCellsInSimulation == params.minNrOfCells) {
+            return;
+        }
+        // Do only continue cell divisions if no neighbour vector is full
+        if (params.endOfSimulation){
             return;
         }
     }

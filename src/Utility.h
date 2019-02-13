@@ -28,6 +28,8 @@ public:
     static bool errorTesting(Cell cells[totalNrOfCells], Parameters &params);
 
     static int endOfSimulation(Parameters &params, int iterationStep, int oldSuccess);
+
+    static void checkForFullNeighbourVector(Cell cells[totalNrOfCells], Parameters &params, int cellID);
 };
 
 

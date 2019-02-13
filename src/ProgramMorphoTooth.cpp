@@ -19,7 +19,7 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
     int success = 0;
 
     //Print information that program has started with value of parameter to change
-    Print::printStartOfSimulation(params);
+    Print::printStartOfSimulation(params, repetition);
 
     //Vector containing all cells
     Cell cells[totalNrOfCells];
@@ -36,8 +36,10 @@ void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
         noiseParams.currentIteration = step;
         Model::iterationStep(cells, params, noiseParams);
 
-        //Abort the loop if there is an error
+        //Abort the loop if there is an error or if the simulation has to be ended because some bounderies are reached
         if (Utility::errorTesting(cells, noiseParams)) {
+            break;
+        } else if (params.endOfSimulation) {
             break;
         }
 

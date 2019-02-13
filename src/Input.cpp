@@ -168,6 +168,7 @@ Parameters Input::setParameters(std::string InputFileName) {
 
     // Set initial values independent of inputFile
     params.error = false;
+    params.endOfSimulation = false;
     params.currentIteration = 0;
     params.nrOfConditions = 1;
     params.powerOfRep = 8;

@@ -145,6 +145,11 @@ public:
     bool error;
 
     /**
+     * is true if the simulation has to be stopped because some bounderies are reached (e.g. a neighbour vector is full)
+     */
+    bool endOfSimulation;
+
+    /**
     * counter of the big loop. Can be used for example by output functions or for debugging
     */
     int currentIteration;

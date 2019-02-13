@@ -29,8 +29,8 @@ const double totalDegrees = 360;
 const double degrees = totalDegrees / initialNrOfNeighbours;
 
 const int totalNrOfCells = 410;
-const int maxNrOfCells = totalNrOfCells - 10;
-const int maxNrOfNeighbours = 20;
+const int maxNrOfCells = 150;
+const int maxNrOfNeighbours = 30;
 
 const double round1 = 1.00e-15;
 const double round2 = 1.00e-8;

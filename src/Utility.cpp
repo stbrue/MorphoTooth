@@ -86,7 +86,7 @@ int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSucce
         std::cout << "This was at iteration " << iterationStep << std::endl;
         return 1;
     }
-    if (params.nrCellsInSimulation  >= maxNrOfCells) {
+    if (params.nrCellsInSimulation >= maxNrOfCells) {
         std::cout << "The simulation was was stopped because the maxNrOfCells was reached."
                   << std::endl;
         std::cout << "This was at iteration " << iterationStep << std::endl;
@@ -94,7 +94,7 @@ int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSucce
     }
 
     // if a multiple of minNrOfCells is reached, the simulation was a success -> do an output and continue simulation
-    for (int multiple = 1; multiple < 6; ++multiple) {
+    for (int multiple = 1; multiple < 7; ++multiple) {
         if (params.nrCellsInSimulation == (params.minNrOfCells * multiple)) {
             // if this success number was already achieved once do return 0 -> simulation is normally continued
             if (oldSuccess != (1 + multiple)) {
@@ -109,4 +109,8 @@ int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSucce
 
     // if no end determing value is reached, set success to 0 -> simulation is continued
     return 0;
+}
+
+void Utility::checkForFullNeighbourVector(Cell *cells, Parameters &params, int cellID) {
+    params.endOfSimulation = (cells[cellID].getNrOfNeighbours() == maxNrOfNeighbours);
 }
