@@ -85,10 +85,11 @@ Parameters Input::setParametersInitial(std::string nameInputFile) {
     params.parameterWithNoise = static_cast<int>(parameter[38]);
     params.sdPercentage = parameter[39];
     params.noiseDuration = static_cast<int>(parameter[40]);
+    params.noiseType = static_cast<int>(parameter[41]);
 
     // Manage the parameters to change
-    params.nrOfParametersToChange = static_cast<int>(parameter[41]);
-    int indexOfParameter = 42;
+    params.nrOfParametersToChange = static_cast<int>(parameter[42]);
+    int indexOfParameter = 43;
     for (int parameterToChange = 0; parameterToChange < params.nrOfParametersToChange; ++parameterToChange) {
         double dParameterToChange = parameter[indexOfParameter];
         double totalPlusMinusScope = parameter[indexOfParameter + 1];
@@ -152,6 +153,7 @@ void Input::createInputFileTemp(int parameter, Parameters params, std::string fi
         InputFileTemp << params.parameterWithNoise << "\n";
         InputFileTemp << params.sdPercentage << "\n";
         InputFileTemp << params.noiseDuration << "\n";
+        InputFileTemp << params.noiseType << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][0] << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][1] << "\n";
         InputFileTemp << params.parameterToChangeValues[parameter][2] << "\n";
@@ -235,14 +237,15 @@ Parameters Input::setParameters(std::string InputFileName) {
     params.parameterWithNoise = static_cast<int>(parameter[38]);
     params.sdPercentage = parameter[39];
     params.noiseDuration = static_cast<int>(parameter[40]);
+    params.noiseType = static_cast<int>(parameter[41]);
 
     // Parameters to change
-    params.parameterToChange = static_cast<int>(parameter[41]);
-    params.totalPlusMinusScope = parameter[42];
-    params.percentageSteps = parameter[43];
+    params.parameterToChange = static_cast<int>(parameter[42]);
+    params.totalPlusMinusScope = parameter[43];
+    params.percentageSteps = parameter[44];
     params.valueOfParameterToChange = parameter[params.parameterToChange];
 
-    params.valueOfParameterAffectedByNoise = parameter[45];
+    params.valueOfParameterAffectedByNoise = parameter[46];
 
     return params;
 }

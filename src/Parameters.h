@@ -289,6 +289,8 @@ public:
     int noiseDuration;
 
     unsigned int seed;
+
+    int noiseType;
 };
 
 
