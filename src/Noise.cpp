@@ -4,32 +4,47 @@
 
 #include <random>
 #include <iostream>
+#include <chrono>
 #include "Noise.h"
 #include "Input.h"
 
-void Noise::setNoiseParameter(Parameters params, Parameters &noiseParams) {
-    // If the noise parameter is set to 0, no noise is calculated
-    if (params.parameterWithNoise == 0) {
+void Noise::doNoise(Cell (&cells)[totalNrOfCells], Parameters params, Parameters &noiseParams) {
+    // If the noise type is set to 0, no noise is calculated
+    if (params.noiseType == 0) {
         return;
     }
-        // and do noise calculation only every "noiseDuration"th-iteration
+    // and do noise calculation only every "noiseDuration"th-iteration
     else if (params.currentIteration % params.noiseDuration != 0) {
         return;
     }
 
-    // else calculate the new parameter value and change the noiseParams struct accordingly
+    // else calculate do noise
+    if (params.noiseType == 1){
+        // noise on one parameter -> change the noiseParams struct accordingly
+        // get noise value (mean = 0)
+        double sd = params.valueOfParameterAffectedByNoise * params.sdPercentage;
+        double noiseValue = Noise::generateNoiseValue(params, 0, sd);
 
-    // get noise value (mean = 0)
-    double sd = params.valueOfParameterAffectedByNoise * params.sdPercentage;
-    double noiseValue = Noise::generateNoiseValue(params, 0, sd);
+        // Create new struct Parameters with NoiseValues
+        Noise::addToParameter(params.parameterWithNoise, noiseParams, noiseValue);
+    } else if (params.noiseType == 2) {
+        // the position of each cell is affected by noise (in all 3 dimensions randomly)
+        for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+            double noiseX = generateNoiseValue(params, 0, params.sdPercentage);
+            double noiseY = generateNoiseValue(params, 0, params.sdPercentage);
+            double noiseZ = generateNoiseValue(params, 0, params.sdPercentage);
+            cells[cell].addX(noiseX);
+            cells[cell].addY(noiseY);
+            cells[cell].addZ(noiseZ);
+        }
+    }
 
-    // Create new struct Parameters with NoiseValues
-    Noise::addToParameter(params.parameterWithNoise, noiseParams, noiseValue);
 }
+
 
 double Noise::generateNoiseValue(Parameters &params, double mean, double sd) {
     //Instantiation of pseudo random number generator
-    std::default_random_engine generator(params.seed);
+    std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
     std::normal_distribution<double> distribution(mean, sd);
 
     double noiseValue = distribution(generator);

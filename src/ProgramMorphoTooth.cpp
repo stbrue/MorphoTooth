@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <random>
 #include "ProgramMorphoTooth.h"
 #include "Input.h"
 #include "Initial.h"
@@ -14,6 +15,7 @@
 #include "consts.h"
 #include "Print.h"
 #include "Utility.h"
+#include "Noise.h"
 
 void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
     int success = 0;

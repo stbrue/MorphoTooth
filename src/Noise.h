@@ -7,10 +7,12 @@
 
 
 #include "Parameters.h"
+#include "Cell.h"
+#include "consts.h"
 
 class Noise {
 public:
-    static void setNoiseParameter(Parameters params, Parameters &noiseParams);
+    static void doNoise(Cell (&cells)[totalNrOfCells], Parameters params, Parameters &noiseParams);
 
     static double generateNoiseValue(Parameters &params, double mean, double sd);
 

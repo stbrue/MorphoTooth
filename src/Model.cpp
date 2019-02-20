@@ -14,7 +14,7 @@
 
 
 void Model::iterationStep(Cell (&cells)[totalNrOfCells], Parameters &params, Parameters &noiseParams) {
-    Noise::setNoiseParameter(params, noiseParams);
+    Noise::doNoise(cells, params, noiseParams);
     Model::diffusion(cells, noiseParams);
     Model::reaction(cells, noiseParams);
     Model::buccalLingualBias(cells, noiseParams);
