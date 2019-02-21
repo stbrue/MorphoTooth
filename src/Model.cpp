@@ -168,8 +168,9 @@ void Model::reaction(Cell (&cells)[totalNrOfCells], ImplementParams &params) {
     for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
         for (int protein = 0; protein < nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
+                double delta = cells[cell].getModelParams().delta;
                 double newConcentration =
-                        cells[cell].getModelParams().delta * cells[cell].getTempProteinConcentrations()[protein][layer];
+                        delta * cells[cell].getTempProteinConcentrations()[protein][layer];
                 cells[cell].addProteinConcentration(protein, layer, newConcentration);
                 //Remove negative concentration values
                 if (cells[cell].getProteinConcentrations()[protein][layer] < 0) {
@@ -185,18 +186,18 @@ void Model::reaction(Cell (&cells)[totalNrOfCells], ImplementParams &params) {
 void Model::buccalLingualBias(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
     //for all border cells
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        double swi = cells[cell].getModelParams().swi;
+        double lbi = cells[cell].getModelParams().lbi;
+        double bbi = cells[cell].getModelParams().bbi;
         bool cellIsInCentre = cells[cell].isInCentre();
         if (cellIsInCentre) {
             continue;
-        } else if (cells[cell].getY() < -cells[cell].getModelParams()
-                .swi) {                     //swi: distance of initial BMPs from mid line
+        } else if (cells[cell].getY() < -swi) {                     //swi: distance of initial BMPs from mid line
             cells[cell].setProteinConcentration(PAct, LEpithelium,
-                                                cells[cell].getModelParams()
-                                                        .lbi);  //lbi: lingual bias by initial BMP distribution
-        } else if (cells[cell].getY() > cells[cell].getModelParams().swi) {
+                                                lbi);  //lbi: lingual bias by initial BMP distribution
+        } else if (cells[cell].getY() > swi) {
             cells[cell].setProteinConcentration(PAct, LEpithelium,
-                                                cells[cell].getModelParams()
-                                                        .bbi);  //bbi: buccal bias by initial BMP distribution
+                                                bbi);  //bbi: buccal bias by initial BMP distribution
         }
     }
 }
@@ -204,8 +205,9 @@ void Model::buccalLingualBias(Cell (&cells)[totalNrOfCells], ImplementParams &im
 void Model::differentiation(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
         //Increase the diff state of each cell
+        double dff = cells[cell].getModelParams().dff;
         double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
-        double addDiff = cells[cell].getModelParams().dff * epithelialSecConcentration;
+        double addDiff = dff * epithelialSecConcentration;
         cells[cell].addDiffState(addDiff);
     }
 }
@@ -264,8 +266,9 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementPara
                 std::cout << "Total deviation = 0 -> divide by zero" << std::endl;
                 std::cout.flush();
             }
+            double egr = cells[cell].getModelParams().egr;
             deviationFactor =
-                    cells[cell].getModelParams().egr / totalDeviation;      //egr: epithelial proliferation rate
+                    egr / totalDeviation;      //egr: epithelial proliferation rate
 
             // the higher the differentiation, the lower the effect of deviations in position
             inverseDiffFactor = 1 - cells[cell].getDiffState();
@@ -404,16 +407,19 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementPara
         d = sqrt(aa * aa + bb * bb);
         double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
         if (d > 0) {
-            factor = (d + cells[cell].getModelParams().mgr * epithelialSecConcentration) /
+            double mgr = cells[cell].getModelParams().mgr;
+            factor = (d + mgr * epithelialSecConcentration) /
                      d;        //mgr: mesenchymal proliferation rate
             aa = aa * factor;
             bb = bb * factor;
         }
 
-        d = sqrt(aa * aa + bb * bb + cells[cell].getModelParams().dgr *
-                                     cells[cell].getModelParams().dgr);                  //dgr: downgrowth
+        double dgr = cells[cell].getModelParams().dgr;
+        d = sqrt(aa * aa + bb * bb + dgr *
+                                     dgr);                  //dgr: downgrowth
         if (d > 0) {
-            factor = cells[cell].getModelParams().egr / d;
+            double egr = cells[cell].getModelParams().egr;
+            factor = egr / d;
             double invertDiffState = 1 - cells[cell].getDiffState();
             if (invertDiffState < 0) {
                 invertDiffState = 0;
@@ -423,7 +429,7 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementPara
 
             cells[cell].addTempX(aa * factor);
             cells[cell].addTempY(bb * factor);
-            cells[cell].addTempZ(cells[cell].getModelParams().dgr * factor);
+            cells[cell].addTempZ(dgr * factor);
         }
     }
 }
@@ -439,7 +445,8 @@ void Model::buoyancy(Cell (&cells)[totalNrOfCells], ImplementParams &implementPa
             double relativeDistance1 = sqrt(XRelativeToZ * XRelativeToZ + YRelativeToZ * YRelativeToZ +
                                             distanceToOrigin2D * distanceToOrigin2D);
             double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
-            double relativeDistance2 = cells[cell].getModelParams().boy * epithelialSecConcentration /
+            double boy = cells[cell].getModelParams().boy;
+            double relativeDistance2 = boy * epithelialSecConcentration /
                                        relativeDistance1;     //boy: buoyancy
 
             if (relativeDistance2 > 0) {
@@ -513,10 +520,11 @@ void Model::repulsionAndAdhesion(Cell (&cells)[totalNrOfCells], ImplementParams 
                 }
                 double originalDistance = cells[cell1].getOriginalDistances()[positionOfCell2];
 
+                double adh = cells[cell1].getModelParams().adh;
                 Model::repulsionAndAdhesionBetweenNeighbours(dx, dy, dz, currentDistance, originalDistance,
                                                              compressionMatrixNeighbour,
                                                              cell1IsEKCell, cell2IsEKCell, cell1IsInCenter,
-                                                             cells[cell1].getModelParams().adh);
+                                                             adh);
             } else {
                 Model::repulsionBetweenNonNeighbours(dx, dy, dz, currentDistance, compressionMatrixNonNeighbour,
                                                      implementParams);
@@ -587,9 +595,11 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
         double ZDeviationFromAverage = averageZ - cells[cell].getZ();
 
         // Ntr: Parameter for nuclear traction
-        xShift = XDeviationFromAverage * cells[cell].getModelParams().delta *
-                 cells[cell].getModelParams().ntr; // ntr: parameter for nucleus traction
-        yShift = YDeviationFromAverage * cells[cell].getModelParams().delta * cells[cell].getModelParams().ntr;
+        double ntr = cells[cell].getModelParams().ntr;
+        double delta = cells[cell].getModelParams().delta;
+        xShift = XDeviationFromAverage * delta *
+                 ntr; // ntr: parameter for nucleus traction
+        yShift = YDeviationFromAverage * delta * ntr;
 
         // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
         if (!cells[cell].isKnotCell()) {
@@ -597,7 +607,7 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
             if (inverseDiffState < 0) {
                 inverseDiffState = 0;
             }
-            zShift = ZDeviationFromAverage * cells[cell].getModelParams().delta * cells[cell].getModelParams().ntr *
+            zShift = ZDeviationFromAverage * delta * ntr *
                      inverseDiffState;
         }
 
@@ -616,15 +626,19 @@ void Model::anteriorPosteriorBias(Cell (&cells)[totalNrOfCells], ImplementParams
             continue;
         }
         //Bwi: parameter (distance where anterior-posterior bias applies)
-        if (fabs(cells[cell].getY()) < cells[cell].getModelParams().bwi) {
+        double bwi = cells[cell].getModelParams().bwi;
+        double abi = cells[cell].getModelParams().abi;
+        double pbi = cells[cell].getModelParams().pbi;
+        double bgr = cells[cell].getModelParams().bgr;
+        if (fabs(cells[cell].getY()) < bwi) {
             if (cells[cell].getX() > 0) {
-                cells[cell].multiplyTempX(cells[cell].getModelParams().abi); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempX(abi); //Abi: Parameter for anterior bias
                 cells[cell].multiplyTempZ(
-                        cells[cell].getModelParams().bgr); //Bgr: Parameter for border growth (bias in z-direction)
+                        bgr); //Bgr: Parameter for border growth (bias in z-direction)
             } else if (cells[cell].getX() < 0) {
-                cells[cell].multiplyTempX(cells[cell].getModelParams().pbi); //Abi: Parameter for anterior bias
+                cells[cell].multiplyTempX(pbi); //Abi: Parameter for anterior bias
                 cells[cell].multiplyTempZ(
-                        cells[cell].getModelParams().bgr); //Bgr: Parameter for border growth (bias in z-direction)
+                        bgr); //Bgr: Parameter for border growth (bias in z-direction)
             }
         }
     }
@@ -775,16 +789,19 @@ void Model::ActReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     double epithelialInhConcentration = cells[cell].getProteinConcentrations()[PInh][LEpithelium];
 
-    double positiveTerm = cells[cell].getModelParams().act * epithelialActConcentration;
+    double act = cells[cell].getModelParams().act;
+    double inh = cells[cell].getModelParams().inh;
+    double mu = cells[cell].getModelParams().mu;
+    double positiveTerm = act * epithelialActConcentration;
     if (positiveTerm < 0) {
         positiveTerm = 0;
     }
-    double negativeTerm = 1 + cells[cell].getModelParams().inh * epithelialInhConcentration;
+    double negativeTerm = 1 + inh * epithelialInhConcentration;
     if (negativeTerm == 0) {
         std::cout << "negative Term = 0 -> divide by zero" << std::endl;
         std::cout.flush();
     }
-    double degradation = cells[cell].getModelParams().mu * epithelialActConcentration;
+    double degradation = mu * epithelialActConcentration;
 
     //concentration difference: reaction - degradation
     double newConcentration = (positiveTerm / negativeTerm) - degradation;
@@ -797,6 +814,8 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
+    double mu = cells[cell].getModelParams().mu;
+    double inT = cells[cell].getModelParams().inT;
 
     if (implementParams.newInhAndSecProduction == 0) {
         //original version
@@ -804,18 +823,18 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
 
         if (isKnotCell) {
             newConcentration =
-                    epithelialActConcentration - cells[cell].getModelParams().mu * epithelialInhConcentration;
-        } else if (diffState > cells[cell].getModelParams().inT) {           //int: inductive threshold
+                    epithelialActConcentration - mu * epithelialInhConcentration;
+        } else if (diffState > inT) {           //int: inductive threshold
             newConcentration = epithelialActConcentration * diffState -
-                               cells[cell].getModelParams().mu * epithelialInhConcentration;
+                               mu * epithelialInhConcentration;
         }
     } else {
         // new version
         //Inh is produced if diff state is higher than threshold or if the cell is an EK cell
 
-        if (isKnotCell || diffState > cells[cell].getModelParams().inT) {
+        if (isKnotCell || diffState > inT) {
             newConcentration =
-                    epithelialActConcentration - cells[cell].getModelParams().mu * epithelialInhConcentration;
+                    epithelialActConcentration - mu * epithelialInhConcentration;
         }
     }
 
@@ -828,20 +847,23 @@ void Model::SecReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
     double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
+    double sec = cells[cell].getModelParams().sec;
+    double mu = cells[cell].getModelParams().mu;
+    double set = cells[cell].getModelParams().set;
 
     if (implementParams.newInhAndSecProduction == 0) {
         //original version
         if (isKnotCell) {
             newConcentration =
-                    cells[cell].getModelParams().sec - cells[cell].getModelParams().mu * epithelialSecConcentration;
-        } else if (diffState > cells[cell].getModelParams().set) {
-            newConcentration = cells[cell].getModelParams().sec * diffState -
-                               cells[cell].getModelParams().mu * epithelialSecConcentration;
+                    sec - mu * epithelialSecConcentration;
+        } else if (diffState > set) {
+            newConcentration = sec * diffState -
+                               mu * epithelialSecConcentration;
         }
     } else {
-        if (isKnotCell || diffState > cells[cell].getModelParams().set) {
+        if (isKnotCell || diffState > set) {
             newConcentration =
-                    cells[cell].getModelParams().sec - cells[cell].getModelParams().mu * epithelialSecConcentration;
+                    sec - mu * epithelialSecConcentration;
         }
     }
 
@@ -1168,9 +1190,10 @@ void Model::newEpithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementP
             continue;
         }
 
-        double xShift = (xComponent / lengthOfSum) * cells[cell].getModelParams().egr * inverseDiffState;
-        double yShift = (yComponent / lengthOfSum) * cells[cell].getModelParams().egr * inverseDiffState;
-        double zShift = (zComponent / lengthOfSum) * cells[cell].getModelParams().egr * inverseDiffState;
+        double egr = cells[cell].getModelParams().egr;
+        double xShift = (xComponent / lengthOfSum) * egr * inverseDiffState;
+        double yShift = (yComponent / lengthOfSum) * egr * inverseDiffState;
+        double zShift = (zComponent / lengthOfSum) * egr * inverseDiffState;
 
         cells[cell].addTempX(xShift);
         cells[cell].addTempY(yShift);
@@ -1193,21 +1216,24 @@ void Model::downGrowth(Cell (&cells)[totalNrOfCells], double xShift, double yShi
 
     double shift2D = Geometrics::vectorNorm2D(std::vector<double>{xShift, yShift});
     if (shift2D > 0) {
-        double mesenchymalForce = (shift2D + cells[cell].getModelParams().mgr * epithelialSecConcentration) / shift2D;
+        double mgr = cells[cell].getModelParams().mgr;
+        double mesenchymalForce = (shift2D + mgr * epithelialSecConcentration) / shift2D;
         xShift = xShift * mesenchymalForce;
         yShift = yShift * mesenchymalForce;
     }
 
     double epithelialGrowth = 0;
+    double dgr = cells[cell].getModelParams().dgr;
+    double egr = cells[cell].getModelParams().egr;
 
-    double shift3D = Geometrics::vectorNorm3D(std::vector<double>{xShift, yShift, cells[cell].getModelParams().dgr});
+    double shift3D = Geometrics::vectorNorm3D(std::vector<double>{xShift, yShift, dgr});
     if (shift3D > 0) {
-        epithelialGrowth = cells[cell].getModelParams().egr * inverseDiffState / shift3D;
+        epithelialGrowth = egr * inverseDiffState / shift3D;
     }
 
     cells[cell].addTempX(xShift * epithelialGrowth);
     cells[cell].addTempY(yShift * epithelialGrowth);
-    cells[cell].addTempZ(cells[cell].getModelParams().dgr * epithelialGrowth);
+    cells[cell].addTempZ(dgr * epithelialGrowth);
 
 }
 

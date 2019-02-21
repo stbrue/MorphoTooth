@@ -58,8 +58,9 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
         // not yet finished (success == 0) --> go on with simulation
 
         //For debugging
-        if (implementParams.currentIteration == 9751) {
+        if (implementParams.currentIteration == 5831) {
             int a = 0;
+            Output::ROutput(cells, implementParams, repetition, success);
         }
 
         //Print every "printInterval" iteration the count
