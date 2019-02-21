@@ -6,14 +6,14 @@
 #define MORPHOTOOTH_UTILITY_H
 
 
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "Cell.h"
 #include <string>
 
 class Utility {
 
 public:
-    static void resetNonConstantParameters(Parameters &params);
+    static void resetNonConstantParameters(ImplementParams &params);
 
     static void trimString(std::string &str);
 
@@ -25,11 +25,11 @@ public:
 
     static bool NanIsPresent(double x, double y, double z);
 
-    static bool errorTesting(Cell cells[totalNrOfCells], Parameters &params);
+    static bool errorTesting(Cell cells[totalNrOfCells], ImplementParams &params);
 
-    static int endOfSimulation(Parameters &params, int iterationStep, int oldSuccess);
+    static int endOfSimulation(ImplementParams &params, int iterationStep, int oldSuccess);
 
-    static void checkForFullNeighbourVector(Cell cells[totalNrOfCells], Parameters &params, int cellID);
+    static void checkForFullNeighbourVector(Cell cells[totalNrOfCells], ImplementParams &params, int cellID);
 };
 
 

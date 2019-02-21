@@ -7,8 +7,8 @@
 #include <chrono>
 #include "Noise.h"
 #include "Input.h"
-
-void Noise::doNoise(Cell (&cells)[totalNrOfCells], Parameters params, Parameters &noiseParams) {
+/*
+void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams params, ImplementParams &noiseParams) {
     // If the noise type is set to 0, no noise is calculated
     if (params.noiseType == 0) {
         return;
@@ -25,7 +25,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], Parameters params, Parameters
         double sd = params.valueOfParameterAffectedByNoise * params.sdPercentage;
         double noiseValue = Noise::generateNoiseValue(params, 0, sd);
 
-        // Create new struct Parameters with NoiseValues
+        // Create new struct ImplementParams with NoiseValues
         Noise::addToParameter(params.parameterWithNoise, noiseParams, noiseValue);
     } else if (params.noiseType == 2) {
         // the position of each cell is affected by noise (in all 3 dimensions randomly)
@@ -42,7 +42,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], Parameters params, Parameters
 }
 
 
-double Noise::generateNoiseValue(Parameters &params, double mean, double sd) {
+double Noise::generateNoiseValue(ImplementParams &params, double mean, double sd) {
     //Instantiation of pseudo random number generator
     std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
     std::normal_distribution<double> distribution(mean, sd);
@@ -51,7 +51,7 @@ double Noise::generateNoiseValue(Parameters &params, double mean, double sd) {
     return noiseValue;
 }
 
-void Noise::addToParameter(int parameterIndex, Parameters &params, double value) {
+void Noise::addToParameter(int parameterIndex, ImplementParams &params, double value) {
     switch (parameterIndex) {
         case 1: {
             params.distanceCellDivision += value;
@@ -180,8 +180,9 @@ void Noise::addToParameter(int parameterIndex, Parameters &params, double value)
     }
 }
 
-void Noise::updateParams(Parameters &noiseParams, Parameters &params) {
+void Noise::updateParams(ImplementParams &noiseParams, ImplementParams &params) {
     params.error = noiseParams.error;
     params.nrCellsInSimulation = noiseParams.nrCellsInSimulation;
     params.currentIteration = noiseParams.currentIteration;
 }
+ */

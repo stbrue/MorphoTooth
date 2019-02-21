@@ -5,7 +5,8 @@
 #ifndef MORPHOTOOTH_INPUT_H
 #define MORPHOTOOTH_INPUT_H
 
-#include "Parameters.h"
+#include "ImplementParams.h"
+#include "ModelParams.h"
 #include<string>
 
 
@@ -15,11 +16,11 @@
 class Input {
 public:
 
-    static Parameters setParametersInitial(std::string InputFileName);
+    static ImplementParams setParametersInitial(std::string InputFileName);
 
-    static Parameters setParameters(std::string InputFileName);
+    static ImplementParams setParameters(std::string InputFileName);
 
-    static void changeInputFileTemp(Parameters params, double newValue, std::string nameInputFileTemp);
+    static void changeInputFileTemp(ImplementParams params, double newValue, std::string nameInputFileTemp);
 
     static void changeInputFile(int nrOfParameter);
 
@@ -27,13 +28,17 @@ public:
 
     //static bool isInteger(int value);
 
-    //static void defineParameterToChange(Parameters &paramsInitial);
+    //static void defineParameterToChange(ImplementParams &paramsInitial);
 
     static int defineNrOfParametersToChange();
 
-    static double getParameterAffectedByNoise(Parameters &params);
+    static double getParameterAffectedByNoise(ImplementParams &params);
 
-    static void createInputFileTemp(int parameter, Parameters params, std::string fileName);
+    static void createInputFileTemp(int parameter, ImplementParams params, std::string fileName);
+
+    static ModelParams setModelParamsInitial(std::string InputFileName);
+
+    static ImplementParams setImplementParamsInitial(std::string InputFileName);
 
 
 };

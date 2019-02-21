@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "consts.h"
+#include "ModelParams.h"
 
 /**
  * Object that contains all information and features about a cell
@@ -151,8 +152,15 @@ private:
      */
     double cellArea;
 
+    /**
+     * Holds all the genetic information (model parameters) -> Genome
+     */
+    ModelParams modelParams;
+
 public:
     //Getter
+    ModelParams getModelParams() const;
+
     double getX() const;
 
     double getTempX() const;
@@ -298,6 +306,8 @@ public:
 
     void newMarginPoint(double x, double y, double z);
 
+    void setModelParams(ModelParams modelParams);
+
     //Constructor
     Cell();
 
@@ -334,9 +344,13 @@ public:
      * Calculates the new position of the cell by adding the temp coordinates multiplied with delta
      * @param delta
      */
-    void updateCoordinates(double delta);
+    void updateCoordinates();
 
 };
+
+inline ModelParams Cell::getModelParams() const {
+    return modelParams;
+}
 
 inline double Cell::getX() const {
     return x;
@@ -568,6 +582,34 @@ inline void Cell::setMarginArea(double area) {
     Cell::marginArea = area;
 }
 
+inline void Cell::setModelParams(ModelParams modelParams) {
+    Cell::modelParams.delta = modelParams.delta;
+    Cell::modelParams.act = modelParams.act;
+    Cell::modelParams.inh = modelParams.inh;
+    Cell::modelParams.mu = modelParams.mu;
+    Cell::modelParams.inT = modelParams.inT;
+    Cell::modelParams.set = modelParams.set;
+    Cell::modelParams.sec = modelParams.sec;
+    Cell::modelParams.lbi = modelParams.lbi;
+    Cell::modelParams.bbi = modelParams.bbi;
+    Cell::modelParams.swi = modelParams.swi;
+    Cell::modelParams.dff = modelParams.dff;
+    Cell::modelParams.egr = modelParams.egr;
+    Cell::modelParams.mgr = modelParams.mgr;
+    Cell::modelParams.dgr = modelParams.dgr;
+    Cell::modelParams.boy = modelParams.boy;
+    Cell::modelParams.rep = modelParams.rep;
+    Cell::modelParams.adh = modelParams.adh;
+    Cell::modelParams.ntr = modelParams.ntr;
+    Cell::modelParams.bwi = modelParams.bwi;
+    Cell::modelParams.abi = modelParams.abi;
+    Cell::modelParams.pbi = modelParams.pbi;
+    Cell::modelParams.bgr = modelParams.bgr;
+    Cell::modelParams.ActDiffusion = modelParams.ActDiffusion;
+    Cell::modelParams.InhDiffusion = modelParams.InhDiffusion;
+    Cell::modelParams.SecDiffusion = modelParams.SecDiffusion;
+}
+
 inline void Cell::addProteinConcentration(int protein, int layer, double addedConcentration) {
     proteinConcentrations[protein][layer] += addedConcentration;
 }
@@ -687,7 +729,7 @@ inline void Cell::deleteMarginPoints() {
     Cell::marginPoints.clear();
 }
 
-inline void Cell::updateCoordinates(double delta) {
+inline void Cell::updateCoordinates() {
     // There cannot be any force in negative z-direction due to the pressure of the stelate
     if (Cell::tempZ < 0) {
         Cell::tempZ = 0;
@@ -699,9 +741,9 @@ inline void Cell::updateCoordinates(double delta) {
     }
 
     //Apply the forces on the positions
-    Cell::x += Cell::tempX * delta;
-    Cell::y += Cell::tempY * delta;
-    Cell::z += Cell::tempZ * delta;
+    Cell::x += Cell::tempX * Cell::modelParams.delta;
+    Cell::y += Cell::tempY * Cell::modelParams.delta;
+    Cell::z += Cell::tempZ * Cell::modelParams.delta;
 }
 
 #endif //TOOTHMAKER_CELL_H

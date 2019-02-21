@@ -5,14 +5,15 @@
 #ifndef MORPHOTOOTH_PROGRAMMORPHOTOOTH_H
 #define MORPHOTOOTH_PROGRAMMORPHOTOOTH_H
 
-#include "Parameters.h"
+#include "ImplementParams.h"
+#include "ModelParams.h"
 
 
 class ProgramMorphoTooth {
 public:
-    static void runProgram(Parameters &params, int repetition);
+    static void runProgram(ImplementParams &implementParams, ModelParams &modelParams, int repetition);
 
-    static void runProgramWithDifferentConditions(Parameters &paramsInitial, std::string nameInputFileTemp);
+    static void runProgramWithDifferentConditions(ImplementParams &paramsInitial, std::string nameInputFileTemp);
 
 
 };

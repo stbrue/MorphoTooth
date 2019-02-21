@@ -7,7 +7,7 @@
 
 
 #include "Cell.h"
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "consts.h"
 
 /**
@@ -32,7 +32,7 @@ public:
     *                              higher in y and then clockwise)
     * @return  x-value of neighbour (rounded to 6 decimal places)
     */
-    static double nextX(double centerX, int neighbour, Parameters &params);
+    static double nextX(double centerX, int neighbour);
 
 
     /**
@@ -42,14 +42,14 @@ public:
     *                              higher in y and then clockwise)
      * @return  y-value of neighbour (rounded to 6 decimal places)
     */
-    static double nextY(double centerX, int neighbour, Parameters &params);
+    static double nextY(double centerX, int neighbour);
 
     /**
     * @brief Instantiates all the initial cells and calculates their borders
     * @param params struct containing all parameters
     * @return a vector containing all cells
     */
-    static void makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells]);
+    static void makeInitialGrid(ImplementParams &implementParams, ModelParams &modelParams, Cell (&cells)[totalNrOfCells]);
 
     /**
     * @brief   Creates or declares all neighbours for one centre cell
@@ -57,14 +57,14 @@ public:
     * @param   IDCentreCell ID of the cell that gets new neighbours
     * @param   IDNewCell   ID that a new cell gets (always one higher than the ID of the last cell in cells)
     */
-    static void makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params);
+    static void makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, ModelParams &modelParams);
 
     /**
     * @brief   Checks if cells are "within simulation" (have a closed neighbour sequence) and labels them accordingly
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelCellsInSimulation(Cell (&cells)[totalNrOfCells], Parameters &params);
+    static void labelCellsInSimulation(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
     /**
     * @brief   Checks if cells are "in the center" (have neighbours that are all within simulation or at least 7) and labels them accordingly
@@ -72,7 +72,7 @@ public:
     * @param   cells   Vector containing all cells
     * @param   params  Struct containing all parameters
     */
-    static void labelCellsInCentre(Cell (&cells)[totalNrOfCells], Parameters &params);
+    static void labelCellsInCentre(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
 };
 

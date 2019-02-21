@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Print.h"
 
-void Print::printStartOfSimulation(Parameters params, int repetition) {
+void Print::printStartOfSimulation(ImplementParams params, int repetition) {
     std::cout << "##################################################################################" << std::endl;
     std::cout << "##################################################################################" << std::endl;
     std::cout << "## Simulation " << repetition << " has started                                                 ##"
@@ -16,7 +16,7 @@ void Print::printStartOfSimulation(Parameters params, int repetition) {
     Print::printParameterWithNoise(params);
 }
 
-void Print::printParameterToChange(Parameters params) {
+void Print::printParameterToChange(ImplementParams params) {
     // Print only if the parameter gets changed
     if (params.totalPlusMinusScope > 0) {
         std::cout << "###########################################################" << std::endl;
@@ -27,7 +27,7 @@ void Print::printParameterToChange(Parameters params) {
     }
 }
 
-void Print::printParameterWithNoise(Parameters params) {
+void Print::printParameterWithNoise(ImplementParams params) {
     // Print only if a parameter has noise
     if (params.parameterWithNoise > 0) {
         std::cout << "#############################################################" << std::endl;

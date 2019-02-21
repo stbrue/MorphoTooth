@@ -6,14 +6,15 @@
 #include <cmath>
 #include <iostream>
 #include "Cell.h"
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "Geometrics.h"
 #include "consts.h"
 
 
-void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells]) {
+void
+Initial::makeInitialGrid(ImplementParams &implementParams, ModelParams &modelParams, Cell (&cells)[totalNrOfCells]) {
     //Calculate the initial amount of cells involved in simulations (that have 6 neighbours)
-    params.nrCellsInSimulation = Initial::getNumberOfInSimulationCells(params.initialRadius);
+    implementParams.nrCellsInSimulation = Initial::getNumberOfInSimulationCells(implementParams.initialRadius);
 
     //Make the first cell
     Cell cell1;
@@ -21,24 +22,25 @@ void Initial::makeInitialGrid(Parameters &params, Cell (&cells)[totalNrOfCells])
     cell1.setY(firstY);
     cell1.setZ(firstZ);
     cell1.setID(firstID);
+    cell1.setModelParams(modelParams);
 
     //Include the first cell
     cells[first] = cell1;
 
     //Make the neighbours of this cell and then of all the other cells
     int IDNewCell = 1;
-    for (int centreCell = 0; centreCell < params.nrCellsInSimulation; ++centreCell) {
-        makeNeighbours(cells, centreCell, IDNewCell, params);
+    for (int centreCell = 0; centreCell < implementParams.nrCellsInSimulation; ++centreCell) {
+        makeNeighbours(cells, centreCell, IDNewCell, modelParams);
     }
 
     //Define for each cell if it is "within simulation" or "in Centre"
-    labelCellsInSimulation(cells, params);
-    labelCellsInCentre(cells, params);  // has to be called after labelCellsInSimulation!!
+    labelCellsInSimulation(cells, implementParams);
+    labelCellsInCentre(cells, implementParams);  // has to be called after labelCellsInSimulation!!
 
-    Geometrics::calculateCellBorders(cells, params.nrCellsInSimulation);
-    Geometrics::setInitialOriginalDistances(cells, params);
+    Geometrics::calculateCellBorders(cells, implementParams.nrCellsInSimulation);
+    Geometrics::setInitialOriginalDistances(cells, implementParams);
 
-    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+    for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
         cells[cell].resetTempCoordinates();
     }
 }
@@ -68,7 +70,7 @@ int Initial::getNumberOfInSimulationCells(int initialRadius) {
 }
 
 
-double Initial::nextX(double centerCoordinate, int neighbour, Parameters &params) {
+double Initial::nextX(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double x;
     int distanceBetweenCells = 1;
@@ -78,7 +80,7 @@ double Initial::nextX(double centerCoordinate, int neighbour, Parameters &params
 }
 
 
-double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params) {
+double Initial::nextY(double centerCoordinate, int neighbour) {
     double a = (2 * M_PI) / totalDegrees; //to transform from degree into rad
     double y;
     int distanceBetweenCells = 1;
@@ -88,13 +90,14 @@ double Initial::nextY(double centerCoordinate, int neighbour, Parameters &params
 }
 
 
-void Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, Parameters &params) {
+void
+Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, int &IDNewCell, ModelParams &modelParams) {
     bool isAlreadyExisting = false;
     //for each  neighbour cell of the centreCell
     for (int neighbour = 0; neighbour < initialNrOfNeighbours; ++neighbour) {
         //define the coordinates of the neighbour
-        double x = nextX(cells[IDCentreCell].getX(), neighbour, params);
-        double y = nextY(cells[IDCentreCell].getY(), neighbour, params);
+        double x = nextX(cells[IDCentreCell].getX(), neighbour);
+        double y = nextY(cells[IDCentreCell].getY(), neighbour);
 
         //create a temporary Instance of this cell
         Cell tempCell;
@@ -102,6 +105,7 @@ void Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, in
         tempCell.setY(y);
         tempCell.setZ(firstZ);
         tempCell.setID(IDNewCell);
+        tempCell.setModelParams(modelParams);
 
         //check if this neighbour is already an existing cell
         isAlreadyExisting = false;
@@ -125,7 +129,7 @@ void Initial::makeNeighbours(Cell (&cells)[totalNrOfCells], int IDCentreCell, in
     }
 }
 
-void Initial::labelCellsInSimulation(Cell (&cells)[totalNrOfCells], Parameters &params) {
+void Initial::labelCellsInSimulation(Cell (&cells)[totalNrOfCells], ImplementParams &params) {
     //for each cell in the array
     for (int cell = 0; cell < totalNrOfCells; ++cell) {
         if (cell < params.nrCellsInSimulation) {
@@ -148,7 +152,7 @@ void Initial::labelCellsInSimulation(Cell (&cells)[totalNrOfCells], Parameters &
 }
 
 
-void Initial::labelCellsInCentre(Cell (&cells)[totalNrOfCells], Parameters &params) {
+void Initial::labelCellsInCentre(Cell (&cells)[totalNrOfCells], ImplementParams &params) {
     int nrCellsNotInCentre = ((params.initialRadius - 1) * initialNrOfNeighbours) + 1;
     int nrCellsInCentre = params.nrCellsInSimulation - nrCellsNotInCentre + 1;
 

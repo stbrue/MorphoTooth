@@ -7,7 +7,7 @@
 
 
 #include "Cell.h"
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "consts.h"
 
 /**
@@ -85,7 +85,7 @@ public:
      * @param   cells   vector containing all cells
      * @param   nrCellsInSimulation number of cells that are in simulation (have a closed neighbour sequence)
      */
-    static void calculatePerimeterAndArea(Cell (&cells)[totalNrOfCells], Parameters &params);
+    static void calculatePerimeterAndArea(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
     /**
      * @brief   calculates a part of the cell perimeter (= length of border to a neighbour)
@@ -140,9 +140,9 @@ public:
     */
     static void setBorders(Cell (&cells)[totalNrOfCells], int centreCell, int neighbour1, int neighbour2);
 
-    static void setInitialOriginalDistances(Cell (&cells)[totalNrOfCells], Parameters &params);
+    static void setInitialOriginalDistances(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
-    static void triangulation(Cell (&cells)[totalNrOfCells], Parameters &params, std::vector<std::vector<int>> &faces);
+    static void triangulation(Cell (&cells)[totalNrOfCells], ImplementParams &params, std::vector<std::vector<int>> &faces);
 };
 
 

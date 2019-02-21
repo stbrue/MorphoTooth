@@ -11,7 +11,7 @@
 #include <iostream>
 #include <chrono>
 
-void Utility::resetNonConstantParameters(Parameters &params) {
+void Utility::resetNonConstantParameters(ImplementParams &params) {
     params.error = false;
     params.currentIteration = 0;
     params.seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -58,7 +58,7 @@ bool Utility::NanIsPresent(double x, double y, double z) {
 }
 
 
-bool Utility::errorTesting(Cell *cells, Parameters &params) {
+bool Utility::errorTesting(Cell *cells, ImplementParams &params) {
     if (params.nrCellsInSimulation > totalNrOfCells) {
         params.error = true;
         std::cout << "There are too many cells in the simulation" << std::endl;
@@ -80,7 +80,7 @@ bool Utility::errorTesting(Cell *cells, Parameters &params) {
 
 }
 
-int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSuccess) {
+int Utility::endOfSimulation(ImplementParams &params, int iterationStep, int oldSuccess) {
     // if the maxNrOfIterations or maxNrOfCells is reached the simulation gets ended
     if (params.currentIteration == params.maxNrOfIterations) {
         std::cout << "The simulation was was stopped because the maxNrOfIterations was reached."
@@ -113,7 +113,7 @@ int Utility::endOfSimulation(Parameters &params, int iterationStep, int oldSucce
     return 0;
 }
 
-void Utility::checkForFullNeighbourVector(Cell *cells, Parameters &params, int cellID) {
+void Utility::checkForFullNeighbourVector(Cell *cells, ImplementParams &params, int cellID) {
     if (cellID < maxNrOfCells) {
         params.endOfSimulation = (cells[cellID].getNrOfNeighbours() == maxNrOfNeighbours);
     }

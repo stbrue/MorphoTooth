@@ -9,22 +9,33 @@
 int main() {
     // Arguments read in by command line
     std::string simulationNumber = "01";
-    std::string nameInputFile = "InputFile01.txt";
-    std::string nameInputFileTemp = "InputFileTemp01.txt";
+    std::string nameInputFileImplement = "ImplementParams01.txt";
+    std::string nameInputFileModel = "ModelParams01.txt";
+    std::string nameInputFileTempImplement = "TempImplementParams01.txt";
 
-    // Read InputFile.txt and set initial parameters
-    Parameters paramsInitial = Input::setParametersInitial(nameInputFile);
+    // Read ModelParams.txt and set initial values
+    ModelParams modelParamsInitial = Input::setModelParamsInitial(nameInputFileModel);
 
+    // Read ImplementParams.txt and set initial values
+    ImplementParams implementParamsInitial = Input::setImplementParamsInitial(nameInputFileImplement);
+
+    // Run the program as often as declared in the InputFile with "repetitions"
+    for (int repetition = 0; repetition < implementParamsInitial.repetitions; ++repetition) {
+        Utility::resetNonConstantParameters(implementParamsInitial);
+        ProgramMorphoTooth::runProgram(implementParamsInitial, modelParamsInitial, repetition);
+    }
+
+    /*
     // If no parameter has to be changed, set all values connected with parameterToChange to zero and start the simulation with the same parameters
-    if (paramsInitial.nrOfParametersToChange == 0) {
+    if (implementParamsInitial.nrOfParametersToChange == 0) {
         std::vector<double> zeroVector = {0, 0, 0, 0};
-        paramsInitial.parameterToChangeValues.push_back(zeroVector);
+        implementParamsInitial.parameterToChangeValues.push_back(zeroVector);
 
-        // Create InputFileTemp.txt with all values for parameterToChange set to zero
-        Input::createInputFileTemp(0, paramsInitial, nameInputFileTemp);
+        // Create TempImplementParams01.txt with all values for parameterToChange set to zero
+        Input::createInputFileTemp(0, implementParamsInitial, nameInputFileTempImplement);
 
         // Set the parameters
-        Parameters params = Input::setParameters(nameInputFileTemp);
+        ImplementParams implementParams = Input::setImplementParameters(nameInputFileTempImplement);
 
         // Run the program as often as declared in the InputFile with "repetitions"
         for (int repetition = 0; repetition < params.repetitions; ++repetition) {
@@ -40,12 +51,13 @@ int main() {
             Input::createInputFileTemp(parameter, paramsInitial, nameInputFileTemp);
 
             // Set the parameters with current parameterToChange
-            Parameters params = Input::setParameters(nameInputFileTemp);
+            ImplementParams params = Input::setParameters(nameInputFileTemp);
 
             // Run the program with different values of this parameter
             ProgramMorphoTooth::runProgramWithDifferentConditions(params, nameInputFileTemp);
         }
     }
+     */
 
     return 0;
 }

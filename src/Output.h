@@ -7,22 +7,22 @@
 
 
 #include "Cell.h"
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "consts.h"
 
 class Output {
 
 public:
 
-    static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
+    static void XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success);
 
-    static void geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params);
+    static void geomorphLinkOutput(Cell (&cells)[totalNrOfCells], ImplementParams params);
 
-    static void plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
+    static void plyOutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success);
 
-    static void ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success);
+    static void ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success);
 
-    static std::string createOutputFileName(char outputType, Parameters params, std::string path, int repetition);
+    static std::string createOutputFileName(char outputType, ImplementParams params, std::string path, int repetition);
 
 };
 

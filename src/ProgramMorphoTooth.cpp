@@ -11,76 +11,76 @@
 #include "Output.h"
 #include "Geometrics.h"
 #include "Model.h"
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "consts.h"
 #include "Print.h"
 #include "Utility.h"
 #include "Noise.h"
 
-void ProgramMorphoTooth::runProgram(Parameters &params, int repetition) {
+void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParams &modelParams, int repetition) {
     int success = 0;
 
-    //Print information that program has started with value of parameter to change
-    Print::printStartOfSimulation(params, repetition);
+    //Print information that program has started with value of parameter to change or parameter with Noise
+    Print::printStartOfSimulation(implementParams, repetition);
 
     //Vector containing all cells
     Cell cells[totalNrOfCells];
 
     //Construct the initial grid of cells
-    Initial::makeInitialGrid(params, cells);
+    Initial::makeInitialGrid(implementParams, modelParams, cells);
 
     // A struct that holds the parameter values with noise added
-    Parameters noiseParams = params;
+    //ImplementParams noiseParams = params;
 
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
-    for (int step = 0; step < params.maxNrOfIterations + 1; ++step) {
-        noiseParams.currentIteration = step;
-        Model::iterationStep(cells, params, noiseParams);
+    for (int step = 0; step < implementParams.maxNrOfIterations + 1; ++step) {
+        implementParams.currentIteration = step;
+        Model::iterationStep(cells, implementParams, modelParams);
 
         //Abort the loop if there is an error or if the simulation has to be ended because some bounderies are reached
-        if (Utility::errorTesting(cells, noiseParams)) {
+        if (Utility::errorTesting(cells, implementParams)) {
             break;
-        } else if (params.endOfSimulation) {
+        } else if (implementParams.endOfSimulation) {
             break;
         }
 
         //Abort the loop if maxNrOfIterations or maxNrOfCells is reached (success = 1), make an output if a multiple of minNrOfCells is
         //achieved (success = 2 or greater) or just continue with the simulation (success = 0)
-        success = Utility::endOfSimulation(noiseParams, step, success);
+        success = Utility::endOfSimulation(implementParams, step, success);
         if (success == 1) {
             break;
         } else if (success >= 2) {
-            Output::plyOutput(cells, params, repetition, success);
-            Output::ROutput(cells, params, repetition, success);
-            Output::XYZOutputSimple(cells, params, repetition, success);
+            Output::plyOutput(cells, implementParams, repetition, success);
+            Output::ROutput(cells, implementParams, repetition, success);
+            Output::XYZOutputSimple(cells, implementParams, repetition, success);
         }
         // not yet finished (success == 0) --> go on with simulation
 
         //For debugging
-        if (noiseParams.currentIteration == 9751) {
+        if (implementParams.currentIteration == 9751) {
             int a = 0;
         }
 
         //Print every "printInterval" iteration the count
-        if (step % noiseParams.printInterval == 0) {
+        if (step % implementParams.printInterval == 0) {
             std::cout << step << std::endl;
-            std::cout << "Cells in simulation: " << noiseParams.nrCellsInSimulation << std::endl;
+            std::cout << "Cells in simulation: " << implementParams.nrCellsInSimulation << std::endl;
             std::cout.flush();
         }
 
         //All x iterations do an output
-        if (params.outputInterval != 0) {
-            if (step % params.outputInterval == 0) {
-                Output::ROutput(cells, params, repetition, success);
+        if (implementParams.outputInterval != 0) {
+            if (step % implementParams.outputInterval == 0) {
+                Output::ROutput(cells, implementParams, repetition, success);
             }
         }
     }
 
     Print::printEndOfSimulation();
 }
-
-void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsInitial, std::string nameInputFileTemp) {
+ /*
+void ProgramMorphoTooth::runProgramWithDifferentConditions(ImplementParams &paramsInitial, std::string nameInputFileTemp) {
     //Calculate how many conditions there are
     double conditionsDouble;
     int conditions;
@@ -108,7 +108,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
     //Loop that starts the program with different conditions (input parameters)
     for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
         //Re-read the InputFileTemp
-        Parameters params = Input::setParameters(nameInputFileTemp);
+        ImplementParams params = Input::setParameters(nameInputFileTemp);
 
         // run the program with current conditions
         ProgramMorphoTooth::runProgram(params, 0);
@@ -119,6 +119,7 @@ void ProgramMorphoTooth::runProgramWithDifferentConditions(Parameters &paramsIni
 
     }
 }
+  */
 
 
 

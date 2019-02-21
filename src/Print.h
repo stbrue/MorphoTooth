@@ -6,15 +6,15 @@
 #define MORPHOTOOTH_PRINT_H
 
 
-#include "Parameters.h"
+#include "ImplementParams.h"
 
 class Print {
 public:
-    static void printStartOfSimulation(Parameters params, int repetition);
+    static void printStartOfSimulation(ImplementParams params, int repetition);
 
-    static void printParameterToChange(Parameters params);
+    static void printParameterToChange(ImplementParams params);
 
-    static void printParameterWithNoise(Parameters params);
+    static void printParameterWithNoise(ImplementParams params);
 
     static void printEndOfSimulation();
 

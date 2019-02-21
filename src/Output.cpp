@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "Parameters.h"
+#include "ImplementParams.h"
 #include "consts.h"
 #include "Geometrics.h"
 #include <sstream>
@@ -19,7 +19,7 @@
 
 #endif
 
-void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
+void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success) {
     // Define and create directory depending on success number
     std::string path;
     std::string directory;
@@ -61,7 +61,7 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], Parameters params, i
     outputFile.close();
 }
 
-void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params) {
+void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], ImplementParams params) {
 
     std::stringstream stringstream;
     std::string fileName;
@@ -93,7 +93,7 @@ void Output::geomorphLinkOutput(Cell (&cells)[totalNrOfCells], Parameters params
     outputFile.close();
 }
 
-void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
+void Output::plyOutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success) {
     // Do the triangulation
     std::vector<std::vector<int>> faces;
     Geometrics::triangulation(cells, params, faces);
@@ -148,7 +148,7 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], Parameters params, int rep
     outputFile.close();
 }
 
-void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repetition, int success) {
+void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int repetition, int success) {
 
     // Define and create directory depending on success number
     std::string path;
@@ -219,7 +219,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], Parameters params, int repet
     outputFile.close();
 }
 
-std::string Output::createOutputFileName(char outputType, Parameters params, std::string path, int repetition) {
+std::string Output::createOutputFileName(char outputType, ImplementParams params, std::string path, int repetition) {
     int outputCondition = 0;
 
     if (params.parameterWithNoise > 0) {
