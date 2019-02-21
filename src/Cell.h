@@ -8,6 +8,7 @@
 #include <vector>
 #include "consts.h"
 #include "ModelParams.h"
+#include <iostream>
 
 /**
  * Object that contains all information and features about a cell
@@ -207,6 +208,8 @@ public:
 
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
+    const double getModelParamValue(int parameter) const;
+
 
     //Setter
 
@@ -307,6 +310,8 @@ public:
     void newMarginPoint(double x, double y, double z);
 
     void setModelParams(ModelParams modelParams);
+
+    void changeModelParameter(int parameter, double newValue);
 
     //Constructor
     Cell();
@@ -444,6 +449,89 @@ inline std::vector<std::vector<double>> &Cell::getProteinConcentrations() {
 
 inline const std::vector<std::vector<double>> &Cell::getTempProteinConcentrations() const {
     return tempProteinConcentrations;
+}
+
+inline const double Cell::getModelParamValue(int parameter) const {
+    switch (parameter) {
+        case 0: {
+            return modelParams.ActDiffusion;
+        }
+        case 1: {
+            return modelParams.InhDiffusion;
+        }
+        case 2: {
+            return modelParams.SecDiffusion;
+        }
+        case 3: {
+            return modelParams.delta;
+        }
+        case 4: {
+            return modelParams.act;
+        }
+        case 5: {
+            return modelParams.inh;
+        }
+        case 6: {
+            return modelParams.mu;
+        }
+        case 7: {
+            return modelParams.inT;
+        }
+        case 8: {
+            return modelParams.set;
+        }
+        case 9: {
+            return modelParams.sec;
+        }
+        case 10: {
+            return modelParams.lbi;
+        }
+        case 11: {
+            return modelParams.bbi;
+        }
+        case 12: {
+            return modelParams.swi;
+        }
+        case 13: {
+            return modelParams.dff;
+        }
+        case 14: {
+            return modelParams.egr;
+        }
+        case 15: {
+            return modelParams.mgr;
+        }
+        case 16: {
+            return modelParams.dgr;
+        }
+        case 17: {
+            return modelParams.boy;
+        }
+        case 18: {
+            return modelParams.rep;
+        }
+        case 19: {
+            return modelParams.adh;
+        }
+        case 20: {
+            return modelParams.ntr;
+        }
+        case 21: {
+            return modelParams.bwi;
+        }
+        case 22: {
+            return modelParams.abi;
+        }
+        case 23: {
+            return modelParams.pbi;
+        }
+        case 24: {
+            return modelParams.bgr;
+        }
+        default: {
+            std::cout << "Could not get parameter value" << std::endl;
+        }
+    }
 }
 
 //Setter
@@ -609,6 +697,115 @@ inline void Cell::setModelParams(ModelParams modelParams) {
     Cell::modelParams.InhDiffusion = modelParams.InhDiffusion;
     Cell::modelParams.SecDiffusion = modelParams.SecDiffusion;
 }
+
+inline void Cell::changeModelParameter(int parameter, double newValue) {
+    switch (parameter) {
+        case 0: {
+            modelParams.ActDiffusion = newValue;
+            return;
+        }
+        case 1: {
+            modelParams.InhDiffusion = newValue;
+            return;
+        }
+        case 2: {
+            modelParams.SecDiffusion = newValue;
+            return;
+        }
+        case 3: {
+            modelParams.delta = newValue;
+            return;
+        }
+        case 4: {
+            modelParams.act = newValue;
+            return;
+        }
+        case 5: {
+            modelParams.inh = newValue;
+            return;
+        }
+        case 6: {
+            modelParams.mu = newValue;
+            return;
+        }
+        case 7: {
+            modelParams.inT = newValue;
+            return;
+        }
+        case 8: {
+            modelParams.set = newValue;
+            return;
+        }
+        case 9: {
+            modelParams.sec = newValue;
+            return;
+        }
+        case 10: {
+            modelParams.lbi = newValue;
+            return;
+        }
+        case 11: {
+            modelParams.bbi = newValue;
+            return;
+        }
+        case 12: {
+            modelParams.swi = newValue;
+            return;
+        }
+        case 13: {
+            modelParams.dff = newValue;
+            return;
+        }
+        case 14: {
+            modelParams.egr = newValue;
+            return;
+        }
+        case 15: {
+            modelParams.mgr = newValue;
+            return;
+        }
+        case 16: {
+            modelParams.dgr = newValue;
+            return;
+        }
+        case 17: {
+            modelParams.boy = newValue;
+            return;
+        }
+        case 18: {
+            modelParams.rep = newValue;
+            return;
+        }
+        case 19: {
+            modelParams.adh = newValue;
+            return;
+        }
+        case 20: {
+            modelParams.ntr = newValue;
+            return;
+        }
+        case 21: {
+            modelParams.bwi = newValue;
+            return;
+        }
+        case 22: {
+            modelParams.abi = newValue;
+            return;
+        }
+        case 23: {
+            modelParams.pbi = newValue;
+            return;
+        }
+        case 24: {
+            modelParams.bgr = newValue;
+            return;
+        }
+        default: {
+            std::cout << "Parameter could not be changed" << std::endl;
+        }
+    }
+}
+
 
 inline void Cell::addProteinConcentration(int protein, int layer, double addedConcentration) {
     proteinConcentrations[protein][layer] += addedConcentration;

@@ -7,13 +7,16 @@
 
 #include "ImplementParams.h"
 #include "ModelParams.h"
+#include "Cell.h"
 
 
 class ProgramMorphoTooth {
 public:
     static void runProgram(ImplementParams &implementParams, ModelParams &modelParams, int repetition);
 
-    static void runProgramWithDifferentConditions(ImplementParams &paramsInitial, std::string nameInputFileTemp);
+    static void changeModelParameter(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams, int condition);
+
+    static void calculateNrOfConditions(ImplementParams &implementParams);
 
 
 };

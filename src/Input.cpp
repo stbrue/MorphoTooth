@@ -285,13 +285,10 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.noiseDuration = static_cast<int>(parameter[15]);
     params.noiseType = static_cast<int>(parameter[16]);
 
-    // ImplementParams to change
+    // Params to change
     params.parameterToChange = static_cast<int>(parameter[17]);
     params.totalPlusMinusScope = parameter[18];
     params.percentageSteps = parameter[19];
-    params.valueOfParameterToChange = parameter[params.parameterToChange];
-
-    params.valueOfParameterAffectedByNoise = parameter[21];
 
     return params;
 }

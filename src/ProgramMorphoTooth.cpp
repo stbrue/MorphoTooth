@@ -16,18 +16,22 @@
 #include "Print.h"
 #include "Utility.h"
 #include "Noise.h"
+#include "Cell.h"
 
 void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParams &modelParams, int repetition) {
     int success = 0;
-
-    //Print information that program has started with value of parameter to change or parameter with Noise
-    Print::printStartOfSimulation(implementParams, repetition);
 
     //Vector containing all cells
     Cell cells[totalNrOfCells];
 
     //Construct the initial grid of cells
     Initial::makeInitialGrid(implementParams, modelParams, cells);
+
+    // If parameter have to be changed, do it
+    ProgramMorphoTooth::changeModelParameter(cells, implementParams, repetition);
+
+    //Print information that program has started with value of parameter to change or parameter with Noise
+    Print::printStartOfSimulation(implementParams, repetition);
 
     // A struct that holds the parameter values with noise added
     //ImplementParams noiseParams = params;
@@ -80,47 +84,48 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
 
     Print::printEndOfSimulation();
 }
- /*
-void ProgramMorphoTooth::runProgramWithDifferentConditions(ImplementParams &paramsInitial, std::string nameInputFileTemp) {
-    //Calculate how many conditions there are
+
+void ProgramMorphoTooth::changeModelParameter(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams,
+                                              int condition) {
+    // if no parameter has to be changed (parameterToChange = -1), skip this
+    if (implementParams.parameterToChange == -1) {
+        return;
+    }
+
+    //Calculate starting condition
+    double valueOfParameterToChange = cells[first].getModelParamValue(implementParams.parameterToChange);
+    double startingValueDouble = valueOfParameterToChange -
+                                 (valueOfParameterToChange * implementParams.totalPlusMinusScope);
+
+    // Calculate the change per step (per condition)
+    double changePerConditionDouble = valueOfParameterToChange * implementParams.percentageSteps;
+
+    // Calculate current value of the parameter
+    double newParameterValue = (condition * changePerConditionDouble) + startingValueDouble;
+    implementParams.valueOfParameterToChange = newParameterValue;
+
+    // Change modelParams accordingly in all cells
+    for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        cells[cell].changeModelParameter(implementParams.parameterToChange, newParameterValue);
+    }
+}
+
+void ProgramMorphoTooth::calculateNrOfConditions(ImplementParams &implementParams) {
     double conditionsDouble;
     int conditions;
 
-    if (paramsInitial.totalPlusMinusScope == 0) {
+    if (implementParams.totalPlusMinusScope == 0) {
         conditions = 1;
     } else {
         conditionsDouble =
-                (2 * paramsInitial.totalPlusMinusScope / paramsInitial.percentageSteps) + 1; // in both directions -> *2
+                (2 * implementParams.totalPlusMinusScope / implementParams.percentageSteps) +
+                1; // in both directions -> *2
         conditions = static_cast<int>(std::floor(conditionsDouble + 0.5));
     }
 
-    paramsInitial.nrOfConditions = conditions;
-
-    //Calculate starting condition
-    double startingValueDouble = paramsInitial.valueOfParameterToChange -
-                                 (paramsInitial.valueOfParameterToChange * paramsInitial.totalPlusMinusScope);
-
-    // Calculate the change per step (per condition)
-    double changePerConditionDouble = paramsInitial.valueOfParameterToChange * paramsInitial.percentageSteps;
-
-    //Set starting conditions
-    Input::changeInputFileTemp(paramsInitial, startingValueDouble, nameInputFileTemp);
-
-    //Loop that starts the program with different conditions (input parameters)
-    for (int condition = 0; condition < paramsInitial.nrOfConditions; ++condition) {
-        //Re-read the InputFileTemp
-        ImplementParams params = Input::setParameters(nameInputFileTemp);
-
-        // run the program with current conditions
-        ProgramMorphoTooth::runProgram(params, 0);
-
-        // change the conditions
-        double newValue = ((condition + 1) * changePerConditionDouble) + startingValueDouble;
-        Input::changeInputFileTemp(params, newValue, nameInputFileTemp);
-
-    }
+    implementParams.nrOfConditions = conditions;
 }
-  */
+
 
 
 

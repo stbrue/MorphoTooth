@@ -96,11 +96,6 @@ public:
     int nrOfParametersToChange;
 
     /**
-     * For implementation reasons this vector holds the values related to parameter scanning that are read initially
-     */
-    std::vector<std::vector<double>> parameterToChangeValues;
-
-    /**
      * Defines which parameter is changed between several simulations. This can be used to do a parameter screening.
      */
     int parameterToChange;
