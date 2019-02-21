@@ -12,14 +12,12 @@
 
 class Noise {
 public:
-    static void doNoise(Cell (&cells)[totalNrOfCells], ImplementParams params, ImplementParams &noiseParams);
+    static void doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams);
 
-    static double generateNoiseValue(ImplementParams &params, double mean, double sd);
-
-    static void addToParameter(int parameterIndex, ImplementParams &params, double value);
-
-    static void updateParams(ImplementParams &noiseParams, ImplementParams &params);
-
+    static double generateNoiseValue(double mean, double sd);
+    
+    static void getValueOfParameterAffectedByNoise(ImplementParams &params, Cell const &cell);
+    
 };
 
 

@@ -14,7 +14,7 @@
 
 
 void Model::iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams, ModelParams &modelParams) {
-    //Noise::doNoise(cells, params);
+    Noise::doNoise(cells, implementParams);
     Model::diffusion(cells, implementParams);
     Model::reaction(cells, implementParams);
     Model::buccalLingualBias(cells, implementParams);
@@ -29,7 +29,6 @@ void Model::iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implem
     Model::cellDivision(cells, implementParams, modelParams);
     Geometrics::calculateCellBorders(cells, implementParams.nrCellsInSimulation);
     Utility::errorTesting(cells, implementParams);
-    //Noise::updateParams(implementParams);
 
 }
 

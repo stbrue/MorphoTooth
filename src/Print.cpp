@@ -18,7 +18,7 @@ void Print::printStartOfSimulation(ImplementParams params, int repetition) {
 
 void Print::printParameterToChange(ImplementParams params) {
     // Print only if the parameter gets changed
-    if (params.totalPlusMinusScope > 0) {
+    if (params.parameterToChange >= 0) {
         std::cout << "###########################################################" << std::endl;
         std::cout << "# Parameter to change " << params.parameterToChange << ": "
                   << params.valueOfParameterToChange << " #" << std::endl;
