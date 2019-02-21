@@ -1063,6 +1063,7 @@ void Model::cellDivision(Cell (&cells)[totalNrOfCells], ImplementParams &impleme
             newCell.setY(newY);
             newCell.setZ(newZ);
             newCell.setID(implementParams.nrCellsInSimulation);
+            newCell.setModelParams(modelParams);
 
             implementParams.nrCellsInSimulation += 1;
 
