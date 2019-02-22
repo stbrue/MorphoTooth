@@ -29,13 +29,15 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
 
     // If parameter have to be changed, do it
     ProgramMorphoTooth::changeModelParameter(cells, implementParams, repetition);
-    
-    // Get original value of parameter affected by noise
-    Noise::getValueOfParameterAffectedByNoise(implementParams, cells[first]);
+
+    // Save in each cell the original model parameter values
+    for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        cells[cell].setOriginalModelParams(modelParams);
+    }
 
     //Print information that program has started with value of parameter to change or parameter with Noise
     Print::printStartOfSimulation(implementParams, repetition);
-    
+
     //The big loop
     //In each iteration mechanisms as diffusion, reaction, growth, and cell division take place
     for (int step = 0; step < implementParams.maxNrOfIterations + 1; ++step) {

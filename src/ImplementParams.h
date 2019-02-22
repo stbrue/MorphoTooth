@@ -91,11 +91,6 @@ public:
     int outputPrecision;
 
     /**
-     * States how many parameter-screens should be done. The screenings however happen sequentially.
-     */
-    int nrOfParametersToChange;
-
-    /**
      * Defines which parameter is changed between several simulations. This can be used to do a parameter screening.
      */
     int parameterToChange;
@@ -143,11 +138,6 @@ public:
      * How many times the simulation with the same parameters has to be repeated
      */
     int repetitions;
-
-    /**
-     * Holds the value of the parameter that is affected by noise
-     */
-    double valueOfParameterAffectedByNoise;
 
     /**
      * The parameter with noise is changed only every x-iteration

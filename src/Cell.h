@@ -154,13 +154,20 @@ private:
     double cellArea;
 
     /**
-     * Holds all the genetic information (model parameters) -> Genome
+     * Holds all origianl  genetic information (model parameters) -> Genome
+     */
+    ModelParams originalModelParams;
+
+    /**
+     * Holds the modified (noise affected) genetic information
      */
     ModelParams modelParams;
 
 public:
     //Getter
     ModelParams getModelParams() const;
+
+    ModelParams getOriginalParams() const;
 
     double getX() const;
 
@@ -209,6 +216,8 @@ public:
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
     const double getModelParamValue(int parameter) const;
+
+    const double getOriginalModelParamValue(int parameter) const;
 
 
     //Setter
@@ -311,6 +320,8 @@ public:
 
     void setModelParams(ModelParams modelParams);
 
+    void setOriginalModelParams(ModelParams originalModelParams);
+
     void changeModelParameter(int parameter, double newValue);
 
     //Constructor
@@ -355,6 +366,10 @@ public:
 
 inline ModelParams Cell::getModelParams() const {
     return modelParams;
+}
+
+inline ModelParams Cell::getOriginalParams() const {
+    return originalModelParams;
 }
 
 inline double Cell::getX() const {
@@ -534,6 +549,90 @@ inline const double Cell::getModelParamValue(int parameter) const {
     }
 }
 
+inline const double Cell::getOriginalModelParamValue(int parameter) const {
+    switch (parameter) {
+        case 0: {
+            return originalModelParams.ActDiffusion;
+        }
+        case 1: {
+            return originalModelParams.InhDiffusion;
+        }
+        case 2: {
+            return originalModelParams.SecDiffusion;
+        }
+        case 3: {
+            return originalModelParams.delta;
+        }
+        case 4: {
+            return originalModelParams.act;
+        }
+        case 5: {
+            return originalModelParams.inh;
+        }
+        case 6: {
+            return originalModelParams.mu;
+        }
+        case 7: {
+            return originalModelParams.inT;
+        }
+        case 8: {
+            return originalModelParams.set;
+        }
+        case 9: {
+            return originalModelParams.sec;
+        }
+        case 10: {
+            return originalModelParams.lbi;
+        }
+        case 11: {
+            return originalModelParams.bbi;
+        }
+        case 12: {
+            return originalModelParams.swi;
+        }
+        case 13: {
+            return originalModelParams.dff;
+        }
+        case 14: {
+            return originalModelParams.egr;
+        }
+        case 15: {
+            return originalModelParams.mgr;
+        }
+        case 16: {
+            return originalModelParams.dgr;
+        }
+        case 17: {
+            return originalModelParams.boy;
+        }
+        case 18: {
+            return originalModelParams.rep;
+        }
+        case 19: {
+            return originalModelParams.adh;
+        }
+        case 20: {
+            return originalModelParams.ntr;
+        }
+        case 21: {
+            return originalModelParams.bwi;
+        }
+        case 22: {
+            return originalModelParams.abi;
+        }
+        case 23: {
+            return originalModelParams.pbi;
+        }
+        case 24: {
+            return originalModelParams.bgr;
+        }
+        default: {
+            std::cout << "Could not get parameter value" << std::endl;
+        }
+    }
+}
+
+
 //Setter
 
 inline void Cell::setX(double X) {
@@ -696,6 +795,34 @@ inline void Cell::setModelParams(ModelParams modelParams) {
     Cell::modelParams.ActDiffusion = modelParams.ActDiffusion;
     Cell::modelParams.InhDiffusion = modelParams.InhDiffusion;
     Cell::modelParams.SecDiffusion = modelParams.SecDiffusion;
+}
+
+inline void Cell::setOriginalModelParams(ModelParams originalModelParams) {
+    Cell::originalModelParams.delta = originalModelParams.delta;
+    Cell::originalModelParams.act = originalModelParams.act;
+    Cell::originalModelParams.inh = originalModelParams.inh;
+    Cell::originalModelParams.mu = originalModelParams.mu;
+    Cell::originalModelParams.inT = originalModelParams.inT;
+    Cell::originalModelParams.set = originalModelParams.set;
+    Cell::originalModelParams.sec = originalModelParams.sec;
+    Cell::originalModelParams.lbi = originalModelParams.lbi;
+    Cell::originalModelParams.bbi = originalModelParams.bbi;
+    Cell::originalModelParams.swi = originalModelParams.swi;
+    Cell::originalModelParams.dff = originalModelParams.dff;
+    Cell::originalModelParams.egr = originalModelParams.egr;
+    Cell::originalModelParams.mgr = originalModelParams.mgr;
+    Cell::originalModelParams.dgr = originalModelParams.dgr;
+    Cell::originalModelParams.boy = originalModelParams.boy;
+    Cell::originalModelParams.rep = originalModelParams.rep;
+    Cell::originalModelParams.adh = originalModelParams.adh;
+    Cell::originalModelParams.ntr = originalModelParams.ntr;
+    Cell::originalModelParams.bwi = originalModelParams.bwi;
+    Cell::originalModelParams.abi = originalModelParams.abi;
+    Cell::originalModelParams.pbi = originalModelParams.pbi;
+    Cell::originalModelParams.bgr = originalModelParams.bgr;
+    Cell::originalModelParams.ActDiffusion = originalModelParams.ActDiffusion;
+    Cell::originalModelParams.InhDiffusion = originalModelParams.InhDiffusion;
+    Cell::originalModelParams.SecDiffusion = originalModelParams.SecDiffusion;
 }
 
 inline void Cell::changeModelParameter(int parameter, double newValue) {

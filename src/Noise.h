@@ -15,9 +15,8 @@ public:
     static void doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams);
 
     static double generateNoiseValue(double mean, double sd);
-    
-    static void getValueOfParameterAffectedByNoise(ImplementParams &params, Cell const &cell);
-    
+
+
 };
 
 
