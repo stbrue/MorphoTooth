@@ -116,7 +116,7 @@ void ProgramMorphoTooth::calculateNrOfConditions(ImplementParams &implementParam
     double conditionsDouble;
     int conditions;
 
-    if (implementParams.totalPlusMinusScope == 0) {
+    if (implementParams.totalPlusMinusScope == 0 || implementParams.parameterToChange == -1) {
         conditions = 1;
     } else {
         conditionsDouble =
