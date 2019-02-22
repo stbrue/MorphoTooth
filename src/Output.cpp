@@ -40,7 +40,7 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
     std::string file = ".txt";
     std::stringstream stringstream;
     std::string fileName;
-    stringstream << path << name << params.parameterWithNoise << "_" << params.sdPercentage << "_"
+    stringstream << path << name << params.noiseType << "_" << params.parameterWithNoise << "_" << params.sdPercentage << "_"
                  << params.noiseDuration << "_" << repetition
                  << file;
     fileName = stringstream.str();
@@ -125,6 +125,7 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], ImplementParams params, in
     outputFile << "comment this file is a teeth made with MorphoTooth" << std::endl;
     outputFile << "comment " << "parameterToChange: " << params.parameterToChange << " value of ParameterToChange: "
                << params.valueOfParameterToChange << std::endl;
+    outputFile << "comment " << "noiseType: " << params.noiseType << " noiseParameter: " << params.parameterWithNoise << " sd: " << params.sdPercentage << " repetition: " << repetition << std::endl;
     outputFile << "element vertex " << params.nrCellsInSimulation << std::endl;
     outputFile << "property float x" << std::endl;
     outputFile << "property float y" << std::endl;
@@ -174,11 +175,11 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int 
     // Header
     outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
                "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
-               << "\t" << "Repetition" << "\t" << "NoiseDuration" << std::endl;
+               << "\t" << "Repetition" << "\t" << "NoiseDuration" << "\t" << "NoiseType" << std::endl;
 
     outputFile << params.parameterWithNoise << "\t" << params.sdPercentage << "\t" << params.parameterToChange
                << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
-               << params.nrCellsInSimulation << "\t" << repetition << "\t" << params.noiseDuration << std::endl;
+               << params.nrCellsInSimulation << "\t" << repetition << "\t" << params.noiseDuration << "\t" << params.noiseType << std::endl;
 
     outputFile << std::endl;
 
@@ -252,7 +253,7 @@ std::string Output::createOutputFileName(char outputType, ImplementParams params
 
     switch (outputCondition) {
         case 1: {
-            stringstream << path << outputType << "Noise_" << params.parameterWithNoise << "_" << params.sdPercentage
+            stringstream << path << outputType << "Noise_" << params.noiseType << "_" << params.parameterWithNoise << "_" << params.sdPercentage
                          << "_" << params.noiseDuration << "_" << repetition << file;
             fileName = stringstream.str();
             return fileName;
