@@ -237,7 +237,7 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int 
 std::string Output::createOutputFileName(char outputType, ImplementParams params, std::string path, int repetition) {
     int outputCondition = 0;
 
-    if (params.parameterWithNoise > 0) {
+    if (params.noiseType > 0) {
         outputCondition = 1;
     } else if (params.parameterToChange > 0) {
         outputCondition = 2;
