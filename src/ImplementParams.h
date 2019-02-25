@@ -130,9 +130,9 @@ public:
 
     /**
      * To define the amplitude of noise. The standard deviation of the distribution from which the noise values are taken
-     * is: the default value of the parameter * "sdPercentage".
+     * is: the default value of the parameter * "sd".
      */
-    double sdPercentage;
+    double sd;
 
     /**
      * How many times the simulation with the same parameters has to be repeated

@@ -24,7 +24,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         // get noise value (mean = 0)
         double valueOfParameterAffectedByNoise = cells[first]
                 .getOriginalModelParamValue(implementParams.parameterWithNoise);
-        double sd = valueOfParameterAffectedByNoise * implementParams.sdPercentage;
+        double sd = valueOfParameterAffectedByNoise * implementParams.sd;
         double noiseValue = Noise::generateNoiseValue(0, sd);
         double newValue = valueOfParameterAffectedByNoise + noiseValue;
 
@@ -36,7 +36,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         // global noise on all parameters
         for (int parameter = 0; parameter < nrOfModelParams; ++parameter) {
             double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(parameter);
-            double sd = valueOfParameterAffectedByNoise * implementParams.sdPercentage;
+            double sd = valueOfParameterAffectedByNoise * implementParams.sd;
             double noiseValue = Noise::generateNoiseValue(0, sd);
             double newValue = valueOfParameterAffectedByNoise + noiseValue;
 
@@ -49,7 +49,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         // cell-specific noise on all parameters
         for (int parameter = 0; parameter < nrOfModelParams; ++parameter) {
             double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(parameter);
-            double sd = valueOfParameterAffectedByNoise * implementParams.sdPercentage;
+            double sd = valueOfParameterAffectedByNoise * implementParams.sd;
             double noiseValue = Noise::generateNoiseValue(0, sd);
             double newValue = valueOfParameterAffectedByNoise + noiseValue;
 
@@ -64,9 +64,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
     } else if (implementParams.noiseType == 4) {
         // the position of each cell is affected by noise (in all 3 dimensions randomly)
         for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
-            double noiseX = generateNoiseValue(0, implementParams.sdPercentage);
-            double noiseY = generateNoiseValue(0, implementParams.sdPercentage);
-            double noiseZ = generateNoiseValue(0, implementParams.sdPercentage);
+            double noiseX = generateNoiseValue(0, implementParams.sd);
+            double noiseY = generateNoiseValue(0, implementParams.sd);
+            double noiseZ = generateNoiseValue(0, implementParams.sd);
             cells[cell].addX(noiseX);
             cells[cell].addY(noiseY);
             cells[cell].addZ(noiseZ);
@@ -76,9 +76,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
             // only on border cells
             if (!cells[cell].isInCentre()) {
-                double noiseX = generateNoiseValue(0, implementParams.sdPercentage);
-                double noiseY = generateNoiseValue(0, implementParams.sdPercentage);
-                double noiseZ = generateNoiseValue(0, implementParams.sdPercentage);
+                double noiseX = generateNoiseValue(0, implementParams.sd);
+                double noiseY = generateNoiseValue(0, implementParams.sd);
+                double noiseZ = generateNoiseValue(0, implementParams.sd);
                 cells[cell].addX(noiseX);
                 cells[cell].addY(noiseY);
                 cells[cell].addZ(noiseZ);
@@ -90,7 +90,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
             for (int protein = 0; protein < nrOfProteins; ++protein) {
                 for (int layer = 0; layer < cells[first].getMesenchymeThickness(); ++layer) {
                     double concentration = cells[cell].getProteinConcentrations()[protein][layer];
-                    double noiseValue = Noise::generateNoiseValue(0, implementParams.sdPercentage);
+                    double noiseValue = Noise::generateNoiseValue(0, implementParams.sd);
                     double newValue = concentration + noiseValue;
 
                     cells[cell].addProteinConcentration(protein, layer, newValue);
@@ -104,7 +104,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
                 for (int protein = 0; protein < nrOfProteins; ++protein) {
                     for (int layer = 0; layer < cells[first].getMesenchymeThickness(); ++layer) {
                         double concentration = cells[cell].getProteinConcentrations()[protein][layer];
-                        double noiseValue = Noise::generateNoiseValue(0, implementParams.sdPercentage);
+                        double noiseValue = Noise::generateNoiseValue(0, implementParams.sd);
                         double newValue = concentration + noiseValue;
 
                         cells[cell].addProteinConcentration(protein, layer, newValue);
@@ -117,7 +117,8 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
 
 double Noise::generateNoiseValue(double mean, double sd) {
     //Instantiation of pseudo random number generator
-    std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
+    unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
     std::normal_distribution<double> distribution(mean, sd);
 
     double noiseValue = distribution(generator);
