@@ -47,14 +47,15 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
                      << file;
         fileName = stringstream.str();
     } else if (params.parameterToChange >= 0) {
-        stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_" << repetition
+        stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
+                     << repetition
                      << file;
         fileName = stringstream.str();
     } else {
         stringstream << path << name << "normal" << file;
         fileName = stringstream.str();
     }
-    
+
     std::ofstream outputFile(path);
     outputFile.precision(params.outputPrecision);
     outputFile.open(fileName);
