@@ -61,9 +61,13 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
     outputFile.open(fileName);
 
     // Header
-    outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << std::endl;
+    outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << "\t"
+               << "ParameterToChange" << "\t" << "ValueOfParameterToChange" << "\t" << "totalPlusMinusScope" << "\t"
+               << "percentageStep" << "\t" << "totalIterations" << "\t" << "totalNrOfCellsInSimulation" << std::endl;
     outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
-               << params.noiseType << std::endl;
+               << params.noiseType << "\t" << params.parameterToChange << "\t" << params.valueOfParameterToChange
+               << "\t" << params.totalPlusMinusScope << "\t" << params.percentageSteps << "\t"
+               << params.currentIteration << "\t" << params.nrCellsInSimulation << std::endl;
 
     // Body
     outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
@@ -186,15 +190,14 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int 
     outputFile.open(fileName);
 
     // Header
-    outputFile << "ParameterWithNoise" << "\t" << "SDOnNoise" << "\t" << "ParameterToChange" << "\t" <<
-               "ValueOfParameterToChange" << "\t" << "TotalIterations" << "\t" << " TotalNumberOfCellsInSimulation"
-               << "\t" << "Repetition" << "\t" << "NoiseDuration" << "\t" << "NoiseType" << std::endl;
-
-    outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.parameterToChange
-               << "\t" << params.valueOfParameterToChange << "\t" << params.currentIteration << "\t"
-               << params.nrCellsInSimulation << "\t" << repetition << "\t" << params.noiseDuration << "\t"
-               << params.noiseType << std::endl;
-
+    outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << "\t"
+               << "ParameterToChange" << "\t" << "ValueOfParameterToChange" << "\t" << "totalPlusMinusScope" << "\t"
+               << "percentageStep" << "\t" << "totalIterations" << "\t" << "totalNrOfCellsInSimulation" << std::endl;
+    outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
+               << params.noiseType << "\t" << params.parameterToChange << "\t" << params.valueOfParameterToChange
+               << "\t" << params.totalPlusMinusScope << "\t" << params.percentageSteps << "\t"
+               << params.currentIteration << "\t" << params.nrCellsInSimulation << std::endl;
+    
     outputFile << std::endl;
 
     outputFile << "CellNumber" << "\t" << "x" << "\t" << "y" << "\t" << "z" << "\t" << "Group" << "\t"
