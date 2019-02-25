@@ -61,8 +61,9 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
     outputFile.open(fileName);
 
     // Header
-    outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << std::endl;
-    outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << std::endl;
+    outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << std::endl;
+    outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
+               << params.noiseType << std::endl;
 
     // Body
     outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
