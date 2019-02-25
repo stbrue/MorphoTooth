@@ -90,7 +90,10 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
             for (int protein = 0; protein < nrOfProteins; ++protein) {
                 for (int layer = 0; layer < cells[first].getMesenchymeThickness(); ++layer) {
                     double concentration = cells[cell].getProteinConcentrations()[protein][layer];
-                    double noiseValue = Noise::generateNoiseValue(0, implementParams.sd);
+                    double sd =
+                            (concentration * implementParams.sd) /
+                            ((implementParams.currentIteration * 10000000000) + 1);
+                    double noiseValue = Noise::generateNoiseValue(0, sd);
                     double newValue = concentration + noiseValue;
 
                     cells[cell].addProteinConcentration(protein, layer, newValue);
