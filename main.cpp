@@ -10,7 +10,7 @@ int main() {
     // Arguments read in by command line
     std::string simulationNumber = "01";
     std::string nameInputFileImplement = "ImplementParams01.txt";
-    std::string nameInputFileModel = "ModelParams01.txt";
+    std::string nameInputFileModel = "ModelParams01.json";
 
     // Read ModelParams.txt and ImplementParams.txt and set initial values
     ModelParams modelParamsInitial = Input::setModelParamsInitial(nameInputFileModel);

@@ -4,71 +4,56 @@
 
 #include "Input.h"
 #include "Utility.h"
+#include "json.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <cmath>
 #include <chrono>
 
+using nlohmann::json;
+
 ModelParams Input::setModelParamsInitial(std::string InputFileName) {
     // Set up vector and struct
     ModelParams modelParams = {0};
     double parameter[40] = {0};
 
-    // Read values from input file and save them in vector "parameter"
-    std::string line;
-    int counter = 0;
+    // read a JSON file
+    // read here: https://github.com/nlohmann/json
+    std::ifstream ifs{InputFileName};
 
-    std::ifstream InputFile(InputFileName);
-    std::string delimiter = ":";
+    auto parsed_json = json::parse(ifs);
+//    std::cout << parsed_json.dump() << std::endl;
 
-    if (InputFile.is_open()) {
-        while (getline(InputFile, line)) {
-            Utility::trimString(line);
-            if (line.length() > 0) {
-                std::string token = line.substr(line.find(delimiter) + 1, line.length());
-                parameter[counter] = std::stod(token);
-                counter += 1;
-            } else {
-                std::cout << "There was an empty line in InputFile.txt at line " << counter << std::endl;
-                std::cout << "Therefore the reading in was stopped" << std::endl;
-                break;
-            }
-        }
-        InputFile.close();
-    } else {
-        std::cout << "Unable to open file" << std::endl;
-    }
-
-    // Initialize parameters with values from the file
-    modelParams.ActDiffusion = parameter[0];
-    modelParams.InhDiffusion = parameter[1];
-    modelParams.SecDiffusion = parameter[2];
-    modelParams.delta = parameter[3];
-    modelParams.act = parameter[4];
-    modelParams.inh = parameter[5];
-    modelParams.mu = parameter[6];
-    modelParams.inT = parameter[7];
-    modelParams.set = parameter[8];
-    modelParams.sec = parameter[9];
-    modelParams.lbi = parameter[10];
-    modelParams.bbi = parameter[11];
-    modelParams.swi = parameter[12];
-    modelParams.dff = parameter[13];
-    modelParams.egr = parameter[14];
-    modelParams.mgr = parameter[15];
-    modelParams.dgr = parameter[16];
-    modelParams.boy = parameter[17];
-    modelParams.rep = parameter[18];
-    modelParams.adh = parameter[19];
-    modelParams.ntr = parameter[20];
-    modelParams.bwi = parameter[21];
-    modelParams.abi = parameter[22];
-    modelParams.pbi = parameter[23];
-    modelParams.bgr = parameter[24];
+    modelParams.ActDiffusion = parsed_json["ModelParams"]["ActDiffusionRate"].get<double>();
+    modelParams.InhDiffusion = parsed_json["ModelParams"]["InhDiffusionRate"].get<double>();
+    modelParams.SecDiffusion = parsed_json["ModelParams"]["Sec1DiffusionRate"].get<double>();
+    modelParams.delta = parsed_json["ModelParams"]["Delta"].get<double>();
+    modelParams.act = parsed_json["ModelParams"]["Act"].get<double>();
+    modelParams.inh = parsed_json["ModelParams"]["Inh"].get<double>();
+    modelParams.mu = parsed_json["ModelParams"]["DegradationRate"].get<double>();
+    modelParams.inT = parsed_json["ModelParams"]["Int"].get<double>();
+    modelParams.set = parsed_json["ModelParams"]["Set"].get<double>();
+    modelParams.sec = parsed_json["ModelParams"]["Sec"].get<double>();
+    modelParams.lbi = parsed_json["ModelParams"]["Lbi"].get<double>();
+    modelParams.bbi = parsed_json["ModelParams"]["Bbi"].get<double>();
+    modelParams.swi = parsed_json["ModelParams"]["Swi"].get<double>();
+    modelParams.dff = parsed_json["ModelParams"]["Dff"].get<double>();
+    modelParams.egr = parsed_json["ModelParams"]["Egr"].get<double>();
+    modelParams.mgr = parsed_json["ModelParams"]["Mgr"].get<double>();
+    modelParams.dgr = parsed_json["ModelParams"]["Dgr"].get<double>();
+    modelParams.boy = parsed_json["ModelParams"]["Boy"].get<double>();
+    modelParams.rep = parsed_json["ModelParams"]["Rep"].get<double>();
+    modelParams.adh = parsed_json["ModelParams"]["Adh"].get<double>();
+    modelParams.ntr = parsed_json["ModelParams"]["Ntr"].get<double>();
+    modelParams.bwi = parsed_json["ModelParams"]["Bwi"].get<double>();
+    modelParams.abi = parsed_json["ModelParams"]["Abi"].get<double>();
+    modelParams.pbi = parsed_json["ModelParams"]["Pbi"].get<double>();
+    modelParams.bgr = parsed_json["ModelParams"]["Bgr"].get<double>();
 
     return modelParams;
 }
+
 
 ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     // Set up vector and struct
