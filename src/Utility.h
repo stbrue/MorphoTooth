@@ -30,6 +30,7 @@ public:
     static int endOfSimulation(ImplementParams &params, int iterationStep, int oldSuccess);
 
     static void checkForFullNeighbourVector(Cell cells[totalNrOfCells], ImplementParams &params, int cellID);
+
 };
 
 

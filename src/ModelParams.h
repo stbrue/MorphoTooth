@@ -5,6 +5,7 @@
 #ifndef MORPHOTOOTH_MODELPARAMS_H
 #define MORPHOTOOTH_MODELPARAMS_H
 
+#include <string>
 
 struct ModelParams {
 public:
@@ -138,5 +139,6 @@ public:
     double SecDiffusion;
 };
 
+std::vector<std::string> getModelParameterNamesList();
 
 #endif //MORPHOTOOTH_MODELPARAMS_H

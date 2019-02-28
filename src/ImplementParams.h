@@ -93,7 +93,7 @@ public:
     /**
      * Defines which parameter is changed between several simulations. This can be used to do a parameter screening.
      */
-    int parameterToChange;
+    std::string parameterToChange;
 
     /**
      * Used for parameter screening. Defines the range in which the parameter takes values -> default value plus/minus x
@@ -126,7 +126,7 @@ public:
     /**
      * Which parameter is affected by noise during the simulation. The value is the position of the parameter in the input file
      */
-    int parameterWithNoise;
+    std::string parameterWithNoise;
 
     /**
      * To define the amplitude of noise. The standard deviation of the distribution from which the noise values are taken

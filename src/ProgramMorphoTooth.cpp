@@ -90,7 +90,7 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
 void ProgramMorphoTooth::changeModelParameter(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams,
                                               int condition) {
     // if no parameter has to be changed (parameterToChange = -1), skip this
-    if (implementParams.parameterToChange == -1) {
+    if (implementParams.parameterToChange == "") {
         return;
     }
 
@@ -116,7 +116,7 @@ void ProgramMorphoTooth::calculateNrOfConditions(ImplementParams &implementParam
     double conditionsDouble;
     int conditions;
 
-    if (implementParams.totalPlusMinusScope == 0 || implementParams.parameterToChange == -1) {
+    if (implementParams.totalPlusMinusScope == 0 || implementParams.parameterToChange == "") {
         conditions = 1;
     } else {
         conditionsDouble =

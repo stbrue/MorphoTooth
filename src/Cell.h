@@ -215,9 +215,9 @@ public:
 
     const std::vector<std::vector<double>> &getTempProteinConcentrations() const;
 
-    const double getModelParamValue(int parameter) const;
+    const double getModelParamValue(std::string paramName) const;
 
-    const double getOriginalModelParamValue(int parameter) const;
+    const double getOriginalModelParamValue(std::string paramName) const;
 
 
     //Setter
@@ -322,7 +322,7 @@ public:
 
     void setOriginalModelParams(ModelParams originalModelParams);
 
-    void changeModelParameter(int parameter, double newValue);
+    void changeModelParameter(std::string paramName, double newValue);
 
     //Constructor
     Cell();
@@ -466,169 +466,116 @@ inline const std::vector<std::vector<double>> &Cell::getTempProteinConcentration
     return tempProteinConcentrations;
 }
 
-inline const double Cell::getModelParamValue(int parameter) const {
-    switch (parameter) {
-        case 0: {
-            return modelParams.ActDiffusion;
-        }
-        case 1: {
-            return modelParams.InhDiffusion;
-        }
-        case 2: {
-            return modelParams.SecDiffusion;
-        }
-        case 3: {
-            return modelParams.delta;
-        }
-        case 4: {
-            return modelParams.act;
-        }
-        case 5: {
-            return modelParams.inh;
-        }
-        case 6: {
-            return modelParams.mu;
-        }
-        case 7: {
-            return modelParams.inT;
-        }
-        case 8: {
-            return modelParams.set;
-        }
-        case 9: {
-            return modelParams.sec;
-        }
-        case 10: {
-            return modelParams.lbi;
-        }
-        case 11: {
-            return modelParams.bbi;
-        }
-        case 12: {
-            return modelParams.swi;
-        }
-        case 13: {
-            return modelParams.dff;
-        }
-        case 14: {
-            return modelParams.egr;
-        }
-        case 15: {
-            return modelParams.mgr;
-        }
-        case 16: {
-            return modelParams.dgr;
-        }
-        case 17: {
-            return modelParams.boy;
-        }
-        case 18: {
-            return modelParams.rep;
-        }
-        case 19: {
-            return modelParams.adh;
-        }
-        case 20: {
-            return modelParams.ntr;
-        }
-        case 21: {
-            return modelParams.bwi;
-        }
-        case 22: {
-            return modelParams.abi;
-        }
-        case 23: {
-            return modelParams.pbi;
-        }
-        case 24: {
-            return modelParams.bgr;
-        }
-        default: {
-            std::cout << "Could not get parameter value" << std::endl;
-        }
+inline const double Cell::getModelParamValue(std::string paramName) const {
+    if (paramName == "ActDiffusion" || paramName == "actDiffusion") {
+        return modelParams.ActDiffusion;
+    } else if (paramName == "InhDiffusion" || paramName == "inhDiffusion") {
+        return modelParams.InhDiffusion;
+    } else if (paramName == "SecDiffusion" || paramName == "secDiffusion") {
+        return modelParams.SecDiffusion;
+    } else if (paramName == "delta" || paramName == "Delta") {
+        return modelParams.delta;
+    } else if (paramName == "act" || paramName == "Act") {
+        return modelParams.act;
+    } else if (paramName == "inh" || paramName == "Inh") {
+        return modelParams.inh;
+    } else if (paramName == "mu" || paramName == "Mu") {
+        return modelParams.mu;
+    } else if (paramName == "int" || paramName == "Int") {
+        return modelParams.inT;
+    } else if (paramName == "set" || paramName == "Set") {
+        return modelParams.set;
+    } else if (paramName == "sec" || paramName == "Sec") {
+        return modelParams.sec;
+    } else if (paramName == "lbi" || paramName == "Lbi") {
+        return modelParams.lbi;
+    } else if (paramName == "bbi" || paramName == "Bbi") {
+        return modelParams.bbi;
+    } else if (paramName == "swi" || paramName == "Swi") {
+        return modelParams.swi;
+    } else if (paramName == "dff" || paramName == "Dff") {
+        return modelParams.dff;
+    } else if (paramName == "egr" || paramName == "Egr") {
+        return modelParams.egr;
+    } else if (paramName == "mgr" || paramName == "Mgr") {
+        return modelParams.mgr;
+    } else if (paramName == "dgr" || paramName == "Dgr") {
+        return modelParams.dgr;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        return modelParams.boy;
+    } else if (paramName == "rep" || paramName == "Rep") {
+        return modelParams.rep;
+    } else if (paramName == "adh" || paramName == "Adh") {
+        return modelParams.adh;
+    } else if (paramName == "ntr" || paramName == "Ntr") {
+        return modelParams.ntr;
+    } else if (paramName == "bwi" || paramName == "Bwi") {
+        return modelParams.bwi;
+    } else if (paramName == "abi" || paramName == "Abi") {
+        return modelParams.abi;
+    } else if (paramName == "pbi" || paramName == "Pbi") {
+        return modelParams.pbi;
+    } else if (paramName == "bgr" || paramName == "Bgr") {
+        return modelParams.bgr;
+    } else {
+        std::cout << "Could not get parameter value" << std::endl;
     }
 }
 
-inline const double Cell::getOriginalModelParamValue(int parameter) const {
-    switch (parameter) {
-        case 0: {
-            return originalModelParams.ActDiffusion;
-        }
-        case 1: {
-            return originalModelParams.InhDiffusion;
-        }
-        case 2: {
-            return originalModelParams.SecDiffusion;
-        }
-        case 3: {
-            return originalModelParams.delta;
-        }
-        case 4: {
-            return originalModelParams.act;
-        }
-        case 5: {
-            return originalModelParams.inh;
-        }
-        case 6: {
-            return originalModelParams.mu;
-        }
-        case 7: {
-            return originalModelParams.inT;
-        }
-        case 8: {
-            return originalModelParams.set;
-        }
-        case 9: {
-            return originalModelParams.sec;
-        }
-        case 10: {
-            return originalModelParams.lbi;
-        }
-        case 11: {
-            return originalModelParams.bbi;
-        }
-        case 12: {
-            return originalModelParams.swi;
-        }
-        case 13: {
-            return originalModelParams.dff;
-        }
-        case 14: {
-            return originalModelParams.egr;
-        }
-        case 15: {
-            return originalModelParams.mgr;
-        }
-        case 16: {
-            return originalModelParams.dgr;
-        }
-        case 17: {
-            return originalModelParams.boy;
-        }
-        case 18: {
-            return originalModelParams.rep;
-        }
-        case 19: {
-            return originalModelParams.adh;
-        }
-        case 20: {
-            return originalModelParams.ntr;
-        }
-        case 21: {
-            return originalModelParams.bwi;
-        }
-        case 22: {
-            return originalModelParams.abi;
-        }
-        case 23: {
-            return originalModelParams.pbi;
-        }
-        case 24: {
-            return originalModelParams.bgr;
-        }
-        default: {
-            std::cout << "Could not get parameter value" << std::endl;
-        }
+
+inline const double Cell::getOriginalModelParamValue(std::string paramName) const {
+    if (paramName == "ActDiffusion" || paramName == "actDiffusion") {
+        return originalModelParams.ActDiffusion;
+    } else if (paramName == "InhDiffusion" || paramName == "inhDiffusion") {
+        return originalModelParams.InhDiffusion;
+    } else if (paramName == "SecDiffusion" || paramName == "secDiffusion") {
+        return originalModelParams.SecDiffusion;
+    } else if (paramName == "delta" || paramName == "Delta") {
+        return originalModelParams.delta;
+    } else if (paramName == "act" || paramName == "Act") {
+        return originalModelParams.act;
+    } else if (paramName == "inh" || paramName == "Inh") {
+        return originalModelParams.inh;
+    } else if (paramName == "mu" || paramName == "Mu") {
+        return originalModelParams.mu;
+    } else if (paramName == "int" || paramName == "Int") {
+        return originalModelParams.inT;
+    } else if (paramName == "set" || paramName == "Set") {
+        return originalModelParams.set;
+    } else if (paramName == "sec" || paramName == "Sec") {
+        return originalModelParams.sec;
+    } else if (paramName == "lbi" || paramName == "Lbi") {
+        return originalModelParams.lbi;
+    } else if (paramName == "bbi" || paramName == "Bbi") {
+        return originalModelParams.bbi;
+    } else if (paramName == "swi" || paramName == "Swi") {
+        return originalModelParams.swi;
+    } else if (paramName == "dff" || paramName == "Dff") {
+        return originalModelParams.dff;
+    } else if (paramName == "egr" || paramName == "Egr") {
+        return originalModelParams.egr;
+    } else if (paramName == "mgr" || paramName == "Mgr") {
+        return originalModelParams.mgr;
+    } else if (paramName == "dgr" || paramName == "Dgr") {
+        return originalModelParams.dgr;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        return originalModelParams.boy;
+    } else if (paramName == "rep" || paramName == "Rep") {
+        return originalModelParams.rep;
+    } else if (paramName == "adh" || paramName == "Adh") {
+        return originalModelParams.adh;
+    } else if (paramName == "ntr" || paramName == "Ntr") {
+        return originalModelParams.ntr;
+    } else if (paramName == "bwi" || paramName == "Bwi") {
+        return originalModelParams.bwi;
+    } else if (paramName == "abi" || paramName == "Abi") {
+        return originalModelParams.abi;
+    } else if (paramName == "pbi" || paramName == "Pbi") {
+        return originalModelParams.pbi;
+    } else if (paramName == "bgr" || paramName == "Bgr") {
+        return originalModelParams.bgr;
+    } else {
+        std::cout << "Could not get parameter value" << std::endl;
     }
 }
 
@@ -825,111 +772,84 @@ inline void Cell::setOriginalModelParams(ModelParams originalModelParams) {
     Cell::originalModelParams.SecDiffusion = originalModelParams.SecDiffusion;
 }
 
-inline void Cell::changeModelParameter(int parameter, double newValue) {
-    switch (parameter) {
-        case 0: {
-            modelParams.ActDiffusion = newValue;
-            return;
-        }
-        case 1: {
-            modelParams.InhDiffusion = newValue;
-            return;
-        }
-        case 2: {
-            modelParams.SecDiffusion = newValue;
-            return;
-        }
-        case 3: {
-            modelParams.delta = newValue;
-            return;
-        }
-        case 4: {
-            modelParams.act = newValue;
-            return;
-        }
-        case 5: {
-            modelParams.inh = newValue;
-            return;
-        }
-        case 6: {
-            modelParams.mu = newValue;
-            return;
-        }
-        case 7: {
-            modelParams.inT = newValue;
-            return;
-        }
-        case 8: {
-            modelParams.set = newValue;
-            return;
-        }
-        case 9: {
-            modelParams.sec = newValue;
-            return;
-        }
-        case 10: {
-            modelParams.lbi = newValue;
-            return;
-        }
-        case 11: {
-            modelParams.bbi = newValue;
-            return;
-        }
-        case 12: {
-            modelParams.swi = newValue;
-            return;
-        }
-        case 13: {
-            modelParams.dff = newValue;
-            return;
-        }
-        case 14: {
-            modelParams.egr = newValue;
-            return;
-        }
-        case 15: {
-            modelParams.mgr = newValue;
-            return;
-        }
-        case 16: {
-            modelParams.dgr = newValue;
-            return;
-        }
-        case 17: {
-            modelParams.boy = newValue;
-            return;
-        }
-        case 18: {
-            modelParams.rep = newValue;
-            return;
-        }
-        case 19: {
-            modelParams.adh = newValue;
-            return;
-        }
-        case 20: {
-            modelParams.ntr = newValue;
-            return;
-        }
-        case 21: {
-            modelParams.bwi = newValue;
-            return;
-        }
-        case 22: {
-            modelParams.abi = newValue;
-            return;
-        }
-        case 23: {
-            modelParams.pbi = newValue;
-            return;
-        }
-        case 24: {
-            modelParams.bgr = newValue;
-            return;
-        }
-        default: {
-            std::cout << "Parameter could not be changed" << std::endl;
-        }
+inline void Cell::changeModelParameter(std::string paramName, double newValue) {
+    if (paramName == "ActDiffusion" || paramName == "actDiffusion") {
+        modelParams.ActDiffusion = newValue;
+        return;
+    } else if (paramName == "InhDiffusion" || paramName == "inhDiffusion") {
+        modelParams.InhDiffusion = newValue;
+        return;
+    } else if (paramName == "SecDiffusion" || paramName == "secDiffusion") {
+        modelParams.SecDiffusion = newValue;
+        return;
+    } else if (paramName == "delta" || paramName == "Delta") {
+        modelParams.delta = newValue;
+        return;
+    } else if (paramName == "act" || paramName == "Act") {
+        modelParams.act = newValue;
+        return;
+    } else if (paramName == "inh" || paramName == "Inh") {
+        modelParams.inh = newValue;
+        return;
+    } else if (paramName == "mu" || paramName == "Mu") {
+        modelParams.mu = newValue;
+        return;
+    } else if (paramName == "int" || paramName == "Int") {
+        modelParams.inT = newValue;
+        return;
+    } else if (paramName == "set" || paramName == "Set") {
+        modelParams.set = newValue;
+        return;
+    } else if (paramName == "sec" || paramName == "Sec") {
+        modelParams.sec = newValue;
+        return;
+    } else if (paramName == "lbi" || paramName == "Lbi") {
+        modelParams.lbi = newValue;
+        return;
+    } else if (paramName == "bbi" || paramName == "Bbi") {
+        modelParams.bbi = newValue;
+        return;
+    } else if (paramName == "swi" || paramName == "Swi") {
+        modelParams.swi = newValue;
+        return;
+    } else if (paramName == "dff" || paramName == "Dff") {
+        modelParams.dff = newValue;
+        return;
+    } else if (paramName == "egr" || paramName == "Egr") {
+        modelParams.egr = newValue;
+        return;
+    } else if (paramName == "mgr" || paramName == "Mgr") {
+        modelParams.mgr = newValue;
+        return;
+    } else if (paramName == "dgr" || paramName == "Dgr") {
+        modelParams.dgr = newValue;
+        return;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        modelParams.boy = newValue;
+        return;
+    } else if (paramName == "rep" || paramName == "Rep") {
+        modelParams.rep = newValue;
+        return;
+    } else if (paramName == "adh" || paramName == "Adh") {
+        modelParams.adh = newValue;
+        return;
+    } else if (paramName == "ntr" || paramName == "Ntr") {
+        modelParams.ntr = newValue;
+        return;
+    } else if (paramName == "bwi" || paramName == "Bwi") {
+        modelParams.bwi = newValue;
+        return;
+    } else if (paramName == "abi" || paramName == "Abi") {
+        modelParams.abi = newValue;
+        return;
+    } else if (paramName == "pbi" || paramName == "Pbi") {
+        modelParams.pbi = newValue;
+        return;
+    } else if (paramName == "bgr" || paramName == "Bgr") {
+        modelParams.bgr = newValue;
+        return;
+    } else {
+        std::cout << "Parameter could not be changed" << std::endl;
     }
 }
 

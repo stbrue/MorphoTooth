@@ -46,7 +46,7 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
                      << params.noiseDuration << "_" << repetition
                      << file;
         fileName = stringstream.str();
-    } else if (params.parameterToChange >= 0) {
+    } else if (params.parameterToChange != "") {
         stringstream << path << name << params.parameterToChange << "_" << params.valueOfParameterToChange << "_"
                      << repetition
                      << file;
@@ -244,7 +244,7 @@ std::string Output::createOutputFileName(char outputType, ImplementParams params
 
     if (params.noiseType > 0) {
         outputCondition = 1;
-    } else if (params.parameterToChange > 0) {
+    } else if (params.parameterToChange != "") {
         outputCondition = 2;
     }
 

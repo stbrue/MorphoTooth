@@ -18,7 +18,7 @@ void Print::printStartOfSimulation(ImplementParams params, int repetition) {
 
 void Print::printParameterToChange(ImplementParams params) {
     // Print only if the parameter gets changed
-    if (params.parameterToChange >= 0) {
+    if (params.parameterToChange != "") {
         std::cout << "###########################################################" << std::endl;
         std::cout << "# Parameter to change " << params.parameterToChange << ": "
                   << params.valueOfParameterToChange << " #" << std::endl;
@@ -29,7 +29,7 @@ void Print::printParameterToChange(ImplementParams params) {
 
 void Print::printParameterWithNoise(ImplementParams params) {
     // Print only if a parameter has noise
-    if (params.parameterWithNoise > 0) {
+    if (params.parameterWithNoise != "") {
         std::cout << "#############################################################" << std::endl;
         std::cout << "# Parameter with Noise: " << params.parameterWithNoise << " #" << std::endl;
         std::cout << "#############################################################" << std::endl;

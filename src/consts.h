@@ -44,6 +44,4 @@ const double firstZ = 1;
 
 const int dimensions = 3;
 
-const int nrOfModelParams = 25;
-
 #endif //MORPHOTOOTH_CONSTS_H

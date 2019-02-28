@@ -118,3 +118,5 @@ void Utility::checkForFullNeighbourVector(Cell *cells, ImplementParams &params, 
         params.endOfSimulation = (cells[cellID].getNrOfNeighbours() == maxNrOfNeighbours);
     }
 }
+
+

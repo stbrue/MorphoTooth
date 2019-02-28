@@ -34,8 +34,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         }
     } else if (implementParams.noiseType == 2) {
         // global noise on all parameters
-        for (int parameter = 0; parameter < nrOfModelParams; ++parameter) {
-            double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(parameter);
+        std::vector<std::string> paramNames = getModelParameterNamesList();
+        for (int parameter = 0; parameter < paramNames.size(); ++parameter) {
+            double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(paramNames[parameter]);
             double sd = valueOfParameterAffectedByNoise * implementParams.sd;
             double noiseValue = Noise::generateNoiseValue(0, sd);
             double newValue = valueOfParameterAffectedByNoise + noiseValue;
@@ -47,8 +48,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         }
     } else if (implementParams.noiseType == 3) {
         // cell-specific noise on all parameters
-        for (int parameter = 0; parameter < nrOfModelParams; ++parameter) {
-            double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(parameter);
+        std::vector<std::string> paramNames = getModelParameterNamesList();
+        for (int parameter = 0; parameter < paramNames.size(); ++parameter) {
+            double valueOfParameterAffectedByNoise = cells[first].getOriginalModelParamValue(paramNames[parameter]);
             double sd = valueOfParameterAffectedByNoise * implementParams.sd;
             double noiseValue = Noise::generateNoiseValue(0, sd);
             double newValue = valueOfParameterAffectedByNoise + noiseValue;

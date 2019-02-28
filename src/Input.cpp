@@ -97,10 +97,10 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.sd = parsed_json["ImplementParams"]["sd"].get<double>();
     params.noiseDuration = parsed_json["ImplementParams"]["noiseDuration"].get<int>();
     params.repetitions = parsed_json["ImplementParams"]["repetitions"].get<int>();
-    params.parameterWithNoise = parsed_json["ImplementParams"]["parameterWithNoise"].get<int>();
+    params.parameterWithNoise = parsed_json["ImplementParams"]["parameterWithNoise"].get<std::string>();
 
     // Params to change
-    params.parameterToChange = parsed_json["ImplementParams"]["parameterToChange"].get<int>();
+    params.parameterToChange = parsed_json["ImplementParams"]["parameterToChange"].get<std::string>();
     params.totalPlusMinusScope = parsed_json["ImplementParams"]["totalPlusMinusScope"].get<double>();
     params.percentageSteps = parsed_json["ImplementParams"]["percentageSteps"].get<double>();
 
