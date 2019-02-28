@@ -646,6 +646,7 @@ void Model::anteriorPosteriorBias(Cell (&cells)[totalNrOfCells], ImplementParams
 void Model::applyForces(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
     // for each cell in simulation apply the force vector on the cell's position
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        cells[cell].checkTempCoordinatesForLimit(implementParams.maxMovement); // a cap, to ensure that a cells moves maximally a certain amount per iteration
         cells[cell].updateCoordinates();
         cells[cell].resetTempCoordinates();
     }

@@ -147,6 +147,11 @@ public:
     unsigned int seed;
 
     int noiseType;
+
+    /**
+    * A cell moves maximally this value (in each dimension) per iteration
+    */
+    double maxMovement;
 };
 
 

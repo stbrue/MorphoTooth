@@ -137,6 +137,7 @@ public:
      * protein-specific diffusion rate of Sec
      */
     double SecDiffusion;
+
 };
 
 std::vector<std::string> getModelParameterNamesList();

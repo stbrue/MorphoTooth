@@ -58,7 +58,6 @@ ModelParams Input::setModelParamsInitial(std::string InputFileName) {
 ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     // Set up vector and struct
     ImplementParams params = {0};
-    double parameter[60] = {0};
 
     // Set initial values independent of inputFile
     params.error = false;
@@ -84,6 +83,7 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.powerOfRep = parsed_json["ImplementParams"]["powerOfRep"].get<int>();
     params.sinkAmount = parsed_json["ImplementParams"]["sinkAmount"].get<double>();
     params.newInhAndSecProduction = parsed_json["ImplementParams"]["newInhAndSecProduction"].get<int>();
+    params.maxMovement = parsed_json["ImplementParams"]["maxMovement"].get<double>();
 
     // Simulation
     params.maxNrOfIterations = parsed_json["ImplementParams"]["maxNrOfIterations"].get<int>();

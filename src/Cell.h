@@ -362,6 +362,8 @@ public:
      */
     void updateCoordinates();
 
+    void checkTempCoordinatesForLimit(double maxMovement);
+
 };
 
 inline ModelParams Cell::getModelParams() const {
@@ -910,6 +912,18 @@ inline void Cell::addOriginalDistance(double distance, int position) {
 
 inline void Cell::replaceOriginalDistance(double distance, int position) {
     originalDistances[position] = distance;
+}
+
+inline void Cell::checkTempCoordinatesForLimit(double maxMovement) {
+    if (tempX > maxMovement){
+        tempX = maxMovement;
+    }
+    if (tempY > maxMovement) {
+        tempY = maxMovement;
+    }
+    if (tempZ > maxMovement) {
+        tempZ = maxMovement;
+    }
 }
 
 //Constructor double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID

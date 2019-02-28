@@ -69,9 +69,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
             double noiseX = generateNoiseValue(0, implementParams.sd);
             double noiseY = generateNoiseValue(0, implementParams.sd);
             double noiseZ = generateNoiseValue(0, implementParams.sd);
-            cells[cell].addX(noiseX);
-            cells[cell].addY(noiseY);
-            cells[cell].addZ(noiseZ);
+            cells[cell].addTempX(noiseX);
+            cells[cell].addTempY(noiseY);
+            cells[cell].addTempZ(noiseZ);
         }
     } else if (implementParams.noiseType == 5) {
         // cell-specific noise on position
@@ -81,9 +81,9 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
                 double noiseX = generateNoiseValue(0, implementParams.sd);
                 double noiseY = generateNoiseValue(0, implementParams.sd);
                 double noiseZ = generateNoiseValue(0, implementParams.sd);
-                cells[cell].addX(noiseX);
-                cells[cell].addY(noiseY);
-                cells[cell].addZ(noiseZ);
+                cells[cell].addTempX(noiseX);
+                cells[cell].addTempY(noiseY);
+                cells[cell].addTempZ(noiseZ);
             }
         }
     } else if (implementParams.noiseType == 6) {
