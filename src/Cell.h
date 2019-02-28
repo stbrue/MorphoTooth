@@ -917,6 +917,9 @@ inline void Cell::replaceOriginalDistance(double distance, int position) {
 }
 
 inline void Cell::checkTempCoordinatesForLimit(double maxMovement) {
+    if (maxMovement == 0) {
+        return;
+    }
     if (tempX > maxMovement) {
         tempX = maxMovement;
     }
