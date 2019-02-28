@@ -9,18 +9,18 @@
 int main() {
     // Arguments read in by command line
     std::string simulationNumber = "01";
-    std::string nameInputFileImplement = "ImplementParams01.txt";
-    std::string nameInputFileModel = "ModelParams01.json";
+    std::string nameInputFile = "Input01.json";
+
 
     // Read ModelParams.txt and ImplementParams.txt and set initial values
-    ModelParams modelParamsInitial = Input::setModelParamsInitial(nameInputFileModel);
-    ImplementParams implementParamsInitial = Input::setImplementParamsInitial(nameInputFileImplement);
-    
+    ModelParams modelParamsInitial = Input::setModelParamsInitial(nameInputFile);
+    ImplementParams implementParamsInitial = Input::setImplementParamsInitial(nameInputFile);
+
     // if a parameter has to be changed, calculate how many times the simulation has do be done
-    ProgramMorphoTooth::calculateNrOfConditions(implementParamsInitial);        
+    ProgramMorphoTooth::calculateNrOfConditions(implementParamsInitial);
 
     // run the program as often as "repetition" (defined by input file) or as often as needed for parameter scanning (nrOfConditions)
-    if (implementParamsInitial.nrOfConditions > 1){
+    if (implementParamsInitial.nrOfConditions > 1) {
         for (int condition = 0; condition < implementParamsInitial.nrOfConditions; ++condition) {
             Utility::resetNonConstantParameters(implementParamsInitial);
             ProgramMorphoTooth::runProgram(implementParamsInitial, modelParamsInitial, condition);

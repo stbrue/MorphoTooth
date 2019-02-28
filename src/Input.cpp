@@ -23,7 +23,7 @@ ModelParams Input::setModelParamsInitial(std::string InputFileName) {
     std::ifstream ifs{InputFileName};
 
     auto parsed_json = json::parse(ifs);
-//    std::cout << parsed_json.dump() << std::endl;
+    //    std::cout << parsed_json.dump() << std::endl;
 
     modelParams.ActDiffusion = parsed_json["ModelParams"]["ActDiffusionRate"].get<double>();
     modelParams.InhDiffusion = parsed_json["ModelParams"]["InhDiffusionRate"].get<double>();
@@ -68,54 +68,41 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.powerOfRep = 8;
     params.seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-    // Read in values from inputFile
-    std::string line;
-    int counter = 0;
+    // read a JSON file
+    // read here: https://github.com/nlohmann/json
+    std::ifstream ifs{InputFileName};
 
-    std::ifstream InputFile(InputFileName);
-    std::string delimiter = ":";
-
-    if (InputFile.is_open()) {
-        while (getline(InputFile, line)) {
-            Utility::trimString(line);
-            if (line.length() > 0) {
-                std::string token = line.substr(line.find(delimiter) + 1, line.length());
-                parameter[counter] = std::stod(token);
-                counter += 1;
-            } else {
-                std::cout << "There was an empty line in InputFile.txt at line " << counter << std::endl;
-                std::cout << "Therefore the reading in was stopped" << std::endl;
-                break;
-            }
-        }
-        InputFile.close();
-    } else {
-        std::cout << "Unable to open file" << std::endl;
-    }
+    auto parsed_json = json::parse(ifs);
+    //    std::cout << parsed_json.dump() << std::endl;
 
     // Initialize parameters with values from the file
-    params.initialRadius = static_cast<int>(parameter[0]);
-    params.distanceCellDivision = parameter[1];
-    params.EKThreshold = parameter[2];
-    params.repDistance = parameter[3];
-    params.powerOfRep = static_cast<int>(parameter[4]);
-    params.sinkAmount = parameter[5];
-    params.newInhAndSecProduction = static_cast<int>(parameter[6]);
-    params.maxNrOfIterations = static_cast<int>(parameter[7]);
-    params.minNrOfCells = static_cast<int>(parameter[8]);
-    params.outputInterval = static_cast<int>(parameter[9]);
-    params.printInterval = static_cast<int>(parameter[10]);
-    params.outputPrecision = static_cast<int>(parameter[11]);
-    params.noiseType = static_cast<int>(parameter[12]);
-    params.sd = parameter[13];
-    params.noiseDuration = static_cast<int>(parameter[14]);
-    params.repetitions = static_cast<int>(parameter[15]);
-    params.parameterWithNoise = static_cast<int>(parameter[16]);
+    // Model
+    params.initialRadius = parsed_json["ImplementParams"]["initialRadius"].get<double>();
+    params.distanceCellDivision = parsed_json["ImplementParams"]["distanceCellDivision"].get<double>();
+    params.EKThreshold = parsed_json["ImplementParams"]["EKThreshold"].get<double>();
+    params.repDistance = parsed_json["ImplementParams"]["repDistance"].get<double>();
+    params.powerOfRep = parsed_json["ImplementParams"]["powerOfRep"].get<int>();
+    params.sinkAmount = parsed_json["ImplementParams"]["sinkAmount"].get<double>();
+    params.newInhAndSecProduction = parsed_json["ImplementParams"]["newInhAndSecProduction"].get<int>();
+
+    // Simulation
+    params.maxNrOfIterations = parsed_json["ImplementParams"]["maxNrOfIterations"].get<int>();
+    params.minNrOfCells = parsed_json["ImplementParams"]["minNrOfCells"].get<int>();
+    params.outputInterval = parsed_json["ImplementParams"]["OutputInterval"].get<int>();
+    params.printInterval = parsed_json["ImplementParams"]["PrintInterval"].get<int>();
+    params.outputPrecision = parsed_json["ImplementParams"]["outputPrecision"].get<int>();
+
+    // Noise
+    params.noiseType = parsed_json["ImplementParams"]["noiseType"].get<int>();
+    params.sd = parsed_json["ImplementParams"]["sd"].get<double>();
+    params.noiseDuration = parsed_json["ImplementParams"]["noiseDuration"].get<int>();
+    params.repetitions = parsed_json["ImplementParams"]["repetitions"].get<int>();
+    params.parameterWithNoise = parsed_json["ImplementParams"]["parameterWithNoise"].get<int>();
 
     // Params to change
-    params.parameterToChange = static_cast<int>(parameter[17]);
-    params.totalPlusMinusScope = parameter[18];
-    params.percentageSteps = parameter[19];
+    params.parameterToChange = parsed_json["ImplementParams"]["parameterToChange"].get<int>();
+    params.totalPlusMinusScope = parsed_json["ImplementParams"]["totalPlusMinusScope"].get<double>();
+    params.percentageSteps = parsed_json["ImplementParams"]["percentageSteps"].get<double>();
 
     return params;
 }
