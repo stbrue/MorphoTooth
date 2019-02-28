@@ -73,6 +73,9 @@ void Model::diffusion(Cell (&cells)[totalNrOfCells], ImplementParams &implementP
 
     // Calculate the final protein concentrations (including diffusion coefficients and delta)
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        /*if (implementParams.currentIteration % implementParams.printInterval == 0) {
+            cells[cell].printTempConcentrations();
+        }*/
         for (int protein = 0; protein < nrOfProteins; ++protein) {
             for (int layer = 0; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double delta = cells[cell].getModelParams().delta;
@@ -646,7 +649,8 @@ void Model::anteriorPosteriorBias(Cell (&cells)[totalNrOfCells], ImplementParams
 void Model::applyForces(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
     // for each cell in simulation apply the force vector on the cell's position
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
-        cells[cell].checkTempCoordinatesForLimit(implementParams.maxMovement); // a cap, to ensure that a cells moves maximally a certain amount per iteration
+        cells[cell].checkTempCoordinatesForLimit(implementParams
+                                                         .maxMovement); // a cap, to ensure that a cells moves maximally a certain amount per iteration
         cells[cell].updateCoordinates();
         cells[cell].resetTempCoordinates();
     }

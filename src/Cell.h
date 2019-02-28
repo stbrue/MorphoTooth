@@ -364,6 +364,8 @@ public:
 
     void checkTempCoordinatesForLimit(double maxMovement);
 
+    void printTempConcentrations();
+
 };
 
 inline ModelParams Cell::getModelParams() const {
@@ -915,7 +917,7 @@ inline void Cell::replaceOriginalDistance(double distance, int position) {
 }
 
 inline void Cell::checkTempCoordinatesForLimit(double maxMovement) {
-    if (tempX > maxMovement){
+    if (tempX > maxMovement) {
         tempX = maxMovement;
     }
     if (tempY > maxMovement) {
@@ -924,6 +926,12 @@ inline void Cell::checkTempCoordinatesForLimit(double maxMovement) {
     if (tempZ > maxMovement) {
         tempZ = maxMovement;
     }
+}
+
+inline void Cell::printTempConcentrations() {
+    std::cout << "Act: " << tempProteinConcentrations[PAct][LEpithelium];
+    std::cout << "Inh: " << tempProteinConcentrations[PInh][LEpithelium];
+    std::cout << "Sec: " << tempProteinConcentrations[PSec][LEpithelium] << std::endl;
 }
 
 //Constructor double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID
