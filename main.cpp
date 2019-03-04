@@ -2,11 +2,16 @@
 #include <cmath>
 #include <sstream>
 #include <Utility.h>
+#include <ctime>
 #include "ProgramMorphoTooth.h"
 #include "Input.h"
 
 
 int main() {
+    std::clock_t start;
+    double duration;
+    start = std::clock();
+
     // Arguments read in by command line
     std::string simulationNumber = "01";
     std::string nameInputFile = "Input01.json";
@@ -31,5 +36,9 @@ int main() {
             ProgramMorphoTooth::runProgram(implementParamsInitial, modelParamsInitial, repetition);
         }
     }
+
+    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+
+    std::cout << "duration: " << duration << std::endl;
     return 0;
 }

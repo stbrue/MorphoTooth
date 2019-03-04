@@ -937,7 +937,7 @@ inline void Cell::printTempConcentrations() {
     std::cout << "Sec: " << tempProteinConcentrations[PSec][LEpithelium] << std::endl;
 }
 
-//Constructor double x, double y, double z, int ID) : x(x), y(y), z(z), ID(ID
+//Constructor
 inline Cell::Cell() {
     knot = false;
     inSimulation = false;
