@@ -219,7 +219,7 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementPara
     double dy = 0;
     double dz = 0;
 
-    //for all cells in the center
+    //for all cells in the center that are not EK cells
     for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
         double xDeviation = 0;
         double yDeviation = 0;
@@ -264,10 +264,6 @@ void Model::epithelialProliferation(Cell (&cells)[totalNrOfCells], ImplementPara
             double inverseDiffFactor = 0;
             double cellDrift = 0;
 
-            if (totalDeviation == 0) {
-                std::cout << "Total deviation = 0 -> divide by zero" << std::endl;
-                std::cout.flush();
-            }
             double egr = cells[cell].getModelParams().egr;
             deviationFactor =
                     egr / totalDeviation;      //egr: epithelial proliferation rate
