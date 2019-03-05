@@ -594,39 +594,18 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
         double totalZ = 0;
         int numberOfNeighboursInSimulation = 0;
 
-        bool cellIsInCenter = cells[cell].isInCentre();
-        if (cellIsInCenter) {
-            for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
-                int neighbourID = cells[cell].getNeighbours()[neighbour];
+        for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
+            int neighbourID = cells[cell].getNeighbours()[neighbour];
 
-                //only neighbours that are within simulation are taken into account
-                if (neighbourID < totalNrOfCells) {
-                    numberOfNeighboursInSimulation += 1;
-                    totalX += cells[neighbourID].getX();
-                    totalY += cells[neighbourID].getY();
-                    totalZ += cells[neighbourID].getZ();
-                }
-            }
-        } else {
-            for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
-                int neighbourID = cells[cell].getNeighbours()[neighbour];
-
-                if (neighbourID > totalNrOfCells) {
-                    continue;
-                } else {
-                    bool neighbourIsInCenter = cells[neighbourID].isInCentre();
-
-                    //only the neighbours that are within simulation but not in the center are taken into account
-                    if (neighbourID < totalNrOfCells && !neighbourIsInCenter) {
-                        numberOfNeighboursInSimulation += 1;
-                        totalX += cells[neighbourID].getX();
-                        totalY += cells[neighbourID].getY();
-                        totalZ += cells[neighbourID].getZ();
-                    }
-                }
+            //only neighbours that are within simulation are taken into account
+            if (neighbourID < totalNrOfCells) {
+                numberOfNeighboursInSimulation += 1;
+                totalX += cells[neighbourID].getX();
+                totalY += cells[neighbourID].getY();
+                totalZ += cells[neighbourID].getZ();
             }
         }
-
+        
         double averageX = totalX / numberOfNeighboursInSimulation;
         double averageY = totalY / numberOfNeighboursInSimulation;
         double averageZ = totalZ / numberOfNeighboursInSimulation;
