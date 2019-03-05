@@ -17,6 +17,7 @@ void Model::iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implem
     Noise::doNoise(cells, implementParams);
     Model::diffusion(cells, implementParams);
     Model::reaction(cells, implementParams);
+    Model::degradationInMesenchyme(cells, implementParams);
     Model::buccalLingualBias(cells, implementParams);
     Model::differentiation(cells, implementParams);
     Model::epithelialProliferation(cells, implementParams);
@@ -545,7 +546,7 @@ void Model::repulsionAndAdhesion(Cell (&cells)[totalNrOfCells], ImplementParams 
                 //For knowing the originalDistance we have to know which position cell2 has in the neighbour list of cell1
                 int *neighboursOfCell1 = cells[cell1].getNeighbours();
                 int positionOfCell2 = Utility::getPositionInVector(neighboursOfCell1, cell2, maxNrOfNeighbours);
-                
+
                 double originalDistance = cells[cell1].getOriginalDistances()[positionOfCell2];
 
                 double adh = cells[cell1].getModelParams().adh;
@@ -685,8 +686,8 @@ void Model::repulsionAndAdhesionBetweenNeighbours(double dx, double dy, double d
         double deviation =
                 currentDistance - originalDistance; //is negative -> the resulting vector is in opposite direction
         double relativeDeviation = deviation / currentDistance;
-
         //This is a vector showing in the opposite direction as cell1->cell2, with a length proportional to the deviation
+
         compressionMatrixNeighbours[X].push_back(dx * relativeDeviation);
         compressionMatrixNeighbours[Y].push_back(dy * relativeDeviation);
         compressionMatrixNeighbours[Z].push_back(dz * relativeDeviation);
@@ -797,7 +798,7 @@ void Model::ActReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
 
     double act = cells[cell].getModelParams().act;
     double inh = cells[cell].getModelParams().inh;
-    double mu = cells[cell].getModelParams().mu;
+    double epithelialDegradation = cells[cell].getModelParams().epithelialDegradation;
     double positiveTerm = act * epithelialActConcentration;
     if (positiveTerm < 0) {
         positiveTerm = 0;
@@ -807,7 +808,7 @@ void Model::ActReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
         std::cout << "negative Term = 0 -> divide by zero" << std::endl;
         std::cout.flush();
     }
-    double degradation = mu * epithelialActConcentration;
+    double degradation = epithelialDegradation * epithelialActConcentration;
 
     //concentration difference: reaction - degradation
     double newConcentration = (positiveTerm / negativeTerm) - degradation;
@@ -820,7 +821,7 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
     double epithelialActConcentration = cells[cell].getProteinConcentrations()[PAct][LEpithelium];
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
-    double mu = cells[cell].getModelParams().mu;
+    double epithelialDegradation = cells[cell].getModelParams().epithelialDegradation;
     double inT = cells[cell].getModelParams().inT;
 
     if (implementParams.newInhAndSecProduction == 0) {
@@ -829,10 +830,10 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
 
         if (isKnotCell) {
             newConcentration =
-                    epithelialActConcentration - mu * epithelialInhConcentration;
+                    epithelialActConcentration - epithelialDegradation * epithelialInhConcentration;
         } else if (diffState > inT) {           //int: inductive threshold
             newConcentration = epithelialActConcentration * diffState -
-                               mu * epithelialInhConcentration;
+                    epithelialDegradation * epithelialInhConcentration;
         }
     } else {
         // new version
@@ -840,7 +841,7 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
 
         if (isKnotCell || diffState > inT) {
             newConcentration =
-                    epithelialActConcentration - mu * epithelialInhConcentration;
+                    epithelialActConcentration - epithelialDegradation * epithelialInhConcentration;
         }
     }
 
@@ -854,22 +855,22 @@ void Model::SecReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
     bool isKnotCell = cells[cell].isKnotCell();
     double newConcentration = 0;
     double sec = cells[cell].getModelParams().sec;
-    double mu = cells[cell].getModelParams().mu;
+    double epithelialDegradation = cells[cell].getModelParams().epithelialDegradation;
     double set = cells[cell].getModelParams().set;
 
     if (implementParams.newInhAndSecProduction == 0) {
         //original version
         if (isKnotCell) {
             newConcentration =
-                    sec - mu * epithelialSecConcentration;
+                    sec - epithelialDegradation * epithelialSecConcentration;
         } else if (diffState > set) {
             newConcentration = sec * diffState -
-                               mu * epithelialSecConcentration;
+                    epithelialDegradation * epithelialSecConcentration;
         }
     } else {
         if (isKnotCell || diffState > set) {
             newConcentration =
-                    sec - mu * epithelialSecConcentration;
+                    sec - epithelialDegradation * epithelialSecConcentration;
         }
     }
 
@@ -1267,4 +1268,17 @@ bool Model::multipleNeighbour(Cell (&cells)[totalNrOfCells], ImplementParams &im
         }
     }
     return false;
+}
+
+void Model::degradationInMesenchyme(Cell (&cells)[totalNrOfCells], ImplementParams &params) {
+    for (int cell = 0; cell < params.nrCellsInSimulation; ++cell) {
+        for (int protein = 0; protein < nrOfProteins; ++protein) {
+            // from layer 1 on (layer 0 is epithelium and degradation in epithelium is included in reaction)
+            for (int layer = 1; layer < cells[cell].getMesenchymeThickness(); ++layer) {
+                double currentProteinConcentration = cells[cell].getProteinConcentrations()[protein][layer];
+                double degradation = currentProteinConcentration * cells[cell].getModelParams().mesenchymeDegradation * -1;
+                cells[cell].addTempConcentration(protein, layer, degradation);
+            }
+        }
+    }
 }

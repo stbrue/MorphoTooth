@@ -25,9 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModelParams.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModelParams.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -44,8 +46,8 @@
       <file leaf-file-name="ProgramMorphoTooth.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="158">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
               </folding>
@@ -53,11 +55,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="550" selection-start-line="550" selection-end-line="550" />
+            <state relative-caret-position="289">
+              <caret line="1280" column="13" selection-start-line="1280" selection-start-column="13" selection-end-line="1280" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="724">
+              <caret line="209" column="96" selection-start-line="209" selection-start-column="96" selection-end-line="209" selection-end-column="96" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stl_vector.h" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files (x86)/mingw-w64/i686-7.3.0-posix-dwarf-rt_v5-rev0/mingw32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/bits/stl_vector.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="333" selection-start-line="333" selection-end-line="333" />
             </state>
           </provider>
         </entry>
@@ -92,32 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ROutput3000.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Programm/TootMakerOutput/ROutput3000.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Input01.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Input01.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/Input01.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state relative-caret-position="153">
+              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -125,8 +124,8 @@
       <file leaf-file-name="ModelParams.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ModelParams.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="139" selection-start-line="139" selection-end-line="139" />
+            <state relative-caret-position="268">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -151,9 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setModel</find>
-      <find>getModelParams()</find>
-      <find>static</find>
       <find>valueOfParameterToChange</find>
       <find>cellDivision</find>
       <find>Parameter to</find>
@@ -181,6 +177,9 @@
       <find>promig</find>
       <find>nucleusT</find>
       <find>adh</find>
+      <find>repulsionand</find>
+      <find>degrad</find>
+      <find>mu</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -222,7 +221,6 @@
         <option value="$PROJECT_DIR$/cmake-build-release/InputFile01.txt" />
         <option value="$PROJECT_DIR$/src/Initial.h" />
         <option value="$PROJECT_DIR$/src/Geometrics.cpp" />
-        <option value="$PROJECT_DIR$/src/Model.h" />
         <option value="$PROJECT_DIR$/cmake-build-release/ImplementParams01.txt.txt" />
         <option value="$PROJECT_DIR$/cmake-build-release/ModelParams01.txt.txt" />
         <option value="$PROJECT_DIR$/src/Input.h" />
@@ -240,7 +238,6 @@
         <option value="$PROJECT_DIR$/src/Print.cpp" />
         <option value="$PROJECT_DIR$/src/ModelParams.cpp" />
         <option value="$PROJECT_DIR$/src/Input.cpp" />
-        <option value="$PROJECT_DIR$/src/ModelParams.h" />
         <option value="$PROJECT_DIR$/src/ImplementParams.h" />
         <option value="$PROJECT_DIR$/src/Noise.cpp" />
         <option value="$PROJECT_DIR$/src/Cell.h" />
@@ -249,7 +246,9 @@
         <option value="$PROJECT_DIR$/cmake-build-release/Input01.json" />
         <option value="$PROJECT_DIR$/src/Utility.h" />
         <option value="$PROJECT_DIR$/src/Utility.cpp" />
+        <option value="$PROJECT_DIR$/src/Model.h" />
         <option value="$PROJECT_DIR$/src/Model.cpp" />
+        <option value="$PROJECT_DIR$/src/ModelParams.h" />
         <option value="$PROJECT_DIR$/cmake-build-debug/Input01.json" />
       </list>
     </option>
@@ -454,7 +453,7 @@
       <workItem from="1551082515776" duration="5738000" />
       <workItem from="1551341825521" duration="9683000" />
       <workItem from="1551704900053" duration="552000" />
-      <workItem from="1551708500066" duration="8585000" />
+      <workItem from="1551708500066" duration="11286000" />
     </task>
     <servers />
   </component>
@@ -491,7 +490,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="689114000" />
+    <option name="totallyTimeSpent" value="691815000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
@@ -502,6 +501,7 @@
       <window_info anchor="bottom" id="Messages" order="7" weight="0.44241732" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.31698975" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.4036488" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -515,7 +515,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,31 +525,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Noise.cpp</url>
-          <line>11</line>
-          <option name="timeStamp" value="255" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp</url>
-          <line>31</line>
-          <option name="timeStamp" value="257" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Noise.cpp</url>
-          <line>66</line>
-          <option name="timeStamp" value="258" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="263" />
+      <option name="time" value="264" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmake-build-release/Outputfiles/ToothBig0_2_1000.txt" />
     <entry file="file://$PROJECT_DIR$/cmake-build-release/Outputfiles/ToothBig0_2_3000.txt" />
     <entry file="file://$PROJECT_DIR$/tests/lib/googletest/googletest/README.md">
       <provider selected="true" editor-type-id="text-editor">
@@ -586,13 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="59" column="120" selection-start-line="59" selection-start-column="120" selection-end-line="59" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="203" column="56" selection-start-line="203" selection-start-column="56" selection-end-line="203" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -772,13 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ModelParams.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Programm/ToothMakerCode/ToothMakerNewLyon/source_original.f90">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -810,23 +777,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Input01.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="e#45#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Noise.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -834,10 +784,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="e#45#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/mingw-w64/i686-7.3.0-posix-dwarf-rt_v5-rev0/mingw32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/bits/stl_vector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="333" selection-start-line="333" selection-end-line="333" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="209" column="96" selection-start-line="209" selection-start-column="96" selection-end-line="209" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="550" selection-start-line="550" selection-end-line="550" />
+        <state relative-caret-position="289">
+          <caret line="1280" column="13" selection-start-line="1280" selection-start-column="13" selection-end-line="1280" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModelParams.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Input01.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
         </state>
       </provider>
     </entry>

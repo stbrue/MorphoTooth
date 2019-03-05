@@ -483,8 +483,10 @@ inline const double Cell::getModelParamValue(std::string paramName) const {
         return modelParams.act;
     } else if (paramName == "inh" || paramName == "Inh") {
         return modelParams.inh;
-    } else if (paramName == "mu" || paramName == "Mu") {
-        return modelParams.mu;
+    } else if (paramName == "EpithelialDegradation" || paramName == "epithalialDegradation") {
+        return modelParams.epithelialDegradation;
+    } else if (paramName == "MesenchymeDegradation" || paramName == "mesenchymeDegradation") {
+        return modelParams.mesenchymeDegradation;
     } else if (paramName == "int" || paramName == "Int") {
         return modelParams.inT;
     } else if (paramName == "set" || paramName == "Set") {
@@ -540,8 +542,10 @@ inline const double Cell::getOriginalModelParamValue(std::string paramName) cons
         return originalModelParams.act;
     } else if (paramName == "inh" || paramName == "Inh") {
         return originalModelParams.inh;
-    } else if (paramName == "mu" || paramName == "Mu") {
-        return originalModelParams.mu;
+    } else if (paramName == "epithelialDegradation" || paramName == "EpithelialDegradation") {
+        return originalModelParams.epithelialDegradation;
+    } else if (paramName == "mesenchymeDegradation" || paramName == "MesenchymeDegradation") {
+        return originalModelParams.mesenchymeDegradation;
     } else if (paramName == "int" || paramName == "Int") {
         return originalModelParams.inT;
     } else if (paramName == "set" || paramName == "Set") {
@@ -724,7 +728,8 @@ inline void Cell::setModelParams(ModelParams modelParams) {
     Cell::modelParams.delta = modelParams.delta;
     Cell::modelParams.act = modelParams.act;
     Cell::modelParams.inh = modelParams.inh;
-    Cell::modelParams.mu = modelParams.mu;
+    Cell::modelParams.epithelialDegradation = modelParams.epithelialDegradation;
+    Cell::modelParams.mesenchymeDegradation = modelParams.mesenchymeDegradation;
     Cell::modelParams.inT = modelParams.inT;
     Cell::modelParams.set = modelParams.set;
     Cell::modelParams.sec = modelParams.sec;
@@ -752,7 +757,8 @@ inline void Cell::setOriginalModelParams(ModelParams originalModelParams) {
     Cell::originalModelParams.delta = originalModelParams.delta;
     Cell::originalModelParams.act = originalModelParams.act;
     Cell::originalModelParams.inh = originalModelParams.inh;
-    Cell::originalModelParams.mu = originalModelParams.mu;
+    Cell::originalModelParams.epithelialDegradation = originalModelParams.epithelialDegradation;
+    Cell::originalModelParams.mesenchymeDegradation = originalModelParams.mesenchymeDegradation;
     Cell::originalModelParams.inT = originalModelParams.inT;
     Cell::originalModelParams.set = originalModelParams.set;
     Cell::originalModelParams.sec = originalModelParams.sec;
@@ -795,8 +801,11 @@ inline void Cell::changeModelParameter(std::string paramName, double newValue) {
     } else if (paramName == "inh" || paramName == "Inh") {
         modelParams.inh = newValue;
         return;
-    } else if (paramName == "mu" || paramName == "Mu") {
-        modelParams.mu = newValue;
+    } else if (paramName == "epithelialDegradation" || paramName == "EpithelialDegradation") {
+        modelParams.epithelialDegradation = newValue;
+        return;
+    } else if (paramName == "mesenchymeDegradation" || paramName == "MesenchymeDegradation") {
+        modelParams.mesenchymeDegradation = newValue;
         return;
     } else if (paramName == "int" || paramName == "Int") {
         modelParams.inT = newValue;

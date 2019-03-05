@@ -31,7 +31,8 @@ ModelParams Input::setModelParamsInitial(std::string InputFileName) {
     modelParams.delta = parsed_json["ModelParams"]["Delta"].get<double>();
     modelParams.act = parsed_json["ModelParams"]["Act"].get<double>();
     modelParams.inh = parsed_json["ModelParams"]["Inh"].get<double>();
-    modelParams.mu = parsed_json["ModelParams"]["DegradationRate"].get<double>();
+    modelParams.epithelialDegradation = parsed_json["ModelParams"]["EpithelialDegradation"].get<double>();
+    modelParams.mesenchymeDegradation = parsed_json["ModelParams"]["MesenchymeDegradation"].get<double>();
     modelParams.inT = parsed_json["ModelParams"]["Int"].get<double>();
     modelParams.set = parsed_json["ModelParams"]["Set"].get<double>();
     modelParams.sec = parsed_json["ModelParams"]["Sec"].get<double>();

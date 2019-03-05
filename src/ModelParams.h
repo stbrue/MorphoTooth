@@ -25,9 +25,14 @@ public:
     double inh;
 
     /**
-     * @brief   Degradation rates of gene products
+     * @brief   Degradation rates of gene products in epithelium
      */
-    double mu;
+    double epithelialDegradation;
+
+    /**
+     * Degradation rates of gene products in mesenchyme
+     */
+    double mesenchymeDegradation;
 
     /**
      * @brief   An inductive threshold. If the concentration of Act is higher than this threshold then Inh is produced
@@ -137,6 +142,7 @@ public:
      * protein-specific diffusion rate of Sec
      */
     double SecDiffusion;
+
 
 };
 

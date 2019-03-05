@@ -13,7 +13,8 @@
 class Model {
 public:
 
-    static void iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams, ModelParams &modelParams);
+    static void
+    iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams, ModelParams &modelParams);
 
     /**
      * @brief   calculates new protein concentrations due to diffusion between cells
@@ -186,7 +187,8 @@ public:
 
     static std::vector<int> searchMotherCells(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
-    static std::vector<int> findCommonNeighbours(int M1, int M2, Cell (&cells)[totalNrOfCells], ImplementParams &params);
+    static std::vector<int>
+    findCommonNeighbours(int M1, int M2, Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
     static void updateNeighbourRelations(int M1, int M2, int N1, int N2, Cell &newCell, Cell (&cells)[totalNrOfCells]);
 
@@ -205,6 +207,7 @@ public:
 
     static bool multipleNeighbour(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 
+    static void degradationInMesenchyme(Cell (&cells)[totalNrOfCells], ImplementParams &params);
 };
 
 
