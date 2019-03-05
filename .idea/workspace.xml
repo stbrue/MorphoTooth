@@ -24,7 +24,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="" />
+    <list default="true" id="a9cc5bc4-3609-49d4-bc57-dc46a73c032d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model.cpp" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,17 +54,17 @@
       <file leaf-file-name="Model.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+            <state relative-caret-position="340">
+              <caret line="633" column="37" selection-start-line="633" selection-start-column="37" selection-end-line="633" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="source_original.f90" pinned="false" current-in-tab="true">
+      <file leaf-file-name="source_original.f90" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Programm/ToothMakerCode/ToothMakerNewLyon/source_original.f90">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="949" column="25" selection-start-line="949" selection-start-column="18" selection-end-line="949" selection-end-column="25" />
+            <state relative-caret-position="325">
+              <caret line="939" column="45" selection-start-line="939" selection-start-column="44" selection-end-line="939" selection-end-column="45" />
               <folding>
                 <marker date="1531386043000" expanded="true" signature="8156:8177" ph="..." />
               </folding>
@@ -117,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Input01.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Input01.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmake-build-release/Input01.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
@@ -155,20 +157,18 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>constru</find>
-      <find>setX</find>
       <find>construc</find>
       <find>setModel</find>
       <find>getModelParams()</find>
       <find>static</find>
       <find>valueOfParameterToChange</find>
       <find>cellDivision</find>
-      <find />
+      <find>Parameter to</find>
       <find>valueOfParameterAffected</find>
       <find>setO</find>
       <find>getMean</find>
       <find>sdPercentage</find>
-      <find />
+      <find>Simulation ha</find>
       <find>getModelParamV</find>
       <find>getOriginalM</find>
       <find>changeMo</find>
@@ -185,12 +185,14 @@
       <find>iteracio</find>
       <find>stelate</find>
       <find>buoy</find>
+      <find>promig</find>
+      <find>nucleusT</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>differentiation</replace>
       <replace>NrCellsInCenter</replace>
-      <replace />
+      <replace>Cell (&amp;cells)[maxNrOfCells]</replace>
       <replace>.</replace>
       <replace>totalNrOfCells</replace>
       <replace>Sec</replace>
@@ -253,8 +255,8 @@
         <option value="$PROJECT_DIR$/src/Cell.h" />
         <option value="$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/Noise_Scan_10/Overview" />
         <option value="$PROJECT_DIR$/main.cpp" />
-        <option value="$PROJECT_DIR$/src/Model.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-release/Input01.json" />
+        <option value="$PROJECT_DIR$/src/Model.cpp" />
       </list>
     </option>
   </component>
@@ -458,7 +460,7 @@
       <workItem from="1551082515776" duration="5738000" />
       <workItem from="1551341825521" duration="9683000" />
       <workItem from="1551704900053" duration="552000" />
-      <workItem from="1551708500066" duration="6410000" />
+      <workItem from="1551708500066" duration="7042000" />
     </task>
     <servers />
   </component>
@@ -495,19 +497,19 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="686939000" />
+    <option name="totallyTimeSpent" value="687571000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="1952" height="1058" extended-state="7" />
+    <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1265625" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1265625" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.44241732" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.31698975" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.4036488" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.4036488" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.50701755" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -807,13 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ModelParams.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="801">
@@ -828,20 +823,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Programm/ToothMakerCode/ToothMakerNewLyon/source_original.f90">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="939" column="45" selection-start-line="939" selection-start-column="44" selection-end-line="939" selection-end-column="45" />
+          <folding>
+            <marker date="1531386043000" expanded="true" signature="8156:8177" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="633" column="37" selection-start-line="633" selection-start-column="37" selection-end-line="633" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-release/Input01.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Programm/ToothMakerCode/ToothMakerNewLyon/source_original.f90">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="949" column="25" selection-start-line="949" selection-start-column="18" selection-end-line="949" selection-end-column="25" />
-          <folding>
-            <marker date="1531386043000" expanded="true" signature="8156:8177" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>

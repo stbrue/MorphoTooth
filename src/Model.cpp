@@ -605,7 +605,7 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
                 totalZ += cells[neighbourID].getZ();
             }
         }
-        
+
         double averageX = totalX / numberOfNeighboursInSimulation;
         double averageY = totalY / numberOfNeighboursInSimulation;
         double averageZ = totalZ / numberOfNeighboursInSimulation;
@@ -617,24 +617,21 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
         // Ntr: Parameter for nuclear traction
         double ntr = cells[cell].getModelParams().ntr;
         double delta = cells[cell].getModelParams().delta;
-        xShift = XDeviationFromAverage * delta *
-                 ntr; // ntr: parameter for nucleus traction
-        yShift = YDeviationFromAverage * delta * ntr;
+        double inverseDiffState = 1 - cells[cell].getDiffState();
+        if (inverseDiffState < 0) {
+            inverseDiffState = 0;
+        }
+        xShift = XDeviationFromAverage * ntr * inverseDiffState; // ntr: parameter for nucleus traction
+        yShift = YDeviationFromAverage * ntr * inverseDiffState;
 
-        // only if the cell isn't a EK cell, the z-position is affected by nuclear traction
+        // only if the cell isn't a EK cell, the z-position is affected by nuclear traction because EK cells do not move in z direction anyway
         if (!cells[cell].isKnotCell()) {
-            double inverseDiffState = 1 - cells[cell].getDiffState();
-            if (inverseDiffState < 0) {
-                inverseDiffState = 0;
-            }
-            zShift = ZDeviationFromAverage * delta * ntr *
-                     inverseDiffState;
+            zShift = ZDeviationFromAverage * ntr * inverseDiffState;
         }
 
-        // Add the shifts directly to the coordinates (it's not handled as tempX, etc.)
-        cells[cell].addX(xShift);
-        cells[cell].addY(yShift);
-        cells[cell].addZ(zShift);
+        cells[cell].addTempX(xShift);
+        cells[cell].addTempY(yShift);
+        cells[cell].addTempZ(zShift);
     }
 }
 
