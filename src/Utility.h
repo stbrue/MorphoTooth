@@ -31,6 +31,8 @@ public:
 
     static void checkForFullNeighbourVector(Cell cells[totalNrOfCells], ImplementParams &params, int cellID);
 
+    static int getPositionInVector(int *vector, int value, int vectorLength);
+
 };
 
 

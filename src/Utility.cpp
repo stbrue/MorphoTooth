@@ -119,4 +119,13 @@ void Utility::checkForFullNeighbourVector(Cell *cells, ImplementParams &params, 
     }
 }
 
-
+int Utility::getPositionInVector(int *vector, int value, int vectorLength) {
+    int position = 0;
+    for (int element = 0; element < vectorLength; ++element) {
+        if (vector[element] == value) {
+            position = element;
+            break;
+        }
+    }
+    return position;
+}

@@ -543,22 +543,9 @@ void Model::repulsionAndAdhesion(Cell (&cells)[totalNrOfCells], ImplementParams 
 
             if (cell2IsNeighbour) {
                 //For knowing the originalDistance we have to know which position cell2 has in the neighbour list of cell1
-                int positionOfCell2;
                 int *neighboursOfCell1 = cells[cell1].getNeighbours();
-                bool positionFound = false;
-                for (int neighbour = 0; neighbour < cells[cell1].getNrOfNeighbours(); ++neighbour) {
-                    if (neighboursOfCell1[neighbour] == cell2) {
-                        positionOfCell2 = neighbour;
-                        positionFound = true;
-                        break;
-                    }
-                }
-
-                if (!positionFound) {
-                    implementParams.error = true;
-                    std::cout << "There was an error in updating neighbour relationships" << std::endl;
-                    return;
-                }
+                int positionOfCell2 = Utility::getPositionInVector(neighboursOfCell1, cell2, maxNrOfNeighbours);
+                
                 double originalDistance = cells[cell1].getOriginalDistances()[positionOfCell2];
 
                 double adh = cells[cell1].getModelParams().adh;
