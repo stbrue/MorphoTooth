@@ -507,8 +507,6 @@ inline const double Cell::getModelParamValue(std::string paramName) const {
         return modelParams.mgr;
     } else if (paramName == "dgr" || paramName == "Dgr") {
         return modelParams.dgr;
-    } else if (paramName == "boy" || paramName == "Boy") {
-        return modelParams.boy;
     } else if (paramName == "rep" || paramName == "Rep") {
         return modelParams.rep;
     } else if (paramName == "adh" || paramName == "Adh") {
@@ -566,8 +564,6 @@ inline const double Cell::getOriginalModelParamValue(std::string paramName) cons
         return originalModelParams.mgr;
     } else if (paramName == "dgr" || paramName == "Dgr") {
         return originalModelParams.dgr;
-    } else if (paramName == "boy" || paramName == "Boy") {
-        return originalModelParams.boy;
     } else if (paramName == "rep" || paramName == "Rep") {
         return originalModelParams.rep;
     } else if (paramName == "adh" || paramName == "Adh") {
@@ -740,7 +736,6 @@ inline void Cell::setModelParams(ModelParams modelParams) {
     Cell::modelParams.egr = modelParams.egr;
     Cell::modelParams.mgr = modelParams.mgr;
     Cell::modelParams.dgr = modelParams.dgr;
-    Cell::modelParams.boy = modelParams.boy;
     Cell::modelParams.rep = modelParams.rep;
     Cell::modelParams.adh = modelParams.adh;
     Cell::modelParams.ntr = modelParams.ntr;
@@ -769,7 +764,6 @@ inline void Cell::setOriginalModelParams(ModelParams originalModelParams) {
     Cell::originalModelParams.egr = originalModelParams.egr;
     Cell::originalModelParams.mgr = originalModelParams.mgr;
     Cell::originalModelParams.dgr = originalModelParams.dgr;
-    Cell::originalModelParams.boy = originalModelParams.boy;
     Cell::originalModelParams.rep = originalModelParams.rep;
     Cell::originalModelParams.adh = originalModelParams.adh;
     Cell::originalModelParams.ntr = originalModelParams.ntr;
@@ -836,9 +830,6 @@ inline void Cell::changeModelParameter(std::string paramName, double newValue) {
         return;
     } else if (paramName == "dgr" || paramName == "Dgr") {
         modelParams.dgr = newValue;
-        return;
-    } else if (paramName == "boy" || paramName == "Boy") {
-        modelParams.boy = newValue;
         return;
     } else if (paramName == "rep" || paramName == "Rep") {
         modelParams.rep = newValue;

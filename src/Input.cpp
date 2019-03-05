@@ -43,7 +43,6 @@ ModelParams Input::setModelParamsInitial(std::string InputFileName) {
     modelParams.egr = parsed_json["ModelParams"]["Egr"].get<double>();
     modelParams.mgr = parsed_json["ModelParams"]["Mgr"].get<double>();
     modelParams.dgr = parsed_json["ModelParams"]["Dgr"].get<double>();
-    modelParams.boy = parsed_json["ModelParams"]["Boy"].get<double>();
     modelParams.rep = parsed_json["ModelParams"]["Rep"].get<double>();
     modelParams.adh = parsed_json["ModelParams"]["Adh"].get<double>();
     modelParams.ntr = parsed_json["ModelParams"]["Ntr"].get<double>();

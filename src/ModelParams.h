@@ -6,6 +6,7 @@
 #define MORPHOTOOTH_MODELPARAMS_H
 
 #include <string>
+#include <vector>
 
 struct ModelParams {
 public:
@@ -85,11 +86,6 @@ public:
      * @brief   Downgrowth (cervical loop)
      */
     double dgr;
-
-    /**
-     * @brief   Buoyancy, determined by the expression of Inh
-     */
-    double boy;
 
     /**
      * @brief   Repulsion between different tissues and different morphology parts
