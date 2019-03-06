@@ -6,8 +6,9 @@
 #include "ModelParams.h"
 
 std::vector<std::string> getModelParameterNamesList() {
-    std::vector<std::string> names = {"delta", "act", "inh", "epithelialDegradation","mesenchymeDegradation", "inT", "set", "sec", "lbi", "bbi", "swi", "dff",
+    std::vector<std::string> names = {"delta", "act", "inh", "epithelialDegradation", "mesenchymeDegradation", "inT",
+                                      "set", "sec", "lbi", "bbi", "swi", "dff",
                                       "egr", "mgr", "dgr", "rep", "adh", "ntr", "bwi", "abi", "pbi", "bgr",
-                                      "ActDiffusion", "InhDiffusion", "SecDiffusion"};
+                                      "ActDiffusion", "InhDiffusion", "SecDiffusion", "boy"};
     return names;
 }

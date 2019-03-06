@@ -50,6 +50,7 @@ ModelParams Input::setModelParamsInitial(std::string InputFileName) {
     modelParams.abi = parsed_json["ModelParams"]["Abi"].get<double>();
     modelParams.pbi = parsed_json["ModelParams"]["Pbi"].get<double>();
     modelParams.bgr = parsed_json["ModelParams"]["Bgr"].get<double>();
+    modelParams.boy = parsed_json["ModelParams"]["Boy"].get<double>();
 
     return modelParams;
 }

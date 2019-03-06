@@ -757,7 +757,7 @@ void Model::InhReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
                     epithelialActConcentration - epithelialDegradation * epithelialInhConcentration;
         } else if (diffState > inT) {           //int: inductive threshold
             newConcentration = epithelialActConcentration * diffState -
-                    epithelialDegradation * epithelialInhConcentration;
+                               epithelialDegradation * epithelialInhConcentration;
         }
     } else {
         // new version
@@ -789,7 +789,7 @@ void Model::SecReactionAndDegradation(Cell (&cells)[totalNrOfCells], ImplementPa
                     sec - epithelialDegradation * epithelialSecConcentration;
         } else if (diffState > set) {
             newConcentration = sec * diffState -
-                    epithelialDegradation * epithelialSecConcentration;
+                               epithelialDegradation * epithelialSecConcentration;
         }
     } else {
         if (isKnotCell || diffState > set) {
@@ -1200,9 +1200,57 @@ void Model::degradationInMesenchyme(Cell (&cells)[totalNrOfCells], ImplementPara
             // from layer 1 on (layer 0 is epithelium and degradation in epithelium is included in reaction)
             for (int layer = 1; layer < cells[cell].getMesenchymeThickness(); ++layer) {
                 double currentProteinConcentration = cells[cell].getProteinConcentrations()[protein][layer];
-                double degradation = currentProteinConcentration * cells[cell].getModelParams().mesenchymeDegradation * -1;
+                double degradation =
+                        currentProteinConcentration * cells[cell].getModelParams().mesenchymeDegradation * -1;
                 cells[cell].addTempConcentration(protein, layer, degradation);
             }
         }
+    }
+}
+
+void Model::buoyancy(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
+    for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
+        // Get the displacement components from the epithelial proliferation
+        // (-> has to be called when only epithelial proliferation contributed before to tempX/tempY/tempZ)
+        double xMovementFromProliferation = cells[cell].getTempX();
+        double yMovementFromProliferation = cells[cell].getTempY();
+        double zMovementFromProliferation = cells[cell].getTempZ();
+        std::vector<double> planeMovement = {xMovementFromProliferation, yMovementFromProliferation};
+        std::vector<double> totalMovement = {xMovementFromProliferation, yMovementFromProliferation,
+                                             zMovementFromProliferation};
+        double lengthOf2DMovement = Geometrics::vectorNorm2D(planeMovement);
+    
+        // Continue only if epithelial proliferation resulted in a displacement in 2D plane
+        if (lengthOf2DMovement == 0) continue;
+
+        // Define the normal vector (apical to surface)
+        // x and y are the opposite of epithelial proliferation but proportional to z-movement in epithelial Proliferation
+        // z is the length of x,y movement in epithelial proliferation -> is >0 and therefore upwards movement
+        double lengthOf3DMovement = Geometrics::vectorNorm3D(totalMovement);
+        double relativeZMovement = zMovementFromProliferation / lengthOf3DMovement;
+        double xOfNormalVector = xMovementFromProliferation * relativeZMovement *
+                                 -1; // shows in opposite direction as in epithelial proliferation
+        double yOfNormalVector = yMovementFromProliferation * relativeZMovement * -1;
+        double zOfNormalVector = lengthOf2DMovement;
+        std::vector<double> normalVector = {xOfNormalVector, yOfNormalVector, zOfNormalVector};
+        double lengthOfNormalVector = Geometrics::vectorNorm3D(normalVector);
+
+        // Movement due to buyoancy is dependent on parameter boy, Sec concentration, diff state and this normal vector
+        double boy = cells[cell].getModelParams().boy;
+        double epithelialSecConcentration = cells[cell].getProteinConcentrations()[PSec][LEpithelium];
+        double inverseDiffState = 1 - cells[cell].getDiffState();
+        if (inverseDiffState < 0) {
+            inverseDiffState = 0;
+        }
+        double xBuoyancy =
+                (xOfNormalVector / lengthOfNormalVector) * boy * epithelialSecConcentration * inverseDiffState;
+        double yBuoyancy =
+                (yOfNormalVector / lengthOfNormalVector) * boy * epithelialSecConcentration * inverseDiffState;
+        double zBuoyancy =
+                (zOfNormalVector / lengthOfNormalVector) * boy * epithelialSecConcentration * inverseDiffState;
+
+        cells[cell].addTempX(xBuoyancy);
+        cells[cell].addTempY(yBuoyancy);
+        cells[cell].addTempZ(zBuoyancy);
     }
 }

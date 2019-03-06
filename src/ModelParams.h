@@ -139,6 +139,11 @@ public:
      */
     double SecDiffusion;
 
+    /**
+     * mesenchymal buoyancy -> force that counteracts epithelial proliferation
+     */
+    double boy;
+
 
 };
 
