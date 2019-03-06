@@ -508,42 +508,61 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
 
         for (int neighbour = 0; neighbour < cells[cell].getNrOfNeighbours(); ++neighbour) {
             int neighbourID = cells[cell].getNeighbours()[neighbour];
-
-            //only neighbours that are within simulation are taken into account
-            if (neighbourID < totalNrOfCells) {
-                numberOfNeighboursInSimulation += 1;
-                totalX += cells[neighbourID].getX();
-                totalY += cells[neighbourID].getY();
-                totalZ += cells[neighbourID].getZ();
+            bool neighbourIsInSimulation = false;
+            bool neighbourIsInCentre = false;
+            if (neighbourID < implementParams.nrCellsInSimulation){
+                neighbourIsInSimulation = true;
+                neighbourIsInCentre = cells[neighbourID].isInCentre();
             }
+            
+            // if it is a border cell, only neighbours that are also border cells are taken into account because
+            // else the cell would move too much into the centre
+            if (!cells[cell].isInCentre()) {
+                if (!neighbourIsInCentre && neighbourIsInSimulation) {
+                    numberOfNeighboursInSimulation += 1;
+                    totalX += cells[neighbourID].getX();
+                    totalY += cells[neighbourID].getY();
+                    totalZ += cells[neighbourID].getZ();
+                }
+                continue;
+            }
+
+            // else all neighbours are within simulation and are taken into account
+            numberOfNeighboursInSimulation += 1;
+            totalX += cells[neighbourID].getX();
+            totalY += cells[neighbourID].getY();
+            totalZ += cells[neighbourID].getZ();
+
         }
 
-        double averageX = totalX / numberOfNeighboursInSimulation;
-        double averageY = totalY / numberOfNeighboursInSimulation;
-        double averageZ = totalZ / numberOfNeighboursInSimulation;
+        if (numberOfNeighboursInSimulation > 0) {
+            double averageX = totalX / numberOfNeighboursInSimulation;
+            double averageY = totalY / numberOfNeighboursInSimulation;
+            double averageZ = totalZ / numberOfNeighboursInSimulation;
 
-        double XDeviationFromAverage = averageX - cells[cell].getX();
-        double YDeviationFromAverage = averageY - cells[cell].getY();
-        double ZDeviationFromAverage = averageZ - cells[cell].getZ();
+            double XDeviationFromAverage = averageX - cells[cell].getX();
+            double YDeviationFromAverage = averageY - cells[cell].getY();
+            double ZDeviationFromAverage = averageZ - cells[cell].getZ();
 
-        // Ntr: Parameter for nuclear traction
-        double ntr = cells[cell].getModelParams().ntr;
-        double delta = cells[cell].getModelParams().delta;
-        double inverseDiffState = 1 - cells[cell].getDiffState();
-        if (inverseDiffState < 0) {
-            inverseDiffState = 0;
+            // Ntr: Parameter for nuclear traction
+            double ntr = cells[cell].getModelParams().ntr;
+            double delta = cells[cell].getModelParams().delta;
+            double inverseDiffState = 1 - cells[cell].getDiffState();
+            if (inverseDiffState < 0) {
+                inverseDiffState = 0;
+            }
+            xShift = XDeviationFromAverage * ntr * inverseDiffState; // ntr: parameter for nucleus traction
+            yShift = YDeviationFromAverage * ntr * inverseDiffState;
+
+            // only if the cell isn't a EK cell, the z-position is affected by nuclear traction because EK cells do not move in z direction anyway
+            if (!cells[cell].isKnotCell()) {
+                zShift = ZDeviationFromAverage * ntr * inverseDiffState;
+            }
+
+            cells[cell].addTempX(xShift);
+            cells[cell].addTempY(yShift);
+            cells[cell].addTempZ(zShift);
         }
-        xShift = XDeviationFromAverage * ntr * inverseDiffState; // ntr: parameter for nucleus traction
-        yShift = YDeviationFromAverage * ntr * inverseDiffState;
-
-        // only if the cell isn't a EK cell, the z-position is affected by nuclear traction because EK cells do not move in z direction anyway
-        if (!cells[cell].isKnotCell()) {
-            zShift = ZDeviationFromAverage * ntr * inverseDiffState;
-        }
-
-        cells[cell].addTempX(xShift);
-        cells[cell].addTempY(yShift);
-        cells[cell].addTempZ(zShift);
     }
 }
 
@@ -1219,7 +1238,7 @@ void Model::buoyancy(Cell (&cells)[totalNrOfCells], ImplementParams &implementPa
         std::vector<double> totalMovement = {xMovementFromProliferation, yMovementFromProliferation,
                                              zMovementFromProliferation};
         double lengthOf2DMovement = Geometrics::vectorNorm2D(planeMovement);
-    
+
         // Continue only if epithelial proliferation resulted in a displacement in 2D plane
         if (lengthOf2DMovement == 0) continue;
 
