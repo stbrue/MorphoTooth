@@ -147,7 +147,7 @@ private:
      * Perimeter of the polygon (cell)
      */
     double perimeter;
-
+    
     /**
      * Area of the polygon (cell)
      */

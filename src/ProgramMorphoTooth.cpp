@@ -44,6 +44,9 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
         implementParams.currentIteration = step;
         Model::iterationStep(cells, implementParams, modelParams);
 
+        // Check if they were any errors
+        Utility::errorTesting(cells, implementParams);
+
         //Abort the loop if there is an error or if the simulation has to be ended because some bounderies are reached
         if (Utility::errorTesting(cells, implementParams)) {
             break;

@@ -15,11 +15,11 @@
 
 void Model::iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams, ModelParams &modelParams) {
     Noise::doNoise(cells, implementParams);
-    Model::diffusion(cells, implementParams);
+    Model::buccalLingualBias(cells, implementParams);
     Model::reaction(cells, implementParams);
     Model::degradationInMesenchyme(cells, implementParams);
-    Model::buccalLingualBias(cells, implementParams);
     Model::differentiation(cells, implementParams);
+    Model::diffusion(cells, implementParams);
     Model::epithelialProliferation(cells, implementParams);
     //Model::newEpithelialProliferation(cells, params);
     Model::buoyancy(cells, implementParams);
@@ -29,8 +29,6 @@ void Model::iterationStep(Cell (&cells)[totalNrOfCells], ImplementParams &implem
     Model::applyForces(cells, implementParams);
     Model::cellDivision(cells, implementParams, modelParams);
     Geometrics::calculateCellBorders(cells, implementParams.nrCellsInSimulation);
-    Utility::errorTesting(cells, implementParams);
-
 }
 
 void Model::diffusion(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams) {
@@ -510,11 +508,11 @@ void Model::nucleusTraction(Cell (&cells)[totalNrOfCells], ImplementParams &impl
             int neighbourID = cells[cell].getNeighbours()[neighbour];
             bool neighbourIsInSimulation = false;
             bool neighbourIsInCentre = false;
-            if (neighbourID < implementParams.nrCellsInSimulation){
+            if (neighbourID < implementParams.nrCellsInSimulation) {
                 neighbourIsInSimulation = true;
                 neighbourIsInCentre = cells[neighbourID].isInCentre();
             }
-            
+
             // if it is a border cell, only neighbours that are also border cells are taken into account because
             // else the cell would move too much into the centre
             if (!cells[cell].isInCentre()) {
