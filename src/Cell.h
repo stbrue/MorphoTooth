@@ -147,7 +147,7 @@ private:
      * Perimeter of the polygon (cell)
      */
     double perimeter;
-    
+
     /**
      * Area of the polygon (cell)
      */
@@ -521,6 +521,8 @@ inline const double Cell::getModelParamValue(std::string paramName) const {
         return modelParams.pbi;
     } else if (paramName == "bgr" || paramName == "Bgr") {
         return modelParams.bgr;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        return modelParams.boy;
     } else {
         std::cout << "Could not get parameter value" << std::endl;
     }
@@ -578,6 +580,8 @@ inline const double Cell::getOriginalModelParamValue(std::string paramName) cons
         return originalModelParams.pbi;
     } else if (paramName == "bgr" || paramName == "Bgr") {
         return originalModelParams.bgr;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        return originalModelParams.boy;
     } else {
         std::cout << "Could not get parameter value" << std::endl;
     }
