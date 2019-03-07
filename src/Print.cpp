@@ -29,7 +29,7 @@ void Print::printParameterToChange(ImplementParams params) {
 
 void Print::printParameterWithNoise(ImplementParams params) {
     // Print only if a parameter has noise
-    if (params.parameterWithNoise != "") {
+    if (params.noiseType == 1) {
         std::cout << "#############################################################" << std::endl;
         std::cout << "# Parameter with Noise: " << params.parameterWithNoise << " #" << std::endl;
         std::cout << "#############################################################" << std::endl;
@@ -44,5 +44,15 @@ void Print::printEndOfSimulation() {
     std::cout << "##################################################################################" << std::endl;
 }
 
+void Print::printSimulationStatus(ImplementParams &params) {
+    std::cout << params.currentIteration << std::endl;
+    std::cout << "Cells in simulation: " << params.nrCellsInSimulation << std::endl;
+    if (params.noiseType != 0) {
+        if (!(params.currentIteration < params.noiseStart) || !(params.currentIteration <= params.noiseEnd)) {
+            std::cout << "Active noise type: " << params.noiseType << std::endl;
+        }
+    }
+    std::cout.flush();
+}
 
 

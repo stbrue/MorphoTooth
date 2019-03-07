@@ -18,6 +18,8 @@ public:
 
     static void printEndOfSimulation();
 
+    static void printSimulationStatus(ImplementParams &params);
+
 };
 
 

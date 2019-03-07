@@ -72,11 +72,9 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
             Output::ROutput(cells, implementParams, repetition, success);
         }
 
-        //Print every "printInterval" iteration the count
+        //Print every "printInterval" iteration
         if (step % implementParams.printInterval == 0) {
-            std::cout << step << std::endl;
-            std::cout << "Cells in simulation: " << implementParams.nrCellsInSimulation << std::endl;
-            std::cout.flush();
+            Print::printSimulationStatus(implementParams);
         }
 
         //All x iterations do an output

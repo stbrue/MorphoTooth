@@ -152,6 +152,10 @@ public:
     * A cell moves maximally this value (in each dimension) per iteration
     */
     double maxMovement;
+
+    int noiseStart;
+
+    int noiseEnd;
 };
 
 

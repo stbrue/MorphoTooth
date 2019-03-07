@@ -13,6 +13,13 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
     if (implementParams.noiseType == 0) {
         return;
     }
+
+    // do noise only between noiseStart and noiseEnd
+    if (implementParams.currentIteration < implementParams.noiseStart
+        || implementParams.currentIteration > implementParams.noiseEnd) {
+        return;
+    }
+
         // and do noise calculation only every "noiseDuration"th-iteration
     else if (implementParams.currentIteration % implementParams.noiseDuration != 0) {
         return;
