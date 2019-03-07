@@ -7,15 +7,17 @@
 #include "Input.h"
 
 
-int main() {
+int main(int argc, char *argv[]) {
     std::clock_t start;
     double duration;
     start = std::clock();
 
     // Arguments read in by command line
-    std::string simulationNumber = "01";
-    std::string nameInputFile = "Input01.json";
+    const char *s1 = argv[1];
+    std::string simulationNumber = s1;
 
+    const char *s2 = argv[2];
+    std::string nameInputFile = s2;
 
     // Read ModelParams.txt and ImplementParams.txt and set initial values
     ModelParams modelParamsInitial = Input::setModelParamsInitial(nameInputFile);
