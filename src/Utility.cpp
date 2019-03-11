@@ -96,7 +96,7 @@ int Utility::endOfSimulation(ImplementParams &params, int iterationStep, int old
     }
 
     // if a multiple of minNrOfCells is reached, the simulation was a success -> do an output and continue simulation
-    for (int multiple = 1; multiple < 7; ++multiple) {
+    for (int multiple = 1; multiple < static_cast<int>((maxNrOfCells/params.minNrOfCells)); ++multiple) {
         if (params.nrCellsInSimulation == (params.minNrOfCells * multiple)) {
             // if this success number was already achieved once do return 0 -> simulation is normally continued
             if (oldSuccess != (1 + multiple)) {
