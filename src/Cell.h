@@ -856,8 +856,17 @@ inline void Cell::changeModelParameter(std::string const &paramName, double newV
     } else if (paramName == "bgr" || paramName == "Bgr") {
         modelParams.bgr = newValue;
         return;
+    } else if (paramName == "boy" || paramName == "Boy") {
+        modelParams.boy = newValue;
+        return;
+    } else if (paramName == "epithelialDegradation" || paramName == "EpithelialDegradation") {
+        modelParams.epithelialDegradation = newValue;
+        return;
+    } else if (paramName == "mesenchymeDegradation" || paramName == "MesenchymeDegradation") {
+        modelParams.mesenchymeDegradation = newValue;
+        return;
     } else {
-        std::cout << "Parameter could not be changed" << std::endl;
+        std::cout << "Parameter " << paramName << " could not be changed" << std::endl;
     }
 }
 
