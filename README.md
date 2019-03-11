@@ -7,7 +7,7 @@ Contains the settings that on one hand define some environmental conditions of t
 Parameter | Meaning
 --------- | -------
 initialRadius | number of cell rings at the start of the simulation
-distanceCelllDivisions | neighbouring cells that have this or a greater distance to each other will divide (a new cell is placed in between them)
+distanceCellDivisions | neighbouring cells that have this or a greater distance to each other will divide (a new cell is placed in between them)
 EKThreshold | a cell becomes an enamel knot cell if its Act concentration exceeds this threshold
 repDistance | all non-neighbouring cells that are closer to each other than this distance are affected by non-neighbour repulsion
 powerOfRep | in the calculation for non-neighbouring repulsion the denominator is taken to the power of this value. Thus the higher this value, the lower repulsion between non-neighbouring cells

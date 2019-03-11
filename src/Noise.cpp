@@ -50,7 +50,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
 
             // Change parameter in all cells accordingly
             for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
-                cells[cell].changeModelParameter(implementParams.parameterWithNoise, newValue);
+                cells[cell].changeModelParameter(paramNames[parameter], newValue);
             }
         }
     } else if (implementParams.noiseType == 3) {
@@ -66,7 +66,7 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
             for (int cell = 0; cell < implementParams.nrCellsInSimulation; ++cell) {
                 // only for border cells
                 if (!cells[cell].isInCentre()) {
-                    cells[cell].changeModelParameter(implementParams.parameterWithNoise, newValue);
+                    cells[cell].changeModelParameter(paramNames[parameter], newValue);
                 }
             }
         }

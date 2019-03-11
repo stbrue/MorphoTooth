@@ -322,7 +322,7 @@ public:
 
     void setOriginalModelParams(ModelParams originalModelParams);
 
-    void changeModelParameter(std::string paramName, double newValue);
+    void changeModelParameter(std::string const &paramName, double newValue);
 
     //Constructor
     Cell();
@@ -780,7 +780,7 @@ inline void Cell::setOriginalModelParams(ModelParams originalModelParams) {
     Cell::originalModelParams.SecDiffusion = originalModelParams.SecDiffusion;
 }
 
-inline void Cell::changeModelParameter(std::string paramName, double newValue) {
+inline void Cell::changeModelParameter(std::string const &paramName, double newValue) {
     if (paramName == "ActDiffusion" || paramName == "actDiffusion") {
         modelParams.ActDiffusion = newValue;
         return;
