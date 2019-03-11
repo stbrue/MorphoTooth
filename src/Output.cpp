@@ -162,6 +162,7 @@ void Output::plyOutput(Cell (&cells)[totalNrOfCells], ImplementParams params, in
         for (auto vertex : face) {
             outputFile << " " << vertex;
         }
+        outputFile << std::endl;
     }
 
     outputFile.close();
