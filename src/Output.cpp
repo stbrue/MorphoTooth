@@ -64,11 +64,12 @@ void Output::XYZOutputSimple(Cell (&cells)[totalNrOfCells], ImplementParams para
     outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << "\t"
                << "ParameterToChange" << "\t" << "ValueOfParameterToChange" << "\t" << "totalPlusMinusScope" << "\t"
                << "percentageStep" << "\t" << "totalIterations" << "\t" << "totalNrOfCellsInSimulation" << "\t"
-               << "repetition" << std::endl;
+               << "repetition" << "\t" << "noiseStart" << "\t" << "noiseEnd" << std::endl;
     outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
                << params.noiseType << "\t" << params.parameterToChange << "\t" << params.valueOfParameterToChange
                << "\t" << params.totalPlusMinusScope << "\t" << params.percentageSteps << "\t"
-               << params.currentIteration << "\t" << params.nrCellsInSimulation << "\t" << repetition << std::endl;
+               << params.currentIteration << "\t" << params.nrCellsInSimulation << "\t" << repetition << "\t"
+               << params.noiseStart << "\t" << params.noiseEnd << std::endl;
 
     // Body
     outputFile << "x" << "\t" << "y" << "\t" << "z" << std::endl;
@@ -195,11 +196,12 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int 
     outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << "\t"
                << "ParameterToChange" << "\t" << "ValueOfParameterToChange" << "\t" << "totalPlusMinusScope" << "\t"
                << "percentageStep" << "\t" << "totalIterations" << "\t" << "totalNrOfCellsInSimulation" << "\t"
-               << "Repetition" << std::endl;
+               << "Repetition" << "\t" << "noiseStart" << "\t" << "noiseEnd" << std::endl;
     outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
                << params.noiseType << "\t" << params.parameterToChange << "\t" << params.valueOfParameterToChange
                << "\t" << params.totalPlusMinusScope << "\t" << params.percentageSteps << "\t"
-               << params.currentIteration << "\t" << params.nrCellsInSimulation << "\t" << repetition << std::endl;
+               << params.currentIteration << "\t" << params.nrCellsInSimulation << "\t" << repetition << "\t"
+               << params.noiseStart << "\t" << params.noiseEnd << std::endl;
 
     outputFile << std::endl;
 
@@ -275,7 +277,8 @@ std::string Output::createOutputFileName(char outputType, ImplementParams params
         case 1: {
             stringstream << path << outputType << "Noise_" << params.noiseType << "_" << params.parameterWithNoise
                          << "_" << params.sd
-                         << "_" << params.noiseDuration << "_" << repetition << file;
+                         << "_" << params.noiseDuration << "_" << repetition << "_" << params.noiseStart << "_"
+                         << params.noiseEnd << file;
             fileName = stringstream.str();
             return fileName;
         }
