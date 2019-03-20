@@ -196,12 +196,12 @@ void Output::ROutput(Cell (&cells)[totalNrOfCells], ImplementParams params, int 
     outputFile << "ParameterWithNoise" << "\t" << "sd" << "\t" << "noiseDuration" << "\t" << "noiseType" << "\t"
                << "ParameterToChange" << "\t" << "ValueOfParameterToChange" << "\t" << "totalPlusMinusScope" << "\t"
                << "percentageStep" << "\t" << "totalIterations" << "\t" << "totalNrOfCellsInSimulation" << "\t"
-               << "Repetition" << "\t" << "noiseStart" << "\t" << "noiseEnd" << std::endl;
+               << "Repetition" << "\t" << "noiseStart" << "\t" << "noiseEnd" << "\t" << "maxMovement" << std::endl;
     outputFile << params.parameterWithNoise << "\t" << params.sd << "\t" << params.noiseDuration << "\t"
                << params.noiseType << "\t" << params.parameterToChange << "\t" << params.valueOfParameterToChange
                << "\t" << params.totalPlusMinusScope << "\t" << params.percentageSteps << "\t"
                << params.currentIteration << "\t" << params.nrCellsInSimulation << "\t" << repetition << "\t"
-               << params.noiseStart << "\t" << params.noiseEnd << std::endl;
+               << params.noiseStart << "\t" << params.noiseEnd << "\t" << params.maxMovement << std::endl;
 
     outputFile << std::endl;
 
@@ -277,14 +277,14 @@ std::string Output::createOutputFileName(char outputType, ImplementParams params
         case 1: {
             stringstream << path << outputType << "Noise_" << params.noiseType << "_" << params.parameterWithNoise
                          << "_" << params.sd
-                         << "_" << params.noiseDuration << "_" << repetition << "_" << params.noiseStart << "_"
-                         << params.noiseEnd << file;
+                         << "_" << params.noiseDuration << "_" << params.noiseStart << "_"
+                         << params.noiseEnd << "_" << params.maxMovement << "_" << repetition << file;
             fileName = stringstream.str();
             return fileName;
         }
         case 2: {
             stringstream << path << outputType << "ParameterChange_" << params.parameterToChange << "_"
-                         << params.valueOfParameterToChange << "_" << repetition << file;
+                         << params.valueOfParameterToChange << "_" << params.maxMovement << "_" << repetition << file;
             fileName = stringstream.str();
             return fileName;
         }

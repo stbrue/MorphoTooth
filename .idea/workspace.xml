@@ -40,41 +40,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProgramMorphoTooth.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ProgramMorphoTooth.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1598">
-              <caret line="94" column="15" selection-start-line="94" selection-start-column="15" selection-end-line="94" selection-end-column="15" />
-              <folding>
-                <element signature="e#45#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Noise.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Noise.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" selection-start-line="51" selection-end-line="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Output.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Output.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="281" column="28" lean-forward="true" selection-start-line="281" selection-start-column="28" selection-end-line="281" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Overview" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/Parameter_Scan_02/Overview">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="373">
+              <caret line="288" column="28" lean-forward="true" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -103,8 +73,8 @@
       <file leaf-file-name="Input01.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-release/Input01.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            <state relative-caret-position="133">
+              <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -113,7 +83,7 @@
         <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan11/NotIncludedIn7Landmarks.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -127,11 +97,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Input01.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/Input01.json">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="1207">
+                <caret line="71" column="45" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotIncludedIn7Landmarks.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan14/NotIncludedIn7Landmarks.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+            <state relative-caret-position="442">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -171,7 +153,7 @@
       <find>nucleusTraction</find>
       <find>buccalLingualBias</find>
       <find>:</find>
-      <find>Parameter could not be changed</find>
+      <find />
       <find>changeModelParam</find>
       <find>getModelParameter</find>
       <find>changeModelPa</find>
@@ -182,7 +164,7 @@
       <replace />
       <replace>differentiation</replace>
       <replace>NrCellsInCenter</replace>
-      <replace>Cell (&amp;cells)[maxNrOfCells]</replace>
+      <replace />
       <replace>.</replace>
       <replace>totalNrOfCells</replace>
       <replace>Sec</replace>
@@ -198,7 +180,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cmake-build-release/ParametersToChange.txt" />
         <option value="$PROJECT_DIR$/cmake-build-debug/ParametersToChange.txt" />
         <option value="$PROJECT_DIR$/cmake-build-release/Outputfiles/Ply11_1.1_10000.ply" />
         <option value="$PROJECT_DIR$/cmake-build-debug/NewInputFile.txt" />
@@ -242,12 +223,13 @@
         <option value="$PROJECT_DIR$/src/Noise.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-debug/Input01.json" />
         <option value="$PROJECT_DIR$/src/Cell.h" />
-        <option value="$PROJECT_DIR$/cmake-build-release/Input01.json" />
         <option value="$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/Parameter_Scan_02/Overview" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_ParameterScan02_Overall/NotIncludedIn7Landmarks.txt" />
         <option value="$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan11/NotIncludedIn7Landmarks.txt" />
         <option value="$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/Noise_Scan_12/Overview" />
+        <option value="$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan14/NotIncludedIn7Landmarks.txt" />
+        <option value="$PROJECT_DIR$/cmake-build-release/Input01.json" />
         <option value="$PROJECT_DIR$/src/Output.cpp" />
       </list>
     </option>
@@ -263,8 +245,7 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="412" />
-    <option name="y" value="-19" />
+    <option name="x" value="960" />
     <option name="width" value="960" />
     <option name="height" value="1026" />
   </component>
@@ -460,7 +441,9 @@
       <workItem from="1552307114130" duration="3901000" />
       <workItem from="1552379145263" duration="1658000" />
       <workItem from="1552384757735" duration="2967000" />
-      <workItem from="1552468408947" duration="2931000" />
+      <workItem from="1552468408947" duration="3602000" />
+      <workItem from="1552985797202" duration="834000" />
+      <workItem from="1553075791665" duration="349000" />
     </task>
     <servers />
   </component>
@@ -497,19 +480,20 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="720640000" />
+    <option name="totallyTimeSpent" value="722494000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1014" extended-state="6" />
+    <frame x="-16" y="-16" width="1952" height="1058" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12291667" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15052083" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.36800894" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.36716077" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.31698975" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.26303855" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.3185941" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.322691" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.50701755" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -521,7 +505,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.340935" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -551,8 +534,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/ThirdNoiseScanning/InputFile01.txt" />
-    <entry file="file://E:/ThirdNoiseScanning/out_04.txt" />
+    <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan14/NotIncludedIn7Landmarks.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/ThirdNoiseScanning/Overview" />
     <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/OutputMorphoTooth/ThirdNoiseScanning/InputFile01.txt" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/InputFile01.txt" />
@@ -683,9 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="157" column="17" selection-start-line="157" selection-start-column="17" selection-end-line="157" selection-end-column="17" />
-          <folding>
-            <element signature="e#111#128#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -798,16 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="767">
-            <caret line="71" column="45" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Cell.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6477">
@@ -825,17 +800,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-release/Input01.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan11/NotIncludedIn7Landmarks.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -846,10 +814,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1207">
+            <caret line="71" column="45" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/OwnCloud/Master 2.0/Analysen/PCAs/PCA_NoiseScan14/NotIncludedIn7Landmarks.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-release/Input01.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Output.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="281" column="28" lean-forward="true" selection-start-line="281" selection-start-column="28" selection-end-line="281" selection-end-column="28" />
+        <state relative-caret-position="373">
+          <caret line="288" column="28" lean-forward="true" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
         </state>
       </provider>
     </entry>
