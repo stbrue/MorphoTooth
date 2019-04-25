@@ -20,8 +20,8 @@ void Noise::doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementPar
         return;
     }
 
-        // and do noise calculation only every "noiseDuration"th-iteration
-    else if (implementParams.currentIteration % implementParams.noiseDuration != 0) {
+        // and do noise calculation only every "noiseInterval"th-iteration
+    else if (implementParams.currentIteration % implementParams.noiseInterval != 0) {
         return;
     }
 

@@ -96,7 +96,7 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     // Noise
     params.noiseType = parsed_json["ImplementParams"]["noiseType"].get<int>();
     params.sd = parsed_json["ImplementParams"]["sd"].get<double>();
-    params.noiseDuration = parsed_json["ImplementParams"]["noiseDuration"].get<int>();
+    params.noiseInterval = parsed_json["ImplementParams"]["noiseInterval"].get<int>();
     params.repetitions = parsed_json["ImplementParams"]["repetitions"].get<int>();
     params.parameterWithNoise = parsed_json["ImplementParams"]["parameterWithNoise"].get<std::string>();
     params.noiseStart = parsed_json["ImplementParams"]["noiseStart"].get<int>();
