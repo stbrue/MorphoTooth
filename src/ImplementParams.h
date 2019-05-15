@@ -156,6 +156,8 @@ public:
     int noiseStart;
 
     int noiseEnd;
+
+    unsigned int noiseSeed;
 };
 
 

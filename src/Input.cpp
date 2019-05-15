@@ -101,6 +101,7 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.parameterWithNoise = parsed_json["ImplementParams"]["parameterWithNoise"].get<std::string>();
     params.noiseStart = parsed_json["ImplementParams"]["noiseStart"].get<int>();
     params.noiseEnd = parsed_json["ImplementParams"]["noiseEnd"].get<int>();
+    params.noiseSeed = parsed_json["ImplementParams"]["noiseSeed"].get<unsigned int>();
 
     // Params to change
     params.parameterToChange = parsed_json["ImplementParams"]["parameterToChange"].get<std::string>();

@@ -14,7 +14,7 @@ class Noise {
 public:
     static void doNoise(Cell (&cells)[totalNrOfCells], ImplementParams &implementParams);
 
-    static double generateNoiseValue(double mean, double sd);
+    static double generateNoiseValue(double mean, double sd, unsigned int seed);
 
 
 };
