@@ -1,5 +1,13 @@
 # MorphoTooth
 
+## Run on Linux
+To run MorphoTooth on Linux, download the complete repository into your working directory. Then run following commands:
+
+```< OPT = 1 make```  
+```< ./MorphoTooth 01 Input01.json ```  
+
+`01` indicates the simulation number and `Input01.json` the input file. 
+
 ## Input
 ### ImplementParams
 Contains the settings that on one hand define some environmental conditions of the model (e.g. how strong the sink of the model is, or the size of the initial epithelium) and on the other hand the simulation type can be chosen (parameter scanning, noise scanning, or normal simulation). 
