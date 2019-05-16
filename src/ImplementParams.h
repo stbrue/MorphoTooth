@@ -158,6 +158,8 @@ public:
     int noiseEnd;
 
     unsigned int noiseSeed;
+
+    int maxNrOfCells;
 };
 
 

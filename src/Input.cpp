@@ -92,6 +92,7 @@ ImplementParams Input::setImplementParamsInitial(std::string InputFileName) {
     params.outputInterval = parsed_json["ImplementParams"]["OutputInterval"].get<int>();
     params.printInterval = parsed_json["ImplementParams"]["PrintInterval"].get<int>();
     params.outputPrecision = parsed_json["ImplementParams"]["outputPrecision"].get<int>();
+    params.maxNrOfCells = parsed_json["ImplementParams"]["maxNrOfCells"].get<int>();
 
     // Noise
     params.noiseType = parsed_json["ImplementParams"]["noiseType"].get<int>();

@@ -83,6 +83,11 @@ void ProgramMorphoTooth::runProgram(ImplementParams &implementParams, ModelParam
                 Output::ROutput(cells, implementParams, repetition, success);
             }
         }
+
+        if (implementParams.nrCellsInSimulation >= implementParams.maxNrOfCells) {
+            Output::ROutput(cells, implementParams, repetition, success);
+            break;
+        }
     }
 
     Print::printEndOfSimulation();
